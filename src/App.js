@@ -1,23 +1,20 @@
+import SearchBar from './components/searchbar';
+import Banner from './components/banner';
+import GlobalStyle from './GlobalStyle';
 import logo from './logo.svg';
-import './App.css';
+import './output.css';
+import Content from './components/content';
+import Header from './components/header';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ height: '100%' }} className="bg-gray-50 p-10">
+      <Header />
+      <SearchBar />
+      <Banner image={'banner.png'} />
+      <Content image={'game.png'} title={'Morning Draw'} subtitle={'Super Monday'} />
+      <Banner image={'banner1.png'} />
+      <Content image={'afriluck_lg.png'} title={'Evening Draw'} subtitle={'Super Monday'} />
     </div>
   );
 }
