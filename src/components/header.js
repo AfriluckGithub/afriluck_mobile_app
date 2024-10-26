@@ -33,10 +33,10 @@ const Header = () => {
   };
 
   return (
-    <div className="flex flex-row justify-between w-full">
+    <div className="flex flex-row justify-between items-center w-full h-auto bg-[#F7F7F7] fixed py-6  top-0 left-0 right-0 z-50">
       {/* Conditionally render the KF div */}
       {location.pathname !== "/profile" && (
-        <div>
+        <div className="ml-6">
           <div
             style={{ backgroundColor: "#156064" }}
             className="flex h-12 w-12 text-center text-white rounded-full font-semibold justify-center items-center"
@@ -45,10 +45,10 @@ const Header = () => {
           </div>
         </div>
       )}
-      <div className="flex text-center font-medium text-xl justify-center items-center">
+      <div className="flex text-center font-medium ml-6 text-xl justify-center items-center">
         <p>{getTitle()}</p>
       </div>
-      <div className="flex justify-end items-center">{getIcon()}</div>
+      <div className="flex justify-end items-center mr-6">{getIcon()}</div>
     </div>
   );
 };

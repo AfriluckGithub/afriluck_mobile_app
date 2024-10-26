@@ -23,7 +23,7 @@ const Modal = ({
       {/* Modal overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-50"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-50 size-full"
           role="dialog"
           aria-labelledby="modal-label"
         >

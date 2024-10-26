@@ -15,8 +15,11 @@ const Logout = () => {
   return (
     <>
       <div className="flex flex-row w-full justify-between px-4 py-6 bg-white rounded-xl">
-        <div className="flex space-x-2 cursor-pointer" onClick={openModal}>
-          <img src={"logout.svg"} alt="Logout Icon" />
+        <div
+          className="flex flex-row items-center  space-x-2 cursor-pointer"
+          onClick={openModal}
+        >
+          <img src={"logout.svg"} alt="Logout Icon" width={24} />
           <p className="text-[#FF0000] font-semibold">Log Out</p>
         </div>
         <div>
