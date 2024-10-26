@@ -1,0 +1,51 @@
+import { createBrowserRouter } from "react-router-dom";
+import SingleGame from "./pages/SingleGame";
+import SingleGameSelection from "./pages/SingleGameSelection";
+import SingleGamePayment from "./pages/SingleGamePayment";
+import SingleGamePaymentCheckStatus from "./pages/SingleGamePaymentCheckStatus";
+import App from "./App";
+import Home from "./pages/Home";
+import Mybet from "./pages/Mybet";
+import Draw from "./pages/Draw";
+import Profile from "./pages/Profile";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/bet",
+        element: <Mybet />,
+      },
+      {
+        path: "/draw",
+        element: <Draw />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
+      },
+    ],
+  },
+  {
+    path: "single_game",
+    element: <SingleGame />,
+  },
+  {
+    path: "single_game_selection",
+    element: <SingleGameSelection />,
+  },
+  {
+    path: "single_game_payment",
+    element: <SingleGamePayment />,
+  },
+  {
+    path: "single_game_status",
+    element: <SingleGamePaymentCheckStatus />,
+  },
+]);
