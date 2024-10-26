@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const Footer = () => {
   return (
     <div className="bg-[#F7F7F7] border-t border-gray-200">
-      <div className="flex flex-row justify-around items-center p-4">
+      <div className="flex flex-row justify-around items-center py-4">
         <NavLink
           to="/"
           className={({ isActive }) =>
