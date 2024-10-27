@@ -8,6 +8,8 @@ import Home from "./pages/Home";
 import Mybet from "./pages/Mybet";
 import Draw from "./pages/Draw";
 import Profile from "./pages/Profile";
+import Policy from "./components/Privacy/policy";
+import Terms from "./components/Privacy/terms";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ export const router = createBrowserRouter([
         element: <Profile />,
       },
     ],
+  },
+  {
+    path: "/privacypolicy",
+    element: <Policy />,
+  },
+  {
+    path: "/terms",
+    element: <Terms />,
   },
   {
     path: "single_game",
