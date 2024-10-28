@@ -2,7 +2,7 @@ export const PrivacyData = [
   {
     img: "customer.svg",
     title: "Customer Service",
-    route: "/profile/customerservice",
+    route: "/customerservice",
   },
   {
     img: "terms.svg",

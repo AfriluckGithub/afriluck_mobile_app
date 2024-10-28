@@ -68,7 +68,7 @@ const Modal = ({
               ) : (
                 <button
                   type="button"
-                  className=" w-full py-4 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                  className={` w-full py-4 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700`}
                   onClick={() => {
                     // Add your success logic here
                     onClose();

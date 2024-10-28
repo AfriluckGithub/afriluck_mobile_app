@@ -10,6 +10,7 @@ import Draw from "./pages/Draw";
 import Profile from "./pages/Profile";
 import Policy from "./components/Privacy/policy";
 import Terms from "./components/Privacy/terms";
+import Customerservice from "./components/Privacy/customerservice";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
   {
     path: "/terms",
     element: <Terms />,
+  },
+  {
+    path: "/customerservice",
+    element: <Customerservice />,
   },
   {
     path: "single_game",
