@@ -1,0 +1,32 @@
+export const DATA = [
+  {
+    time: "10:00 AM",
+    title: "Betting",
+    phone_number: "0554588483",
+    amount: "1",
+    draw: "148",
+    date: "Mon, 12/08/2024",
+    type: "Lost",
+    icon: "mondayspecial.svg",
+  },
+  {
+    time: "11:00 AM",
+    title: "Betting",
+    phone_number: "0551234567",
+    amount: "5",
+    draw: "149",
+    date: "Tue, 13/08/2024",
+    type: "Win",
+    icon: "lucktuesday.svg",
+  },
+  {
+    time: "12:00 PM",
+    title: "Top-up",
+    phone_number: "0552345678",
+    amount: "30",
+    draw: "150",
+    date: "Wed, 14/08/2024",
+    type: "Successful",
+    icon: "topup.svg",
+  },
+];
