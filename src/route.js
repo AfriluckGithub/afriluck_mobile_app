@@ -11,6 +11,10 @@ import Profile from "./pages/Profile";
 import Policy from "./components/Privacy/policy";
 import Terms from "./components/Privacy/terms";
 import Customerservice from "./components/Privacy/customerservice";
+import Sharecommission from "./components/Share/sharecommission";
+import ShareScreen from "./components/Share/share";
+import Subscription from "./components/Accounts/subscription";
+import Transactions from "./components/Accounts/transactions";
 
 export const router = createBrowserRouter([
   {
@@ -62,5 +66,21 @@ export const router = createBrowserRouter([
   {
     path: "single_game_status",
     element: <SingleGamePaymentCheckStatus />,
+  },
+  {
+    path: "/share_commission",
+    element: <Sharecommission />,
+  },
+  {
+    path: "/share",
+    element: <ShareScreen />,
+  },
+  {
+    path: "/subscription",
+    element: <Subscription />,
+  },
+  {
+    path: "/transactions",
+    element: <Transactions />,
   },
 ]);
