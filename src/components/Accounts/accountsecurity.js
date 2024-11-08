@@ -18,7 +18,7 @@ const AccountSecurity = () => {
           >
             <div className="flex items-center space-x-2">
               <img src={account.img} alt={account.title} className="w-6 h-6 " />
-              <span className="font-normal text-md">{account.title}</span>
+              <span className="font-medium text-md">{account.title}</span>
             </div>
             <img src={"chevronr.svg"} alt="" />
           </NavLink>

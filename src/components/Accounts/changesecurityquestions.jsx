@@ -6,7 +6,6 @@ import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
 
 const ChangeSecurityQuestions = () => {
-  const [password, setPassword] = useState("");
   const [father, setFather] = useState("");
   const [mother, setMother] = useState("");
   const [open, setOpen] = useState(false);
@@ -16,12 +15,7 @@ const ChangeSecurityQuestions = () => {
   };
 
   const handleSuccess = () => {
-    navigate("/");
-  };
-
-  const handlePasswordChange = (e) => {
-    const value = e.target.value;
-    setPassword(value);
+    navigate("/accountsecurity");
   };
 
   const handleFatherChange = (e) => {
@@ -39,41 +33,32 @@ const ChangeSecurityQuestions = () => {
       <Subheader title="Change Security Questions" />
       <div className="flex flex-col w-full lg:w-[40%] items-center justify-center  bg-white rounded-xl p-6 my-20 space-y-4">
         <img src="afriluck.svg" alt="afriluck" className="mb-6" />
-        <p className="text-center text-base text-text-black mb-4">
-          Please set a payment password
+        <p className="text-center text-lg font-medium text-text-black mb-4">
+          Modify the security questions
         </p>
+        <div className="flex w-full">
+          <p className=" text-base text-text-black ">Security Questions</p>
+        </div>
         <div className="flex flex-col w-full max-w-md space-y-6">
           <Input
-            type={"password"}
-            placeholder={"Password"}
-            icon={"password.svg"}
-            className="bg-[#F5F5F7] input-md"
-            rightIcon
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <p className="text-center text-base text-text-black mb-4">
-            Security Questions
-          </p>
-          <Input
             type={"text"}
-            placeholder={"What's your father's middle name?"}
+            placeholder={"Enter your first security question"}
             className="bg-[#F5F5F7] input-md"
             value={father}
             onChange={handleFatherChange}
           />
           <Input
             type={"text"}
-            placeholder={"What's your mother's middle name?"}
+            placeholder={"Enter your second security question"}
             className="bg-[#F5F5F7] input-md"
             value={mother}
             onChange={handleMotherChange}
           />
           <div className="flex flex-col space-y-2">
             <Button
-              label={"Continue"}
+              label={"Update"}
               className="bg-secondary text-primary"
-              disabled={!password || !father || !mother}
+              disabled={!father || !mother}
               onClick={openModal}
             />
           </div>
@@ -84,7 +69,7 @@ const ChangeSecurityQuestions = () => {
         onSuccess={handleSuccess}
         type={"success"}
         title="Success"
-        subtitle="Account has been created successfully"
+        subtitle="Changes saved"
         buttonText="Okay"
         imageSrc="check.svg"
         imgBg={"#F6F6F6"}
