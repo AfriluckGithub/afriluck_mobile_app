@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../modal";
 import Dropdown from "../dropdown";
 import Avatar from "./avatar";
+import { useAvatar } from "../../context/AvatarContext";
 const ProfileScreen = () => {
   const regions = [
     "Greater Accra",
@@ -59,6 +60,11 @@ const ProfileScreen = () => {
     const value = e.target.value;
     setUsername(value);
   };
+  const { setAvatar } = useAvatar();
+
+  const handleAvatarUpdate = (newImage) => {
+    setAvatar(newImage);
+  };
 
   return (
     <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6">
@@ -66,7 +72,7 @@ const ProfileScreen = () => {
       <div className="flex flex-col w-full lg:w-[40%] items-center justify-center  bg-white rounded-xl p-6 my-20 space-y-4">
         <div className="flex flex-col w-full max-w-md space-y-6">
           <div className="flex flex-col items-center space-y-2">
-            <Avatar />
+            <Avatar onUpdate={handleAvatarUpdate} />
           </div>
           <Input
             type={"text"}

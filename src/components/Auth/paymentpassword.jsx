@@ -4,6 +4,7 @@ import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const PaymentPassword = () => {
   const [password, setPassword] = useState("");
@@ -11,11 +12,14 @@ const PaymentPassword = () => {
   const [mother, setMother] = useState("");
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { toggleLogin } = useAuth();
+
   const openModal = () => {
     setOpen(true);
   };
 
   const handleSuccess = () => {
+    toggleLogin();
     navigate("/");
   };
 

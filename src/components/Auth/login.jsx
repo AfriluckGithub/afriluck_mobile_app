@@ -5,18 +5,22 @@ import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext"; // Import the useAuth hook
 
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { toggleLogin } = useAuth(); // Access the toggleLogin function from context
+
   const openModal = () => {
     setOpen(true);
   };
 
   const handleSuccess = () => {
-    navigate("/profile");
+    toggleLogin(); // Set the user as logged in
+    navigate("/profile"); // Navigate to the profile screen
   };
 
   const handleSignup = () => {

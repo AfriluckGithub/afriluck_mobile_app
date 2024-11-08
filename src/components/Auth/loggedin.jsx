@@ -1,20 +1,28 @@
 import React from "react";
 import Button from "../button";
 import { useNavigate } from "react-router-dom";
-
+import { useAvatar } from "../../context/AvatarContext";
 const LoggedIn = () => {
+  const { avatar } = useAvatar();
   const navigate = useNavigate();
   return (
     <div className="flex flex-col w-full space-y-6   py-4">
       <div className="flex flex-row space-x-4 p-4 w-full  items-center bg-white rounded-xl">
-        <div>
-          <div
-            style={{ backgroundColor: "#156064" }}
-            className="flex h-12 w-12 text-center text-white rounded-full font-semibold justify-center items-center"
-          >
-            <p>N/A</p>
-          </div>
+        <div
+          style={{ backgroundColor: "#156064" }}
+          className="avatar flex h-12 w-12 text-center text-white rounded-full font-semibold justify-center items-center"
+        >
+          {avatar ? (
+            <img
+              src={avatar}
+              alt="afriluck"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <img src="default.svg" alt="afriluck" className="w-full h-full" />
+          )}
         </div>
+
         <div className="flex flex-col w-full">
           <p className="text-lg font-semibold">Username</p>
           <p className="text-sm text-text-muted">0202020202</p>
