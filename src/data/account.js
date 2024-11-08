@@ -2,7 +2,7 @@ export const AccountData = [
   {
     img: "secuirty.svg",
     title: "Account Security",
-    route: "/account_security",
+    route: "/accountsecurity",
   },
   {
     img: "transaction.svg",

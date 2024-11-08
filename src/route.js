@@ -22,6 +22,13 @@ import CreatePassword from "./components/Auth/createpassword";
 import PaymentPassword from "./components/Auth/paymentpassword";
 import ForgotPassword from "./components/Auth/forgotpassword";
 import ResetPassword from "./components/Auth/resetpassword";
+import AccountSecurity from "./components/Accounts/accountsecurity";
+import ChangePassword from "./components/Accounts/changepassword";
+import ChangePaymentPassword from "./components/Accounts/changepaymentpassword";
+import ChangeSecurityQuestions from "./components/Accounts/changesecurityquestions";
+import DeleteAccount from "./components/Accounts/deleteaccount";
+import VerifySecurityCode from "./components/Accounts/verifysecuritycode";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -116,5 +123,29 @@ export const router = createBrowserRouter([
   {
     path: "/resetpassword",
     element: <ResetPassword />,
+  },
+  {
+    path: "/accountsecurity",
+    element: <AccountSecurity />,
+  },
+  {
+    path: "/changepassword",
+    element: <ChangePassword />,
+  },
+  {
+    path: "/changepaymentpassword",
+    element: <ChangePaymentPassword />,
+  },
+  {
+    path: "/changesecurityquestions",
+    element: <ChangeSecurityQuestions />,
+  },
+  {
+    path: "/deleteaccount",
+    element: <DeleteAccount />,
+  },
+  {
+    path: "/verifysecuritycode",
+    element: <VerifySecurityCode />,
   },
 ]);
