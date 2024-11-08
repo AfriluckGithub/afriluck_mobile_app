@@ -15,7 +15,13 @@ import Sharecommission from "./components/Share/sharecommission";
 import ShareScreen from "./components/Share/share";
 import Subscription from "./components/Accounts/subscription";
 import Transactions from "./components/Accounts/transactions";
-
+import LoginScreen from "./components/Auth/login";
+import SignupScreen from "./components/Auth/signup";
+import VerifyCodeScreen from "./components/Auth/verifycode";
+import CreatePassword from "./components/Auth/createpassword";
+import PaymentPassword from "./components/Auth/paymentpassword";
+import ForgotPassword from "./components/Auth/forgotpassword";
+import ResetPassword from "./components/Auth/resetpassword";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -82,5 +88,33 @@ export const router = createBrowserRouter([
   {
     path: "/transactions",
     element: <Transactions />,
+  },
+  {
+    path: "/login",
+    element: <LoginScreen />,
+  },
+  {
+    path: "/signup",
+    element: <SignupScreen />,
+  },
+  {
+    path: "/verifycode",
+    element: <VerifyCodeScreen />,
+  },
+  {
+    path: "/createpassword",
+    element: <CreatePassword />,
+  },
+  {
+    path: "/paymentpassword",
+    element: <PaymentPassword />,
+  },
+  {
+    path: "/forgotpassword",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "/resetpassword",
+    element: <ResetPassword />,
   },
 ]);

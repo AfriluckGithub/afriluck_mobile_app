@@ -9,6 +9,7 @@ const Modal = ({
   buttonText,
   imageSrc,
   imgBg,
+  onSuccess,
   type, // New prop for type
 }) => {
   // Determine the modal size classes based on the size prop
@@ -22,63 +23,72 @@ const Modal = ({
     <div>
       {/* Modal overlay */}
       {isOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-500 bg-opacity-50 size-full"
-          role="dialog"
-          aria-labelledby="modal-label"
-        >
-          <div
-            className={`bg-white rounded-2xl shadow-lg p-6 ${sizeClasses[size]} m-4`}
-          >
-            <div className="flex flex-col items-center space-y-2">
-              {imageSrc && (
-                <div
-                  className={`w-20 h-20 mb-4 rounded-full flex flex-col items-center justify-evenly`}
-                  style={{ backgroundColor: imgBg }} // Apply the background color here
-                >
-                  <img src={imageSrc} alt="Modal Icon" className="w-10 h-10" />
+        <div className="fixed inset-0 z-50 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+          <dialog id="my_modal_1" className="modal" open>
+            <div className={`modal-box ${sizeClasses[size]}`}>
+              {type === "success" ? (
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`w-16 h-16 bg-[${imgBg}] rounded-full flex items-center justify-center mb-4`}
+                  >
+                    <img src={imageSrc} alt="Modal Icon" className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-bold text-xl">{title}</h3>
+                  <p className="py-2 text-base text-text-muted">{subtitle}</p>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`w-16 h-16 bg-[${imgBg}] rounded-full flex items-center justify-center mb-4`}
+                  >
+                    <img src={imageSrc} alt="Modal Icon" className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-bold text-lg">{title}</h3>
+                  <p className="py-2 text-base text-text-muted">{subtitle}</p>
                 </div>
               )}
-              <h3 className="font-medium text-2xl text-center">{title}</h3>
-              <p className="text-[#676767] text-lg text-center mt-2">
-                {subtitle}
-              </p>
-            </div>
-            <div className="flex w-full justify-between mt-4">
-              {type === "failure" ? (
-                <div className="w-full flex flex-row justify-between">
+              <div className="modal-action">
+                {/* <form method="dialog">
                   <button
                     type="button"
-                    className="w-full py-4 px-4 mr-5 border border-[#156064] rounded-xl text-[#156064] text-lg font-semibold hover:bg-gray-100"
-                    onClick={onClose}
+                    className="btn"
+                    onClick={onClose} // Close modal on button click
                   >
-                    No, Cancel
+                    Close
                   </button>
+                </form> */}
+                {type === "failure" ? (
+                  <div className="w-full flex flex-row justify-between">
+                    <button
+                      type="button"
+                      className="w-full py-4 px-4 mr-5 border border-[#156064] rounded-xl text-[#156064] text-lg font-semibold hover:bg-gray-100"
+                      onClick={onClose}
+                    >
+                      No, Cancel
+                    </button>
+                    <button
+                      type="button"
+                      className="w-full py-4 px-4 bg-[#FFEFEF] text-[#FF0000] text-lg font-semibold rounded-xl hover:bg-[#FF0000] hover:text-white"
+                      onClick={() => {
+                        // Add your failure logic here
+                        onClose();
+                      }}
+                    >
+                      {buttonText}
+                    </button>
+                  </div>
+                ) : (
                   <button
                     type="button"
-                    className="w-full py-4 px-4 bg-[#FFEFEF] text-[#FF0000] text-lg font-semibold rounded-xl hover:bg-[#FF0000] hover:text-white"
-                    onClick={() => {
-                      // Add your failure logic here
-                      onClose();
-                    }}
+                    className={`w-full py-4 px-4 text-lg font-semibold bg-secondary text-primary rounded-lg hover:bg-primary hover:text-white`}
+                    onClick={onSuccess}
                   >
                     {buttonText}
                   </button>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  className={` w-full py-4 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700`}
-                  onClick={() => {
-                    // Add your success logic here
-                    onClose();
-                  }}
-                >
-                  {buttonText}
-                </button>
-              )}
+                )}
+              </div>
             </div>
-          </div>
+          </dialog>
         </div>
       )}
     </div>
