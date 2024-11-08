@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Modal from "./modal";
+import { useAuth } from "../context/AuthContext";
 
 const Logout = () => {
+  const { isLoggedIn, toggleLogout } = useAuth(); // Use context for login state and logout function
   const [open, setOpen] = useState(false);
 
   const openModal = () => {
@@ -12,11 +14,17 @@ const Logout = () => {
     setOpen(false);
   };
 
+  const handleLogout = () => {
+    if (isLoggedIn) {
+      toggleLogout(); // Call the logout function from context
+    }
+  };
+
   return (
     <>
       <div className="flex flex-row w-full justify-between px-4 py-6 bg-white rounded-xl">
         <div
-          className="flex flex-row items-center  space-x-2 cursor-pointer"
+          className="flex flex-row items-center space-x-2 cursor-pointer"
           onClick={openModal}
         >
           <img src={"logout.svg"} alt="Logout Icon" width={24} />
@@ -29,6 +37,7 @@ const Logout = () => {
       <Modal
         isOpen={open}
         onClose={closeModal}
+        onSuccess={handleLogout}
         type={"failure"}
         title="Log out"
         subtitle="Are you sure you want to log out of this application?"
