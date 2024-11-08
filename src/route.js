@@ -28,6 +28,7 @@ import ChangePaymentPassword from "./components/Accounts/changepaymentpassword";
 import ChangeSecurityQuestions from "./components/Accounts/changesecurityquestions";
 import DeleteAccount from "./components/Accounts/deleteaccount";
 import VerifySecurityCode from "./components/Accounts/verifysecuritycode";
+import ProfileScreen from "./components/Auth/profile";
 
 export const router = createBrowserRouter([
   {
@@ -147,5 +148,9 @@ export const router = createBrowserRouter([
   {
     path: "/verifysecuritycode",
     element: <VerifySecurityCode />,
+  },
+  {
+    path: "/profilescreen",
+    element: <ProfileScreen />,
   },
 ]);

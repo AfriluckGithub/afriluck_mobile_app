@@ -37,18 +37,24 @@ const Input = ({
         value={value}
         onChange={onChange}
       />
-      {rightIcon && (
-        <img
-          src={
-            type === "password" && isPasswordVisible
-              ? "eyeopen.svg"
-              : "eyeclose.svg"
-          } // Change icon based on visibility
-          alt="Toggle visibility"
-          className="cursor-pointer"
-          onClick={handleTogglePasswordVisibility} // Handle click event
-        />
-      )}
+      {/* {rightIcon &&
+        type === "date" && ( // Check if type is "date"
+          <img
+            src="calendar.svg" // Use a calendar icon
+            alt="Open calendar"
+            className="cursor-pointer"
+            onClick={() => document.querySelector('input[type="date"]').focus()} // Focus on the date input
+          />
+        )} */}
+      {rightIcon &&
+        type === "password" && ( // Check if type is "password"
+          <img
+            src="eyeclose.svg" // Use an eye icon for toggling password visibility
+            alt="Toggle password visibility"
+            className="cursor-pointer"
+            onClick={handleTogglePasswordVisibility} // Call the toggle function
+          />
+        )}
     </label>
   );
 };
