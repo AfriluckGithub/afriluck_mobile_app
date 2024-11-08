@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
@@ -7,8 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 const ChangePaymentPassword = () => {
   const [password, setPassword] = useState("");
-  const [father, setFather] = useState("");
-  const [mother, setMother] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [typingTimeout, setTypingTimeout] = useState(null);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const openModal = () => {
@@ -16,7 +17,16 @@ const ChangePaymentPassword = () => {
   };
 
   const handleSuccess = () => {
-    navigate("/");
+    navigate("/accountsecurity");
+  };
+
+  const handleVerification = () => {
+    if (password !== newPassword || newPassword !== confirmNewPassword) {
+      alert("Passwords do not match!");
+    } else {
+      // Proceed with verification logic if needed
+      console.log("Passwords match, proceed with verification.");
+    }
   };
 
   const handlePasswordChange = (e) => {
@@ -24,16 +34,33 @@ const ChangePaymentPassword = () => {
     setPassword(value);
   };
 
-  const handleFatherChange = (e) => {
+  const handleNewPasswordChange = (e) => {
     const value = e.target.value;
-    setFather(value);
+    setNewPassword(value);
   };
 
-  const handleMotherChange = (e) => {
+  const handleConfirmNewPasswordChange = (e) => {
     const value = e.target.value;
-    setMother(value);
+    setConfirmNewPassword(value);
+
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
+    }
+
+    setTypingTimeout(
+      setTimeout(() => {
+        handleVerification();
+      }, 2300)
+    );
   };
 
+  useEffect(() => {
+    return () => {
+      if (typingTimeout) {
+        clearTimeout(typingTimeout);
+      }
+    };
+  }, [typingTimeout]);
   return (
     <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6">
       <Subheader title="Change Payment Password" />
@@ -45,35 +72,37 @@ const ChangePaymentPassword = () => {
         <div className="flex flex-col w-full max-w-md space-y-6">
           <Input
             type={"password"}
-            placeholder={"Password"}
+            placeholder={"Old Password"}
             icon={"password.svg"}
             className="bg-[#F5F5F7] input-md"
             rightIcon
             value={password}
             onChange={handlePasswordChange}
           />
-          <p className="text-center text-base text-text-black mb-4">
-            Security Questions
-          </p>
           <Input
-            type={"text"}
-            placeholder={"What's your father's middle name?"}
+            type={"password"}
+            placeholder={"New Password"}
+            icon={"password.svg"}
             className="bg-[#F5F5F7] input-md"
-            value={father}
-            onChange={handleFatherChange}
+            rightIcon
+            value={newPassword}
+            onChange={handleNewPasswordChange}
           />
           <Input
-            type={"text"}
-            placeholder={"What's your mother's middle name?"}
+            type={"password"}
+            placeholder={"Confirm new password"}
+            icon={"password.svg"}
             className="bg-[#F5F5F7] input-md"
-            value={mother}
-            onChange={handleMotherChange}
+            rightIcon
+            value={confirmNewPassword}
+            onChange={handleConfirmNewPasswordChange}
           />
+
           <div className="flex flex-col space-y-2">
             <Button
-              label={"Continue"}
+              label={"Change Password"}
               className="bg-secondary text-primary"
-              disabled={!password || !father || !mother}
+              disabled={!password || !newPassword || !confirmNewPassword}
               onClick={openModal}
             />
           </div>
@@ -84,7 +113,7 @@ const ChangePaymentPassword = () => {
         onSuccess={handleSuccess}
         type={"success"}
         title="Success"
-        subtitle="Account has been created successfully"
+        subtitle="Changes saved"
         buttonText="Okay"
         imageSrc="check.svg"
         imgBg={"#F6F6F6"}
