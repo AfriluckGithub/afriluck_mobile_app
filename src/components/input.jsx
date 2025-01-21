@@ -31,10 +31,10 @@ const Input = ({
       </div>
       {icon && <img src={icon} alt="icon" className="w-6 h-6" />}
       <input
+        tabIndex="-1"
         type={type === "password" && isPasswordVisible ? "text" : type}
         placeholder={placeholder}
-        className={`grow`}
-        tabIndex={-1}
+        //lassName={`grow`}
         value={value}
         onChange={onChange}
       />

@@ -180,14 +180,15 @@ const SingleGamePayment = () => {
           </div>
           <div className="mt-10">
             <p className="mb-5">Enter phone number</p>
-            <Input
+            <div><Input
                 type={"number"}
                 placeholder={"020 000 0000"}
                 icon={"ghana.svg"}
-                className="bg-[#F5F5F7] input-md"
+                className="bg-[#F5F5F7] input-md focus:outline-none"
                 value={mobileNumber}
                 onChange={handleInputChange}
               />
+              </div>
           </div>
         </div>
         <div className="flex w-full h-auto justify-center items-center">
@@ -207,7 +208,7 @@ const SingleGamePayment = () => {
         <button
           onClick={placeBet}
           style={{ backgroundColor: "#156064" }}
-          className="text-white font-semibold rounded-lg w-full h-16 text-xl ml-5 mr-5 mb-5"
+          className="text-white font-semibold rounded-lg w-full h-16 text-md ml-5 mr-5 mb-5"
         >
           Pay {`GHS ${amount}.00`}
         </button>

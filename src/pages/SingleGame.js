@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
-// import Input from "../components/input";
+import Input from "../components/input";
 
 const SingleGame = () => {
   const navigate = useNavigate();
@@ -231,7 +231,7 @@ const SingleGame = () => {
         <div className="bg-white h-28 w-full p-5 rounded-lg mb-10 mt-10">
           <p>Selections</p>
           <div>
-            {/* <Input
+            <Input
               type={"text"}
               placeholder={`${
                 selectedGame === ""
@@ -241,8 +241,8 @@ const SingleGame = () => {
               className="bg-[#F5F5F7] input-md"
               value={inputValue}
               onChange={handleInputChange}
-            /> */}
-            <input
+            />
+            {/* <input
               type="text"
               value={inputValue}
               tabIndex={-1}
@@ -253,12 +253,12 @@ const SingleGame = () => {
                   : `Please pick ${selectedGame} numbers between 1 to 57`
               }`}
               className="w-full max-w-md p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
+            /> */}
             {error && <p className="text-rose-500">{error}</p>}
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap items-center h-auto rounded-lg bg-slate-100">
+      <div className="flex flex-wrap items-center h-auto  bg-slate-100">
         <div className="flex flex-row h-auto bg-white rounded-lg p-5 absolute bottom-0 left-0 right-0 m-5">
           <div className="flex justify-start items-start flex-col flex-wrap mr-5 w-full">
             <p className="font-normal text-sm font-Poppins text-gray-400">
@@ -290,7 +290,7 @@ const SingleGame = () => {
             <p className="font-normal h-auto w-auto text-sm text-gray-400">
               Total Amount
             </p>
-            <p className="font-bold h-auto w-auto text-xl">
+            <p className="font-bold h-auto w-auto text-xl text-black">
               GHS {`${betAmount}.00`}
             </p>
           </div>
