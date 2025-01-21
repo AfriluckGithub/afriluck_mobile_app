@@ -39,16 +39,18 @@ const Header = () => {
         <div className="ml-6">
           <div
             style={{ backgroundColor: "#156064" }}
-            className="flex h-12 w-12 text-center text-white rounded-full font-semibold justify-center items-center"
+            className="flex flex-wrap h-12 w-auto text-center text-white rounded-full font-semibold justify-center items-center"
           >
-            <p>KF</p>
+            <p className="flex justify-center items-center p-3">KF</p>
           </div>
         </div>
       )}
-      <div className="flex text-center font-medium ml-6 text-xl justify-center items-center">
+      <div className="flex flex-wrap w-full text-center font-medium text-xl justify-center items-center">
         <p>{getTitle()}</p>
       </div>
-      <div className="flex justify-end items-center mr-6">{getIcon()}</div>
+      <div className="flex flex-wrap w-auto justify-center items-center mr-6">
+        <p className="flex flex-wrap w-12 h-12 justify-center items-center">{getIcon()}</p>
+      </div>
     </div>
   );
 };
