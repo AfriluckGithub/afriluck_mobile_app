@@ -1,9 +1,7 @@
 [build]
-  command = "npm install && npm run build"
+  command = "rm -rf .cache node_modules && npm install && npm run build"
   publish = "build"
 [build.environment]
   NODE_VERSION = "20"
   HUGO_VERSION = "0.117.0"
   HUGO_ENV = "production"
-[[plugins]]
-  package = "@netlify/plugin-cache-clear"
