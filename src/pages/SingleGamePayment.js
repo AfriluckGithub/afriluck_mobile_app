@@ -113,14 +113,16 @@ const SingleGamePayment = () => {
     <>
       <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
         <div className="bg-gray-100 h-16 w-full p-5 rounded-lg">
-          <div className="flex flex-row gap-10 items-center mb-10">
-            <div onClick={back} className="">
+          <div className="flex flex-row w-auto items-center">
+            <div onClick={back}>
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <div className="font-normal text-xl font-Poppins">Payment</div>
+            <div className="font-normal w-full text-xl font-Poppins justify-center items-center">
+              <p className="flex justify-center items-center">Payment</p>
+            </div>
           </div>
         </div>
-        <div className="flex bg-white h-18 w-full p-5 rounded-tl-lg rounded-tr-lg mt-12">
+        <div className="flex bg-white h-18 w-full p-5 rounded-tl-lg rounded-tr-lg mt-3">
           <span className="font-normal text-lg mb-2">{game_type}</span>
           {/* <span className="font-normal text-sm font-Poppins ml-auto">
             Mon 22/10/2024
@@ -141,11 +143,11 @@ const SingleGamePayment = () => {
           <span>
             <p className="font-md font-normal mb-5">Select Channel</p>
           </span>
-          <span className="flex flex-row flex-auto">
+          <div className="flex flex-row flex-auto">
             {networks.map((network) => (
               <div
                 key={network.id}
-                className="flex flex-col bg-gray-100 h-20 w-auto p-5 mr-2 justify-center items-center rounded-lg"
+                className="flex flex-col bg-gray-100 h-auto w-auto p-5 mr-2 justify-center items-center rounded-lg"
                 onClick={() => selectNetwork(network.id)}
                 style={{
                   border:
@@ -154,11 +156,11 @@ const SingleGamePayment = () => {
                       : "0px solid gray",
                 }}
               >
-                <img className="mb-3" src={network.image} alt="mtn" />
-                <p className="text-xs">{network.name}</p>
+                <img className="flex mb-3 w-auto" src={network.image} alt="mtn" />
+                <p className="flex text-xs w-auto">{network.name}</p>
               </div>
             ))}
-          </span>
+          </div>
           <div className="mt-10">
             <p className="mb-5">Enter phone number</p>
             <div className="flex flex-row bg-gray-100 w-full h-14 rounded-lg p-4 items-center">
@@ -186,11 +188,11 @@ const SingleGamePayment = () => {
           )}
         </div>
       </div>
-        <div className="flex flex-row w-auto absolute bottom-auto left-0 right-0">
+        <div className="bg-gray-100 flex flex-row w-auto absolute bottom-auto left-0 right-0">
           <button
             onClick={placeBet}
             style={{ backgroundColor: "#156064" }}
-            className="text-white font-semibold rounded-lg w-full h-16 text-xl"
+            className="text-white font-semibold rounded-lg w-full h-16 text-xl ml-5 mr-5 mb-5"
           >
             Pay {`GHS ${amount}.00`}
           </button>
