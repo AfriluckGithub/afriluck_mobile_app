@@ -69,7 +69,7 @@ const Body = ({ title, image, subtitle }) => {
             <p></p>
           </div>
         </div>
-        <div className="flex flex-row justify-start items-center">
+        <div className="flex flex-row justify-start items-center flex-grow">
           {subGames1.map((game) => (
             <Game image={game.imageUrl} title={subtitle} subtitle={game.name} type={"Anopa"}/>
           ))}

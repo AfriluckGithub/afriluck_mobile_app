@@ -5,7 +5,7 @@ import Content from "../components/content";
 
 const Home = () => {
   return (
-    <div>
+    <div className="h-screen overflow-y-auto">
       <SearchBar />
       <Banner image={"banner.png"} />
       <Content
