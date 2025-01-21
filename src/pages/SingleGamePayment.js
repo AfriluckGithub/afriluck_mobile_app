@@ -66,11 +66,11 @@ const SingleGamePayment = () => {
     }
   };
 
-  useEffect(() => {
-    if (mobile !== "") {
-      setMobileNumber(mobile);
-    }
-  }, [mobile]);
+  // useEffect(() => {
+  //   if (mobile !== "") {
+  //     setMobileNumber(mobile);
+  //   }
+  // }, [mobile]);
 
   const selectNetwork = (id) => {
     const selectedNetwork = networks.find((network) => network.id === id);
