@@ -16,7 +16,7 @@ const SingleGame = () => {
   const [disabled, setDisabled] = useState(true);
   const [valuesArray, setValuesArray] = useState([]);
   const [val, setVal] = useState([]);
-  
+
   const type = localStorage.getItem("game_type");
   const type_picked = localStorage.getItem("game_picked");
 
@@ -27,6 +27,8 @@ const SingleGame = () => {
         return newAmount === 15 ? newAmount + 5 : newAmount;
       } else if (type_picked === "Direct") {
         return prev + 1 > 20 ? 20 : prev + 1;
+      } else if (type_picked === "Banker") {
+        return prev + 52 > 200000000 ? 200000000 : prev + 52;
       }
       return prev;
     });
@@ -41,6 +43,8 @@ const SingleGame = () => {
       } else if (type_picked === "Direct") {
         const newAmount = prev - 1 < 1 ? 1 : prev - 1;
         return newAmount;
+      } else if (type_picked === "Banker") {
+        return prev - 52 > 200000000 ? 200000000 : prev - 52;
       }
       return prev;
     });
@@ -117,7 +121,12 @@ const SingleGame = () => {
       val.length === selectedGame &&
       type_picked === "Direct" &&
       Number(betAmount) > 0;
-    if (megaValidation || directValidation) {
+
+    const bankerValidation =
+      val.length === 1 &&
+      type_picked === "Banker" &&
+      Number(betAmount) > 0;
+    if (megaValidation || directValidation || bankerValidation) {
       localStorage.setItem("numbers", inputValue);
       localStorage.setItem("betAmount", betAmount);
       localStorage.setItem("game", selectedGame);
