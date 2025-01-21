@@ -147,7 +147,7 @@ const SingleGamePayment = () => {
             {networks.map((network) => (
               <div
                 key={network.id}
-                className="flex flex-col bg-gray-100 h-auto w-auto p-5 mr-2 justify-center items-center rounded-lg"
+                className="flex flex-col bg-gray-100 h-24 w-24 p-2 mr-2 justify-center items-center rounded-lg"
                 onClick={() => selectNetwork(network.id)}
                 style={{
                   border:
@@ -156,8 +156,10 @@ const SingleGamePayment = () => {
                       : "0px solid gray",
                 }}
               >
-                <img className="flex mb-3 w-auto" src={network.image} alt="mtn" />
-                <p className="flex text-xs w-auto">{network.name}</p>
+                <img className="flex mb-2 w-auto" src={network.image} alt="network" />
+                <p className="flex w-full justify-center items-center">
+                  <p className="flex text-xs w-full justify-center items-center">{network.name}</p>
+                </p>
               </div>
             ))}
           </div>
