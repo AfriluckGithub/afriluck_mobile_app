@@ -109,12 +109,12 @@ const SingleGame = () => {
   return (
     <>
       <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
-        <div className="bg-gray-100 h-16 w-full p-5 rounded-lg">
-          <div className="flex flex-row gap-10 items-center">
+        <div className="bg-gray-100 h-16x rounded-lg mb-5">
+          <div className="flex flex-row w-full items-center ml-2">
             <div onClick={back} className="w-auto">
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <div className="flex flex-wrap w-full font-Poppins text-xl">
+            <div className="flex flex-wrap justify-center items-center w-full font-Poppins text-xl">
               <p className="flex justify-start items-start">{type}</p>
             </div>
           </div>
@@ -129,7 +129,7 @@ const SingleGame = () => {
             </span> */}
           </div>
           {type_picked === "Direct" ? (
-            <div className="flex flex-wrap justify-start items-start">
+            <div className="flex flex-wrap justify-center items-center">
               {direct
                 .filter(
                   (game) =>
@@ -157,7 +157,7 @@ const SingleGame = () => {
                 ))}
             </div>
           ) : type_picked === "Perm" ? (
-            <div className="flex flex-wrap justify-start items-start">
+            <div className="flex flex-wrap justify-center items-center">
               {perm
                 .filter(
                   (game) =>
