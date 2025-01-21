@@ -98,7 +98,7 @@ const SingleGame = () => {
       navigate("/single_game_selection");
     } else {
       setError(
-        "Kindly verify if the you have selected an amoun or the numbers selected meets the required length."
+        "Kindly verify if the you have selected an amount or the numbers selected meets the required length."
       );
     }
   };
@@ -212,7 +212,7 @@ const SingleGame = () => {
           </div>
         </div>
       </div>
-      <footer className="flex flex-wrap items-center bg-white h-auto rounded-lg absolute bottom-0 left-0 right-0 m-5">
+      <div className="flex flex-wrap items-center bg-white h-auto rounded-lg">
         <div className="flex flex-row w-full h-auto bg-white rounded-lg p-5">
           <div className="flex justify-start items-start flex-col flex-wrap mr-5">
             <p className="font-normal text-sm font-Poppins text-gray-400">
@@ -245,9 +245,9 @@ const SingleGame = () => {
             <p className="font-bold h-auto w-auto text-xl">GHS {`${betAmount}.00`}</p>
           </div>
         </div>
-      </footer>
+      </div>
       <div className="">
-        <button
+      <button
           disabled={disabled}
           style={{ backgroundColor: "#156064" }}
           onClick={placeBet}
