@@ -212,37 +212,37 @@ const SingleGame = () => {
           </div>
         </div>
       </div>
-      <footer className="flex flex-wrap items-center bg-white h-auto rounded-lg absolute bottom-0 left-0 right-0">
+      <footer className="flex flex-wrap items-center bg-white h-auto rounded-lg absolute bottom-0 left-0 right-0 m-5">
         <div className="flex flex-row w-full h-auto bg-white rounded-lg p-5">
-          <div className="flex flex-col flex-wrap mr-5">
+          <div className="flex justify-start items-start flex-col flex-wrap mr-5">
             <p className="font-normal text-sm font-Poppins text-gray-400">
               Bet Amount
             </p>
-            <p className="flex flex-row font-bold text-xl">
+            <p className="flex flex-row font-bold text-sm">
               <button
                 onClick={decrement}
-                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-10 w-10 rounded-xl mr-1 sm:text-sm"
+                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-auto w-10 rounded-xl mr-1 text-sm"
               >
                 -
               </button>
               <button
                 value={betAmount}
                 onChange={handleAmountChange}
-                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-10 w-10 rounded-xl font-bold mr-1 text-xl"
+                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-auto w-10 rounded-xl font-bold mr-1 text-xl"
               >
                 {betAmount}
               </button>
               <button
                 onClick={increment}
-                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-10 w-10 rounded-xl font-normal text-sm"
+                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-auto w-10 rounded-xl font-normal text-sm"
               >
                 +
               </button>
             </p>
           </div>
           <div className="flex flex-wrap flex-col justify-end">
-            <p className="font-normal text-sm text-gray-400">Total Amount</p>
-            <p className="font-bold text-md text-xl">GHS {`${betAmount}.00`}</p>
+            <p className="font-normal h-auto w-auto text-sm text-gray-400">Total Amount</p>
+            <p className="font-bold h-auto w-auto text-xl">GHS {`${betAmount}.00`}</p>
           </div>
         </div>
       </footer>
