@@ -129,11 +129,11 @@ const SingleGamePayment = () => {
           </div>
         </div>
         <div className="flex flex-row justify-center items-center bg-white h-18 w-full p-5 rounded-tl-lg rounded-tr-lg mt-3">
-          <span className="font-xs text-lg mb-2">
+          <span className="font-xs text-lg mb-2 text-black">
             <p>{game_type}</p>
-            <p className="text-xs">Draw 148</p>
+            <p className="text-xs text-black">Draw 148</p>
           </span>
-          <span className="font-normal text-sm font-Poppins ml-auto">
+          <span className="font-normal text-sm font-Poppins ml-auto text-black">
             Mon 22/10/2024
           </span>
         </div>
@@ -171,7 +171,7 @@ const SingleGamePayment = () => {
                   alt="network"
                 />
                 <p className="flex w-full justify-center items-center">
-                  <p className="flex text-xs w-full justify-center items-center">
+                  <p className="flex text-xs w-full justify-center items-center text-black">
                     {network.name}
                   </p>
                 </p>
