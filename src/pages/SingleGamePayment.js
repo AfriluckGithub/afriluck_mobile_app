@@ -184,7 +184,7 @@ const SingleGamePayment = () => {
                 type={"number"}
                 placeholder={"020 000 0000"}
                 icon={"ghana.svg"}
-                className="bg-[#F5F5F7] input-md focus:outline-none"
+                className="bg-[#F5F5F7] input-md focus:outline-none text-black"
                 value={mobileNumber}
                 onChange={handleInputChange}
               />
