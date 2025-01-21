@@ -12,12 +12,14 @@ import { useNavigate } from "react-router-dom";
 //import { CSSTransition } from "react-transition-group";
 import "./../output.css";
 import { useState } from "react";
+import Modal from "../components/modal";
 
 const SingleGameSelection = () => {
   //const [show, setShow] = useState(false);
   //const nodeRef = useRef(null);
   //const [betAmount, setBetAmount] = useState(0);
   const [selectedGame, setSelectedGame] = useState([]);
+  const [open, setOpen] = useState(false);
 
   // const games = [
   //   { id: 1, game: "Direct 1" },
@@ -44,8 +46,16 @@ const SingleGameSelection = () => {
 
   const navigate = useNavigate();
 
+  const openModal = () => {
+    setOpen(true);
+  };
+
   const back = () => {
     navigate("/single_game");
+  };
+
+  const closeModal = () => {
+    setOpen(false);
   };
 
   const handlePaymentScreen = () => {
@@ -53,10 +63,10 @@ const SingleGameSelection = () => {
   };
 
   const handleClear = () => {
-    localStorage.setItem("numbers", "");
-    localStorage.setItem("betAmount", "");
-    localStorage.setItem("game", "");
-    navigate("/single_game");
+    //localStorage.setItem("numbers", "");
+    //localStorage.setItem("betAmount", "");
+    //localStorage.setItem("game", "");
+    openModal();
   };
 
   return (
@@ -124,6 +134,7 @@ const SingleGameSelection = () => {
             </div>
             <div
               style={{ backgroundColor: "#FFEFEF" }}
+              onClick={handleClear}
               className="flex w-auto h-16 mt-5 rounded-md justify-center items-center"
             >
               <FontAwesomeIcon icon={faTrash} color="red" />{" "}
@@ -141,6 +152,17 @@ const SingleGameSelection = () => {
           </button>
         </div>
       </div>
+      <Modal
+        isOpen={open}
+        onClose={closeModal}
+        onSuccess={() => {navigate("/single_game")}}
+        type={"failure"}
+        title="Log out"
+        subtitle="Are you sure you want to clear you selection?"
+        buttonText="Yes"
+        imageSrc="logout.svg"
+        imgBg={"#FFF9F9"}
+      />
     </>
   );
 };
