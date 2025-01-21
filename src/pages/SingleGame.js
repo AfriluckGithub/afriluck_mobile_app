@@ -31,7 +31,20 @@ const SingleGame = () => {
       return prev;
     });
   };
-  const decrement = () => setBetAmount((prev) => (prev > 1 ? prev - 1 : prev));
+  //const decrement = () => setBetAmount((prev) => (prev > 1 ? prev - 1 : prev));
+
+  const decrement = (type) => {
+    setBetAmount((prev) => {
+      if (type_picked === "Mega") {
+        const newAmount = prev - 5 < 1 ? 1 : prev - 5;
+        return newAmount;
+      } else if (type_picked === "Direct") {
+        const newAmount = prev - 1 < 1 ? 1 : prev - 1;
+        return newAmount;
+      }
+      return prev;
+    });
+  };
 
   console.log("type => ", type);
   console.log("type picked => ", type_picked);
