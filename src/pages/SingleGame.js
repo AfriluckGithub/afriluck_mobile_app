@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
+import Input from "../components/input";
 
 const SingleGame = () => {
   const navigate = useNavigate();
@@ -198,15 +199,16 @@ const SingleGame = () => {
         <div className="bg-white h-28 w-full p-5 rounded-lg mb-10 mt-10">
           <p>Selections</p>
           <div>
-            <input
-              value={inputValue}
-              onChange={handleInputChange}
-              className="h-14 w-full border-2 p-5 border-gray-300 rounded-md placeholder:text-sm"
+            <Input
+              type={"text"}
               placeholder={`${
                 selectedGame === ""
                   ? `Please select a number`
                   : `Please pick ${selectedGame} numbers between 1 to 57`
               }`}
+              className="bg-[#F5F5F7] input-md"
+              value={inputValue}
+              onChange={handleInputChange}
             />
             {error && <p className="text-rose-500">{error}</p>}
           </div>
@@ -241,8 +243,12 @@ const SingleGame = () => {
             </p>
           </div>
           <div className="flex flex-wrap flex-col justify-end w-full">
-            <p className="font-normal h-auto w-auto text-sm text-gray-400">Total Amount</p>
-            <p className="font-bold h-auto w-auto text-xl">GHS {`${betAmount}.00`}</p>
+            <p className="font-normal h-auto w-auto text-sm text-gray-400">
+              Total Amount
+            </p>
+            <p className="font-bold h-auto w-auto text-xl">
+              GHS {`${betAmount}.00`}
+            </p>
           </div>
         </div>
         <button

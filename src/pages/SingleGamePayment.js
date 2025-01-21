@@ -1,12 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
 import { OrbitProgress } from "react-loading-indicators";
+import Input from "../components/input";
 
 const SingleGamePayment = () => {
   const navigate = useNavigate();
@@ -90,10 +89,11 @@ const SingleGamePayment = () => {
   };
 
   const networks = [
-    { 
-      id: 1, name: "MTN Momo", 
-      image: "logo-pay-mtn-momo.png", 
-      desc: "mtn" 
+    {
+      id: 1,
+      name: "MTN Momo",
+      image: "logo-pay-mtn-momo.png",
+      desc: "mtn",
     },
     {
       id: 2,
@@ -122,11 +122,14 @@ const SingleGamePayment = () => {
             </div>
           </div>
         </div>
-        <div className="flex bg-white h-18 w-full p-5 rounded-tl-lg rounded-tr-lg mt-3">
-          <span className="font-normal text-lg mb-2">{game_type}</span>
-          {/* <span className="font-normal text-sm font-Poppins ml-auto">
+        <div className="flex flex-row justify-center items-center bg-white h-18 w-full p-5 rounded-tl-lg rounded-tr-lg mt-3">
+          <span className="font-xs text-lg mb-2">
+            <p>{game_type}</p>
+            <p className="text-xs">Draw 148</p>
+          </span>
+          <span className="font-normal text-sm font-Poppins ml-auto">
             Mon 22/10/2024
-          </span> */}
+          </span>
         </div>
         <div
           className="bg-white h-auto w-full rounded-bl-lg rounded-br-lg"
@@ -156,25 +159,29 @@ const SingleGamePayment = () => {
                       : "0px solid gray",
                 }}
               >
-                <img className="flex mb-2 w-auto" src={network.image} alt="network" />
+                <img
+                  className="flex mb-2 w-auto"
+                  src={network.image}
+                  alt="network"
+                />
                 <p className="flex w-full justify-center items-center">
-                  <p className="flex text-xs w-full justify-center items-center">{network.name}</p>
+                  <p className="flex text-xs w-full justify-center items-center">
+                    {network.name}
+                  </p>
                 </p>
               </div>
             ))}
           </div>
           <div className="mt-10">
             <p className="mb-5">Enter phone number</p>
-            <div className="flex flex-row bg-gray-100 w-full h-14 rounded-lg p-4 items-center">
-              <img alt="gh_flag" className="h-10 w-10 mr-5" src="ghflag.png" />
-              <input
+            <Input
+                type={"number"}
+                placeholder={"020 000 0000"}
+                icon={"ghana.svg"}
+                className="bg-[#F5F5F7] input-md"
                 value={mobileNumber}
                 onChange={handleInputChange}
-                disabled={disabled}
-                placeholder="E.g 0554588483"
-                className="bg-gray-100 w-full h-14 focus:border-0 p-5 font-semibold"
               />
-            </div>
           </div>
         </div>
         <div className="flex w-full h-auto justify-center items-center">
@@ -190,15 +197,15 @@ const SingleGamePayment = () => {
           )}
         </div>
       </div>
-        <div className="bg-gray-100 flex flex-row w-auto absolute bottom-auto left-0 right-0">
-          <button
-            onClick={placeBet}
-            style={{ backgroundColor: "#156064" }}
-            className="text-white font-semibold rounded-lg w-full h-16 text-xl ml-5 mr-5 mb-5"
-          >
-            Pay {`GHS ${amount}.00`}
-          </button>
-        </div>
+      <div className="bg-gray-100 flex flex-row w-auto absolute bottom-auto left-0 right-0">
+        <button
+          onClick={placeBet}
+          style={{ backgroundColor: "#156064" }}
+          className="text-white font-semibold rounded-lg w-full h-16 text-xl ml-5 mr-5 mb-5"
+        >
+          Pay {`GHS ${amount}.00`}
+        </button>
+      </div>
     </>
   );
 };
