@@ -13,7 +13,6 @@ const SingleGamePayment = () => {
   const [network, setNetwork] = useState("");
   const [mobileNumber, setMobileNumber] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [disabled, setDisabled] = useState(false);
 
   const numbers = localStorage.getItem("numbers");
   const amount = localStorage.getItem("betAmount");
@@ -22,8 +21,6 @@ const SingleGamePayment = () => {
   //const token = localStorage.getItem("token");
   const game_type = localStorage.getItem("game_type");
   const game_picked = localStorage.getItem("game_picked");
-
-  console.log(disabled);
   
 
   const placeBet = async () => {
