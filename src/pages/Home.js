@@ -13,12 +13,12 @@ const Home = () => {
         title={"Morning Draw"}
         subtitle={"Super Monday"}
       />
-      <Banner image={"banner1.png"} />
-      <Content
+      {/* <Banner image={"banner1.png"} /> */}
+      {/* <Content
         image={"afriluck_lg.png"}
         title={"Evening Draw"}
         subtitle={"Super Monday"}
-      />
+      /> */}
     </div>
   );
 };

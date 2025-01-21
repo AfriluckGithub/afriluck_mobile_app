@@ -4,6 +4,7 @@ import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
@@ -15,6 +16,29 @@ const ChangePassword = () => {
   const openModal = () => {
     setOpen(true);
   };
+
+  const _handlePasswordChange = async () => {
+    try {
+      const requestBody = {
+        "phone_number": localStorage.getItem("phone_number"),
+        "password": newPassword,
+        "password_confirmation": confirmNewPassword
+      }
+      const res = await axios.post('https://staging.afriluck.com/api/V1/app/reset-password', requestBody, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      if (res.status === 200) {
+          openModal();
+          setTimeout(() => {
+            navigate("/accountsecurity");
+          }, 2300)
+      }
+    }catch(e) {
+      console.log(e);
+    }
+  }
 
   const handleSuccess = () => {
     navigate("/accountsecurity");
@@ -103,7 +127,7 @@ const ChangePassword = () => {
               label={"Change Password"}
               className="bg-secondary text-primary"
               disabled={!password || !newPassword || !confirmNewPassword}
-              onClick={openModal}
+              onClick={_handlePasswordChange}
             />
           </div>
         </div>

@@ -6,6 +6,7 @@ import Button from "../button";
 import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext"; // Import the useAuth hook
+import axios from "axios";
 
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -14,8 +15,29 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const { toggleLogin } = useAuth(); // Access the toggleLogin function from context
 
-  const openModal = () => {
-    setOpen(true);
+  const openModal = async () => {
+    const requestBody = {
+      "phone_number": phoneNumber,
+      "password": password
+    }
+    try {
+      const res = await axios.post('https://staging.afriluck.com/api/V1/app/login', requestBody, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(res);
+      if (res.status === 200) {
+          localStorage.setItem("logged_in", true);
+          localStorage.setItem("name", `${res.data.success.first_name}`);
+          localStorage.setItem("token", res.data.success.token);
+          localStorage.setItem("status", res.data.success.status);
+          localStorage.setItem("phone_number", res.data.success.phone_number);
+          setOpen(true);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const handleSuccess = () => {

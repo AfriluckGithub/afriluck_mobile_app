@@ -5,6 +5,8 @@ import { useAvatar } from "../../context/AvatarContext";
 const LoggedIn = () => {
   const { avatar } = useAvatar();
   const navigate = useNavigate();
+  const username = localStorage.getItem("name") == null? "Username": localStorage.getItem("name");
+  const phoneNumber = localStorage.getItem("phone_number") == null? "0202020202": localStorage.getItem("phone_number");
   return (
     <div className="flex flex-col w-full space-y-6   py-4">
       <div className="flex flex-row space-x-4 p-4 w-full  items-center bg-white rounded-xl">
@@ -24,8 +26,8 @@ const LoggedIn = () => {
         </div>
 
         <div className="flex flex-col w-full">
-          <p className="text-lg font-semibold">Username</p>
-          <p className="text-sm text-text-muted">0202020202</p>
+          <p className="text-lg font-semibold">{username}</p>
+          <p className="text-sm text-text-muted">{phoneNumber}</p>
         </div>
         <img
           src="edit.svg"
@@ -40,7 +42,7 @@ const LoggedIn = () => {
             <img src="credit.svg" alt="afriluck" className="w-6 h-6" />
             <p className="text-sm font-regular">Credit</p>
           </div>
-          <p className="text-lg font-semibold">GHS 200.00</p>
+          <p className="text-lg font-semibold">GHS 0.00</p>
           <Button
             label="Topup"
             className="bg-secondary text-primary w-full btn-sm"
@@ -51,7 +53,7 @@ const LoggedIn = () => {
             <img src="wins.svg" alt="afriluck" className=" w-6 h-6" />
             <p className="text-sm font-regular">Wins Account</p>
           </div>
-          <p className="text-lg font-semibold">GHS 200.00</p>
+          <p className="text-lg font-semibold">GHS 0.00</p>
           <Button
             label="Withdraw"
             className="bg-primary text-white w-full btn-sm"
