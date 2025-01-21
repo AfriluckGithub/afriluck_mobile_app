@@ -41,8 +41,6 @@ const SingleGamePayment = () => {
       medium: "ussd",
     };
 
-    console.log(requestBody);
-
     const headers = {
       Authorization: `Bearer 21|2lw6aPgfmVjcldjbHgC6a3nBOG7gJk0Mv3BGVy0G1cbc0614`,
       "Content-Type": "application/json",

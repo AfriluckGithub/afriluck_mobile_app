@@ -4,25 +4,60 @@ import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignupScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const openModal = () => {
     setOpen(true);
   };
 
-  const handleSuccess = (phoneNumber, source = "signup") => {
-    navigate("/verifycode", { state: { phoneNumber, source } });
+  const handleSignUp = async () => {
+    try {
+      const res = await axios.post("https://staging.afriluck.com/api/V1/app/register", 
+      {
+        first_name: lastName,
+        last_name: firstName,
+        phone_number: phoneNumber,
+        password: password,
+      });
+      if (res.status === 200) {
+        openModal();
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
+  const handleSuccess = async (phoneNumber, source = "signup") => {
+    // navigate("/verifycode", { state: { phoneNumber, source } });
   };
 
   const handlePhoneNumberChange = (e) => {
     const value = e.target.value;
-    // Validate to ensure the phone number is up to 10 digits
     if (/^\d{0,10}$/.test(value)) {
-      setPhoneNumber(value); // Update state if valid
+      setPhoneNumber(value);
     }
+  };
+
+  const handleFirstNameChange = (e) => {
+    const value = e.target.value;
+    setFirstName(value);
+  };
+
+  const handleLastNameChange = (e) => {
+    const value = e.target.value;
+    setLastName(value);
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
   };
 
   return (
@@ -31,9 +66,25 @@ const SignupScreen = () => {
       <div className="flex flex-col w-full lg:w-[40%] items-center justify-center  bg-white rounded-xl p-6 my-20 space-y-4">
         <img src="afriluck.svg" alt="afriluck" className="mb-6" />
         <p className="text-center text-base text-text-black mb-4">
-          A verification code will be sent to the number you provide below
+          New user sign up
         </p>
         <div className="flex flex-col w-full max-w-md space-y-6">
+          <Input
+            type={"text"}
+            placeholder={"First Name"}
+            className="bg-[#F5F5F7] input-md"
+            value={firstName}
+            onChange={handleFirstNameChange}
+          />
+
+          <Input
+            type={"text"}
+            placeholder={"Last Name"}
+            className="bg-[#F5F5F7] input-md"
+            value={lastName}
+            onChange={handleLastNameChange}
+          />
+
           <Input
             type={"number"}
             placeholder={"020 000 0000"}
@@ -42,19 +93,28 @@ const SignupScreen = () => {
             value={phoneNumber}
             onChange={handlePhoneNumberChange}
           />
+
+          <Input
+            type={"text"}
+            placeholder={"Password"}
+            className="bg-[#F5F5F7] input-md"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+
           <div className="flex flex-col space-y-2">
             <Button
-              label={"Send Code"}
+              label={"Register"}
               className="bg-secondary text-primary"
               disabled={!phoneNumber}
-              onClick={openModal}
+              onClick={handleSignUp}
             />
           </div>
         </div>
       </div>
       <Modal
         isOpen={open}
-        onSuccess={() => handleSuccess(phoneNumber, "signup")}
+        onSuccess={() => navigate("/")}
         type={"success"}
         title="Success"
         subtitle="Verification code sent"
