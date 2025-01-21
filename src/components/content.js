@@ -57,7 +57,7 @@ const Body = ({ title, image, subtitle }) => {
 
   return (
     <>
-      <div className="bg-white rounded-xl p-5 mt-5 mb-5 h-dvh">
+      <div className="bg-white rounded-xl p-5 mt-5 mb-5 h-screen overflow-y-auto">
         <div className="grid grid-cols-2 gap-2">
           <div
             style={{ color: "#156064" }}
@@ -92,7 +92,7 @@ const Body = ({ title, image, subtitle }) => {
           ))}
         </div>
         <hr className="m-5" />
-        <div className="grid grid-cols-2 gap-2">
+        <div className="flex flex-col">
           <div
             style={{ color: "#156064" }}
             className="global-text-color font-semibold text-md"
@@ -103,7 +103,7 @@ const Body = ({ title, image, subtitle }) => {
             <p></p>
           </div>
         </div>
-        <div className="flex flex-row justify-start items-center">
+        <div className="flex flex-wrap flex-row justify-start items-center">
           {subGames.map((game) => (
             <Game image={game.imageUrl} title={subtitle} subtitle={game.name} type={"6/57"}/>
           ))}

@@ -14,7 +14,7 @@ const Game = ({title, image, subtitle, type}) => {
     }
     
     return (
-        <div onClick={handleCurrentGame} className="grid grid-row-3 gap-4 m-1 bg-gray-100 rounded-lg p-2 mt-5 w-24 h-24 justify-center items-center hover:bg-green-100 focus:bg-green-100">
+        <div onClick={handleCurrentGame} className="flex flex-row gap-4 m-1 bg-gray-100 rounded-lg p-2 mt-5 w-24 h-24 justify-center items-center hover:bg-green-100 focus:bg-green-100">
             {/* <img className="flex flex-row h-10 w-20" src={image}/> */}
             <p className="font-normal text-center text-wrap text-xs">{subtitle}</p>
         </div>
