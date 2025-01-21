@@ -168,8 +168,7 @@ const SingleGameSelection = () => {
           </div>
         </div>
       </div>
-      <footer className="flex items-center bg-white h-28 p-5 m-5 rounded-lg absolute bottom-0 left-0 right-0">
-        <div className="flex flex-row gap-10 w-full bg-white rounded-lg p-5">
+      <div className="flex flex-row w-full rounded-lg absolute bottom-0 left-0 right-0">
         <button
         style={{backgroundColor: '#156064'}}
           onClick={handlePaymentScreen}
@@ -178,7 +177,6 @@ const SingleGameSelection = () => {
           Place Bet
         </button>
         </div>
-      </footer>
     </>
   );
 };

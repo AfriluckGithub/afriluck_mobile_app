@@ -246,7 +246,6 @@ const SingleGame = () => {
           </div>
         </div>
       </div>
-      <div className="">
       <button
           disabled={disabled}
           style={{ backgroundColor: "#156064" }}
@@ -255,7 +254,6 @@ const SingleGame = () => {
         >
           Confirm
         </button>
-      </div>
     </>
   );
 };
