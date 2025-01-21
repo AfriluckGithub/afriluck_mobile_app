@@ -52,6 +52,13 @@ const SingleGameSelection = () => {
     navigate("/single_game_payment");
   };
 
+  const handleClear = () => {
+    localStorage.setItem("numbers", "");
+    localStorage.setItem("betAmount", "");
+    localStorage.setItem("game", "");
+    navigate("/single_game");
+  };
+
   return (
     <>
       <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
