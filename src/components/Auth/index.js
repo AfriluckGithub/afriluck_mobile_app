@@ -1,7 +1,7 @@
 import React from "react";
 import Notlogged from "./notlogged";
 import LoggedIn from "./loggedin";
-import { useAuth } from "../../context/AuthContext"; // Import the useAuth hook
+//import { useAuth } from "../../context/AuthContext"; // Import the useAuth hook
 
 const Auth = () => {
   //const { isLoggedIn, toggleLogin } = useAuth(); // Access the auth context
