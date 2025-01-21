@@ -84,18 +84,22 @@ const SingleGame = () => {
   const placeBet = () => {
     console.log("selected game => ", selectedGame);
     console.log("Val => ", val.length);
-    
+
     const megaValidation =
       val.length >= 6 && type_picked === "Mega" && Number(betAmount) > 0;
-      const directValidation =
-      (val.length === selectedGame) && type_picked === "Direct" && Number(betAmount) > 0;
+    const directValidation =
+      val.length === selectedGame &&
+      type_picked === "Direct" &&
+      Number(betAmount) > 0;
     if (megaValidation || directValidation) {
       localStorage.setItem("numbers", inputValue);
       localStorage.setItem("betAmount", betAmount);
       localStorage.setItem("game", selectedGame);
       navigate("/single_game_selection");
-    }else{
-      setError("Kindly verify if the you have selected an amoun or the numbers selected meets the required length.")
+    } else {
+      setError(
+        "Kindly verify if the you have selected an amoun or the numbers selected meets the required length."
+      );
     }
   };
 
@@ -157,10 +161,7 @@ const SingleGame = () => {
               {perm
                 .filter(
                   (game) =>
-                    !(
-                      (type === "Anopa" || type === "Midday") &&
-                      (game.id === 4)
-                    )
+                    !((type === "Anopa" || type === "Midday") && game.id === 4)
                 )
                 .map((game) => (
                   <div
@@ -211,35 +212,35 @@ const SingleGame = () => {
           </div>
         </div>
       </div>
-      <footer className="flex flex-wrap items-center bg-white h-28 p-5 m-5 rounded-lg absolute bottom-0 left-0 right-0">
-        <div className="flex flex-row gap-10 w-full bg-white rounded-lg p-5">
-          <div className="flex flex-col flex-wrap">
+      <footer className="flex flex-wrap items-center bg-white h-auto rounded-lg absolute bottom-0 left-0 right-0">
+        <div className="flex flex-row w-full h-auto bg-white rounded-lg p-5">
+          <div className="flex flex-col flex-wrap mr-5">
             <p className="font-normal text-sm font-Poppins text-gray-400">
               Bet Amount
             </p>
             <p className="flex flex-row font-bold text-xl">
               <button
                 onClick={decrement}
-                className="bg-gray-300 hover:bg-red-700 text-black h-10 w-10 rounded-xl font-normal mr-1 text-sm"
+                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-10 w-10 rounded-xl mr-1 sm:text-sm"
               >
                 -
               </button>
               <button
                 value={betAmount}
                 onChange={handleAmountChange}
-                className="bg-gray-300 hover:bg-red-700 text-black h-10 w-10 rounded-xl font-bold mr-1 text-xl"
+                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-10 w-10 rounded-xl font-bold mr-1 text-xl"
               >
                 {betAmount}
               </button>
               <button
                 onClick={increment}
-                className="bg-gray-300 hover:bg-red-700 text-black h-10 w-10 rounded-xl font-normal text-sm"
+                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-10 w-10 rounded-xl font-normal text-sm"
               >
                 +
               </button>
             </p>
           </div>
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-wrap flex-col justify-end">
             <p className="font-normal text-sm text-gray-400">Total Amount</p>
             <p className="font-bold text-md text-xl">GHS {`${betAmount}.00`}</p>
           </div>
