@@ -24,7 +24,7 @@ const InputBorderless = ({
 
   return (
     <label
-      className={`input flex items-center gap-2 ${className}`}
+      className={`input flex bg-[#EEEFF3] items-center gap-2 ${className}`}
     >
       <div className="label">
         <span className="label-text">{label}</span>
