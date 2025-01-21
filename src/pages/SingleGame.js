@@ -245,6 +245,7 @@ const SingleGame = () => {
             <input
               type="text"
               value={inputValue}
+              tabIndex={-1}
               onChange={handleInputChange}
               placeholder={`${
                 selectedGame === ""
