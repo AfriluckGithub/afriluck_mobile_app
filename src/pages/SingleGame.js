@@ -33,12 +33,11 @@ const SingleGame = () => {
   ];
 
   const perm = [
-    { id: 1, game: "Perm 1" },
-    { id: 2, game: "Perm 2" },
-    { id: 3, game: "Perm 3" },
-    { id: 4, game: "Perm 4" },
-    { id: 5, game: "Perm 5" },
-    { id: 6, game: "Perm 6" },
+    { id: 1, game: "Perm 2" },
+    { id: 2, game: "Perm 3" },
+    { id: 3, game: "Perm 4" },
+    { id: 4, game: "Perm 5" },
+    { id: 5, game: "Perm 6" },
   ];
 
   const selectGame = (id) => {
@@ -160,7 +159,7 @@ const SingleGame = () => {
                   (game) =>
                     !(
                       (type === "Anopa" || type === "Midday") &&
-                      (game.id === 5 || game.id === 6)
+                      (game.id === 5)
                     )
                 )
                 .map((game) => (
