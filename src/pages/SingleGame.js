@@ -114,7 +114,7 @@ const SingleGame = () => {
             <div onClick={back} className="w-auto">
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <div className="flex flex-wrap w-full font-Poppins justify-center items-center text-xl">
+            <div className="flex flex-wrap w-full font-Poppins text-xl">
               <p className="flex justify-start items-start">{type}</p>
             </div>
           </div>
