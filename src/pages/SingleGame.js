@@ -111,11 +111,11 @@ const SingleGame = () => {
       <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
         <div className="bg-gray-100 h-16 w-full p-5 rounded-lg">
           <div className="flex flex-row gap-10 items-center">
-            <div onClick={back} className="">
+            <div onClick={back} className="w-auto">
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <div className="text-md font-Poppins font-normal text-xl">
-              {type}
+            <div className="flex flex-wrap w-full font-Poppins justify-center items-center text-xl">
+              <p className="flex justify-start items-start">{type}</p>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@ const SingleGame = () => {
                 .map((game) => (
                   <div
                     key={game.id}
-                    className="flex flex-wrap bg-gray-100 h-32 w-32 justify-center items-center m-1 rounded-md"
+                    className="flex flex-wrap bg-gray-100 h-24 w-24 justify-center items-center m-1 rounded-md"
                     onClick={() => selectGame(game.id)}
                     style={{
                       border:
@@ -166,7 +166,7 @@ const SingleGame = () => {
                 .map((game) => (
                   <div
                     key={game.id}
-                    className="flex bg-gray-100 h-32 w-32 justify-center items-center m-1 rounded-md"
+                    className="flex bg-gray-100 h-24 w-24 justify-center items-center m-1 rounded-md"
                     onClick={() => selectGame(game.id)}
                     style={{
                       border:
