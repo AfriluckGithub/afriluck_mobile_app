@@ -114,16 +114,18 @@ const SingleGame = () => {
   const placeBet = () => {
     console.log("selected game => ", selectedGame);
     console.log("Val => ", val.length);
+    console.log(val.some((item) => Number(item) > 57));
+    
 
     const megaValidation =
-      val.length >= 6 && type_picked === "Mega" && Number(betAmount) > 0;
+      val.length >= 6 && type_picked === "Mega" && Number(betAmount) > 0 && !val.some((item) => Number(item) > 57);
     const directValidation =
       val.length === selectedGame &&
       type_picked === "Direct" &&
-      Number(betAmount) > 0;
+      Number(betAmount) > 0 && !val.some((item) => Number(item) > 57);
 
     const bankerValidation =
-      val.length === 1 && type_picked === "Banker" && Number(betAmount) > 0;
+      val.length === 1 && type_picked === "Banker" && Number(betAmount) > 0 && !val.some((item) => Number(item) > 57);
     if (megaValidation || directValidation || bankerValidation) {
       localStorage.setItem("numbers", inputValue);
       localStorage.setItem("betAmount", betAmount);
