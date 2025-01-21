@@ -57,7 +57,7 @@ const Body = ({ title, image, subtitle }) => {
 
   return (
     <>
-      <div className="bg-white rounded-xl h-300 p-5 mt-5 mb-5">
+      <div className="bg-white rounded-xl h-300 p-5 mt-5 mb-5 h-dvh">
         <div className="grid grid-cols-2 gap-2">
           <div
             style={{ color: "#156064" }}
