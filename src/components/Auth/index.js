@@ -4,7 +4,7 @@ import LoggedIn from "./loggedin";
 import { useAuth } from "../../context/AuthContext"; // Import the useAuth hook
 
 const Auth = () => {
-  const { isLoggedIn, toggleLogin } = useAuth(); // Access the auth context
+  //const { isLoggedIn, toggleLogin } = useAuth(); // Access the auth context
   const loggedIn = localStorage.getItem("logged_in");
   return (
     <div>

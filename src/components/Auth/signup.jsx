@@ -34,9 +34,9 @@ const SignupScreen = () => {
     }
   }
 
-  const handleSuccess = async (phoneNumber, source = "signup") => {
-    // navigate("/verifycode", { state: { phoneNumber, source } });
-  };
+  // const handleSuccess = async (phoneNumber, source = "signup") => {
+  //   // navigate("/verifycode", { state: { phoneNumber, source } });
+  // };
 
   const handlePhoneNumberChange = (e) => {
     const value = e.target.value;
