@@ -134,8 +134,8 @@ const SingleGame = () => {
   // };
   return (
     <>
-      <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
-        <div className="bg-gray-100 h-16x rounded-lg mb-5">
+      <div className="flex flex-col bg-[#F7F7F7] w-full h-screen p-5">
+        <div className="bg-[#F7F7F7] h-16x rounded-lg mb-5">
           <div className="flex flex-row w-full items-center ml-2">
             <div onClick={back} className="w-auto">
               <FontAwesomeIcon icon={faChevronLeft} />
