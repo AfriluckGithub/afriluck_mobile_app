@@ -188,8 +188,7 @@ const SingleGamePayment = () => {
           )}
         </div>
       </div>
-      <footer className="flex flex-col h-28 absolute bottom-auto left-0 right-0">
-        <div className="flex flex-row w-auto ml-5 mr-5">
+        <div className="flex flex-row w-auto absolute bottom-auto left-0 right-0">
           <button
             onClick={placeBet}
             style={{ backgroundColor: "#156064" }}
@@ -198,7 +197,6 @@ const SingleGamePayment = () => {
             Pay {`GHS ${amount}.00`}
           </button>
         </div>
-      </footer>
     </>
   );
 };

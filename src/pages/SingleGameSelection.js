@@ -168,7 +168,7 @@ const SingleGameSelection = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-row w-full rounded-lg absolute bottom-0 left-0 right-0">
+      <div className="flex flex-row w-full rounded-lg">
         <button
         style={{backgroundColor: '#156064'}}
           onClick={handlePaymentScreen}
