@@ -57,7 +57,7 @@ const Body = ({ title, image, subtitle }) => {
 
   return (
     <>
-      <div className="bg-white rounded-xl p-5 mt-5 mb-5 h-screen overflow-y-auto">
+      <div className="bg-white rounded-xl p-5 mb-5 h-screen overflow-y-auto">
         <div className="grid grid-cols-2 gap-2">
           <div
             style={{ color: "#156064" }}
