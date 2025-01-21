@@ -155,7 +155,7 @@ const SingleGameSelection = () => {
       <Modal
         isOpen={open}
         onClose={closeModal}
-        onSuccess={() => {navigate("/single_game")}}
+        onSuccess={navigate("/single_game")}
         type={"failure"}
         title="Log out"
         subtitle="Are you sure you want to clear you selection?"

@@ -238,7 +238,7 @@ const SingleGame = () => {
                   ? `Please select a number`
                   : `Please pick ${selectedGame} numbers between 1 to 57`
               }`}
-              className="bg-[#F5F5F7] input-md"
+              className="bg-[#F5F5F7] input-md text-black text-sm"
               value={inputValue}
               onChange={handleInputChange}
             />
