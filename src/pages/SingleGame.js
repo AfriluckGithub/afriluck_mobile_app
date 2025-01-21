@@ -148,7 +148,7 @@ const SingleGame = () => {
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
             <div className="flex flex-wrap justify-center items-center w-full font-Poppins text-xl">
-              <p className="flex justify-start items-start">{type}</p>
+              <p className="flex justify-start items-start text-black">{type}</p>
             </div>
           </div>
         </div>

@@ -124,7 +124,7 @@ const SingleGamePayment = () => {
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
             <div className="font-normal w-full text-xl font-Poppins justify-center items-center">
-              <p className="flex justify-center items-center">Payment</p>
+              <p className="flex justify-center items-center text-black">Payment</p>
             </div>
           </div>
         </div>
