@@ -11,12 +11,16 @@ const Logout = () => {
   };
 
   const closeModal = () => {
+    localStorage.clear();
+    window.location.reload();
     setOpen(false);
   };
 
   const handleLogout = () => {
+    localStorage.clear();
+    window.location.reload();
     if (isLoggedIn) {
-      toggleLogout(); // Call the logout function from context
+      toggleLogout();
     }
   };
 

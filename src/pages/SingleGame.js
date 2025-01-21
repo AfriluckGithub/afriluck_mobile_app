@@ -248,9 +248,8 @@ const SingleGame = () => {
       </div>
       <button
           disabled={disabled}
-          style={{ backgroundColor: "#156064" }}
           onClick={placeBet}
-          className="text-gray-200 font-bold rounded-lg w-full h-16"
+          className="text-gray-200 font-bold rounded-lg w-full h-16 bg-primary"
         >
           Confirm
         </button>
