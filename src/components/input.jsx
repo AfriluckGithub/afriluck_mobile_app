@@ -34,6 +34,7 @@ const Input = ({
         type={type === "password" && isPasswordVisible ? "text" : type}
         placeholder={placeholder}
         className={`grow`}
+        tabIndex={-1}
         value={value}
         onChange={onChange}
       />
