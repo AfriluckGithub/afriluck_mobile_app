@@ -212,8 +212,8 @@ const SingleGame = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap items-center bg-white h-auto rounded-lg">
-        <div className="flex flex-row w-full h-auto bg-white rounded-lg p-5">
+      <div className="flex flex-wrap items-center bg-white h-auto rounded-lg relative">
+        <div className="flex flex-row h-auto bg-white rounded-lg p-5 absolute bottom-0 left-0 right-0 m-5">
           <div className="flex justify-start items-start flex-col flex-wrap mr-5 w-full">
             <p className="font-normal text-sm font-Poppins text-gray-400">
               Bet Amount
