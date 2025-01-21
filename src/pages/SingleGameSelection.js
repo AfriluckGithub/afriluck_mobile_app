@@ -19,13 +19,13 @@ const SingleGameSelection = () => {
   //const [betAmount, setBetAmount] = useState(0);
   const [selectedGame, setSelectedGame] = useState([]);
 
-  const games = [
-    { id: 1, game: "Direct 1" },
-    { id: 2, game: "Direct 2" },
-    { id: 3, game: "Direct 3" },
-    { id: 4, game: "Direct 4" },
-    { id: 5, game: "Direct 5" },
-  ];
+  // const games = [
+  //   { id: 1, game: "Direct 1" },
+  //   { id: 2, game: "Direct 2" },
+  //   { id: 3, game: "Direct 3" },
+  //   { id: 4, game: "Direct 4" },
+  //   { id: 5, game: "Direct 5" },
+  // ];
 
   const numbers = localStorage.getItem('numbers');
   const amount = localStorage.getItem('betAmount');
