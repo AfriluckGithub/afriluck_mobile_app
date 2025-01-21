@@ -1,9 +1,7 @@
 import "../output.css";
 
 import Game from "../components/game";
-import { useEffect, useState } from "react";
-import { QueryClientProvider, QueryClient, useQuery } from "react-query";
-import axios from "axios";
+import { QueryClientProvider, QueryClient } from "react-query";
 
 const queryClient = new QueryClient();
 

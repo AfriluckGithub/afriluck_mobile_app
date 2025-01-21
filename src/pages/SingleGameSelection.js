@@ -1,22 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
-  faBrain,
+  //faBrain,
   faTrash,
-  faTrashAlt,
-  faTrashArrowUp,
-  faCancel,
-  faX,
+  //faTrashAlt,
+  //faTrashArrowUp,
+  //faCancel,
+  //faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
+//import { CSSTransition } from "react-transition-group";
 import "./../output.css";
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 const SingleGameSelection = () => {
-  const [show, setShow] = useState(false);
-  const nodeRef = useRef(null);
-  const [betAmount, setBetAmount] = useState(0);
+  //const [show, setShow] = useState(false);
+  //const nodeRef = useRef(null);
+  //const [betAmount, setBetAmount] = useState(0);
   const [selectedGame, setSelectedGame] = useState([]);
 
   const games = [
@@ -30,14 +30,17 @@ const SingleGameSelection = () => {
   const numbers = localStorage.getItem('numbers');
   const amount = localStorage.getItem('betAmount');
   const game = localStorage.getItem('game_picked');
+
+  console.log(selectedGame);
+  console.log(setSelectedGame);
   
+  
+  // const selectGame = (id) => {
+  //   setSelectedGame(id);
+  // };
 
-  const selectGame = (id) => {
-    setSelectedGame(id);
-  };
-
-  const increment = () => setBetAmount(betAmount + 1);
-  const decrement = () => setBetAmount(betAmount > 0 ? betAmount - 1 : 0);
+  //const increment = () => setBetAmount(betAmount + 1);
+  //const decrement = () => setBetAmount(betAmount > 0 ? betAmount - 1 : 0);
 
   const navigate = useNavigate();
 

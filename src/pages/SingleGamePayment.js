@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faChevronLeft,
-  faChevronDown,
+  faChevronLeft
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
@@ -19,9 +18,9 @@ const SingleGamePayment = () => {
 
   const numbers = localStorage.getItem("numbers");
   const amount = localStorage.getItem("betAmount");
-  const game = localStorage.getItem("game");
+  //const game = localStorage.getItem("game");
   const mobile = localStorage.getItem("mobileNumber");
-  const token = localStorage.getItem("token");
+  //const token = localStorage.getItem("token");
   const game_type = localStorage.getItem("game_type");
   const game_picked = localStorage.getItem("game_picked");
 
@@ -71,7 +70,7 @@ const SingleGamePayment = () => {
     if (mobile !== "") {
       setMobileNumber(mobile);
     }
-  }, []);
+  }, [mobile]);
 
   const selectNetwork = (id) => {
     const selectedNetwork = networks.find((network) => network.id === id);
@@ -165,7 +164,7 @@ const SingleGamePayment = () => {
           <div className="mt-10">
             <p className="mb-5">Enter phone number</p>
             <div className="flex flex-row bg-gray-100 w-full h-14 rounded-lg p-4 items-center">
-              <img className="h-10 w-10 mr-5" src="ghflag.png" />
+              <img alt="gh_flag" className="h-10 w-10 mr-5" src="ghflag.png" />
               <input
                 value={mobileNumber}
                 onChange={handleInputChange}

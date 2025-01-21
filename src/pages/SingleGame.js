@@ -1,4 +1,4 @@
-import { useState, createContext } from "react";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ const SingleGame = () => {
   const [selectedGame, setSelectedGame] = useState([]);
 
   const [betAmount, setBetAmount] = useState(0);
-  const [numbers, setNumbers] = useState([]);
+  // const [numbers, setNumbers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
   const [disabled, setDisabled] = useState(true);
@@ -71,6 +71,7 @@ const SingleGame = () => {
     setError("");
     console.log(parts);
     console.log("Disabled => ", disabled);
+    console.log(valuesArray);
   };
 
   const handleAmountChange = (event) => {
@@ -88,7 +89,7 @@ const SingleGame = () => {
     const megaValidation =
       val.length >= 6 && type_picked === "Mega" && Number(betAmount) > 0;
       const directValidation =
-      (val.length == selectedGame) && type_picked === "Direct" && Number(betAmount) > 0;
+      (val.length === selectedGame) && type_picked === "Direct" && Number(betAmount) > 0;
     if (megaValidation || directValidation) {
       localStorage.setItem("numbers", inputValue);
       localStorage.setItem("betAmount", betAmount);
@@ -99,9 +100,9 @@ const SingleGame = () => {
     }
   };
 
-  const handlePaymentScreen = () => {
-    navigate("/single_game_payment");
-  };
+  // const handlePaymentScreen = () => {
+  //   navigate("/single_game_payment");
+  // };
   return (
     <>
       <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
@@ -202,7 +203,7 @@ const SingleGame = () => {
               onChange={handleInputChange}
               className="h-14 w-full border-2 p-5 border-gray-300 rounded-md"
               placeholder={`${
-                selectedGame == ""
+                selectedGame === ""
                   ? `Please select a number`
                   : `Please pick ${selectedGame} numbers between 1 to 57`
               }`}
