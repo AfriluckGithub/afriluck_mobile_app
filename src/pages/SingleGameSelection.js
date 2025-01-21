@@ -112,13 +112,13 @@ const SingleGameSelection = () => {
     // </>
     <>
       <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
-        <div className="h-16 w-full  rounded-lg">
+        <div className="h-16 w-full rounded-lg">
           <div className="flex flex-row w-auto ">
             <div onClick={back} className="">
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <div className="text-md font-Poppins w-full font-normal text-xl justify-center items-center">
-              Monday Special
+            <div className="text-xl font-Poppins w-full justify-center items-center">
+              <p className="flex justify-center items-center">Monday Special</p>
             </div>
           </div>
         </div>
