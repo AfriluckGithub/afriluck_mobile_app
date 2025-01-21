@@ -153,7 +153,7 @@ const SingleGame = () => {
                 ))}
             </div>
           ) : type_picked === "Perm" ? (
-            <div className="grid grid-cols-3 justify-center items-center">
+            <div className="flex flex-wrap justify-start items-start">
               {perm
                 .filter(
                   (game) =>
@@ -174,7 +174,7 @@ const SingleGame = () => {
                           : "0px solid gray",
                     }}
                   >
-                    <p className="text-black font-Poppins font-normal">
+                    <p className="flex text-black font-Poppins font-normal justify-center items-center w-full">
                       {game.game}
                     </p>
                   </div>
@@ -211,9 +211,9 @@ const SingleGame = () => {
           </div>
         </div>
       </div>
-      <footer className="flex items-center bg-white h-28 p-5 m-5 rounded-lg absolute bottom-0 left-0 right-0">
+      <footer className="flex flex-wrap items-center bg-white h-28 p-5 m-5 rounded-lg absolute bottom-0 left-0 right-0">
         <div className="flex flex-row gap-10 w-full bg-white rounded-lg p-5">
-          <div className="flex flex-col flex-grow">
+          <div className="flex flex-col flex-wrap">
             <p className="font-normal text-sm font-Poppins text-gray-400">
               Bet Amount
             </p>
