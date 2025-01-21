@@ -13,6 +13,7 @@ const SingleGamePayment = () => {
   const [network, setNetwork] = useState("");
   const [mobileNumber, setMobileNumber] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const numbers = localStorage.getItem("numbers");
   const amount = localStorage.getItem("betAmount");
@@ -21,6 +22,8 @@ const SingleGamePayment = () => {
   //const token = localStorage.getItem("token");
   const game_type = localStorage.getItem("game_type");
   const game_picked = localStorage.getItem("game_picked");
+
+  console.log(disabled);
   
 
   const placeBet = async () => {
@@ -40,15 +43,18 @@ const SingleGamePayment = () => {
       medium: "ussd",
     };
 
-    const headers = {
-      Authorization: `Bearer 21|2lw6aPgfmVjcldjbHgC6a3nBOG7gJk0Mv3BGVy0G1cbc0614`,
-      "Content-Type": "application/json",
-    };
+    console.log(requestBody);
+    
+
+    // const headers = {
+    //   Authorization: `Bearer 21|2lw6aPgfmVjcldjbHgC6a3nBOG7gJk0Mv3BGVy0G1cbc0614`,
+    //   "Content-Type": "application/json",
+    // };
     try {
       const res = await axios.post(
         "https://staging.afriluck.com/api/V1/app/place-bet",
         requestBody,
-        { headers }
+        // { headers }
       );
       console.log(res.data);
       if (res.status === 200) {

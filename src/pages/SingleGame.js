@@ -16,11 +16,23 @@ const SingleGame = () => {
   const [disabled, setDisabled] = useState(true);
   const [valuesArray, setValuesArray] = useState([]);
   const [val, setVal] = useState([]);
-
-  const increment = () => setBetAmount(betAmount + 1);
-  const decrement = () => setBetAmount(betAmount > 0 ? betAmount - 1 : 0);
+  
   const type = localStorage.getItem("game_type");
   const type_picked = localStorage.getItem("game_picked");
+
+  const increment = () => {
+    setBetAmount((prev) => {
+      if (type_picked === "Mega") {
+        const newAmount = prev + 5 > 20 ? 20 : prev + 5;
+        return newAmount === 15 ? newAmount + 5 : newAmount;
+      } else if (type_picked === "Direct") {
+        return prev + 1 > 20 ? 20 : prev + 1;
+      }
+      return prev;
+    });
+  };
+  const decrement = () => setBetAmount((prev) => (prev > 1 ? prev - 1 : prev));
+
   console.log("type => ", type);
   console.log("type picked => ", type_picked);
 
