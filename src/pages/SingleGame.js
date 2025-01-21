@@ -123,9 +123,7 @@ const SingleGame = () => {
       Number(betAmount) > 0;
 
     const bankerValidation =
-      val.length === 1 &&
-      type_picked === "Banker" &&
-      Number(betAmount) > 0;
+      val.length === 1 && type_picked === "Banker" && Number(betAmount) > 0;
     if (megaValidation || directValidation || bankerValidation) {
       localStorage.setItem("numbers", inputValue);
       localStorage.setItem("betAmount", betAmount);
@@ -233,7 +231,7 @@ const SingleGame = () => {
         <div className="bg-white h-28 w-full p-5 rounded-lg mb-10 mt-10">
           <p>Selections</p>
           <div>
-            <Input
+            {/* <Input
               type={"text"}
               placeholder={`${
                 selectedGame === ""
@@ -243,6 +241,17 @@ const SingleGame = () => {
               className="bg-[#F5F5F7] input-md"
               value={inputValue}
               onChange={handleInputChange}
+            /> */}
+            <input
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder={`${
+                selectedGame === ""
+                  ? `Please select a number`
+                  : `Please pick ${selectedGame} numbers between 1 to 57`
+              }`}
+              className="w-full max-w-md p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
             {error && <p className="text-rose-500">{error}</p>}
           </div>

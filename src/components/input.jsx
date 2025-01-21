@@ -31,7 +31,7 @@ const Input = ({
       </div>
       {icon && <img src={icon} alt="icon" className="w-6 h-6" />}
       <input
-        type={type === "password" && isPasswordVisible ? "text" : type} // Toggle password visibility
+        type={type === "password" && isPasswordVisible ? "text" : type}
         placeholder={placeholder}
         className={`grow`}
         value={value}
