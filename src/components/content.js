@@ -69,7 +69,7 @@ const Body = ({ title, image, subtitle }) => {
             <p></p>
           </div>
         </div>
-        <div className="flex flex-row justify-start items-center flex-grow">
+        <div className="flex flex-row justify-center items-center flex-grow">
           {subGames1.map((game) => (
             <Game image={game.imageUrl} title={subtitle} subtitle={game.name} type={"Anopa"}/>
           ))}
@@ -86,7 +86,7 @@ const Body = ({ title, image, subtitle }) => {
             <p></p>
           </div>
         </div>
-        <div className="flex flex-row justify-start items-center">
+        <div className="flex flex-row justify-center items-center">
           {subGames1.map((game) => (
             <Game image={game.imageUrl} title={subtitle} subtitle={game.name} type={"Midday"}/>
           ))}
@@ -103,7 +103,7 @@ const Body = ({ title, image, subtitle }) => {
             <p></p>
           </div>
         </div>
-        <div className="flex flex-wrap flex-row justify-start items-center">
+        <div className="flex flex-wrap flex-row justify-center items-center">
           {subGames.map((game) => (
             <Game image={game.imageUrl} title={subtitle} subtitle={game.name} type={"6/57"}/>
           ))}
