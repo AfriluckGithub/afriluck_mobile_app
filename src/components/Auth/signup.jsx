@@ -114,7 +114,7 @@ const SignupScreen = () => {
       </div>
       <Modal
         isOpen={open}
-        onSuccess={() => navigate("/")}
+        onSuccess={() => navigate("/login")}
         type={"success"}
         title="Success"
         subtitle="Verification code sent"
