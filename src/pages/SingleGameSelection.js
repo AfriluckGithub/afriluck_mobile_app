@@ -27,15 +27,14 @@ const SingleGameSelection = () => {
   //   { id: 5, game: "Direct 5" },
   // ];
 
-  const numbers = localStorage.getItem('numbers');
-  const amount = localStorage.getItem('betAmount');
-  const game = localStorage.getItem('game_picked');
+  const numbers = localStorage.getItem("numbers");
+  const amount = localStorage.getItem("betAmount");
+  const game = localStorage.getItem("game_picked");
   const type = localStorage.getItem("game_type");
 
   console.log(selectedGame);
   console.log(setSelectedGame);
-  
-  
+
   // const selectGame = (id) => {
   //   setSelectedGame(id);
   // };
@@ -55,19 +54,21 @@ const SingleGameSelection = () => {
 
   return (
     <>
-      <div className="flex flex-col bg-gray-100 w-full h-full p-5">
+      <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
         <div className="h-16 w-full rounded-lg">
           <div className="flex flex-row w-auto ">
             <div onClick={back} className="">
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
             <div className="text-xl font-Poppins w-full justify-center items-center">
-              <p className="flex justify-center items-center text-black">{type}</p>
+              <p className="flex justify-center items-center text-black">
+                {type}
+              </p>
             </div>
           </div>
         </div>
         {/* <div className="bg-white h-auto w-full p-5 rounded-lg flex flex-col justify-center items-center"> */}
-          {/* <div className="flex flex-col justify-start items-start w-full mb-5">
+        {/* <div className="flex flex-col justify-start items-start w-full mb-5">
             <span className="font-semibold text-md mb-5 font-Poppins">
               Draw 148
             </span>
@@ -75,7 +76,7 @@ const SingleGameSelection = () => {
               Mon 17/10/2024 10:00
             </span>
           </div> */}
-          {/* <div className="grid grid-cols-3 justify-center items-center">
+        {/* <div className="grid grid-cols-3 justify-center items-center">
             {games.map((game) => (
               <div
                 key={game.id}
@@ -95,32 +96,44 @@ const SingleGameSelection = () => {
             ))}
           </div> */}
         {/* </div> */}
-        <div className="bg-white h-screen w-full p-5 rounded-2xl">
+        <div className="bg-white h-auto w-full p-5 rounded-2xl">
           <p className="text-black font-normal mb-5">Selections</p>
           <div className="flex flex-col w-full">
-            <div style={{ backgroundColor: '#F6FCFD'}} className="flex flex-row w-full h-16 rounded-md p-5 items-center">
-                <p style={{backgroundColor: '#3DB6BC'}} className="text-white font-normal rounded-lg w-12 h-auto p-2 justify-center items-center mr-5">01</p>
-                <div className="flex flex-col w-full">
-                     <p className="w-full font-normal text-xl">{numbers}</p>
-                     <p className="text-gray-400">{`${game} | GHS ${amount}.00`}</p>
-                </div>
-                {/* <p className="flex rounded-full w-9 h-7 bg-gray-400 justify-center items-center"><FontAwesomeIcon icon={faX}  color="white"/></p> */}
+            <div
+              style={{ backgroundColor: "#F6FCFD" }}
+              className="flex flex-row w-full h-16 rounded-md p-5 items-center"
+            >
+              <p
+                style={{ backgroundColor: "#3DB6BC" }}
+                className="text-white font-normal rounded-lg w-12 h-auto p-2 justify-center items-center mr-5"
+              >
+                01
+              </p>
+              <div className="flex flex-col w-full">
+                <p className="w-full font-normal text-xl">{numbers}</p>
+                <p className="text-gray-400">{`${game} | GHS ${amount}.00`}</p>
+              </div>
+              {/* <p className="flex rounded-full w-9 h-7 bg-gray-400 justify-center items-center"><FontAwesomeIcon icon={faX}  color="white"/></p> */}
             </div>
-            <div style={{ backgroundColor: '#FFEFEF'}} className="flex w-auto h-16 mt-5 rounded-md justify-center items-center">
-                <FontAwesomeIcon icon={faTrash}  color="red"/> <p className="ml-2 text-red font-semibold">Clear All</p>
+            <div
+              style={{ backgroundColor: "#FFEFEF" }}
+              className="flex w-auto h-16 mt-5 rounded-md justify-center items-center"
+            >
+              <FontAwesomeIcon icon={faTrash} color="red" />{" "}
+              <p className="ml-2 text-red font-semibold">Clear All</p>
             </div>
           </div>
         </div>
-      </div>
-      <div className="flex flex-row w-full bg-gray-100">
-        <button
-        style={{backgroundColor: '#156064'}}
-          onClick={handlePaymentScreen}
-          className="text-white font-bold rounded-lg w-full h-16 mr-5 ml-5 mb-5"
-        >
-          Place Bet
-        </button>
+        <div className="flex flex-row w-full h-auto bg-gray-100 absolute bottom-0 left-0 right-0 mt-10">
+          <button
+            style={{ backgroundColor: "#156064" }}
+            onClick={handlePaymentScreen}
+            className="text-white font-bold rounded-lg w-full h-16 mb-5 mr-5 ml-5"
+          >
+            Place Bet
+          </button>
         </div>
+      </div>
     </>
   );
 };
