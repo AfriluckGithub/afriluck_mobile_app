@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,7 +19,7 @@ const SingleGamePayment = () => {
   const numbers = localStorage.getItem("numbers");
   const amount = localStorage.getItem("betAmount");
   //const game = localStorage.getItem("game");
-  const mobile = localStorage.getItem("mobileNumber");
+  //const mobile = localStorage.getItem("mobileNumber");
   //const token = localStorage.getItem("token");
   const game_type = localStorage.getItem("game_type");
   const game_picked = localStorage.getItem("game_picked");
