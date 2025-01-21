@@ -214,7 +214,7 @@ const SingleGame = () => {
       </div>
       <div className="flex flex-wrap items-center bg-white h-auto rounded-lg">
         <div className="flex flex-row w-full h-auto bg-white rounded-lg p-5">
-          <div className="flex justify-start items-start flex-col flex-wrap mr-5">
+          <div className="flex justify-start items-start flex-col flex-wrap mr-5 w-full">
             <p className="font-normal text-sm font-Poppins text-gray-400">
               Bet Amount
             </p>
@@ -240,7 +240,7 @@ const SingleGame = () => {
               </button>
             </p>
           </div>
-          <div className="flex flex-wrap flex-col justify-end">
+          <div className="flex flex-wrap flex-col justify-end w-full">
             <p className="font-normal h-auto w-auto text-sm text-gray-400">Total Amount</p>
             <p className="font-bold h-auto w-auto text-xl">GHS {`${betAmount}.00`}</p>
           </div>
