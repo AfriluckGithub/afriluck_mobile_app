@@ -112,12 +112,12 @@ const SingleGameSelection = () => {
     // </>
     <>
       <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
-        <div className="bg-gray-100 h-16 w-full p-5 rounded-lg">
-          <div className="flex flex-row gap-10 items-center">
+        <div className="h-16 w-full  rounded-lg">
+          <div className="flex flex-row w-auto ">
             <div onClick={back} className="">
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <div className="text-md font-Poppins font-normal text-xl">
+            <div className="text-md font-Poppins w-full font-normal text-xl justify-center items-center">
               Monday Special
             </div>
           </div>
@@ -151,7 +151,7 @@ const SingleGameSelection = () => {
             ))}
           </div> */}
         {/* </div> */}
-        <div className="bg-white h-auto w-full p-5 rounded-lg mb-10 mt-10">
+        <div className="bg-white h-auto w-full p-5 rounded-2xl mb-10">
           <p className="text-black font-normal mb-5">Selections</p>
           <div className="flex flex-col w-full">
             <div style={{ backgroundColor: '#F6FCFD'}} className="flex flex-row w-full h-16 rounded-md p-5 items-center">
@@ -168,11 +168,11 @@ const SingleGameSelection = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-row w-full rounded-lg">
+      <div className="flex flex-row w-full rounded-lg bg-gray-100">
         <button
         style={{backgroundColor: '#156064'}}
           onClick={handlePaymentScreen}
-          className="text-white font-bold rounded-lg w-full h-16"
+          className="text-white font-bold rounded-lg w-full h-16 mr-5 ml-5 mb-5"
         >
           Place Bet
         </button>

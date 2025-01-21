@@ -201,7 +201,7 @@ const SingleGame = () => {
             <input
               value={inputValue}
               onChange={handleInputChange}
-              className="h-14 w-full border-2 p-5 border-gray-300 rounded-md"
+              className="h-14 w-full border-2 p-5 border-gray-300 rounded-md placeholder:text-sm"
               placeholder={`${
                 selectedGame === ""
                   ? `Please select a number`
