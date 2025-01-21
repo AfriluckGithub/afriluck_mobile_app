@@ -125,7 +125,7 @@ const SingleGame = () => {
             </span> */}
           </div>
           {type_picked === "Direct" ? (
-            <div className="grid grid-cols-3 justify-center items-center">
+            <div className="flex flex-wrap justify-start items-start">
               {direct
                 .filter(
                   (game) =>
@@ -137,7 +137,7 @@ const SingleGame = () => {
                 .map((game) => (
                   <div
                     key={game.id}
-                    className="flex bg-gray-100 h-32 w-32 justify-center items-center m-1 rounded-md"
+                    className="flex flex-wrap bg-gray-100 h-32 w-32 justify-center items-center m-1 rounded-md"
                     onClick={() => selectGame(game.id)}
                     style={{
                       border:
@@ -146,7 +146,7 @@ const SingleGame = () => {
                           : "0px solid gray",
                     }}
                   >
-                    <p className="text-black font-Poppins font-normal">
+                    <p className="flex text-black font-Poppins font-normal w-full justify-center items-center">
                       {game.game}
                     </p>
                   </div>
