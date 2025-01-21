@@ -55,7 +55,7 @@ const SingleGameSelection = () => {
 
   return (
     <>
-      <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
+      <div className="flex flex-col bg-gray-100 w-full h-full p-5">
         <div className="h-16 w-full rounded-lg">
           <div className="flex flex-row w-auto ">
             <div onClick={back} className="">

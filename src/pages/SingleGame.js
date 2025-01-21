@@ -141,7 +141,7 @@ const SingleGame = () => {
   // };
   return (
     <>
-      <div className="flex flex-col bg-[#F7F7F7] w-full h-screen p-5">
+      <div className="flex flex-col bg-[#F7F7F7] w-full h-full p-5">
         <div className="bg-[#F7F7F7] h-16x rounded-lg mb-5">
           <div className="flex flex-row w-full items-center ml-2">
             <div onClick={back} className="w-auto">
@@ -228,7 +228,7 @@ const SingleGame = () => {
             </div>
           )}
         </div>
-        <div className="bg-white h-28 w-full p-5 rounded-lg mb-10 mt-10">
+        <div className="bg-white h-28 w-full p-5 rounded-lg mt-10">
           <p>Selections</p>
           <div>
             <Input
@@ -254,12 +254,12 @@ const SingleGame = () => {
               }`}
               className="w-full max-w-md p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             /> */}
-            {error && <p className="text-rose-500">{error}</p>}
+            {error && <p className="text-rose-500 h-auto w-full">{error}</p>}
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap items-center h-auto  bg-slate-100">
-        <div className="flex flex-row h-auto bg-white rounded-lg p-5 absolute bottom-0 left-0 right-0 m-5">
+      <div className="flex flex-wrap items-center h-auto bg-slate-100 relative bottom-0 left-0 right-0">
+        <div className="flex flex-row w-full h-auto bg-white rounded-lg p-5 m-5">
           <div className="flex justify-start items-start flex-col flex-wrap mr-5 w-full">
             <p className="font-normal text-sm font-Poppins text-gray-400">
               Bet Amount
@@ -298,7 +298,7 @@ const SingleGame = () => {
         <button
           disabled={disabled}
           onClick={placeBet}
-          className="text-gray-200 font-bold rounded-lg w-full h-16 bg-primary ml-5 mr-5 mb-5"
+          className="text-gray-200 font-bold rounded-lg w-full h-16 bg-primary ml-5 mr-5 mb-10"
         >
           Confirm
         </button>
