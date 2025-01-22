@@ -43,6 +43,20 @@ const SingleGamePayment = () => {
       setLoading(false);
       return;
     }
+
+    if(mobileNumber === "") {
+      toast.error("Kindly provide a valid mobile number", {
+        position: "top",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
+      setLoading(false);
+      return;
+    }
     const formattedNumber = `233${Number(mobileNumber)}`;
     const requestBody = {
       msisdn: formattedNumber,
