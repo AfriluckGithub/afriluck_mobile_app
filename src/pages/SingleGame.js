@@ -28,7 +28,7 @@ const SingleGame = () => {
       } else if (type_picked === "Direct") {
         return prev + 1 > 20 ? 20 : prev + 1;
       } else if (type_picked === "Banker") {
-        return prev + 52 > 200000000 ? 200000000 : prev + 52;
+        return prev + 56 > 200000000 ? 200000000 : prev + 56;
       }
       return prev;
     });
@@ -44,7 +44,7 @@ const SingleGame = () => {
         const newAmount = prev - 1 < 1 ? 1 : prev - 1;
         return newAmount;
       } else if (type_picked === "Banker") {
-        return prev - 52 > 200000000 ? 200000000 : prev - 52;
+        return prev - 56 > 200000000 ? 200000000 : prev - 56;
       }
       return prev;
     });
@@ -260,7 +260,7 @@ const SingleGame = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap items-center h-auto bg-slate-100 relative bottom-0 left-0 right-0">
+      <div className="flex flex-wrap items-center h-auto bg-[#F7F7F7] relative bottom-0 left-0 right-0">
         <div className="flex flex-row w-full h-auto bg-white rounded-lg p-5 m-5">
           <div className="flex justify-start items-start flex-col flex-wrap mr-5 w-full">
             <p className="font-normal text-sm font-Poppins text-gray-400">
