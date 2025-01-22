@@ -4,7 +4,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
 import Input from "../components/input";
-import axios from "axios";
+//import axios from "axios";
 
 const SingleGame = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const SingleGame = () => {
   const [disabled, setDisabled] = useState(true);
   const [valuesArray, setValuesArray] = useState([]);
   const [val, setVal] = useState([]);
-  const [total, setTotal] = useState(0);
+  //const [total, setTotal] = useState(0);
 
   const type = localStorage.getItem("game_type");
   const type_picked = localStorage.getItem("game_picked");
