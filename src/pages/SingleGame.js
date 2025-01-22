@@ -4,6 +4,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
 import Input from "../components/input";
+import axios from "axios";
 
 const SingleGame = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const SingleGame = () => {
   const [disabled, setDisabled] = useState(true);
   const [valuesArray, setValuesArray] = useState([]);
   const [val, setVal] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const type = localStorage.getItem("game_type");
   const type_picked = localStorage.getItem("game_picked");
@@ -29,12 +31,15 @@ const SingleGame = () => {
         return prev + 1 > 20 ? 20 : prev + 1;
       } else if (type_picked === "Banker") {
         return prev + 56 > 200000000 ? 200000000 : prev + 56;
+      } else if (type_picked === "Perm") {
+        const amt = prev + 1 > 20 ? 20 : prev + 1;
+        return amt;
       }
       return prev;
     });
   };
 
-  const decrement = (type) => {
+  const decrement = async (type) => {
     setBetAmount((prev) => {
       if (type_picked === "Mega") {
         const newAmount = prev - 5 < 1 ? 1 : prev - 5;
@@ -44,6 +49,9 @@ const SingleGame = () => {
         return newAmount;
       } else if (type_picked === "Banker") {
         return prev - 56 > 200000000 ? 200000000 : prev - 56;
+      } else if (type_picked === "Perm") {
+        const newAmount = prev - 1 < 1 ? 1 : prev - 1;
+        return newAmount;
       }
       return prev;
     });
@@ -51,6 +59,13 @@ const SingleGame = () => {
 
   console.log("type => ", type);
   console.log("type picked => ", type_picked);
+
+  const ranges = [
+    { min: 3, max: 15, game: 1 },
+    { min: 4, max: 10, game: 2 },
+    { min: 5, max: 8, game: 3 },
+    { min: 7, max: 8, game: 5 },
+  ];
 
   const direct = [
     { id: 1, game: "Direct 1" },
@@ -110,22 +125,36 @@ const SingleGame = () => {
     navigate("/");
   };
 
+  function isValidValue(value) {
+    return ranges.some((range) => value >= range.min && value <= range.max && selectedGame === range.game);
+  }
+
+  console.log("SELECTED GAME: ", selectedGame);
+
   const placeBet = () => {
     console.log("selected game => ", selectedGame);
     console.log("Val => ", val.length);
-    console.log(val.some((item) => Number(item) > 57));
     
+    const permValidation = isValidValue(val.length);
 
     const megaValidation =
-      val.length >= 6 && type_picked === "Mega" && Number(betAmount) > 0 && !val.some((item) => Number(item) > 57);
+      val.length >= 6 &&
+      type_picked === "Mega" &&
+      Number(betAmount) > 0 &&
+      !val.some((item) => Number(item) > 57);
     const directValidation =
       val.length === selectedGame &&
       type_picked === "Direct" &&
-      Number(betAmount) > 0 && !val.some((item) => Number(item) > 57);
+      Number(betAmount) > 0 &&
+      !val.some((item) => Number(item) > 57);
 
     const bankerValidation =
-      val.length === 1 && type_picked === "Banker" && Number(betAmount) > 0 && !val.some((item) => Number(item) > 57);
-    if (megaValidation || directValidation || bankerValidation) {
+      val.length === 1 &&
+      type_picked === "Banker" &&
+      Number(betAmount) > 0 &&
+      !val.some((item) => Number(item) > 57);
+
+    if (megaValidation || directValidation || bankerValidation|| permValidation) {
       localStorage.setItem("numbers", inputValue);
       localStorage.setItem("betAmount", betAmount);
       localStorage.setItem("game", selectedGame);
@@ -149,7 +178,9 @@ const SingleGame = () => {
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
             <div className="flex flex-wrap justify-center items-center w-full font-Poppins text-xl">
-              <p className="flex justify-start items-start text-black">{type}</p>
+              <p className="flex justify-start items-start text-black">
+                {type}
+              </p>
             </div>
           </div>
         </div>

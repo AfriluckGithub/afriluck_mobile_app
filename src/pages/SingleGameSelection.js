@@ -11,8 +11,9 @@ import {
 import { useNavigate } from "react-router-dom";
 //import { CSSTransition } from "react-transition-group";
 import "./../output.css";
-import { useState } from "react";
+import {useState } from "react";
 import Modal from "../components/modal";
+import axios from "axios";
 
 const SingleGameSelection = () => {
   //const [show, setShow] = useState(false);
@@ -20,14 +21,7 @@ const SingleGameSelection = () => {
   //const [betAmount, setBetAmount] = useState(0);
   const [selectedGame, setSelectedGame] = useState([]);
   const [open, setOpen] = useState(false);
-
-  // const games = [
-  //   { id: 1, game: "Direct 1" },
-  //   { id: 2, game: "Direct 2" },
-  //   { id: 3, game: "Direct 3" },
-  //   { id: 4, game: "Direct 4" },
-  //   { id: 5, game: "Direct 5" },
-  // ];
+  //const [total, setTotal] = useState(0);
 
   const numbers = localStorage.getItem("numbers");
   const amount = localStorage.getItem("betAmount");
@@ -36,6 +30,26 @@ const SingleGameSelection = () => {
 
   console.log(selectedGame);
   console.log(setSelectedGame);
+
+  const requestBody = {
+    amount: amount,
+    selected_numbers: numbers,
+    bet_type_code: 2,
+    bet_type: "perm",
+  };
+  console.log(requestBody);
+  axios
+    .post("https://staging.afriluck.com/api/V1/app/bet-amount", requestBody)
+    .then((data) => {
+      //localStorage.setItem("betAmount", data.total);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  if (game === "Perm") {
+    //console.log("TOTAL: ", total);
+  }
 
   // const selectGame = (id) => {
   //   setSelectedGame(id);

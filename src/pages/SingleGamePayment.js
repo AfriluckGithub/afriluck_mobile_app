@@ -23,12 +23,26 @@ const SingleGamePayment = () => {
   //const token = localStorage.getItem("token");
   const game_type = localStorage.getItem("game_type");
   const game_picked = localStorage.getItem("game_picked");
-
+ 
   console.log(disabled);
 
   const placeBet = async () => {
     setLoading(true);
     setDisabled(true);
+
+    if(network === "") {
+      toast.error("Kindly provide a channel", {
+        position: "top",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
+      setLoading(false);
+      return;
+    }
     const formattedNumber = `233${Number(mobileNumber)}`;
     const requestBody = {
       msisdn: formattedNumber,
@@ -59,16 +73,24 @@ const SingleGamePayment = () => {
       }
       console.error("Error:", res);
     } catch (error) {
-      const errorMessage = error.response.data.error;
-      console.error("Error:", errorMessage);
+      try {
+        const errorMessage = error.response.data.error;
+        //const channelMessage = errorMessage.channel;
+        console.error("Error:", errorMessage);
 
-      toast.error(errorMessage, {position: "top", 
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "colored"});
+        toast.error(errorMessage, {
+          position: "top",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "colored",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
       setLoading(false);
       setDisabled(true);
     }
@@ -208,7 +230,7 @@ const SingleGamePayment = () => {
               textColor=""
             />
           ) : (
-            ""
+            <p></p>
           )}
           <ToastContainer />
         </div>
