@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./../output.css";
 import { OrbitProgress } from "react-loading-indicators";
 import Input from "../components/input";
+import { ToastContainer, toast } from "react-toastify";
 
 const SingleGamePayment = () => {
   const navigate = useNavigate();
@@ -24,7 +25,6 @@ const SingleGamePayment = () => {
   const game_picked = localStorage.getItem("game_picked");
 
   console.log(disabled);
-  
 
   const placeBet = async () => {
     setLoading(true);
@@ -44,16 +44,11 @@ const SingleGamePayment = () => {
     };
 
     console.log(requestBody);
-    
 
-    // const headers = {
-    //   Authorization: `Bearer 21|2lw6aPgfmVjcldjbHgC6a3nBOG7gJk0Mv3BGVy0G1cbc0614`,
-    //   "Content-Type": "application/json",
-    // };
     try {
       const res = await axios.post(
         "https://staging.afriluck.com/api/V1/app/place-bet",
-        requestBody,
+        requestBody
         // { headers }
       );
       console.log(res.data);
@@ -62,8 +57,18 @@ const SingleGamePayment = () => {
         setDisabled(true);
         moveToCheckPaymentStatuds();
       }
+      console.error("Error:", res);
     } catch (error) {
-      console.error("Error:", error);
+      const errorMessage = error.response.data.error;
+      console.error("Error:", errorMessage);
+
+      toast.error(errorMessage, {position: "top", 
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored"});
       setLoading(false);
       setDisabled(true);
     }
@@ -124,7 +129,9 @@ const SingleGamePayment = () => {
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
             <div className="font-normal w-full text-xl font-Poppins justify-center items-center">
-              <p className="flex justify-center items-center text-black">Payment</p>
+              <p className="flex justify-center items-center text-black">
+                Payment
+              </p>
             </div>
           </div>
         </div>
@@ -180,7 +187,8 @@ const SingleGamePayment = () => {
           </div>
           <div className="mt-10">
             <p className="mb-5">Enter phone number</p>
-            <div><Input
+            <div>
+              <Input
                 type={"number"}
                 placeholder={"020 000 0000"}
                 icon={"ghana.svg"}
@@ -188,10 +196,10 @@ const SingleGamePayment = () => {
                 value={mobileNumber}
                 onChange={handleInputChange}
               />
-              </div>
+            </div>
           </div>
         </div>
-        <div className="flex w-full h-auto justify-center items-center">
+        <div className="flex w-full h-auto justify-center items-center m-5">
           {loading ? (
             <OrbitProgress
               color="#000"
@@ -202,6 +210,7 @@ const SingleGamePayment = () => {
           ) : (
             ""
           )}
+          <ToastContainer />
         </div>
       </div>
       <div className="bg-gray-100 flex flex-row w-auto absolute bottom-auto left-0 right-0">
