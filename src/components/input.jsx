@@ -24,7 +24,7 @@ const Input = ({
 
   return (
     <label
-      className={`input input-bordered flex flex-row items-center gap-2 ${className}`}
+      className={`input input-bordered flex items-center gap-2 ${className}`}
     >
       <div className="label">
         <span className="label-text">{label}</span>
@@ -34,7 +34,7 @@ const Input = ({
         tabIndex="-1"
         type={type === "password" && isPasswordVisible ? "text" : type}
         placeholder={placeholder}
-        //lassName={`grow`}
+        className={`grow`}
         value={value}
         onChange={onChange}
       />
