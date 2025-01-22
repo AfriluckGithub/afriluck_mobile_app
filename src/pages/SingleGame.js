@@ -33,7 +33,6 @@ const SingleGame = () => {
       return prev;
     });
   };
-  //const decrement = () => setBetAmount((prev) => (prev > 1 ? prev - 1 : prev));
 
   const decrement = (type) => {
     setBetAmount((prev) => {
