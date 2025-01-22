@@ -5,3 +5,8 @@
   NODE_VERSION = "20"
   HUGO_VERSION = "0.117.0"
   HUGO_ENV = "production"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

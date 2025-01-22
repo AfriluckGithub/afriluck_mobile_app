@@ -24,12 +24,12 @@ const Input = ({
 
   return (
     <label
-      className={`input input-bordered flex items-center gap-2 ${className}`}
+      className={`input input-bordered flex flex-row items-center gap-2 ${className}`}
     >
       <div className="label">
         <span className="label-text">{label}</span>
       </div>
-      {icon && <img src={icon} alt="icon" className="w-6 h-6" />}
+      {icon && <img src={icon} alt="icon" className="flex justify-end items-end w-6 h-6" />}
       <input
         tabIndex="-1"
         type={type === "password" && isPasswordVisible ? "text" : type}
