@@ -12,7 +12,7 @@ const SingleGamePayment = () => {
   const navigate = useNavigate();
   const [selectedNetwork, setSelectedNetwork] = useState([]);
   const [network, setNetwork] = useState("");
-  const [mobileNumber, setMobileNumber] = useState([]);
+  const [mobileNumber, setMobileNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -23,40 +23,37 @@ const SingleGamePayment = () => {
   //const token = localStorage.getItem("token");
   const game_type = localStorage.getItem("game_type");
   const game_picked = localStorage.getItem("game_picked");
- 
+
   console.log(disabled);
 
   const placeBet = async () => {
     setLoading(true);
     setDisabled(true);
 
-    if(network === "") {
-      toast.error("Kindly provide a channel", {
-        position: "top",
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "colored",
-      });
+    console.log("Mobile: ", mobileNumber);
+    
+
+    if (network === "" || mobileNumber === "") {
+      toast.error(
+        network === ""
+          ? "Kindly provide a channel"
+          : mobileNumber === ""
+          ? "Kindly provide a valid mobile number"
+          : "Kindly provide a channel",
+        {
+          position: "top",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          theme: "colored",
+        }
+      );
       setLoading(false);
       return;
     }
 
-    if(mobileNumber === "") {
-      toast.error("Kindly provide a valid mobile number", {
-        position: "top",
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        theme: "colored",
-      });
-      setLoading(false);
-      return;
-    }
     const formattedNumber = `233${Number(mobileNumber)}`;
     const requestBody = {
       msisdn: formattedNumber,
