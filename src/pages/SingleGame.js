@@ -42,8 +42,10 @@ const SingleGame = () => {
   const decrement = async (type) => {
     setBetAmount((prev) => {
       if (type_picked === "Mega") {
-        const newAmount = prev - 5 < 1 ? 1 : prev - 5;
-        return newAmount;
+        const newAmount = prev - 5 > 20 ? 20 : prev - 5;
+        return newAmount === 15
+          ? Math.max(newAmount - 5, 0)
+          : Math.max(newAmount, 0);
       } else if (type_picked === "Direct") {
         const newAmount = prev - 1 < 1 ? 1 : prev - 1;
         return newAmount;
@@ -88,6 +90,10 @@ const SingleGame = () => {
     setSelectedGame(id);
   };
 
+  // const handleInputAmountChange = (event) => {
+  //   setBetAmount(event.target.value);
+  // };
+
   const handleInputChange = (e) => {
     const value = e.target.value;
     const parts = value
@@ -126,7 +132,10 @@ const SingleGame = () => {
   };
 
   function isValidValue(value) {
-    return ranges.some((range) => value >= range.min && value <= range.max && selectedGame === range.game);
+    return ranges.some(
+      (range) =>
+        value >= range.min && value <= range.max && selectedGame === range.game
+    );
   }
 
   console.log("SELECTED GAME: ", selectedGame);
@@ -134,7 +143,7 @@ const SingleGame = () => {
   const placeBet = () => {
     console.log("selected game => ", selectedGame);
     console.log("Val => ", val.length);
-    
+
     const permValidation = isValidValue(val.length);
 
     const megaValidation =
@@ -154,7 +163,12 @@ const SingleGame = () => {
       Number(betAmount) > 0 &&
       !val.some((item) => Number(item) > 57);
 
-    if (megaValidation || directValidation || bankerValidation|| permValidation) {
+    if (
+      megaValidation ||
+      directValidation ||
+      bankerValidation ||
+      permValidation
+    ) {
       localStorage.setItem("numbers", inputValue);
       localStorage.setItem("betAmount", betAmount);
       localStorage.setItem("game", selectedGame);
@@ -323,7 +337,15 @@ const SingleGame = () => {
               Total Amount
             </p>
             <p className="font-bold h-auto w-auto text-xl text-black">
-              GHS {`${betAmount}.00`}
+              <p>
+                {" "}
+                GHS{" "}
+                <input
+                  onChange={handleAmountChange}
+                  className="w-16"
+                  value={` ${betAmount}.00`}
+                />
+              </p>
             </p>
           </div>
         </div>
