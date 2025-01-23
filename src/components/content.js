@@ -2,7 +2,6 @@ import "../output.css";
 
 import Game from "../components/game";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { useState } from "react";
 
 const queryClient = new QueryClient();
 
