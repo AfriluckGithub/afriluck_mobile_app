@@ -4,6 +4,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
 import Input from "../components/input";
+import Button from "../components/button";
 //import axios from "axios";
 
 const SingleGame = () => {
@@ -366,13 +367,14 @@ const SingleGame = () => {
             </p>
           </div>
         </div>
-        <button
-          disabled={disabled}
+        <div className="flex flex-wrap justify-center items-center w-full">
+        <Button
+          label={"Confirm"}
+          disabled={!betAmount || !inputValue}
           onClick={placeBet}
-          className="text-gray-200 font-bold rounded-lg w-full h-16 bg-primary ml-5 mr-5 mb-10"
-        >
-          Confirm
-        </button>
+          className="font-bold rounded-lg w-96 h-16 bg-primary text-white"
+        />
+        </div>
       </div>
     </>
   );

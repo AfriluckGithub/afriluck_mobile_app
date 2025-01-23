@@ -4,16 +4,42 @@ import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import axios from "axios";
 
 const VerifyCodeScreen = () => {
   const [code, setCode] = useState("");
   const [open, setOpen] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { phoneNumber, source } = location.state || {};
   const openModal = () => {
     setOpen(true);
   };
+
+  const verifyOtp = async () => {
+    const requestBody = {
+      otp: code
+    }
+    try {
+      const res = await axios.post("https://staging.afriluck.com/api/V1/app/verify-otp", requestBody, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        }
+      });
+      const response = res.data;
+      console.log(response);
+      
+      const status = res.status;
+      if (status === 200) {
+          navigate("/login");
+      }
+    } catch (error) {
+      setError("OTP verification error");
+      console.log(error);
+    }
+  }
 
   const handleVerificationSuccess = () => {
     console.log("Source:", source);
@@ -61,7 +87,7 @@ const VerifyCodeScreen = () => {
               label={"Verify Code"}
               className="bg-secondary text-primary"
               disabled={!code}
-              onClick={openModal}
+              onClick={verifyOtp}
             />
           </div>
         </div>
