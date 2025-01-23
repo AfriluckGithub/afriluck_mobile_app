@@ -319,18 +319,6 @@ const SingleGame = () => {
               value={inputValue}
               onChange={handleInputChange}
             />
-            {/* <input
-              type="text"
-              value={inputValue}
-              tabIndex={-1}
-              onChange={handleInputChange}
-              placeholder={`${
-                selectedGame === ""
-                  ? `Please select a number`
-                  : `Please pick ${selectedGame} numbers between 1 to 57`
-              }`}
-              className="w-full max-w-md p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            /> */}
             {error && (
               <p className="text-rose-500 h-auto w-full text-sm">{error}</p>
             )}
