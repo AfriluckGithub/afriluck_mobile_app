@@ -5,8 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 
 const Auth = () => {
   const { 
-    isLoggedIn,
-    toggleLogin 
+    isLoggedIn 
   } = useAuth();
 
   console.log("Logged in => ", isLoggedIn);
