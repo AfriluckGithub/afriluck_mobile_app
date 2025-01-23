@@ -16,9 +16,6 @@ const SingleGamePayment = () => {
   const [network, setNetwork] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [loading, setLoading] = useState(false);
-  const [
-    //disabled, 
-    setDisabled] = useState(false);
 
   const numbers = localStorage.getItem("numbers");
   const amount = localStorage.getItem("betAmount");
@@ -32,11 +29,8 @@ const SingleGamePayment = () => {
 
   const placeBet = async () => {
     setLoading(true);
-    setDisabled(true);
 
-    console.log("Mobile: ", mobileNumber);
-
-    if (network === "" || (mobileNumber === "" && selectedNetwork !== 4)) {
+    if ((network === "") || (mobileNumber === "" && selectedNetwork !== 4)) {
       toast.error(
         network === ""
           ? "Kindly provide a channel"
@@ -73,7 +67,7 @@ const SingleGamePayment = () => {
       medium: "ussd",
     };
 
-    console.log(requestBody);
+    console.log("Request Body => ", requestBody);
 
     try {
       const res = await axios.post(
@@ -84,7 +78,6 @@ const SingleGamePayment = () => {
       console.log(res.data);
       if (res.status === 200) {
         setLoading(false);
-        setDisabled(true);
         moveToCheckPaymentStatuds();
       }
       console.error("Error:", res);
@@ -108,7 +101,6 @@ const SingleGamePayment = () => {
       }
 
       setLoading(false);
-      setDisabled(true);
     }
   };
 
