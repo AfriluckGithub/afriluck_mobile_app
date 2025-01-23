@@ -8,6 +8,7 @@ const Logout = () => {
   const dispatch = useDispatch();
 
   const openModal = () => {
+    dispatch(logout());
     setOpen(true);
   };
 
