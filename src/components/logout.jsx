@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import Modal from "./modal";
-import { useAuth } from "../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/userSlice";
 
 const Logout = () => {
-  const { isLoggedIn, toggleLogout } = useAuth(); // Use context for login state and logout function
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const openModal = () => {
     setOpen(true);
   };
 
   const closeModal = () => {
-    localStorage.clear();
+    dispatch(logout());
     window.location.reload();
     setOpen(false);
   };
 
   const handleLogout = () => {
-    localStorage.clear();
+    dispatch(logout());
     window.location.reload();
     if (isLoggedIn) {
       toggleLogout();

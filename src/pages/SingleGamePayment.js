@@ -8,6 +8,7 @@ import { OrbitProgress } from "react-loading-indicators";
 import Input from "../components/input";
 import { ToastContainer, toast } from "react-toastify";
 import Button from "../components/button";
+import { useAuth } from "../context/AuthContext";
 
 const SingleGamePayment = () => {
   const navigate = useNavigate();
@@ -24,8 +25,14 @@ const SingleGamePayment = () => {
   //const token = localStorage.getItem("token");
   const game_type = localStorage.getItem("game_type");
   const game_picked = localStorage.getItem("game_picked");
+  
 
   console.log(disabled);
+    const { 
+      authUser,
+      isLoggedIn
+    } = useAuth();
+
 
   const placeBet = async () => {
     setLoading(true);
@@ -245,6 +252,7 @@ const SingleGamePayment = () => {
             <p></p>
           )}
           <ToastContainer />
+          <p>{isLoggedIn? "Yes":"no"}</p>
         </div>
       </div>
       <div className="bg-gray-100 flex flex-row w-full absolute bottom-auto left-0 right-0 justify-center items-center">

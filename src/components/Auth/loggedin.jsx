@@ -2,14 +2,19 @@ import React from "react";
 import Button from "../button";
 import { useNavigate } from "react-router-dom";
 import { useAvatar } from "../../context/AvatarContext";
-import { useAuth } from "../../context/AuthContext";
+import { useSelector } from "react-redux";
 const LoggedIn = () => {
   const { avatar } = useAvatar();
   const navigate = useNavigate();
-  const {authUser } = useAuth();
-  const username = `${authUser.first_name} ${authUser.last_name}`;
-  const phoneNumber = authUser.phone_number === null? "0202020202": authUser.phone_number;
-  
+
+  const user = useSelector((state) => state.user.user);
+
+  console.log(user);
+
+  const username = `${user.first_name} ${user.last_name}`;
+  const phoneNumber =
+  user.phone_number === null ? "0202020202" : user.phone_number;
+
   return (
     <div className="flex flex-col w-full space-y-6   py-4">
       <div className="flex flex-row space-x-4 p-4 w-full  items-center bg-white rounded-xl">

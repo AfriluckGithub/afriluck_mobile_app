@@ -2,20 +2,15 @@ import React from "react";
 import Notlogged from "./notlogged";
 import LoggedIn from "./loggedin";
 import { useAuth } from "../../context/AuthContext";
+import { useSelector } from "react-redux";
 
 const Auth = () => {
-  const { 
-    isLoggedIn 
-  } = useAuth();
 
-  console.log("Logged in => ", isLoggedIn);
-
-  // localStorage.setItem("loggedIn", isLoggedIn);
+  const user = useSelector((state) => state.user.user);
   
   return (
     <div>
-      {isLoggedIn ? <LoggedIn /> : <Notlogged />}
-      {/* { <button onClick={toggleLogin}>{isLoggedIn ? "Log Out" : "Log In"}</button>} */}
+      {user!=null? <LoggedIn /> : <Notlogged />}
     </div>
   );
 };

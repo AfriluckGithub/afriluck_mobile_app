@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
+import { useDispatch } from "react-redux";
+import { login, logout } from "../../store/userSlice";
 
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -19,6 +21,7 @@ const LoginScreen = () => {
   const navigate = useNavigate();
 
   const { setCurrentUser, toggleLogin } = useAuth();
+  const dispatch = useDispatch();
 
   const openModal = async () => {
     setLoading(true);
@@ -39,6 +42,7 @@ const LoginScreen = () => {
       console.log(res);
       setLoading(false);
       if (res.status === 200) {
+        dispatch(login(res.data.success))
         setCurrentUser(res.data.success);
         handleSuccess();
       }

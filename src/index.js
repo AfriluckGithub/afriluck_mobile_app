@@ -6,14 +6,22 @@ import reportWebVitals from "./reportWebVitals";
 import { router } from "./route";
 import { AuthProvider } from "./context/AuthContext";
 import { AvatarProvider } from "./context/AvatarContext";
+import { store, persistor } from "./store/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <AuthProvider>
       <AvatarProvider>
-        <RouterProvider router={router} />
+        <PersistGate loading={null} persistor={persistor}>
+          <RouterProvider router={router} />
+        </PersistGate>
       </AvatarProvider>
     </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );
 

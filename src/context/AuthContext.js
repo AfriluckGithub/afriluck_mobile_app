@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState();
   const [authUser, setAuthUser] = useState(null);
 
   const toggleLogin = () => {
@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   console.log(toggleLogout);
-  
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
