@@ -30,6 +30,9 @@ export const AuthProvider = ({ children }) => {
     toggleLogin,
   };
 
+  console.log(toggleLogout);
+  
+
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 

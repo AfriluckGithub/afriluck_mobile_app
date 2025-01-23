@@ -5,10 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 
 const Auth = () => {
   const { 
-    setCurrentUser, 
-    clearCurrentUser,
     isLoggedIn,
-    authUser,
     toggleLogin 
   } = useAuth();
 
