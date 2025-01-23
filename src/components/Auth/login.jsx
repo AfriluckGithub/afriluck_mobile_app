@@ -123,8 +123,8 @@ const LoginScreen = () => {
               onClick={handleSignup}
             />
           </div>
+          <div>{error ? <p className="flex justify-center items-center text-rose-500 text-sm">{error}</p> : <p></p>}</div>
           <div className="flex justify-center items-center w-full h-auto">
-            {error ? <p className="text-rose-500 text-sm">{error}</p> : <p></p>}
             {loading ? (
               <OrbitProgress
                 color="#000"
