@@ -7,11 +7,15 @@ import { OrbitProgress } from "react-loading-indicators";
 const Mybet = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
     try {
-      const token = user.token;
+      var token = null;
+      if (!user) {
+        token = user.token;
+      }
       const getMyBets = async () => {
         setLoading(true);
         const res = await axios.get(
@@ -32,8 +36,12 @@ const Mybet = () => {
     } catch (error) {
       setLoading(false);
       console.log(error);
+      setError("Oops, nothing to display here. Kindly log-in");
     }
   }, []);
+
+  console.log("user => ", user);
+  console.log("error => ", error);
 
   return (
     <>
@@ -62,21 +70,21 @@ const Mybet = () => {
             </div>
           ))}
         </div>
-        <div className="flex w-full justify-center items-center h-screen">
-        {loading ? (
-          <OrbitProgress
-            color="#000"
-            size="small"
-            text="loading"
-            textColor=""
-          />
-        ) : (
-          <p></p>
-        )}
+        <div className="flex justify-center items-center h-screen">
+          {loading ? (
+            <OrbitProgress
+              color="#000"
+              size="small"
+              text="loading"
+              textColor=""
+            />
+          ) : (
+            <p></p>
+          )}
         </div>
-        {!user && (
-          <p className="flex flex-wrap justify-center items-center p-5 text-center">
-            Oops, you need to log-in to view your transactions.
+        {error && (
+          <p className="h-full text-wrap p-5 text-center">
+            {error}
           </p>
         )}
       </div>
