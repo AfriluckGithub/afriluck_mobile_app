@@ -12,13 +12,17 @@ const SignupScreen = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
-  const [open, setOpen] = useState(false);
+  const [
+    open,
+    //setOpen
+  ] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-  const openModal = () => {
-    setOpen(true);
-  };
+  // const openModal = () => {
+  //   setOpen(true);
+  // };
 
   const validatePassword = (password) => {
     const errors = [];
@@ -58,25 +62,29 @@ const SignupScreen = () => {
       phone_number: phoneNumber,
       password: password,
     };
+
+    const headers = {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    };
     console.log(requestBody);
 
     try {
       const res = await axios.post(
         "https://staging.afriluck.com/api/V1/app/register",
         requestBody,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { headers }
       );
       setLoading(false);
+      console.log("Login Response => ", res);
+
       if (res.status === 200) {
-        openModal();
+        navigate("/verifycode");
       }
     } catch (e) {
       setLoading(false);
-      console.log(e);
+      setError(e.response.data.error)
+      console.log(e.response.data.error);
     }
   };
 
@@ -156,10 +164,15 @@ const SignupScreen = () => {
           />
           <div>
             {errors.map((error, index) => (
-              <p key={index} style={{ color: "red" }} className="text-sm">
-                {error}
+              <p
+                key={index}
+                style={{ color: "red" }}
+                className="flex text-sm justify-center"
+              >
+                <p>{`${index+1} .`} {error}</p> 
               </p>
             ))}
+            {error? <p className="flex justify-center items-center w-full text-rose-500 text-sm text-wrap text-center">{error}</p>: ""}
           </div>
           <div className="flex justify-center items-center w-full h-auto">
             {loading ? (
