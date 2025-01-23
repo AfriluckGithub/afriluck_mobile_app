@@ -51,9 +51,7 @@ const SingleGamePayment = () => {
       return;
     }
 
-    const formattedNumber = `233${Number(
-      user ? user.phone_number : mobileNumber
-    )}`;
+    const formattedNumber = `233${Number( mobileNumber)}`;
     const requestBody = {
       msisdn: selectedNetwork === 4? user.phone_number: formattedNumber,
       total_amount: Number(amount),
