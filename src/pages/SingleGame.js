@@ -192,7 +192,7 @@ const SingleGame = () => {
       navigate("/single_game_selection");
     } else {
       setError(
-        "Kindly verify if the you have selected an amount or the numbers selected meets the required length."
+        "Kindly verify if the amount or numbers selected meets the required length."
       );
     }
   };
@@ -317,7 +317,7 @@ const SingleGame = () => {
               }`}
               className="w-full max-w-md p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             /> */}
-            {error && <p className="text-rose-500 h-auto w-full">{error}</p>}
+            {error && <p className="text-rose-500 h-auto w-full text-sm">{error}</p>}
           </div>
         </div>
       </div>
