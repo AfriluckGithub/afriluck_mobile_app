@@ -68,8 +68,9 @@ const Mybet = () => {
                   <img alt="afriluck" src="afriluck_lg.png" />
                 </span>
                 <span className="flex flex-col items-start text-black mb-2 font-sans text-wrap w-full ml-5">
-                  <div className="font-semibold text-base">
-                    {result.draw_code} / {result.date}
+                  <div className="flex flex-row font-semibold text-base">
+                    <div className="mr-2">{result.draw_code},</div>
+                    <div>{result.date}</div>
                   </div>
                   <div className="text-gray-400">{result.selected_numbers}</div>
                 </span>
@@ -78,7 +79,9 @@ const Mybet = () => {
               <div className="mt-2">
                 <div class="flex justify-between w-full">
                   <div className="flex flex-row">
-                    <div className="mr-2"><img alt="share" src={"share.svg"}/> </div>
+                    <div className="mr-2">
+                      <img alt="share" src={"share.svg"} />{" "}
+                    </div>
                     <div> Share</div>
                   </div>
                   <span>{result.time}</span>

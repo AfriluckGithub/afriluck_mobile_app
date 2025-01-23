@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import MyBetSearchBar from "../components/myBetSearchbar";
+import SearchBar from "../components/myBetSearchbar";
 import { useSelector } from "react-redux";
 import { OrbitProgress } from "react-loading-indicators";
 
@@ -8,6 +8,7 @@ const Draw = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  //const [token, setToken] = useState("");
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
@@ -16,47 +17,75 @@ const Draw = () => {
       if (user) {
         token = user.token;
       }
-      console.log(token);
-      const getMyResults = async () => {
+      const getMyBets = async () => {
         setLoading(true);
-        const res = await axios.get(
-          "https://staging.afriluck.com/api/V1/app/draw-results",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+        console.log("Token => ", token);
+        try {
+          const res = await axios.get(
+            "https://staging.afriluck.com/api/V1/app/draw-results",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          setLoading(false);
+          console.log(res);
+
+          if (res.status === 200) {
+            setResults(res.data.success);
           }
-        );
-        setLoading(false);
-        if (res.status === 200) {
-          setResults(res.data.success);
+        } catch (e) {
+          setError(`${e.message}`);
+          setLoading(false);
+          console.log(e);
         }
       };
-
-      getMyResults();
+      getMyBets();
     } catch (error) {
-      setLoading(false);
-      console.log(error);
-      setError("Oops, nothing to display here. Kindly log-in");
+      try {
+        setLoading(false);
+        console.log(error);
+        setError("Oops, nothing to display here. Kindly log-in");
+      } catch (error) {
+        console.log(error);
+      }
     }
   }, [user]);
+
   return (
     <>
       <div className="flex flex-col bg-[#F7F7F7] h-screen w-screen">
         <div className="">
-          <MyBetSearchBar />
+          <SearchBar />
         </div>
         <div className="flex flex-col w-full mt-5">
-          {results.map((result, index) => (
+          {results.map((result) => (
             <div className="bg-white rounded-lg h-auto m-5 p-3">
               <div className="flex flex-row w-auto">
-                <span className="flex flex-col items-start text-black mb-2 text-wrap w-full ml-5">
-                  <div className="flex justify-between w-full">
-                    <div className="font-normal">{result.date}</div>
-                    <div className="">10:00 AM</div>
-                  </div>
-                  <div className="mt-2 text-primary text-lg font-semibold leading-loose">{result.result}</div>
+                <span>
+                  <img alt="afriluck" src="afriluck_lg.png" />
                 </span>
+                <span className="flex flex-col items-start text-gray-600 mb-2 font-sans text-wrap w-full ml-5">
+                  <div className="flex flex-row text-base">
+                    <div className="mr-2">{result.draw},</div>
+                    <div>{result.date}</div>
+                  </div>
+                  <div className="text-gray-400">{result.result}</div>
+                </span>
+              </div>
+              <hr />
+              <div className="mt-2">
+                <div class="flex justify-between w-full">
+                  <div className="flex flex-row">
+                    {/* <div className="mr-2">
+                      <img alt="share" src={"share.svg"} />{" "}
+                    </div>
+                    <div> Share</div> */}
+                  </div>
+                  <span>{result.date}</span>
+                </div>
               </div>
             </div>
           ))}
