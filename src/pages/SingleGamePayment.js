@@ -259,7 +259,7 @@ const SingleGamePayment = () => {
           <ToastContainer />
         </div>
       </div>
-      <div className="bg-gray-100 flex flex-row w-full absolute bottom-auto left-0 right-0 justify-center items-center">
+      <div className="bg-gray-100 flex flex-row flex-wrap w-full mb-5 justify-center items-center">
         <Button
           label={`Pay GHS ${amount}.00`}
           disabled={!network || (!mobileNumber && selectedNetwork !== 4)}

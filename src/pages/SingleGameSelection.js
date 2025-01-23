@@ -86,9 +86,9 @@ const SingleGameSelection = () => {
 
   return (
     <>
-      <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
+      <div className="flex flex-col bg-gray-100 w-full h-full p-5">
         <div className="h-16 w-full rounded-lg">
-          <div className="flex flex-row w-auto ">
+          <div className="flex flex-row w-full">
             <div onClick={back} className="">
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
@@ -99,35 +99,6 @@ const SingleGameSelection = () => {
             </div>
           </div>
         </div>
-        {/* <div className="bg-white h-auto w-full p-5 rounded-lg flex flex-col justify-center items-center"> */}
-        {/* <div className="flex flex-col justify-start items-start w-full mb-5">
-            <span className="font-semibold text-md mb-5 font-Poppins">
-              Draw 148
-            </span>
-            <span className="font-normal text-sm font-Poppins">
-              Mon 17/10/2024 10:00
-            </span>
-          </div> */}
-        {/* <div className="grid grid-cols-3 justify-center items-center">
-            {games.map((game) => (
-              <div
-                key={game.id}
-                className="flex bg-gray-100 h-32 w-32 justify-center items-center m-1 rounded-md"
-                onClick={() => selectGame(game.id)}
-                style={{
-                  border:
-                    selectedGame === game.id
-                      ? "2px solid #156064"
-                      : "0px solid gray",
-                }}
-              >
-                <p className="text-black font-Poppins font-semibold">
-                  {game.game}
-                </p>
-              </div>
-            ))}
-          </div> */}
-        {/* </div> */}
         <div className="bg-white h-auto w-full p-5 rounded-2xl">
           <p className="text-black font-normal mb-5">Selections</p>
           <div className="flex flex-col w-full">
@@ -145,7 +116,7 @@ const SingleGameSelection = () => {
                 <p className="w-full font-normal text-xl">{numbers}</p>
                 <p className="text-gray-400">{`${game} | GHS ${amount}.00`}</p>
               </div>
-              {/* <p className="flex rounded-full w-9 h-7 bg-gray-400 justify-center items-center"><FontAwesomeIcon icon={faX}  color="white"/></p> */}
+
             </div>
             <div
               style={{ backgroundColor: "#FFEFEF" }}
@@ -157,12 +128,12 @@ const SingleGameSelection = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-row w-full h-auto bg-gray-100 absolute bottom-0 left-0 right-0 justify-center items-center">
+        <div className="flex flex-wrap w-full h-auto bg-gray-100 absolute bottom-0 left-0 justify-center items-center">
           <Button
             label={"Place Bet"}
             disabled={false}
             onClick={handlePaymentScreen}
-            className="font-bold rounded-lg w-96 h-16 bg-primary text-white"
+            className="font-bold rounded-lg h-16 bg-primary text-white w-11/12"
           />
         </div>
       </div>
