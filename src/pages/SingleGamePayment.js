@@ -7,6 +7,7 @@ import "./../output.css";
 import { OrbitProgress } from "react-loading-indicators";
 import Input from "../components/input";
 import { ToastContainer, toast } from "react-toastify";
+import Button from "../components/button";
 
 const SingleGamePayment = () => {
   const navigate = useNavigate();
@@ -232,7 +233,7 @@ const SingleGamePayment = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-full h-auto justify-center items-center m-5">
+        <div className="flex flex-wrap w-full h-auto justify-center items-center">
           {loading ? (
             <OrbitProgress
               color="#000"
@@ -246,14 +247,13 @@ const SingleGamePayment = () => {
           <ToastContainer />
         </div>
       </div>
-      <div className="bg-gray-100 flex flex-row w-auto absolute bottom-auto left-0 right-0">
-        <button
-          onClick={placeBet}
-          style={{ backgroundColor: "#156064" }}
-          className="text-white font-semibold rounded-lg w-full h-16 text-md ml-5 mr-5 mb-5"
-        >
-          Pay {`GHS ${amount}.00`}
-        </button>
+      <div className="bg-gray-100 flex flex-row w-full absolute bottom-auto left-0 right-0 justify-center items-center">
+        <Button
+            label={`Pay GHS ${amount}.00`}
+            disabled={!network || !mobileNumber}
+            onClick={placeBet}
+            className="font-bold rounded-lg w-96 h-16 bg-primary text-white"
+          />
       </div>
     </>
   );

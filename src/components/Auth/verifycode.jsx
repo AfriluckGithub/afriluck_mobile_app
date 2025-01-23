@@ -5,10 +5,12 @@ import Button from "../button";
 import Modal from "../modal";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import axios from "axios";
+import { OrbitProgress } from "react-loading-indicators";
 
 const VerifyCodeScreen = () => {
   const [code, setCode] = useState("");
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,6 +20,7 @@ const VerifyCodeScreen = () => {
   };
 
   const verifyOtp = async () => {
+    setLoading(true);
     const requestBody = {
       otp: code
     }
@@ -32,11 +35,13 @@ const VerifyCodeScreen = () => {
       console.log(response);
       
       const status = res.status;
+      setLoading(false);
       if (status === 200) {
           navigate("/login");
       }
     } catch (error) {
-      setError("OTP verification error");
+      setLoading(false);
+      setError(error.response.data.message);
       console.log(error);
     }
   }
@@ -91,6 +96,22 @@ const VerifyCodeScreen = () => {
             />
           </div>
         </div>
+        <div>
+        {error? <p className="flex justify-center items-center w-full text-rose-500 text-sm text-wrap text-center">{error}</p>: ""}
+        </div>
+        <div className="flex justify-center items-center w-full h-auto">
+
+            {loading ? (
+              <OrbitProgress
+                color="#000"
+                size="small"
+                text="loading"
+                textColor=""
+              />
+            ) : (
+              <p></p>
+            )}
+          </div>
       </div>
       <Modal
         isOpen={open}
