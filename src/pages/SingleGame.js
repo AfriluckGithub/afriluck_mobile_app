@@ -124,8 +124,22 @@ const SingleGame = () => {
   };
 
   const handleAmountChange = (e) => {
-    const value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numbers
-    setBetAmount(value === "" ? 0 : parseInt(value, 10));
+    const value = e.target.value.replace(/[^0-9]/g, "");
+    const numericValue = parseInt(value, 10);
+    console.log("Value : ", numericValue);
+
+    if (type_picked === "Mega") {
+      if (!value || [5, 10, 20].includes(numericValue)) {
+        setBetAmount(value === "" ? "" : numericValue);
+        setError("");
+      } else {
+        setBetAmount(value);
+        setError("Allowed values for Mega are 5, 10, or 20.");
+      }
+    } else {
+      const value = e.target.value.replace(/[^0-9]/g, "");
+      setBetAmount(value === "" ? 0 : parseInt(value, 10));
+    }
   };
 
   const back = () => {
@@ -142,6 +156,10 @@ const SingleGame = () => {
   const placeBet = () => {
     console.log("selected game => ", selectedGame);
     console.log("Val => ", val.length);
+
+    if (error !== "") {
+       return
+    }
 
     const permValidation = isValidValue(val.length);
 
