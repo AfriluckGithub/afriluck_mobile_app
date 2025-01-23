@@ -2,11 +2,14 @@ import React from "react";
 import Button from "../button";
 import { useNavigate } from "react-router-dom";
 import { useAvatar } from "../../context/AvatarContext";
+import { useAuth } from "../../context/AuthContext";
 const LoggedIn = () => {
   const { avatar } = useAvatar();
   const navigate = useNavigate();
-  const username = localStorage.getItem("name") == null? "Username": localStorage.getItem("name");
-  const phoneNumber = localStorage.getItem("phone_number") == null? "0202020202": localStorage.getItem("phone_number");
+  const {authUser } = useAuth();
+  const username = `${authUser.first_name} ${authUser.last_name}`;
+  const phoneNumber = authUser.phone_number === null? "0202020202": authUser.phone_number;
+  
   return (
     <div className="flex flex-col w-full space-y-6   py-4">
       <div className="flex flex-row space-x-4 p-4 w-full  items-center bg-white rounded-xl">

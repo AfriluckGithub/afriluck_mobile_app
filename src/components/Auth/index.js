@@ -5,14 +5,21 @@ import { useAuth } from "../../context/AuthContext";
 
 const Auth = () => {
   const { 
-    isLoggedIn, 
-    //toggleLogin 
-  } = useAuth(); // Access the auth context
-  // const loggedIn = localStorage.getItem("logged_in");
+    setCurrentUser, 
+    clearCurrentUser,
+    isLoggedIn,
+    authUser,
+    toggleLogin 
+  } = useAuth();
+
+  console.log("Logged in => ", isLoggedIn);
+
+  // localStorage.setItem("loggedIn", isLoggedIn);
+  
   return (
     <div>
       {isLoggedIn ? <LoggedIn /> : <Notlogged />}
-      {/* {<button onClick={toggleLogin}>{isLoggedIn ? "Log Out" : "Log In"}</button>} */}
+      { <button onClick={toggleLogin}>{isLoggedIn ? "Log Out" : "Log In"}</button>}
     </div>
   );
 };

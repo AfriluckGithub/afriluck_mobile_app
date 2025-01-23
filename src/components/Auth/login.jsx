@@ -7,37 +7,48 @@ import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
+import { OrbitProgress } from "react-loading-indicators";
 
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open, 
+    //setOpen
+    ] = useState(false);
+  const [loading, setLoading ] = useState(false);
   const navigate = useNavigate();
-  const { toggleLogin } = useAuth();
+
+  const { setCurrentUser, toggleLogin } = useAuth();
 
   const openModal = async () => {
+    setLoading(true);
     const requestBody = {
-      "phone_number": phoneNumber,
-      "password": password
-    }
+      phone_number: phoneNumber,
+      password: password,
+    };
     try {
-      const res = await axios.post('https://staging.afriluck.com/api/V1/app/login', requestBody, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const res = await axios.post(
+        "https://staging.afriluck.com/api/V1/app/login",
+        requestBody,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       console.log(res);
+      setLoading(false);
       if (res.status === 200) {
-          toggleLogin(true);
-          localStorage.setItem("logged_in", true);
-          localStorage.setItem("name", `${res.data.success.first_name}`);
-          localStorage.setItem("token", res.data.success.token);
-          localStorage.setItem("status", res.data.success.status);
-          localStorage.setItem("phone_number", res.data.success.phone_number);
-          setOpen(true);
+        setCurrentUser(res.data.success);
+        handleSuccess();
       }
     } catch (error) {
-      console.error('Error:', error);
+      setLoading(false);
+      try {
+        console.log(error);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -99,6 +110,18 @@ const LoginScreen = () => {
               className="bg-secondary text-primary"
               onClick={handleSignup}
             />
+          </div>
+          <div className="flex justify-center items-center w-full h-auto">
+            {loading ? (
+              <OrbitProgress
+                color="#000"
+                size="small"
+                text="loading"
+                textColor=""
+              />
+            ) : (
+              <p></p>
+            )}
           </div>
           <div className="flex flex-col space-y-2">
             <div className="flex w-full justify-center items-center text-base mt-4 space-x-2">

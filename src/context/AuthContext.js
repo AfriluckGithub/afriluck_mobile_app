@@ -4,6 +4,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authUser, setAuthUser] = useState(null);
 
   const toggleLogin = () => {
     setIsLoggedIn((prev) => !prev);
@@ -13,11 +14,23 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
   };
 
-  return (
-    <AuthContext.Provider value={{ isLoggedIn, toggleLogin, toggleLogout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const setCurrentUser = (user) => {
+    setAuthUser(user);
+  };
+
+  const clearCurrentUser = () => {
+    setAuthUser(null);
+  };
+
+  const values = {
+    setCurrentUser,
+    clearCurrentUser,
+    isLoggedIn,
+    authUser,
+    toggleLogin,
+  };
+
+  return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
