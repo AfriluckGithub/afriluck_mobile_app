@@ -5,6 +5,7 @@ import Button from "../button";
 import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { OrbitProgress } from "react-loading-indicators";
 
 const SignupScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -12,27 +13,72 @@ const SignupScreen = () => {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   const openModal = () => {
     setOpen(true);
   };
 
+  const validatePassword = (password) => {
+    const errors = [];
+    const minLength = 8;
+
+    if (password.length < minLength) {
+      errors.push(`Password must be at least ${minLength} characters long.`);
+    }
+    if (!/[A-Z]/.test(password)) {
+      errors.push("Password must include at least one uppercase letter.");
+    }
+    if (!/[a-z]/.test(password)) {
+      errors.push("Password must include at least one lowercase letter.");
+    }
+    if (!/\d/.test(password)) {
+      errors.push("Password must include at least one number.");
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      errors.push("Password must include at least one special character.");
+    }
+    if (/\s/.test(password)) {
+      errors.push("Password must not contain spaces.");
+    }
+
+    return errors;
+  };
+
   const handleSignUp = async () => {
+    setLoading(true);
+    if (errors.length > 0) {
+      setLoading(false);
+      return;
+    }
+    const requestBody = {
+      first_name: firstName,
+      last_name: lastName,
+      phone_number: phoneNumber,
+      password: password,
+    };
+    console.log(requestBody);
+
     try {
-      const res = await axios.post("https://staging.afriluck.com/api/V1/app/register", 
-      {
-        first_name: lastName,
-        last_name: firstName,
-        phone_number: phoneNumber,
-        password: password,
-      });
+      const res = await axios.post(
+        "https://staging.afriluck.com/api/V1/app/register",
+        requestBody,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setLoading(false);
       if (res.status === 200) {
         openModal();
       }
     } catch (e) {
-      console.log(e.message);
+      setLoading(false);
+      console.log(e);
     }
-  }
+  };
 
   // const handleSuccess = async (phoneNumber, source = "signup") => {
   //   // navigate("/verifycode", { state: { phoneNumber, source } });
@@ -58,6 +104,11 @@ const SignupScreen = () => {
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
+
+    const validationErrors = validatePassword(value);
+    setErrors(validationErrors);
+
+    console.log(validationErrors);
   };
 
   return (
@@ -95,13 +146,33 @@ const SignupScreen = () => {
           />
 
           <Input
-            type={"text"}
+            type={"password"}
+            rightIcon
             placeholder={"Password"}
+            icon={"password.svg"}
             className="bg-[#F5F5F7] input-md"
             value={password}
             onChange={handlePasswordChange}
           />
-
+          <div>
+            {errors.map((error, index) => (
+              <p key={index} style={{ color: "red" }} className="text-sm">
+                {error}
+              </p>
+            ))}
+          </div>
+          <div className="flex justify-center items-center w-full h-auto">
+            {loading ? (
+              <OrbitProgress
+                color="#000"
+                size="small"
+                text="loading"
+                textColor=""
+              />
+            ) : (
+              <p></p>
+            )}
+          </div>
           <div className="flex flex-col space-y-2">
             <Button
               label={"Register"}

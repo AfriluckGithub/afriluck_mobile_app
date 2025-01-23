@@ -5,7 +5,7 @@ import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext"; // Import the useAuth hook
+import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 
 const LoginScreen = () => {
@@ -13,7 +13,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const { toggleLogin } = useAuth(); // Access the toggleLogin function from context
+  const { toggleLogin } = useAuth();
 
   const openModal = async () => {
     const requestBody = {
@@ -28,6 +28,7 @@ const LoginScreen = () => {
       });
       console.log(res);
       if (res.status === 200) {
+          toggleLogin(true);
           localStorage.setItem("logged_in", true);
           localStorage.setItem("name", `${res.data.success.first_name}`);
           localStorage.setItem("token", res.data.success.token);
