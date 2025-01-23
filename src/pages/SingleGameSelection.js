@@ -11,9 +11,10 @@ import {
 import { useNavigate } from "react-router-dom";
 //import { CSSTransition } from "react-transition-group";
 import "./../output.css";
-import {useState } from "react";
+import { useState } from "react";
 import Modal from "../components/modal";
 import axios from "axios";
+import Button from "../components/button";
 
 const SingleGameSelection = () => {
   //const [show, setShow] = useState(false);
@@ -156,14 +157,13 @@ const SingleGameSelection = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-row w-full h-auto bg-gray-100 absolute bottom-0 left-0 right-0 mt-10">
-          <button
-            style={{ backgroundColor: "#156064" }}
+        <div className="flex flex-row w-full h-auto bg-gray-100 absolute bottom-0 left-0 right-0 justify-center items-center">
+          <Button
+            label={"Place Bet"}
+            disabled={false}
             onClick={handlePaymentScreen}
-            className="text-white font-bold rounded-lg w-full h-16 mb-5 mr-5 ml-5"
-          >
-            Place Bet
-          </button>
+            className="font-bold rounded-lg w-96 h-16 bg-primary text-white"
+          />
         </div>
       </div>
       <Modal
