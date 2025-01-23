@@ -138,8 +138,6 @@ const SingleGame = () => {
     );
   }
 
-  console.log("SELECTED GAME: ", selectedGame);
-
   const placeBet = () => {
     console.log("selected game => ", selectedGame);
     console.log("Val => ", val.length);
