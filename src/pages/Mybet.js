@@ -38,7 +38,7 @@ const Mybet = () => {
       console.log(error);
       setError("Oops, nothing to display here. Kindly log-in");
     }
-  }, []);
+  }, [user]);
 
   console.log("user => ", user);
   console.log("error => ", error);
@@ -54,7 +54,7 @@ const Mybet = () => {
             <div className="bg-white rounded-lg h-auto m-5 p-3">
               <div className="flex flex-row w-auto">
                 <span>
-                  <img src="afriluck_lg.png" />
+                  <img alt="afriluck" src="afriluck_lg.png" />
                 </span>
                 <span className="flex flex-col items-start text-black mb-2 font-sans text-wrap w-full ml-5">
                   <div className="font-Poppins font-semibold">
