@@ -79,7 +79,9 @@ const SignupScreen = () => {
       console.log("Login Response => ", res);
 
       if (res.status === 200) {
-        navigate("/verifycode");
+          localStorage.setItem("register_token", res.data.success.token);
+          console.log("Reg Token => ", localStorage.getItem("register_token"));
+          navigate("/verifycode");
       }
     } catch (e) {
       setLoading(false);

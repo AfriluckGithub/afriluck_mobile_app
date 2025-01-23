@@ -137,6 +137,19 @@ const SingleGame = () => {
         setBetAmount(value);
         setError("Allowed values for Mega are 5, 10, or 20.");
       }
+    } else if (type_picked === "Direct") {
+      if (
+        !value ||
+        [
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+        ].includes(numericValue)
+      ) {
+        setBetAmount(value === "" ? "" : numericValue);
+        setError("");
+      } else {
+        setBetAmount(value);
+        setError("Allowed values for Direct are 1 to 20");
+      }
     } else {
       const value = e.target.value.replace(/[^0-9]/g, "");
       setBetAmount(value === "" ? 0 : parseInt(value, 10));
@@ -159,7 +172,7 @@ const SingleGame = () => {
     console.log("Val => ", val.length);
 
     if (error !== "") {
-       return
+      return;
     }
 
     const permValidation = isValidValue(val.length);
@@ -318,7 +331,9 @@ const SingleGame = () => {
               }`}
               className="w-full max-w-md p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             /> */}
-            {error && <p className="text-rose-500 h-auto w-full text-sm">{error}</p>}
+            {error && (
+              <p className="text-rose-500 h-auto w-full text-sm">{error}</p>
+            )}
           </div>
         </div>
       </div>
@@ -368,12 +383,12 @@ const SingleGame = () => {
           </div>
         </div>
         <div className="flex flex-wrap justify-center items-center w-full">
-        <Button
-          label={"Confirm"}
-          disabled={!betAmount || !inputValue}
-          onClick={placeBet}
-          className="font-bold rounded-lg w-96 h-16 bg-primary text-white"
-        />
+          <Button
+            label={"Confirm"}
+            disabled={!betAmount || !inputValue || error!==""}
+            onClick={placeBet}
+            className="font-bold rounded-lg w-96 h-16 bg-primary text-white"
+          />
         </div>
       </div>
     </>

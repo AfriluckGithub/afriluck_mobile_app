@@ -9,42 +9,55 @@ import { OrbitProgress } from "react-loading-indicators";
 
 const VerifyCodeScreen = () => {
   const [code, setCode] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open, 
+    //setOpen
+  ] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { phoneNumber, source } = location.state || {};
-  const openModal = () => {
-    setOpen(true);
-  };
+  // const openModal = () => {
+  //   setOpen(true);
+  // };
 
   const verifyOtp = async () => {
     setLoading(true);
     const requestBody = {
-      otp: code
-    }
+      otp: code,
+    };
     try {
-      const res = await axios.post("https://staging.afriluck.com/api/V1/app/verify-otp", requestBody, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
+      const tempToken = localStorage.getItem("register_token");
+
+      const res = await axios.post(
+        "https://staging.afriluck.com/api/V1/app/verify-otp",
+        requestBody,
+        {
+          headers: {
+            Authorization: `Bearer ${tempToken}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
         }
-      });
+      );
       const response = res.data;
       console.log(response);
-      
+
       const status = res.status;
       setLoading(false);
       if (status === 200) {
-          navigate("/login");
+        navigate("/login");
       }
     } catch (error) {
-      setLoading(false);
-      setError(error.response.data.message);
-      console.log(error);
+      try {
+        setLoading(false);
+        setError(error.response.data.message);
+        console.log(error);
+      } catch (e) {
+        console.log(e);
+      }
     }
-  }
+  };
 
   const handleVerificationSuccess = () => {
     console.log("Source:", source);
@@ -97,21 +110,26 @@ const VerifyCodeScreen = () => {
           </div>
         </div>
         <div>
-        {error? <p className="flex justify-center items-center w-full text-rose-500 text-sm text-wrap text-center">{error}</p>: ""}
+          {error ? (
+            <p className="flex justify-center items-center w-full text-rose-500 text-sm text-wrap text-center">
+              {error}
+            </p>
+          ) : (
+            ""
+          )}
         </div>
         <div className="flex justify-center items-center w-full h-auto">
-
-            {loading ? (
-              <OrbitProgress
-                color="#000"
-                size="small"
-                text="loading"
-                textColor=""
-              />
-            ) : (
-              <p></p>
-            )}
-          </div>
+          {loading ? (
+            <OrbitProgress
+              color="#000"
+              size="small"
+              text="loading"
+              textColor=""
+            />
+          ) : (
+            <p></p>
+          )}
+        </div>
       </div>
       <Modal
         isOpen={open}
