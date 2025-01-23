@@ -45,19 +45,19 @@ const Mybet = () => {
 
   return (
     <>
-      <div className="flex flex-col bg-gray-100 h-screen w-screen">
+      <div className="flex flex-col bg-[#F7F7F7] h-screen w-screen">
         <div className="">
           <SearchBar />
         </div>
         <div className="flex flex-col w-full mt-5">
-          {results.map((result) => (
+          {results.map((result, index) => (
             <div className="bg-white rounded-lg h-auto m-5 p-3">
               <div className="flex flex-row w-auto">
                 <span>
                   <img alt="afriluck" src="afriluck_lg.png" />
                 </span>
                 <span className="flex flex-col items-start text-black mb-2 font-sans text-wrap w-full ml-5">
-                  <div className="font-Poppins font-semibold">
+                  <div className="font-semibold text-sm">
                     {result.date}
                   </div>
                   <div className="text-gray-400">{result.result}</div>
@@ -82,11 +82,7 @@ const Mybet = () => {
             <p></p>
           )}
         </div>
-        {error && (
-          <p className="h-full text-wrap p-5 text-center">
-            {error}
-          </p>
-        )}
+        {error && <p className="h-full text-wrap p-5 text-center">{error}</p>}
       </div>
     </>
   );
