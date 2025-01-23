@@ -28,10 +28,9 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
       <div className="bg-white rounded-xl p-5 mb-5 h-screen overflow-y-auto m-5">
         <div className="grid grid-cols-2 gap-2">
           <div
-            style={{ color: "#156064" }}
-            className="global-text-color font-semibold text-md"
+            className="global-text-color font-semibold text-md w-full"
           >
-            <p>Anopa</p>
+            <p className="flex w-full text-primary">Anopa</p>
           </div>
           <div className="text-right text-gray-800 font-inter font-semibold">
             <p></p>
@@ -45,10 +44,9 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
         <hr className="m-5" />
         <div className="grid grid-cols-2 gap-2">
           <div
-            style={{ color: "#156064" }}
             className="global-text-color font-semibold text-md"
           >
-            <p>Midday</p>
+            <p className="text-primary">Midday</p>
           </div>
           <div className="text-right text-gray-800 font-inter font-semibold">
             <p></p>
@@ -65,7 +63,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
             style={{ color: "#156064" }}
             className="global-text-color font-semibold text-md"
           >
-            <p>Afriluck 6/57</p>
+            <p className="text-primary">Afriluck 6/57</p>
           </div>
           <div className="text-right text-gray-800 font-inter font-semibold">
             <p></p>

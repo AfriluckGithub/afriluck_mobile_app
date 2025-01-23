@@ -14,13 +14,18 @@ import { login } from "../../store/userSlice";
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [open, 
+  const [
+    open,
     //setOpen
-    ] = useState(false);
-  const [loading, setLoading ] = useState(false);
+  ] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { setCurrentUser, toggleLogin } = useAuth();
+  const {
+    //setCurrentUser,
+    toggleLogin,
+  } = useAuth();
   const dispatch = useDispatch();
 
   const openModal = async () => {
@@ -39,17 +44,20 @@ const LoginScreen = () => {
           },
         }
       );
-      console.log(res);
+      console.log("RES => ", res);
       setLoading(false);
       if (res.status === 200) {
-        dispatch(login(res.data.success))
-        setCurrentUser(res.data.success);
+        dispatch(login(res.data.success));
         handleSuccess();
+      } else if (res.status === 401) {
+        setError(res.response.data.error.message);
       }
     } catch (error) {
       setLoading(false);
       try {
-        console.log(error);
+        if (error.status === 401) {
+          setError(error.response.data.error.message);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -116,6 +124,7 @@ const LoginScreen = () => {
             />
           </div>
           <div className="flex justify-center items-center w-full h-auto">
+            {error ? <p className="text-rose-500 text-sm">{error}</p> : <p></p>}
             {loading ? (
               <OrbitProgress
                 color="#000"
