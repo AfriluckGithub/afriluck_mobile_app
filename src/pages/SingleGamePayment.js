@@ -9,6 +9,7 @@ import Input from "../components/input";
 import { ToastContainer, toast } from "react-toastify";
 import Button from "../components/button";
 import { useAuth } from "../context/AuthContext";
+import { useSelector } from "react-redux";
 
 const SingleGamePayment = () => {
   const navigate = useNavigate();
@@ -25,11 +26,13 @@ const SingleGamePayment = () => {
   //const token = localStorage.getItem("token");
   const game_type = localStorage.getItem("game_type");
   const game_picked = localStorage.getItem("game_picked");
+
+  const user = useSelector((state) => state.user.user);
   
 
   console.log(disabled);
     const { 
-      authUser,
+      //authUser,
       isLoggedIn
     } = useAuth();
 
@@ -159,6 +162,12 @@ const SingleGamePayment = () => {
       image: "logo-service-airteltigo.png",
       desc: "airteltigo",
     },
+    {
+      id: 4,
+      name: "Wallet",
+      image: "afriluck_lg.png",
+      desc: "airteltigo",
+    },
   ];
 
   return (
@@ -200,11 +209,11 @@ const SingleGamePayment = () => {
           <span>
             <p className="font-md font-normal mb-5">Select Channel</p>
           </span>
-          <div className="flex flex-row flex-auto">
-            {networks.map((network) => (
+          <div className="flex flex-row flex-auto flex-wrap">
+            {networks.filter((network) => !(user === null && network.id === 4)).map((network) => (
               <div
                 key={network.id}
-                className="flex flex-col bg-gray-100 h-24 w-24 p-2 mr-2 justify-center items-center rounded-lg"
+                className="flex flex-col bg-gray-100 h-24 w-24 p-2 mr-2 justify-center items-center rounded-lg mb-2"
                 onClick={() => selectNetwork(network.id)}
                 style={{
                   border:
@@ -252,7 +261,6 @@ const SingleGamePayment = () => {
             <p></p>
           )}
           <ToastContainer />
-          <p>{isLoggedIn? "Yes":"no"}</p>
         </div>
       </div>
       <div className="bg-gray-100 flex flex-row w-full absolute bottom-auto left-0 right-0 justify-center items-center">
