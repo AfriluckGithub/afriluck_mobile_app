@@ -1,7 +1,6 @@
 import React from "react";
 import Notlogged from "./notlogged";
 import LoggedIn from "./loggedin";
-import { useAuth } from "../../context/AuthContext";
 import { useSelector } from "react-redux";
 
 const Auth = () => {

@@ -8,7 +8,6 @@ import { OrbitProgress } from "react-loading-indicators";
 import Input from "../components/input";
 import { ToastContainer, toast } from "react-toastify";
 import Button from "../components/button";
-import { useAuth } from "../context/AuthContext";
 import { useSelector } from "react-redux";
 
 const SingleGamePayment = () => {
@@ -17,7 +16,9 @@ const SingleGamePayment = () => {
   const [network, setNetwork] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [loading, setLoading] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const [
+    //disabled, 
+    setDisabled] = useState(false);
 
   const numbers = localStorage.getItem("numbers");
   const amount = localStorage.getItem("betAmount");
@@ -28,23 +29,14 @@ const SingleGamePayment = () => {
   const game_picked = localStorage.getItem("game_picked");
 
   const user = useSelector((state) => state.user.user);
-  
-
-  console.log(disabled);
-    const { 
-      //authUser,
-      isLoggedIn
-    } = useAuth();
-
 
   const placeBet = async () => {
     setLoading(true);
     setDisabled(true);
 
     console.log("Mobile: ", mobileNumber);
-    
 
-    if (network === "" || mobileNumber === "") {
+    if (network === "" || (mobileNumber === "" && selectedNetwork !== 4)) {
       toast.error(
         network === ""
           ? "Kindly provide a channel"
@@ -65,9 +57,11 @@ const SingleGamePayment = () => {
       return;
     }
 
-    const formattedNumber = `233${Number(mobileNumber)}`;
+    const formattedNumber = `233${Number(
+      user ? user.phone_number : mobileNumber
+    )}`;
     const requestBody = {
-      msisdn: formattedNumber,
+      msisdn: selectedNetwork === 4? user.phone_number: formattedNumber,
       total_amount: Number(amount),
       bet_type_code: 2,
       bet_type: game_picked.toString().toLowerCase(),
@@ -75,7 +69,7 @@ const SingleGamePayment = () => {
       selected_numbers: numbers,
       channel: network,
       discounted_amount: "",
-      use_wallet: false,
+      use_wallet: selectedNetwork === 4 ? true : false,
       medium: "ussd",
     };
 
@@ -123,6 +117,8 @@ const SingleGamePayment = () => {
   //     setMobileNumber(mobile);
   //   }
   // }, [mobile]);
+
+  console.log("Selected Network => ", selectedNetwork);
 
   const selectNetwork = (id) => {
     const selectedNetwork = networks.find((network) => network.id === id);
@@ -210,42 +206,52 @@ const SingleGamePayment = () => {
             <p className="font-md font-normal mb-5">Select Channel</p>
           </span>
           <div className="flex flex-row flex-auto flex-wrap">
-            {networks.filter((network) => !(user === null && network.id === 4)).map((network) => (
-              <div
-                key={network.id}
-                className="flex flex-col bg-gray-100 h-24 w-24 p-2 mr-2 justify-center items-center rounded-lg mb-2"
-                onClick={() => selectNetwork(network.id)}
-                style={{
-                  border:
-                    selectedNetwork === network.id
-                      ? "2px solid #3DB6BC"
-                      : "0px solid gray",
-                }}
-              >
-                <img
-                  className="flex mb-2 w-auto"
-                  src={network.image}
-                  alt="network"
-                />
-                <p className="flex w-full justify-center items-center">
-                  <p className="flex text-xs w-full justify-center items-center text-black">
-                    {network.name}
+            {networks
+              .filter((network) => !(user === null && network.id === 4))
+              .map((network) => (
+                <div
+                  key={network.id}
+                  className="flex flex-col bg-gray-100 h-24 w-24 p-2 mr-2 justify-center items-center rounded-lg mb-2"
+                  onClick={() => selectNetwork(network.id)}
+                  style={{
+                    border:
+                      selectedNetwork === network.id
+                        ? "2px solid #3DB6BC"
+                        : "0px solid gray",
+                  }}
+                >
+                  <img
+                    className="flex mb-2 w-auto"
+                    src={network.image}
+                    alt="network"
+                  />
+                  <p className="flex w-full justify-center items-center">
+                    <p className="flex text-xs w-full justify-center items-center text-black">
+                      {network.name}
+                    </p>
                   </p>
-                </p>
-              </div>
-            ))}
+                </div>
+              ))}
           </div>
           <div className="mt-10">
-            <p className="mb-5">Enter phone number</p>
             <div>
-              <Input
-                type={"number"}
-                placeholder={"020 000 0000"}
-                icon={"ghana.svg"}
-                className="bg-[#F5F5F7] input-md focus:outline-none text-black"
-                value={mobileNumber}
-                onChange={handleInputChange}
-              />
+              {selectedNetwork !== 4 ? (
+                <p className="mb-5">Enter phone number</p>
+              ) : (
+                <p></p>
+              )}
+              {selectedNetwork !== 4 ? (
+                <Input
+                  type={"number"}
+                  placeholder={"020 000 0000"}
+                  icon={"ghana.svg"}
+                  className="bg-[#F5F5F7] input-md focus:outline-none text-black"
+                  value={mobileNumber}
+                  onChange={handleInputChange}
+                />
+              ) : (
+                <p></p>
+              )}
             </div>
           </div>
         </div>
@@ -265,11 +271,11 @@ const SingleGamePayment = () => {
       </div>
       <div className="bg-gray-100 flex flex-row w-full absolute bottom-auto left-0 right-0 justify-center items-center">
         <Button
-            label={`Pay GHS ${amount}.00`}
-            disabled={!network || !mobileNumber}
-            onClick={placeBet}
-            className="font-bold rounded-lg w-96 h-16 bg-primary text-white"
-          />
+          label={`Pay GHS ${amount}.00`}
+          disabled={!network || (!mobileNumber && selectedNetwork !== 4)}
+          onClick={placeBet}
+          className="font-bold rounded-lg w-96 h-16 bg-primary text-white"
+        />
       </div>
     </>
   );

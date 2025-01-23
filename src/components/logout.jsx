@@ -20,9 +20,6 @@ const Logout = () => {
   const handleLogout = () => {
     dispatch(logout());
     window.location.reload();
-    if (isLoggedIn) {
-      toggleLogout();
-    }
   };
 
   return (

@@ -9,7 +9,7 @@ import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
 import { useDispatch } from "react-redux";
-import { login, logout } from "../../store/userSlice";
+import { login } from "../../store/userSlice";
 
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
