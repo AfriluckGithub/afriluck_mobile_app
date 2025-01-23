@@ -16,7 +16,7 @@ const Auth = () => {
   return (
     <div>
       {isLoggedIn ? <LoggedIn /> : <Notlogged />}
-      { <button onClick={toggleLogin}>{isLoggedIn ? "Log Out" : "Log In"}</button>}
+      {/* { <button onClick={toggleLogin}>{isLoggedIn ? "Log Out" : "Log In"}</button>} */}
     </div>
   );
 };
