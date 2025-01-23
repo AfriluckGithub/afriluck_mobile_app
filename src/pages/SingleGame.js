@@ -123,8 +123,9 @@ const SingleGame = () => {
     console.log(valuesArray);
   };
 
-  const handleAmountChange = (event) => {
-    setBetAmount(event.target.value);
+  const handleAmountChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numbers
+    setBetAmount(value === "" ? 0 : parseInt(value, 10));
   };
 
   const back = () => {
@@ -340,8 +341,8 @@ const SingleGame = () => {
                 GHS{" "}
                 <input
                   onChange={handleAmountChange}
-                  className="w-16"
-                  value={` ${betAmount}.00`}
+                  className="w-16 border-2 border-black rounded-lg pl-2"
+                  value={betAmount}
                 />
               </p>
             </p>
