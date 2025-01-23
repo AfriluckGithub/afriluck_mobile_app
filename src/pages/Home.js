@@ -20,7 +20,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="h-screen overflow-y-auto">
+    <div className="h-full">
       <SearchBar query={query} setQuery={setQuery} />
       <Banner image={"banner.png"} />
       <Content

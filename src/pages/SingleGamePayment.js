@@ -264,7 +264,7 @@ const SingleGamePayment = () => {
           label={`Pay GHS ${amount}.00`}
           disabled={!network || (!mobileNumber && selectedNetwork !== 4)}
           onClick={placeBet}
-          className="font-bold rounded-lg w-96 h-16 bg-primary text-white"
+          className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white"
         />
       </div>
     </>
