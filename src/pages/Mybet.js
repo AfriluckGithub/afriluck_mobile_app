@@ -1,47 +1,58 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import SearchBar from "../components/myBetSearchbar";
 import { OrbitProgress } from "react-loading-indicators";
+import { useSelector } from "react-redux";
 
 const Mybet = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  //const [token, setToken] = useState("");
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
     try {
       var token = null;
-      if (!user) {
+      if (user) {
         token = user.token;
       }
       const getMyBets = async () => {
         setLoading(true);
-        const res = await axios.get(
-          "https://staging.afriluck.com/api/V1/app/draw-results",
-          {
-            headers: {
-              Authorization: `Beaer ${token}`,
-            },
+        console.log("Token => ", token);
+        try {
+          const res = await axios.get(
+            "https://staging.afriluck.com/api/V1/app/my-bets",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          setLoading(false);
+          console.log(res);
+
+          if (res.status === 200) {
+            setResults(res.data.success);
           }
-        );
-        setLoading(false);
-        if (res.status === 200) {
-          setResults(res.data.success);
+        } catch (e) {
+          setError(`${e.message}`);
+          setLoading(false);
+          console.log(e);
         }
       };
-
       getMyBets();
     } catch (error) {
-      setLoading(false);
-      console.log(error);
-      setError("Oops, nothing to display here. Kindly log-in");
+      try {
+        setLoading(false);
+        console.log(error);
+        setError("Oops, nothing to display here. Kindly log-in");
+      } catch (error) {
+        console.log(error);
+      }
     }
   }, [user]);
-
-  console.log("user => ", user);
-  console.log("error => ", error);
 
   return (
     <>
@@ -50,22 +61,28 @@ const Mybet = () => {
           <SearchBar />
         </div>
         <div className="flex flex-col w-full mt-5">
-          {results.map((result, index) => (
+          {results.map((result) => (
             <div className="bg-white rounded-lg h-auto m-5 p-3">
               <div className="flex flex-row w-auto">
                 <span>
                   <img alt="afriluck" src="afriluck_lg.png" />
                 </span>
                 <span className="flex flex-col items-start text-black mb-2 font-sans text-wrap w-full ml-5">
-                  <div className="font-semibold text-sm">
-                    {result.date}
+                  <div className="font-semibold text-base">
+                    {result.draw_code} / {result.date}
                   </div>
-                  <div className="text-gray-400">{result.result}</div>
+                  <div className="text-gray-400">{result.selected_numbers}</div>
                 </span>
               </div>
               <hr />
-              <div className="flex flex-row w-full justify-end items-end mt-2">
-                <p className="text-sm text-gray-400">10:00 AM</p>
+              <div className="mt-2">
+                <div class="flex justify-between w-full">
+                  <div className="flex flex-row">
+                    <div className="mr-2"><img alt="share" src={"share.svg"}/> </div>
+                    <div> Share</div>
+                  </div>
+                  <span>{result.time}</span>
+                </div>
               </div>
             </div>
           ))}
