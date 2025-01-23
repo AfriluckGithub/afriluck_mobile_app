@@ -8,14 +8,16 @@ import { useSelector } from "react-redux";
 
 const Profile = () => {
   const user = useSelector((state) => state.user.user);
+  console.log(user);
+  
   return (
     <div className="flex flex-col w-full h-[1400px] space-y-6 px-6 py-8 mt-16">
       <div className="space-y-2">
         <Auth />
       </div>
       <div className="space-y-2">
-        {user ? <h1 className="text-lg">Account Details</h1> : <p></p>}
-        {user ? <Accounts /> : <p></p>}
+        {user? <h1 className="text-lg">Account Details</h1> : <p></p>}
+        {user? <Accounts /> : <p></p>}
       </div>
       <div className="space-y-2">
         <h1 className="text-lg">Share Activity</h1>

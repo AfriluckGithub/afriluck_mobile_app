@@ -37,7 +37,7 @@ const Mybet = () => {
             setResults(res.data.success);
           }
         } catch (e) {
-          setError(`${e.message}`);
+          setError("Oops, nothing to display here. Kindly log-in");
           setLoading(false);
           console.log(e);
         }
@@ -67,13 +67,13 @@ const Mybet = () => {
                 <span>
                   <img alt="afriluck" src="afriluck_lg.png" />
                 </span>
-                <span className="flex flex-col items-start text-black mb-2 font-sans text-wrap w-full ml-5">
+                <div className="flex flex-col items-start text-gray-600 mb-2 font-sans text-wrap w-full ml-5">
                   <div className="flex flex-row font-semibold text-base">
                     <div className="mr-2">{result.draw_code},</div>
                     <div>{result.date}</div>
                   </div>
-                  <div className="text-gray-400">{result.selected_numbers}</div>
-                </span>
+                  <div className="text-gray-600">{result.selected_numbers}</div>
+                </div>
               </div>
               <hr />
               <div className="mt-2">

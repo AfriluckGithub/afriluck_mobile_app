@@ -67,12 +67,12 @@ const Draw = () => {
                 <span>
                   <img alt="afriluck" src="afriluck_lg.png" />
                 </span>
-                <span className="flex flex-col items-start text-gray-600 mb-2 font-sans text-wrap w-full ml-5">
+                <span className="flex flex-col items-start font-semibold text-gray-600 mb-2 font-sans text-wrap w-full ml-5">
                   <div className="flex flex-row text-base">
                     <div className="mr-2">{result.draw},</div>
                     <div>{result.date}</div>
                   </div>
-                  <div className="text-gray-400">{result.result}</div>
+                  <div className="text-gray-400 mt-2">{result.result}</div>
                 </span>
               </div>
               <hr />
