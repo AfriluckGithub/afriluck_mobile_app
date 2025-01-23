@@ -195,7 +195,7 @@ const SingleGamePayment = () => {
           <span>
             <p className="font-md font-normal mb-5">Select Channel</p>
           </span>
-          <div className="flex flex-row flex-auto flex-wrap">
+          <div className="flex flex-row flex-auto flex-wrap justify-center items-center">
             {networks
               .filter((network) => !(user === null && network.id === 4))
               .map((network) => (
