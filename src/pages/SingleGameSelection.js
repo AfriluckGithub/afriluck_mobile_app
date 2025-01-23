@@ -85,8 +85,8 @@ const SingleGameSelection = () => {
   };
 
   return (
-    <>
-      <div className="flex flex-col bg-gray-100 w-full h-full p-5">
+    <div className="bg-[#F7F7F7]">
+      <div className="flex flex-col bg-[#F7F7F7] w-full h-full p-5">
         <div className="h-16 w-full rounded-lg">
           <div className="flex flex-row w-full">
             <div onClick={back} className="">
@@ -128,7 +128,7 @@ const SingleGameSelection = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap w-full h-auto bg-gray-100 absolute bottom-0 left-0 justify-center items-center">
+        <div className="flex flex-wrap w-full h-auto bg-gray-100 relative bottom-0 left-0 justify-center items-center">
           <Button
             label={"Place Bet"}
             disabled={false}
@@ -148,7 +148,7 @@ const SingleGameSelection = () => {
         imageSrc="logout.svg"
         imgBg={"#FFF9F9"}
       />
-    </>
+    </div>
   );
 };
 
