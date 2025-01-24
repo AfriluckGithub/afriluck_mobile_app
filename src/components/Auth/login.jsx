@@ -16,14 +16,12 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [
     open,
-    //setOpen
   ] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const {
-    //setCurrentUser,
     toggleLogin,
   } = useAuth();
   const dispatch = useDispatch();
@@ -82,11 +80,11 @@ const LoginScreen = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6">
+    <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6 w-screen">
       <Subheader title="Login" />
-      <div className="flex flex-col w-full lg:w-[40%] items-center justify-center  bg-white rounded-xl p-6 my-20">
+      <div className="flex flex-col lg:w-[40%] items-center justify-center bg-white rounded-xl p-6 my-20 w-screen">
         <img src="afriluck.svg" alt="afriluck" className="mb-6" />
-        <div className="flex flex-col w-full max-w-md space-y-6">
+        <div className="flex flex-col w-screen max-w-md space-y-6 p-5">
           <Input
             type={"number"}
             placeholder={"020 000 0000"}
@@ -100,8 +98,8 @@ const LoginScreen = () => {
             placeholder={"Password"}
             icon={"password.svg"}
             className="bg-[#F5F5F7] input-md"
-            rightIcon
             value={password}
+            rightIcon
             onChange={(e) => setPassword(e.target.value)}
           />
           <NavLink

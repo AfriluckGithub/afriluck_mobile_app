@@ -29,7 +29,7 @@ const Input = ({
       <div className="label">
         <span className="label-text">{label}</span>
       </div>
-      {icon && <img src={icon} alt="icon" className="flex justify-end items-end w-6 h-6" />}
+      {icon && <img src={icon} alt="icon" className="flex justify-start items-start w-6 h-6" />}
       <input
         tabIndex="-1"
         type={type === "password" && isPasswordVisible ? "text" : type}
@@ -48,12 +48,12 @@ const Input = ({
           />
         )} */}
       {rightIcon &&
-        type === "password" && ( // Check if type is "password"
+        type === "password" && (
           <img
-            src="eyeclose.svg" // Use an eye icon for toggling password visibility
+            src="eyeclose.svg"
             alt="Toggle password visibility"
             className="cursor-pointer"
-            onClick={handleTogglePasswordVisibility} // Call the toggle function
+            onClick={handleTogglePasswordVisibility} 
           />
         )}
     </label>
