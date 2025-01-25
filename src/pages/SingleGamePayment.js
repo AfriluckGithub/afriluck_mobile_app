@@ -151,19 +151,19 @@ const SingleGamePayment = () => {
     {
       id: 1,
       name: "MTN Momo",
-      image: "logo-pay-mtn-momo.png",
+      image: "mtn_momo.svg",
       desc: "mtn",
     },
     {
       id: 2,
       name: "Telecel Cash",
-      image: "logo-service-telecelbroadband.png",
+      image: "telecel_logo.svg",
       desc: "telecel",
     },
     {
       id: 3,
       name: "AT Money",
-      image: "logo-service-airteltigo.png",
+      image: "AirtelTigo.svg",
       desc: "airteltigo",
     },
     {
@@ -219,7 +219,7 @@ const SingleGamePayment = () => {
               .map((network) => (
                 <div
                   key={network.id}
-                  className="flex flex-col bg-gray-100 h-24 w-24 p-2 mr-2 justify-center items-center rounded-lg mb-2"
+                  className="flex flex-col bg-gray-100 h-24 w-24 p-2 mr-2 justify-center items-center rounded-lg mb-2 focus:outline-none ripple"
                   onClick={() => selectNetwork(network.id)}
                   style={{
                     border:
