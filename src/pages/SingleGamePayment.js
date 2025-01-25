@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -113,11 +113,13 @@ const SingleGamePayment = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (mobile !== "") {
-  //     setMobileNumber(mobile);
-  //   }
-  // }, [mobile]);
+  useEffect(() => {
+    if (user) {
+      var mobile = String(user.phone_number).substring(3, 13);
+      setMobileNumber(`0${mobile}`);
+      setIsValidMobile(true);
+    }
+  }, [user]);
 
   console.log("Selected Network => ", selectedNetwork);
 
@@ -129,13 +131,12 @@ const SingleGamePayment = () => {
 
   const handleInputChange = (event) => {
     setMobileNumber(event.target.value);
-    if (mobileNumber.toString().length === 9) {
+    if (mobileNumber.toString().length >= 9) {
       setIsValidMobile(true);
       localStorage.setItem("mobileNumber", mobileNumber);
     } else {
       setIsValidMobile(false);
     }
-    console.log("Valid => ", isValidMobile);
   };
 
   const back = () => {
@@ -283,7 +284,11 @@ const SingleGamePayment = () => {
       <div className="bg-gray-100 flex flex-row flex-wrap w-full mb-5 justify-center items-center">
         <Button
           label={`Pay GHS ${amount}.00`}
-          disabled={!network || !isValidMobile || (!mobileNumber && selectedNetwork !== 4)}
+          disabled={
+            !network ||
+            !isValidMobile ||
+            (!mobileNumber && selectedNetwork !== 4)
+          }
           onClick={placeBet}
           className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white text-base"
         />
