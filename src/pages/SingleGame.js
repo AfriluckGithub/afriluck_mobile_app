@@ -384,7 +384,7 @@ const SingleGame = () => {
             label={"Confirm"}
             disabled={!betAmount || !inputValue || error !== ""}
             onClick={placeBet}
-            className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white mb-5"
+            className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white mb-5 text-base"
           />
         </div>
       </div>

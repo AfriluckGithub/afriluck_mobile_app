@@ -16,6 +16,7 @@ const SingleGamePayment = () => {
   const [network, setNetwork] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isValidMobile, setIsValidMobile] = useState(false);
 
   const numbers = localStorage.getItem("numbers");
   const amount = localStorage.getItem("betAmount");
@@ -27,13 +28,12 @@ const SingleGamePayment = () => {
 
   const user = useSelector((state) => state.user.user);
 
-
   const getFormattedDate = () => {
     const date = new Date();
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const day = days[date.getDay()]; 
-    const dayOfMonth = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = days[date.getDay()];
+    const dayOfMonth = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     return `${day} ${dayOfMonth}/${month}/${year}`;
   };
@@ -129,7 +129,13 @@ const SingleGamePayment = () => {
 
   const handleInputChange = (event) => {
     setMobileNumber(event.target.value);
-    localStorage.setItem("mobileNumber", mobileNumber);
+    if (mobileNumber.toString().length === 9) {
+      setIsValidMobile(true);
+      localStorage.setItem("mobileNumber", mobileNumber);
+    } else {
+      setIsValidMobile(false);
+    }
+    console.log("Valid => ", isValidMobile);
   };
 
   const back = () => {
@@ -277,9 +283,9 @@ const SingleGamePayment = () => {
       <div className="bg-gray-100 flex flex-row flex-wrap w-full mb-5 justify-center items-center">
         <Button
           label={`Pay GHS ${amount}.00`}
-          disabled={!network || (!mobileNumber && selectedNetwork !== 4)}
+          disabled={!network || !isValidMobile || (!mobileNumber && selectedNetwork !== 4)}
           onClick={placeBet}
-          className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white"
+          className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white text-base"
         />
       </div>
     </>

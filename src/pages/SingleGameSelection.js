@@ -126,7 +126,7 @@ const SingleGameSelection = () => {
                 label={"Place Bet"}
                 disabled={false}
                 onClick={handlePaymentScreen}
-                className="font-bold rounded-lg h-16 bg-primary text-white w-full"
+                className="font-bold rounded-lg h-16 bg-primary text-white w-full text-base"
               />
             </div>
           </div>
