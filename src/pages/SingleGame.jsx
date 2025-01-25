@@ -209,7 +209,7 @@ const SingleGame = () => {
       navigate("/single_game_selection");
     } else {
       setError(
-        "Kindly verify if the amount or numbers selected meets the required length."
+        "Kindly verify if the game, amount or numbers selected meets the required length."
       );
     }
   };
@@ -324,7 +324,11 @@ const SingleGame = () => {
                   ? `Please select a number`
                   : `Please pick ${selectedGame} numbers between 1 to 57`
               }`}
-              className={`${error === ""? `bg-[#F5F5F7] input-md text-black text-sm`: `bg-[#F5F5F7] input-md border-pink-500 text-pink-600 text-sm`}`}
+              className={`${
+                error === ""
+                  ? `bg-[#F5F5F7] input-md text-black text-sm`
+                  : `bg-[#F5F5F7] input-md border-pink-500 text-pink-600 text-sm`
+              }`}
               value={inputValue}
               onChange={handleInputChange}
             />
