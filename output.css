@@ -779,10 +779,11 @@ video {
 
 body{
   font-family: Montserrat, sans-serif;
+  background-color: #F7F7F7;
 }
 
-.focus\:outline-none:focus{
+/* .focus\:outline-none:focus{
   outline: 2px solid transparent;
   outline-offset: 2px;
-}
+} */
 

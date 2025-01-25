@@ -161,9 +161,13 @@ const SingleGame = () => {
   };
 
   function isValidValue(value) {
-    return ranges.some(
+    console.log("Selected Game =>", selectedGame);
+    
+    const current = ranges.filter(range => range.game === Number(selectedGame));
+    console.log("GM :", current);
+    return current.some(
       (range) =>
-        value >= range.min && value <= range.max && selectedGame === range.game
+        value >= range.min && value <= range.max
     );
   }
 
@@ -216,20 +220,20 @@ const SingleGame = () => {
   // };
   return (
     <>
-      <div className="flex flex-col bg-[#F7F7F7] w-full h-full p-5">
-        <div className="bg-[#F7F7F7] h-16x rounded-lg mb-5">
-          <div className="flex flex-row w-full items-center ml-2">
+      <div className="h-full flex flex-col bg-[#F7F7F7] w-screen p-5">
+        <div className="bg-[#F7F7F7] h-auto rounded-lg mb-5 ">
+          <div className="flex justify-center items-center ml-2">
             <div onClick={back} className="w-auto">
               <FontAwesomeIcon icon={faChevronLeft} />
             </div>
-            <div className="flex flex-wrap justify-center items-center w-full font-Poppins text-xl">
+            <div className="flex flex-wrap justify-center items-center w-screen font-Poppins text-xl">
               <p className="flex justify-start items-start text-black">
                 {type}
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white h-auto w-full p-5 rounded-lg flex flex-col justify-center items-center">
+        <div className="bg-white h-auto p-5 rounded-lg flex flex-col justify-center items-center">
           <div className="flex flex-col justify-start items-start w-full mb-5">
             {/* <span className="font-semibold text-md mb-5 font-Poppins">
               Draw 148
@@ -256,8 +260,10 @@ const SingleGame = () => {
                     style={{
                       border:
                         selectedGame === game.id
-                          ? "2px solid #156064"
+                          ? "3px solid #3DB6BC"
                           : "0px solid gray",
+                      backgroundColor: selectedGame === game.id? "#F6FCFD":"#F7F7F7",
+                      fontWeight: selectedGame === game.id? "bold":"normal"
                     }}
                   >
                     <p className="flex text-black font-Poppins font-normal w-full justify-center items-center">
@@ -283,6 +289,8 @@ const SingleGame = () => {
                         selectedGame === game.id
                           ? "2px solid #156064"
                           : "0px solid gray",
+                          backgroundColor: selectedGame === game.id? "#F6FCFD":"#F7F7F7",
+                      fontWeight: selectedGame === game.id? "bold":"normal"
                     }}
                   >
                     <p className="flex text-black font-Poppins font-normal justify-center items-center w-full">
@@ -305,7 +313,7 @@ const SingleGame = () => {
             </div>
           )}
         </div>
-        <div className="bg-white h-28 w-full p-5 rounded-lg mt-10">
+        <div className="bg-white h-28 w-full p-5 rounded-lg mt-5">
           <p>Selections</p>
           <div>
             <Input
@@ -325,8 +333,8 @@ const SingleGame = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap items-center h-auto bg-[#F7F7F7] relative bottom-0 left-0 right-0">
-        <div className="flex flex-row w-full h-auto bg-white rounded-lg p-5 m-5">
+      <div className="flex flex-wrap justify-center items-center bg-[#F7F7F7]">
+        <div className="flex flex-row w-screen h-auto bg-white rounded-lg p-5 m-5">
           <div className="flex justify-start items-start flex-col flex-wrap mr-5 w-full">
             <p className="font-normal text-sm font-Poppins text-gray-400">
               Bet Amount

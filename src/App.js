@@ -14,10 +14,9 @@ function App() {
   }, [location.pathname]);
 
   return (
-    <div className="flex flex-col h-screen w-full bg-[#F7F7F7]">
+    <div className="bg-[#F7F7F7] h-screen flex flex-col">
       <Header />
       <div className="flex-1 overflow-y-auto">
-        {/* Allow scrolling here */}
         <Outlet />
       </div>
       <Footer />

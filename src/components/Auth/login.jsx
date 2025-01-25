@@ -14,16 +14,12 @@ import { login } from "../../store/userSlice";
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [
-    open,
-  ] = useState(false);
+  const [open] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const {
-    toggleLogin,
-  } = useAuth();
+  const { toggleLogin } = useAuth();
   const dispatch = useDispatch();
 
   const openModal = async () => {
@@ -42,7 +38,6 @@ const LoginScreen = () => {
           },
         }
       );
-      console.log("RES => ", res);
       setLoading(false);
       if (res.status === 200) {
         dispatch(login(res.data.success));
@@ -63,8 +58,8 @@ const LoginScreen = () => {
   };
 
   const handleSuccess = () => {
-    toggleLogin(); // Set the user as logged in
-    navigate("/profile"); // Navigate to the profile screen
+    toggleLogin();
+    navigate("/profile");
   };
 
   const handleSignup = () => {
@@ -73,9 +68,8 @@ const LoginScreen = () => {
 
   const handlePhoneNumberChange = (e) => {
     const value = e.target.value;
-    // Validate to ensure the phone number is up to 10 digits
     if (/^\d{0,10}$/.test(value)) {
-      setPhoneNumber(value); // Update state if valid
+      setPhoneNumber(value);
     }
   };
 
@@ -121,7 +115,15 @@ const LoginScreen = () => {
               onClick={handleSignup}
             />
           </div>
-          <div>{error ? <p className="flex justify-center items-center text-rose-500 text-sm">{error}</p> : <p></p>}</div>
+          <div>
+            {error ? (
+              <p className="flex justify-center items-center text-rose-500 text-sm">
+                {error}
+              </p>
+            ) : (
+              <p></p>
+            )}
+          </div>
           <div className="flex justify-center items-center w-full h-auto">
             {loading ? (
               <OrbitProgress

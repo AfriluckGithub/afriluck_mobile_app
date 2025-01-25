@@ -1,4 +1,8 @@
 {
     "editor.fontFamily": "'Source Code Pro','Ubuntu mono', Menlo, Monaco, 'Courier New', monospace",
-    "editor.fontSize": 16
+    "editor.fontSize": 16,
+    "editor.fontWeight": "normal",
+    "terminal.integrated.fontWeight": "normal",
+    "terminal.integrated.fontWeightBold": "normal",
+    "editor.fontVariations": false
 }

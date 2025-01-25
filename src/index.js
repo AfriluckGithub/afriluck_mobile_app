@@ -14,13 +14,13 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    <AuthProvider>
-      <AvatarProvider>
-        <PersistGate loading={null} persistor={persistor}>
-          <RouterProvider router={router} />
-        </PersistGate>
-      </AvatarProvider>
-    </AuthProvider>
+      <AuthProvider>
+        <AvatarProvider>
+          <PersistGate loading={null} persistor={persistor}>
+            <RouterProvider router={router} />
+          </PersistGate>
+        </AvatarProvider>
+      </AuthProvider>
     </Provider>
   </React.StrictMode>
 );
