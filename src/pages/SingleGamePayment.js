@@ -27,6 +27,17 @@ const SingleGamePayment = () => {
 
   const user = useSelector((state) => state.user.user);
 
+
+  const getFormattedDate = () => {
+    const date = new Date();
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const day = days[date.getDay()]; 
+    const dayOfMonth = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day} ${dayOfMonth}/${month}/${year}`;
+  };
+
   const placeBet = async () => {
     setLoading(true);
 
@@ -177,7 +188,7 @@ const SingleGamePayment = () => {
             <p className="text-xs text-black">Draw 148</p>
           </span>
           <span className="font-normal text-sm font-Poppins ml-auto text-black">
-            Mon 22/10/2024
+            {getFormattedDate()}
           </span>
         </div>
         <div

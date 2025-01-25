@@ -162,13 +162,12 @@ const SingleGame = () => {
 
   function isValidValue(value) {
     console.log("Selected Game =>", selectedGame);
-    
-    const current = ranges.filter(range => range.game === Number(selectedGame));
-    console.log("GM :", current);
-    return current.some(
-      (range) =>
-        value >= range.min && value <= range.max
+
+    const current = ranges.filter(
+      (range) => range.game === Number(selectedGame)
     );
+    console.log("GM :", current);
+    return current.some((range) => value >= range.min && value <= range.max);
   }
 
   const placeBet = () => {
@@ -262,8 +261,9 @@ const SingleGame = () => {
                         selectedGame === game.id
                           ? "3px solid #3DB6BC"
                           : "0px solid gray",
-                      backgroundColor: selectedGame === game.id? "#F6FCFD":"#F7F7F7",
-                      fontWeight: selectedGame === game.id? "bold":"normal"
+                      backgroundColor:
+                        selectedGame === game.id ? "#F6FCFD" : "#F7F7F7",
+                      fontWeight: selectedGame === game.id ? "bold" : "normal",
                     }}
                   >
                     <p className="flex text-black font-Poppins w-full justify-center items-center">
@@ -289,11 +289,12 @@ const SingleGame = () => {
                         selectedGame === game.id
                           ? "2px solid #156064"
                           : "0px solid gray",
-                          backgroundColor: selectedGame === game.id? "#F6FCFD":"#F7F7F7",
-                      fontWeight: selectedGame === game.id? "bold":"normal"
+                      backgroundColor:
+                        selectedGame === game.id ? "#F6FCFD" : "#F7F7F7",
+                      fontWeight: selectedGame === game.id ? "bold" : "normal",
                     }}
                   >
-                    <p className="flex text-black font-Poppins font-normal justify-center items-center w-full">
+                    <p className="flex text-black font-Poppins justify-center items-center w-full">
                       {game.game}
                     </p>
                   </div>
@@ -381,7 +382,7 @@ const SingleGame = () => {
         <div className="flex flex-wrap justify-center items-center w-screen">
           <Button
             label={"Confirm"}
-            disabled={!betAmount || !inputValue || error!==""}
+            disabled={!betAmount || !inputValue || error !== ""}
             onClick={placeBet}
             className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white mb-5"
           />
