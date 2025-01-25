@@ -266,7 +266,7 @@ const SingleGame = () => {
                       fontWeight: selectedGame === game.id? "bold":"normal"
                     }}
                   >
-                    <p className="flex text-black font-Poppins font-normal w-full justify-center items-center">
+                    <p className="flex text-black font-Poppins w-full justify-center items-center">
                       {game.game}
                     </p>
                   </div>

@@ -30,7 +30,7 @@ const SingleGamePayment = () => {
   const placeBet = async () => {
     setLoading(true);
 
-    if ((network === "") || (mobileNumber === "" && selectedNetwork !== 4)) {
+    if (network === "" || (mobileNumber === "" && selectedNetwork !== 4)) {
       toast.error(
         network === ""
           ? "Kindly provide a channel"
@@ -51,9 +51,9 @@ const SingleGamePayment = () => {
       return;
     }
 
-    const formattedNumber = `233${Number( mobileNumber)}`;
+    const formattedNumber = `233${Number(mobileNumber)}`;
     const requestBody = {
-      msisdn: selectedNetwork === 4? user.phone_number: formattedNumber,
+      msisdn: selectedNetwork === 4 ? user.phone_number : formattedNumber,
       total_amount: Number(amount),
       bet_type_code: 2,
       bet_type: game_picked.toString().toLowerCase(),
@@ -158,7 +158,7 @@ const SingleGamePayment = () => {
 
   return (
     <>
-      <div className="flex flex-col bg-gray-100 w-full h-screen p-5">
+      <div className="w-screen h-screen p-5 bg-[#F7F7F7] flex flex-col">
         <div className="bg-gray-100 h-16 w-full p-5 rounded-lg">
           <div className="flex flex-row w-auto items-center">
             <div onClick={back}>
@@ -208,6 +208,10 @@ const SingleGamePayment = () => {
                       selectedNetwork === network.id
                         ? "2px solid #3DB6BC"
                         : "0px solid gray",
+                    backgroundColor:
+                      selectedNetwork === network.id ? "#F6FCFD" : "#F7F7F7",
+                    fontWeight:
+                      selectedNetwork === network.id ? "bold" : "normal",
                   }}
                 >
                   <img
