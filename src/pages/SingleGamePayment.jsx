@@ -159,24 +159,28 @@ const SingleGamePayment = () => {
       name: "MTN Momo",
       image: "mtn_momo.svg",
       desc: "mtn",
+      placeholder: "MTN"
     },
     {
       id: 2,
       name: "Telecel Cash",
       image: "telecel_logo.svg",
       desc: "telecel",
+      placeholder: "Telecel"
     },
     {
       id: 3,
       name: "AT Money",
       image: "AirtelTigo.svg",
       desc: "airteltigo",
+      placeholder: "AT Money"
     },
     {
       id: 4,
       name: "Wallet",
       image: "afriluck_lg.png",
       desc: "airteltigo",
+      placeholder: "Wallet"
     },
   ];
 
@@ -241,7 +245,7 @@ const SingleGamePayment = () => {
                   <img
                     className="flex mb-2 w-auto"
                     src={network.image}
-                    alt="network"
+                    alt={network.placeholder}
                   />
                   <p className="flex w-full justify-center items-center">
                     <p className="flex text-xs w-full justify-center items-center text-black">
