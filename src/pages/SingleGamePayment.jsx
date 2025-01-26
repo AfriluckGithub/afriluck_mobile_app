@@ -18,15 +18,22 @@ const SingleGamePayment = () => {
   const [loading, setLoading] = useState(false);
   const [isValidMobile, setIsValidMobile] = useState(false);
 
-  const numbers = localStorage.getItem("numbers");
-  const amount = localStorage.getItem("betAmount");
+  //const numbers = localStorage.getItem("numbers");
+  //const amount = localStorage.getItem("betAmount");
   //const game = localStorage.getItem("game");
   //const mobile = localStorage.getItem("mobileNumber");
   //const token = localStorage.getItem("token");
-  const game_type = localStorage.getItem("game_type");
-  const game_picked = localStorage.getItem("game_picked");
+  //const game_type = localStorage.getItem("game_type");
+  //const game_picked = localStorage.getItem("game_picked");
 
   const user = useSelector((state) => state.user.user);
+  const transaction = useSelector((state) => state.transaction.transactions);
+
+  const amount = transaction.betAmount;
+  const numbers = transaction.numbers;
+  const game_type = transaction.type;
+  const game_picked = transaction.typePicked;
+
 
   const getFormattedDate = () => {
     const date = new Date();
@@ -82,7 +89,6 @@ const SingleGamePayment = () => {
       const res = await axios.post(
         "https://staging.afriluck.com/api/V1/app/place-bet",
         requestBody
-        // { headers }
       );
       console.log(res.data);
       if (res.status === 200) {

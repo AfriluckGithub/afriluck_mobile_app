@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { router } from "./route";
 import { AuthProvider } from "./context/AuthContext";
 import { AvatarProvider } from "./context/AvatarContext";
-import { store, persistor } from "./store/store";
+import store, { persistor }  from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 

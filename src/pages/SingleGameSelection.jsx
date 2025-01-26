@@ -3,29 +3,41 @@ import { faChevronLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
 import { useEffect, useState } from "react";
-import Modal from "../components/modal";
 import Button from "../components/button";
-//import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addTransactionData,
+  clearTransactionData,
+} from "../store/transactionSlice";
 
 const SingleGameSelection = () => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
   // const user = useSelector((state) => state.user.user);
+  const transaction = useSelector((state) => state.transaction.transactions);
 
-  const numbers = localStorage.getItem("numbers");
-  const amount = localStorage.getItem("betAmount");
-  const game = localStorage.getItem("game_picked");
-  const type = localStorage.getItem("game_type");
+  console.log("transactions =>", transaction);
+
+  const numbers = transaction.numbers;
+  const amount = transaction.betAmount;
+  //const game = transaction.game;
+  const type = transaction.type;
+  const typePicked = transaction.typePicked;
+  const movedPastPayment = transaction.movedPastPayment;
 
   useEffect(() => {
     const calculatePermAmount = async () => {
+      if(movedPastPayment) {
+          setTotal(amount);
+          return;
+      }
       try {
         const requestBody = JSON.stringify({
           amount: Number(amount),
           selected_numbers: numbers,
           bet_type_code: 2,
-          bet_type: game.toLowerCase(),
+          bet_type: typePicked.toLowerCase(),
         });
         console.log(requestBody);
 
@@ -35,7 +47,6 @@ const SingleGameSelection = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              //Authorization: `Bearer ${user.token}`,
             },
             body: requestBody,
           }
@@ -54,29 +65,31 @@ const SingleGameSelection = () => {
       }
     };
     calculatePermAmount();
-  }, [amount, numbers, total, game]);
-
-  const openModal = () => {
-    setOpen(true);
-  };
+  }, [amount, numbers, total, typePicked, movedPastPayment]);
 
   const back = () => {
     navigate("/single_game");
   };
 
-  const closeModal = () => {
-    setOpen(false);
-  };
-
   const handlePaymentScreen = () => {
-    if (game === "Perm") {
-      localStorage.setItem("betAmount", total);
+    if (typePicked === "Perm") {
+      dispatch(
+        addTransactionData({
+          numbers: transaction.numbers,
+          betAmount: total,
+          game: transaction.game,
+          type: transaction.type,
+          typePicked: transaction.typePicked,
+          movedPastPayment: true,
+        })
+      );
     }
     navigate("/single_game_payment");
   };
 
   const handleClear = () => {
-    openModal();
+    dispatch(clearTransactionData());
+    back();
   };
 
   return (
@@ -104,11 +117,10 @@ const SingleGameSelection = () => {
                 style={{ backgroundColor: "#F6FCFD" }}
                 className="flex flex-row w-full h-auto rounded-md p-5 items-center"
               >
-                
                 <div className="flex flex-col w-full">
                   <p className="w-full font-normal text-xl">{numbers}</p>
-                  <p className="text-gray-400">{`${game} | GHS ${
-                    game === "Perm" ? total : amount
+                  <p className="text-gray-400">{`${typePicked} | GHS ${
+                    typePicked === "Perm" ? total : amount
                   }.00`}</p>
                 </div>
               </div>
@@ -132,16 +144,6 @@ const SingleGameSelection = () => {
           </div>
         </div>
       </div>
-      <Modal
-        isOpen={open}
-        onClose={closeModal}
-        type={"failure"}
-        title="Log out"
-        subtitle="Are you sure you want to clear you selection?"
-        buttonText="Yes"
-        imageSrc="logout.svg"
-        imgBg={"#FFF9F9"}
-      />
     </div>
   );
 };

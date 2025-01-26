@@ -5,20 +5,29 @@ import { useNavigate } from "react-router-dom";
 import "./../output.css";
 import Input from "../components/input";
 import Button from "../components/button";
-//import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addTransactionData } from "../store/transactionSlice";
 
 const SingleGame = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [selectedGame, setSelectedGame] = useState([]);
 
   const [betAmount, setBetAmount] = useState(0);
   // const [numbers, setNumbers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
-  const [disabled, setDisabled] = useState(true);
+  const [
+    disabled, 
+    setDisabled] = useState(true);
   const [valuesArray, setValuesArray] = useState([]);
   const [val, setVal] = useState([]);
   //const [total, setTotal] = useState(0);
+
+  console.log(disabled);
+  console.log(valuesArray);
+  
+  
 
   const type = localStorage.getItem("game_type");
   const type_picked = localStorage.getItem("game_picked");
@@ -119,9 +128,6 @@ const SingleGame = () => {
     setValuesArray((prevArray) => [...prevArray, ...parts]);
     setInputValue(value);
     setError("");
-    console.log(parts);
-    console.log("Disabled => ", disabled);
-    console.log(valuesArray);
   };
 
   const handleAmountChange = (e) => {
@@ -140,9 +146,7 @@ const SingleGame = () => {
     } else if (type_picked === "Direct") {
       if (
         !value ||
-        [
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        ].includes(numericValue)
+        Array.from({ length: 20 }, (_, i) => i + 1).includes(numericValue)
       ) {
         setBetAmount(value === "" ? "" : numericValue);
         setError("");
@@ -161,19 +165,13 @@ const SingleGame = () => {
   };
 
   function isValidValue(value) {
-    console.log("Selected Game =>", selectedGame);
-
     const current = ranges.filter(
       (range) => range.game === Number(selectedGame)
     );
-    console.log("GM :", current);
     return current.some((range) => value >= range.min && value <= range.max);
   }
 
   const placeBet = () => {
-    console.log("selected game => ", selectedGame);
-    console.log("Val => ", val.length);
-
     if (error !== "") {
       return;
     }
@@ -203,9 +201,15 @@ const SingleGame = () => {
       bankerValidation ||
       permValidation
     ) {
-      localStorage.setItem("numbers", inputValue);
-      localStorage.setItem("betAmount", betAmount);
-      localStorage.setItem("game", selectedGame);
+      const transaction = {
+        numbers: inputValue,
+        betAmount: betAmount,
+        game: selectedGame,
+        type: type,
+        typePicked: type_picked,
+        movedPastPayment: false,
+      };
+      dispatch(addTransactionData(transaction));
       navigate("/single_game_selection");
     } else {
       setError(
