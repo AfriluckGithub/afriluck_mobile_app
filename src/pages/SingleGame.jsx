@@ -387,14 +387,14 @@ const SingleGame = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap justify-center items-center w-screen">
+        <footer className="flex flex-wrap justify-center items-center w-screen">
           <Button
             label={"Confirm"}
             disabled={!betAmount || !inputValue || error !== ""}
             onClick={placeBet}
             className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white mb-5 text-base"
           />
-        </div>
+        </footer>
       </div>
     </>
   );

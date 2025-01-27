@@ -133,14 +133,14 @@ const SingleGameSelection = () => {
                 <p className="ml-2 text-red font-semibold">Clear All</p>
               </div>
             </div>
-            <div className="flex flex-wrap w-screen h-auto bg-gray-100 justify-center items-center absolute bottom-0 left-0 p-5">
+            <footer className="flex flex-wrap w-screen h-auto bg-gray-100 justify-center items-center absolute bottom-0 left-0 p-5">
               <Button
                 label={"Place Bet"}
                 disabled={false}
                 onClick={handlePaymentScreen}
                 className="font-bold rounded-lg h-16 bg-primary text-white w-full text-base"
               />
-            </div>
+            </footer>
           </div>
         </div>
       </div>
