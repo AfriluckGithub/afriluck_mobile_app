@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Button from "../button";
 import { useNavigate } from "react-router-dom";
 import { useAvatar } from "../../context/AvatarContext";
@@ -7,11 +7,14 @@ const LoggedIn = () => {
   const { avatar } = useAvatar();
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user?.user) || {};
+  const user = useSelector((state) => state.user?.user);
+  const memoizedUser = useMemo(() => {
+      return user ? { ...user } : null;
+  }, [user]);
 
-  const username = `${user.first_name} ${user.last_name}`;
+  const username = memoizedUser === null? "Username": `${memoizedUser.first_name} ${memoizedUser.last_name}`;
   const phoneNumber =
-  user.phone_number === null ? "0202020202" : user.phone_number;
+  memoizedUser === null ? "0202020202" : memoizedUser.phone_number;
 
   return (
     <div className="flex flex-col w-full space-y-6   py-4">
