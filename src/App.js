@@ -8,7 +8,6 @@ import Footer from "./components/footer";
 
 function App() {
   const location = useLocation();
-
   useEffect(() => {
     window.HSStaticMethods.autoInit();
   }, [location.pathname]);
