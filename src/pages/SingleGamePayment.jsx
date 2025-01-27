@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
@@ -29,7 +29,11 @@ const SingleGamePayment = () => {
   //const user = useSelector((state) => state.user.user);
   const transaction = useSelector((state) => state.transaction?.transactions) || {};
 
-  const user = useSelector((state) => state.user?.user) || {};
+  const user = useSelector((state) => state.user?.user);
+
+  const memoizedUser = useMemo(() => {
+        return user ? { ...user } : null;
+  }, [user]);
 
   const amount = transaction.betAmount;
   const numbers = transaction.numbers;
@@ -72,7 +76,7 @@ const SingleGamePayment = () => {
 
     const formattedNumber = `233${Number(mobileNumber)}`;
     const requestBody = {
-      msisdn: selectedNetwork === 4 ? user.phone_number : formattedNumber,
+      msisdn: selectedNetwork === 4 ? memoizedUser.phone_number : formattedNumber,
       total_amount: Number(amount),
       bet_type_code: 2,
       bet_type: game_picked.toString().toLowerCase(),
@@ -121,12 +125,12 @@ const SingleGamePayment = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      var mobile = String(user.phone_number).substring(3, 13);
+    if (memoizedUser) {
+      var mobile = String(memoizedUser.phone_number).substring(3, 13);
       setMobileNumber(`0${mobile}`);
       setIsValidMobile(true);
     }
-  }, [user]);
+  }, [memoizedUser]);
 
   console.log("Selected Network => ", selectedNetwork);
 
@@ -226,7 +230,7 @@ const SingleGamePayment = () => {
           </span>
           <div className="flex flex-row flex-auto flex-wrap justify-center items-center">
             {networks
-              .filter((network) => !(user === null && network.id === 4))
+              .filter((network) => !(memoizedUser === null && network.id === 4))
               .map((network) => (
                 <div
                   key={network.id}

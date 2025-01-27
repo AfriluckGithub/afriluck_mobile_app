@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import SearchBar from "../components/myBetSearchbar";
 import { useSelector } from "react-redux";
@@ -9,13 +9,17 @@ const Draw = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   //const [token, setToken] = useState("");
-  const user = useSelector((state) => state.user?.user) || {};
+  const user = useSelector((state) => state.user?.user);
+
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
 
   useEffect(() => {
     try {
       var token = null;
-      if (user) {
-        token = user.token;
+      if (memoizedUser) {
+        token = memoizedUser.token;
       }
       const getMyBets = async () => {
         setLoading(true);
@@ -52,7 +56,7 @@ const Draw = () => {
         console.log(error);
       }
     }
-  }, [user]);
+  }, [memoizedUser]);
 
   return (
     <>

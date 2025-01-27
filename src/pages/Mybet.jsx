@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import SearchBar from "../components/myBetSearchbar";
 import { OrbitProgress } from "react-loading-indicators";
 import { useSelector } from "react-redux";
@@ -9,13 +9,17 @@ const Mybet = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   //const user = useSelector((state) => state.user.user);
-  const user = useSelector((state) => state.user?.user) || {};
+  const user = useSelector((state) => state.user?.user);
+
+  const memoizedUser = useMemo(() => {
+      return user ? { ...user } : null;
+    }, [user]);
 
   useEffect(() => {
     try {
       var token = null;
-      if (user) {
-        token = user.token;
+      if (memoizedUser) {
+        token = memoizedUser.token;
       }
       const getMyBets = async () => {
         setLoading(true);
@@ -52,7 +56,7 @@ const Mybet = () => {
         console.log(error);
       }
     }
-  }, [user]);
+  }, [memoizedUser]);
 
   return (
     <>
