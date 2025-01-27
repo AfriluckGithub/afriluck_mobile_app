@@ -17,8 +17,6 @@ const SingleGameSelection = () => {
   // const user = useSelector((state) => state.user.user);
   const transaction = useSelector((state) => state.transaction?.transactions) || {};
 
-  console.log("transactions =>", transaction);
-
   const numbers = transaction.numbers;
   const amount = transaction.betAmount;
   //const game = transaction.game;
