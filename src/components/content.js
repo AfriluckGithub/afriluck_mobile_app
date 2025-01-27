@@ -37,8 +37,8 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
           </div>
         </div>
         <div className="flex flex-wrap flex-row justify-center items-center flex-grow">
-          {filteredSubGames1.map((game) => (
-            <Game image={game.imageUrl} title={subtitle} subtitle={game.name} type={"Anopa"}/>
+          {filteredSubGames1.map((game, index) => (
+            <Game key={index} image={game.imageUrl} title={subtitle} subtitle={game.name} type={"Anopa"}/>
           ))}
         </div>
         <hr className="m-5" />
