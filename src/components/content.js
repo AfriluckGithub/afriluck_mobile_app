@@ -25,7 +25,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
 
   return (
     <>
-      <div className="bg-white rounded-xl p-5 mb-5 h-screen overflow-y-auto m-5">
+      <div className="bg-white rounded-xl p-5 h-auto overflow-y-auto m-5 mb-10">
         <div className="grid grid-cols-2 gap-2">
           <div
             className="global-text-color font-semibold text-md w-full"
