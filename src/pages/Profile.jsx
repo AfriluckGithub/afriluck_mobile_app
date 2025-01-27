@@ -7,7 +7,7 @@ import Auth from "../components/Auth";
 import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const user = useSelector((state) => state.user.user);  
+  const user = useSelector((state) => state.user?.user) || {}; 
   return (
     <div className="flex flex-col w-full h-[1400px] space-y-6 px-6 py-8 mt-16">
       <div className="space-y-2">

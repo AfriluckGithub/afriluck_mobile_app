@@ -9,7 +9,7 @@ const Draw = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   //const [token, setToken] = useState("");
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user?.user) || {};
 
   useEffect(() => {
     try {

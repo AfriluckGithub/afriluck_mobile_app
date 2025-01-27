@@ -26,8 +26,10 @@ const SingleGamePayment = () => {
   //const game_type = localStorage.getItem("game_type");
   //const game_picked = localStorage.getItem("game_picked");
 
-  const user = useSelector((state) => state.user.user);
-  const transaction = useSelector((state) => state.transaction.transactions);
+  //const user = useSelector((state) => state.user.user);
+  const transaction = useSelector((state) => state.transaction?.transactions) || {};
+
+  const user = useSelector((state) => state.user?.user) || {};
 
   const amount = transaction.betAmount;
   const numbers = transaction.numbers;

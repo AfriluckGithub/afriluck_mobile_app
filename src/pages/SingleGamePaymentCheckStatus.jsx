@@ -10,7 +10,8 @@ import { useState } from "react";
 const SingleGamePaymentCheckStatus = () => {
   const navigate = useNavigate();
   //const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  //const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user?.user) || {};
   const [statusText, setStatusText] = useState("Check Status");
   const [statusImage, setStatusImage] = useState("payment-status.svg");
   const [statusInfoText, setStatusInfoText] = useState(

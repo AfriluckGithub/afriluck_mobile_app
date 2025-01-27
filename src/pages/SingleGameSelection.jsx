@@ -15,7 +15,7 @@ const SingleGameSelection = () => {
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
   // const user = useSelector((state) => state.user.user);
-  const transaction = useSelector((state) => state.transaction.transactions);
+  const transaction = useSelector((state) => state.transaction?.transactions) || {};
 
   console.log("transactions =>", transaction);
 

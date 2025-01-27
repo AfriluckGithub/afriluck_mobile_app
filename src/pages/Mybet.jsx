@@ -8,7 +8,8 @@ const Mybet = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const user = useSelector((state) => state.user.user);
+  //const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user?.user) || {};
 
   useEffect(() => {
     try {
