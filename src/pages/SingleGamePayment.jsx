@@ -34,7 +34,6 @@ const SingleGamePayment = () => {
   const game_type = transaction.type;
   const game_picked = transaction.typePicked;
 
-
   const getFormattedDate = () => {
     const date = new Date();
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -159,28 +158,28 @@ const SingleGamePayment = () => {
       name: "MTN Momo",
       image: "mtn_momo.svg",
       desc: "mtn",
-      placeholder: "MTN"
+      placeholder: "MTN",
     },
     {
       id: 2,
       name: "Telecel Cash",
       image: "telecel_logo.svg",
       desc: "telecel",
-      placeholder: "Telecel"
+      placeholder: "Telecel",
     },
     {
       id: 3,
       name: "AT Money",
       image: "AirtelTigo.svg",
       desc: "airteltigo",
-      placeholder: "AT Money"
+      placeholder: "AT Money",
     },
     {
       id: 4,
       name: "Wallet",
       image: "afriluck_lg.png",
       desc: "airteltigo",
-      placeholder: "Wallet"
+      placeholder: "Wallet",
     },
   ];
 
@@ -291,7 +290,7 @@ const SingleGamePayment = () => {
           <ToastContainer />
         </div>
       </div>
-      <div className="bg-gray-100 flex flex-row flex-wrap w-full mb-5 justify-center items-center">
+      <footer className="bg-gray-100 flex flex-row flex-wrap w-full mb-5 justify-center items-center">
         <Button
           label={`Pay GHS ${amount}.00`}
           disabled={
@@ -302,7 +301,7 @@ const SingleGamePayment = () => {
           onClick={placeBet}
           className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white text-base"
         />
-      </div>
+      </footer>
     </>
   );
 };
