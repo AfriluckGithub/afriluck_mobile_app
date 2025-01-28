@@ -9,6 +9,7 @@ import { AvatarProvider } from "./context/AvatarContext";
 import store, { persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,4 +25,5 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+serviceWorkerRegistration.unregister();
 reportWebVitals();

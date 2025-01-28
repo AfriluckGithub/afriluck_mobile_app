@@ -8,10 +8,12 @@ import { OrbitProgress } from "react-loading-indicators";
 import Input from "../components/input";
 import { ToastContainer, toast } from "react-toastify";
 import Button from "../components/button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addTransactionData } from "../store/transactionSlice";
 
 const SingleGamePayment = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [selectedNetwork, setSelectedNetwork] = useState([]);
   const [network, setNetwork] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -27,12 +29,13 @@ const SingleGamePayment = () => {
   //const game_picked = localStorage.getItem("game_picked");
 
   //const user = useSelector((state) => state.user.user);
-  const transaction = useSelector((state) => state.transaction?.transactions) || {};
+  const transaction =
+    useSelector((state) => state.transaction?.transactions) || {};
 
   const user = useSelector((state) => state.user?.user);
 
   const memoizedUser = useMemo(() => {
-        return user ? { ...user } : null;
+    return user ? { ...user } : null;
   }, [user]);
 
   const amount = transaction.betAmount;
@@ -76,7 +79,8 @@ const SingleGamePayment = () => {
 
     const formattedNumber = `233${Number(mobileNumber)}`;
     const requestBody = {
-      msisdn: selectedNetwork === 4 ? memoizedUser.phone_number : formattedNumber,
+      msisdn:
+        selectedNetwork === 4 ? memoizedUser.phone_number : formattedNumber,
       total_amount: Number(amount),
       bet_type_code: 2,
       bet_type: game_picked.toString().toLowerCase(),
@@ -98,6 +102,18 @@ const SingleGamePayment = () => {
       console.log(res.data);
       if (res.status === 200) {
         setLoading(false);
+
+        dispatch(
+          addTransactionData({
+            numbers: transaction.numbers,
+            betAmount: amount,
+            game: transaction.game,
+            type: transaction.type,
+            typePicked: transaction.typePicked,
+            movedPastPayment: true,
+            mobileNumber: mobileNumber
+          })
+        );
         moveToCheckPaymentStatuds();
       }
       console.error("Error:", res);

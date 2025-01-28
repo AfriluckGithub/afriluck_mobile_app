@@ -78,7 +78,7 @@ const SingleGameSelection = () => {
           game: transaction.game,
           type: transaction.type,
           typePicked: transaction.typePicked,
-          movedPastPayment: true,
+          movedPastPayment: true 
         })
       );
     }
