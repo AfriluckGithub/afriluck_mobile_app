@@ -45,9 +45,9 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
         currentTimeInMinutes >= hideStartMid &&
         currentTimeInMinutes <= hideEndMid
       ) {
-        setIsVisibleAnopa(false); // Hide component
+        setIsVisibleMidday(false); // Hide component
       } else {
-        setIsVisibleAnopa(true); // Show component
+        setIsVisibleMidday(true); // Show component
       }
     };
 
@@ -105,7 +105,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
           </div>
         </div>
         <div className="flex flex-row justify-center items-center">
-          {isVisibleAnopa === true ? (
+          {isVisibleMidday === true ? (
             filteredSubGames1.map((game, index) => (
               <Game
                 key={index}
