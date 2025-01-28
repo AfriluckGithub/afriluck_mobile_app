@@ -2,6 +2,7 @@ import "../output.css";
 import "../App.css";
 import Game from "../components/game";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { useEffect, useState } from "react";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,47 @@ export default function Content({ subGames, subGames1, query }) {
 }
 
 const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
+  const [isVisibleAnopa, setIsVisibleAnopa] = useState(true);
+  const [isVisibleMidday, setIsVisibleMidday] = useState(true);
+
+  useEffect(() => {
+    const checkTime = () => {
+      const now = new Date();
+      const currentHours = now.getHours();
+      const currentMinutes = now.getMinutes();
+
+      // Convert time to minutes for easier comparison
+      const currentTimeInMinutes = currentHours * 60 + currentMinutes;
+      const hideStart = 10 * 60; // 10:00 AM in minutes
+      const hideEnd = 19 * 60 + 45; // 7:45 PM in minutes
+      const hideStartMid = 13 * 60; // 1:00 PM in minutes
+      const hideEndMid = 19 * 60 + 45; // 7:45 PM in minutes
+
+      // Set visibility based on the time
+      if (
+        currentTimeInMinutes >= hideStart &&
+        currentTimeInMinutes <= hideEnd
+      ) {
+        setIsVisibleAnopa(false); // Hide component
+      } else {
+        setIsVisibleAnopa(true); // Show component
+      }
+
+      if (
+        currentTimeInMinutes >= hideStartMid &&
+        currentTimeInMinutes <= hideEndMid
+      ) {
+        setIsVisibleAnopa(false); // Hide component
+      } else {
+        setIsVisibleAnopa(true); // Show component
+      }
+    };
+
+    checkTime(); // Check immediately on mount
+    const interval = setInterval(checkTime, 60 * 1000); // Re-check every minute
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
 
   const filteredSubGames = subGames.filter((game) =>
     game.name.toLowerCase().includes(query.toLowerCase())
@@ -35,16 +77,22 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
             <p></p>
           </div>
         </div>
-        <div className={`flex flex-wrap flex-row justify-center items-center flex-grow`}>
-          {filteredSubGames1.map((game, index) => (
-            <Game
-              key={index}
-              image={game.imageUrl}
-              title={subtitle}
-              subtitle={game.name}
-              type={"Anopa"}
-            />
-          ))}
+        <div
+          className={`flex flex-wrap flex-row justify-center items-center flex-grow`}
+        >
+          {isVisibleAnopa === true ? (
+            filteredSubGames1.map((game, index) => (
+              <Game
+                key={index}
+                image={game.imageUrl}
+                title={subtitle}
+                subtitle={game.name}
+                type={"Anopa"}
+              />
+            ))
+          ) : (
+            <p className="text-rose-500">Game closed till 7:45 PM</p>
+          )}
         </div>
         <hr className="m-5" />
         <div className="w-full">
@@ -57,15 +105,19 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
           </div>
         </div>
         <div className="flex flex-row justify-center items-center">
-          {filteredSubGames1.map((game, index) => (
-            <Game
-              key={index}
-              image={game.imageUrl}
-              title={subtitle}
-              subtitle={game.name}
-              type={"Midday"}
-            />
-          ))}
+          {isVisibleAnopa === true ? (
+            filteredSubGames1.map((game, index) => (
+              <Game
+                key={index}
+                image={game.imageUrl}
+                title={subtitle}
+                subtitle={game.name}
+                type={"Midday"}
+              />
+            ))
+          ) : (
+            <p className="text-rose-500">Game closed till 7:45 PM</p>
+          )}
         </div>
         <hr className="m-5" />
         <div className="flex flex-col">
