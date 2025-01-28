@@ -19,7 +19,7 @@ const SingleGamePaymentCheckStatus = () => {
   );
 
   const transaction =
-    useSelector((state) => state.transaction?.transactions) || {};
+    useSelector((state) => state.transaction?.transactions);
 
   const memoizedTransaction = useMemo(() => {
     return transaction ? { ...transaction } : null;

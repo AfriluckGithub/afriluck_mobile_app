@@ -28,6 +28,16 @@
   color: #61dafb;
 }
 
+.box {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+}
+.box.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
