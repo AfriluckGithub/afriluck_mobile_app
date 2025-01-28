@@ -17,6 +17,7 @@ export default function Content({ subGames, subGames1, query }) {
 const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
   const [isVisibleAnopa, setIsVisibleAnopa] = useState(true);
   const [isVisibleMidday, setIsVisibleMidday] = useState(true);
+  const [isVisibleEvening, setIsVisibleEvening] = useState(true);
 
   useEffect(() => {
     const checkTime = () => {
@@ -30,6 +31,8 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
       const hideEnd = 19 * 60 + 45; // 7:45 PM in minutes
       const hideStartMid = 13 * 60; // 1:00 PM in minutes
       const hideEndMid = 19 * 60 + 45; // 7:45 PM in minutes
+      const hideStartEvening = 19 * 60; // 7:00 PM in minutes
+      const hideEndMidEvening = 19 * 60 + 45; // 7:45 PM in minutes
 
       // Set visibility based on the time
       if (
@@ -48,6 +51,15 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
         setIsVisibleMidday(false); // Hide component
       } else {
         setIsVisibleMidday(true); // Show component
+      }
+
+      if (
+        currentTimeInMinutes >= hideStartEvening &&
+        currentTimeInMinutes <= hideEndMidEvening
+      ) {
+        setIsVisibleEvening(false); // Hide component
+      } else {
+        setIsVisibleEvening(true); // Show component
       }
     };
 
@@ -133,14 +145,14 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
           </div>
         </div>
         <div className="flex flex-wrap flex-row justify-center items-center">
-          {filteredSubGames.map((game) => (
+          {isVisibleEvening === true ?filteredSubGames.map((game) => (
             <Game
               image={game.imageUrl}
               title={subtitle}
               subtitle={game.name}
               type={"6/57"}
             />
-          ))}
+          )): <p className="text-rose-500">Game closed till 7:45 PM</p>}
         </div>
       </div>
     </>
