@@ -29,7 +29,7 @@ const Profile = () => {
         <Privacy />
       </div>
       <div>
-        <Logout />
+        {memoizedUser === ""? <Logout />: <p></p>}
       </div>
     </div>
   );
