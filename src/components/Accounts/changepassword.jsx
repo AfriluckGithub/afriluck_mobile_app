@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
@@ -17,23 +18,30 @@ const ChangePassword = () => {
     setOpen(true);
   };
 
+  const user = useSelector((state) => state.user.user);
+
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
+
   const _handlePasswordChange = async () => {
     try {
       const requestBody = {
-        "phone_number": localStorage.getItem("phone_number"),
-        "password": newPassword,
-        "password_confirmation": confirmNewPassword
+        "current_password": password,
+        "password": newPassword
       }
-      const res = await axios.post('https://staging.afriluck.com/api/V1/app/reset-password', requestBody, {
+      console.log(requestBody);
+      const res = await axios.post('https://staging.afriluck.com/api/V1/app/update-password', requestBody, {
         headers: {
+          'Authorization': `Bearer ${memoizedUser.token}`,
           'Content-Type': 'application/json',
         },
       })
       if (res.status === 200) {
-          openModal();
-          setTimeout(() => {
-            navigate("/accountsecurity");
-          }, 2300)
+          //openModal();
+          //setTimeout(() => {
+           handleSuccess();
+          //}, 2300)
       }
     }catch(e) {
       console.log(e);
@@ -41,12 +49,12 @@ const ChangePassword = () => {
   }
 
   const handleSuccess = () => {
-    navigate("/accountsecurity");
+    navigate("/profile");
   };
 
   const handleVerification = () => {
     if (password !== newPassword || newPassword !== confirmNewPassword) {
-      alert("Passwords do not match!");
+      console.log("Passwords do not match!");
     } else {
       // Proceed with verification logic if needed
       console.log("Passwords match, proceed with verification.");
@@ -112,7 +120,7 @@ const ChangePassword = () => {
             value={newPassword}
             onChange={handleNewPasswordChange}
           />
-          <Input
+          {/* <Input
             type={"password"}
             placeholder={"Confirm new password"}
             icon={"password.svg"}
@@ -120,13 +128,13 @@ const ChangePassword = () => {
             rightIcon
             value={confirmNewPassword}
             onChange={handleConfirmNewPasswordChange}
-          />
+          /> */}
 
           <div className="flex flex-col space-y-2">
             <Button
               label={"Change Password"}
               className="bg-secondary text-primary"
-              disabled={!password || !newPassword || !confirmNewPassword}
+              disabled={!password || !newPassword}
               onClick={_handlePasswordChange}
             />
           </div>

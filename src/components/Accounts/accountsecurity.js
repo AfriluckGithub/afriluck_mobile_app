@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { AccountSecurityData } from "../../data/accountsecurity";
 import { NavLink } from "react-router-dom";
 import Subheader from "../subheader";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+// const user = useSelector((state) => state.user.user);
+
+// const memoizedUser = useMemo(() => {
+//   return user ? { ...user } : null;
+// }, [user]);
 
 const AccountSecurity = () => {
   const navigate = useNavigate();
+  const requestBody = {
+    phone_number: '',
+    otp : ''
+  };
+  const verifyOTP = fetch('', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: requestBody
+  });
   return (
     <div className="flex flex-col  h-screen bg-[#F7F7F7] p-6">
       <Subheader title="Account Security" />

@@ -19,7 +19,7 @@ const CreatePassword = () => {
     }
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     navigate("/paymentpassword");
   };
 
