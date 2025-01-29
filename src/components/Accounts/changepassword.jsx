@@ -10,13 +10,17 @@ import { useSelector } from "react-redux";
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [confirmNewPassword, setConfirmNewPassword] = useState("");
-  const [typingTimeout, setTypingTimeout] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [
+    typingTimeout, 
+    //setTypingTimeout
+  ] = useState(null);
+  const [open, 
+    //setOpen
+  ] = useState(false);
   const navigate = useNavigate();
-  const openModal = () => {
-    setOpen(true);
-  };
+  // const openModal = () => {
+  //   setOpen(true);
+  // };
 
   const user = useSelector((state) => state.user.user);
 
@@ -52,14 +56,14 @@ const ChangePassword = () => {
     navigate("/profile");
   };
 
-  const handleVerification = () => {
-    if (password !== newPassword || newPassword !== confirmNewPassword) {
-      console.log("Passwords do not match!");
-    } else {
-      // Proceed with verification logic if needed
-      console.log("Passwords match, proceed with verification.");
-    }
-  };
+  // const handleVerification = () => {
+  //   if (password !== newPassword || newPassword !== confirmNewPassword) {
+  //     console.log("Passwords do not match!");
+  //   } else {
+  //     // Proceed with verification logic if needed
+  //     console.log("Passwords match, proceed with verification.");
+  //   }
+  // };
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
@@ -71,20 +75,20 @@ const ChangePassword = () => {
     setNewPassword(value);
   };
 
-  const handleConfirmNewPasswordChange = (e) => {
-    const value = e.target.value;
-    setConfirmNewPassword(value);
+  // const handleConfirmNewPasswordChange = (e) => {
+  //   const value = e.target.value;
+  //   setConfirmNewPassword(value);
 
-    if (typingTimeout) {
-      clearTimeout(typingTimeout);
-    }
+  //   if (typingTimeout) {
+  //     clearTimeout(typingTimeout);
+  //   }
 
-    setTypingTimeout(
-      setTimeout(() => {
-        handleVerification();
-      }, 2300)
-    );
-  };
+  //   setTypingTimeout(
+  //     setTimeout(() => {
+  //       handleVerification();
+  //     }, 2300)
+  //   );
+  // };
 
   useEffect(() => {
     return () => {
