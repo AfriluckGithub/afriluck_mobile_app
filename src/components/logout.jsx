@@ -8,8 +8,9 @@ const Logout = () => {
   const dispatch = useDispatch();
 
   const openModal = () => {
-    dispatch(logout());
     setOpen(true);
+
+    setTimeout(() => {dispatch(logout())}, 2000)
   };
 
   const closeModal = () => {
@@ -18,10 +19,10 @@ const Logout = () => {
     setOpen(false);
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
-    window.location.reload();
-  };
+  // const handleLogout = () => {
+  //   dispatch(logout());
+  //   window.location.reload();
+  // };
 
   return (
     <>
@@ -40,7 +41,7 @@ const Logout = () => {
       <Modal
         isOpen={open}
         onClose={closeModal}
-        onSuccess={handleLogout}
+        onSuccess={openModal}
         type={"failure"}
         title="Log out"
         subtitle="Are you sure you want to log out of this application?"
