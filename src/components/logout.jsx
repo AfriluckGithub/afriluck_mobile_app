@@ -9,7 +9,6 @@ const Logout = () => {
 
   const openModal = () => {
     setOpen(true);
-
     setTimeout(() => {dispatch(logout())}, 2000)
   };
 

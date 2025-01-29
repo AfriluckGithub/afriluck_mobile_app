@@ -20,7 +20,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="h-[170vh]">
+    <div className="h-[120vh]">
       <SearchBar query={query} setQuery={setQuery} />
       <Banner image={"banner.png"} />
       <Content

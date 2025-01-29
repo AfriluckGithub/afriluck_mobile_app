@@ -25,48 +25,46 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
       const currentHours = now.getHours();
       const currentMinutes = now.getMinutes();
 
-      // Convert time to minutes for easier comparison
       const currentTimeInMinutes = currentHours * 60 + currentMinutes;
-      const hideStart = 10 * 60; // 10:00 AM in minutes
-      const hideEnd = 19 * 60 + 45; // 7:45 PM in minutes
-      const hideStartMid = 13 * 60; // 1:00 PM in minutes
-      const hideEndMid = 19 * 60 + 45; // 7:45 PM in minutes
-      const hideStartEvening = 19 * 60; // 7:00 PM in minutes
-      const hideEndMidEvening = 19 * 60 + 45; // 7:45 PM in minutes
+      const hideStart = 10 * 60;
+      const hideEnd = 19 * 60 + 45;
+      const hideStartMid = 13 * 60;
+      const hideEndMid = 19 * 60 + 45;
+      const hideStartEvening = 19 * 60;
+      const hideEndMidEvening = 19 * 60 + 45;
 
-      // Set visibility based on the time
       if (
         currentTimeInMinutes >= hideStart &&
         currentTimeInMinutes <= hideEnd
       ) {
-        setIsVisibleAnopa(false); // Hide component
+        setIsVisibleAnopa(false);
       } else {
-        setIsVisibleAnopa(true); // Show component
+        setIsVisibleAnopa(true);
       }
 
       if (
         currentTimeInMinutes >= hideStartMid &&
         currentTimeInMinutes <= hideEndMid
       ) {
-        setIsVisibleMidday(false); // Hide component
+        setIsVisibleMidday(false);
       } else {
-        setIsVisibleMidday(true); // Show component
+        setIsVisibleMidday(true);
       }
 
       if (
         currentTimeInMinutes >= hideStartEvening &&
         currentTimeInMinutes <= hideEndMidEvening
       ) {
-        setIsVisibleEvening(false); // Hide component
+        setIsVisibleEvening(false);
       } else {
-        setIsVisibleEvening(true); // Show component
+        setIsVisibleEvening(true);
       }
     };
 
-    checkTime(); // Check immediately on mount
-    const interval = setInterval(checkTime, 60 * 1000); // Re-check every minute
+    checkTime();
+    const interval = setInterval(checkTime, 60 * 1000);
 
-    return () => clearInterval(interval); // Cleanup on unmount
+    return () => clearInterval(interval);
   }, []);
 
   const filteredSubGames = subGames.filter((game) =>
