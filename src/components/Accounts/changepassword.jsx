@@ -6,10 +6,12 @@ import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { OrbitProgress } from "react-loading-indicators";
 
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [
     typingTimeout, 
     //setTypingTimeout
@@ -30,6 +32,7 @@ const ChangePassword = () => {
 
   const _handlePasswordChange = async () => {
     try {
+      setLoading(true);
       const requestBody = {
         "current_password": password,
         "password": newPassword
@@ -41,6 +44,7 @@ const ChangePassword = () => {
           'Content-Type': 'application/json',
         },
       })
+      setLoading(false);
       if (res.status === 200) {
           //openModal();
           //setTimeout(() => {
@@ -49,6 +53,7 @@ const ChangePassword = () => {
           //}, 2300)
       }
     }catch(e) {
+      setLoading(false);
       console.log(e);
     }
   }
@@ -144,6 +149,16 @@ const ChangePassword = () => {
             />
           </div>
         </div>
+        {loading ? (
+            <OrbitProgress
+              color="#000"
+              size="small"
+              text="loading"
+              textColor=""
+            />
+          ) : (
+            <p></p>
+          )}
       </div>
       <Modal
         isOpen={open}
