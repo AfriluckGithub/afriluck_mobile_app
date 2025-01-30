@@ -7,28 +7,25 @@ const Logout = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    openModal();
+  };
+
   const openModal = () => {
     setOpen(true);
-    setTimeout(() => {dispatch(logout())}, 2000)
   };
 
   const closeModal = () => {
-    dispatch(logout());
-    window.location.reload();
     setOpen(false);
+    dispatch(logout());
   };
-
-  // const handleLogout = () => {
-  //   dispatch(logout());
-  //   window.location.reload();
-  // };
 
   return (
     <>
       <div className="flex flex-row w-full justify-between px-4 py-6 bg-white rounded-xl">
         <div
           className="flex flex-row items-center space-x-2 cursor-pointer"
-          onClick={openModal}
+          onClick={handleLogout}
         >
           <img src={"logout.svg"} alt="Logout Icon" width={24} />
           <p className="text-[#FF0000] font-semibold">Log Out</p>
@@ -40,7 +37,7 @@ const Logout = () => {
       <Modal
         isOpen={open}
         onClose={closeModal}
-        onSuccess={openModal}
+        onSuccess={closeModal}
         type={"failure"}
         title="Log out"
         subtitle="Are you sure you want to log out of this application?"

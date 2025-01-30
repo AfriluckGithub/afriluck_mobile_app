@@ -15,12 +15,12 @@ const ChangePassword = () => {
     //setTypingTimeout
   ] = useState(null);
   const [open, 
-    //setOpen
+    setOpen
   ] = useState(false);
   const navigate = useNavigate();
-  // const openModal = () => {
-  //   setOpen(true);
-  // };
+  const openModal = () => {
+     setOpen(true);
+  };
 
   const user = useSelector((state) => state.user.user);
 
@@ -44,7 +44,8 @@ const ChangePassword = () => {
       if (res.status === 200) {
           //openModal();
           //setTimeout(() => {
-           handleSuccess();
+           //handleSuccess();
+           openModal();
           //}, 2300)
       }
     }catch(e) {
