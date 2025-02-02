@@ -260,6 +260,8 @@ const SingleGame = () => {
                     !(
                       (type === "Anopa" || type === "Midday") &&
                       (game.id === 5 || game.id === 6)
+                      || 
+                      (type === "6/57") && (game.id === 5)
                     )
                 )
                 .map((game) => (
