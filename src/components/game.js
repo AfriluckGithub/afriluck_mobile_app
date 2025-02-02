@@ -18,7 +18,7 @@ const Game = ({ title, image, subtitle, type }) => {
     >
       <img alt="logo" className="flex flex-row h-10 w-20" src={image} />
       <p className="font-normal text-center text-wrap text-xs text-black">
-        {subtitle}
+        {/* {subtitle} */}
       </p>
     </div>
   );

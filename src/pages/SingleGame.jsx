@@ -17,17 +17,13 @@ const SingleGame = () => {
   // const [numbers, setNumbers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState("");
-  const [
-    disabled, 
-    setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
   const [valuesArray, setValuesArray] = useState([]);
   const [val, setVal] = useState([]);
   //const [total, setTotal] = useState(0);
 
   console.log(disabled);
   console.log(valuesArray);
-  
-  
 
   const type = localStorage.getItem("game_type");
   const type_picked = localStorage.getItem("game_picked");
@@ -80,20 +76,20 @@ const SingleGame = () => {
   ];
 
   const direct = [
-    { id: 1, game: "Direct 1" },
-    { id: 2, game: "Direct 2" },
-    { id: 3, game: "Direct 3" },
-    { id: 4, game: "Direct 4" },
-    { id: 5, game: "Direct 5" },
-    { id: 6, game: "Direct 6" },
+    { id: 1, game: "Direct 1", imageUrl: "direct-1-logo.png" },
+    { id: 2, game: "Direct 2", imageUrl: "direct-2-logo.png" },
+    { id: 3, game: "Direct 3", imageUrl: "direct-3-logo.png" },
+    { id: 4, game: "Direct 4", imageUrl: "direct-4-logo.png" },
+    { id: 5, game: "Direct 5", imageUrl: "direct-5-logo.png" },
+    { id: 6, game: "Direct 6", imageUrl: "direct-6-logo.png" },
   ];
 
   const perm = [
-    { id: 1, game: "Perm 2" },
-    { id: 2, game: "Perm 3" },
-    { id: 3, game: "Perm 4" },
-    { id: 4, game: "Perm 5" },
-    { id: 5, game: "Perm 6" },
+    { id: 1, game: "Perm 2", imageUrl: "perm-2-logo.png" },
+    { id: 2, game: "Perm 3", imageUrl: "perm-3-logo.png" },
+    { id: 3, game: "Perm 4", imageUrl: "perm-4-logo.png" },
+    { id: 4, game: "Perm 5", imageUrl: "perm-5-logo.png" },
+    { id: 5, game: "Perm 6", imageUrl: "perm-6-logo.png" },
   ];
 
   const selectGame = (id) => {
@@ -270,8 +266,13 @@ const SingleGame = () => {
                       fontWeight: selectedGame === game.id ? "bold" : "normal",
                     }}
                   >
-                    <p className="flex text-black font-Poppins w-full justify-center items-center">
-                      {game.game}
+                    <p className="flex flex-col text-black font-Poppins w-full justify-center items-center p-2">
+                      <img
+                        alt="logo"
+                        src={game.imageUrl}
+                        className="h-10 w-16"
+                      />
+                      {/* {game.game} */}
                     </p>
                   </div>
                 ))}
@@ -299,7 +300,12 @@ const SingleGame = () => {
                     }}
                   >
                     <p className="flex text-black font-Poppins justify-center items-center w-full">
-                      {game.game}
+                    <img
+                        alt="logo"
+                        src={game.imageUrl}
+                        className="h-10 w-16"
+                      />
+                      {/* {game.game} */}
                     </p>
                   </div>
                 ))}
