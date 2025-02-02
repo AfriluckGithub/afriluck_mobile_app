@@ -13,14 +13,41 @@ const ForgotPassword = () => {
     setOpen(true);
   };
 
-  const handleSuccess = (phoneNumber, source = "forgotpassword") => {
-    navigate("/verifycode", { state: { phoneNumber, source } });
+  const handleSuccess = async (phoneNumber, source = "forgotpassword") => {
+    const requestBody = {
+      phone_number: phoneNumber,
+    };
+    console.log(requestBody);
+
+    const response = await fetch(
+      "https://staging.afriluck.com/api/V1/app/request-password-reset-otp",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      }
+    );
+    const json = await response.json();
+    const status = response.status;
+
+    console.log(json);
+
+    if (status === 200) {
+      console.log(json);
+      navigate("/verifycode-unauthenticated", {
+        state: { phoneNumber, source },
+      });
+    } else {
+      console.error(`An error occurred ${json.error}`);
+    }
   };
 
   const handlePhoneNumberChange = (e) => {
     const value = e.target.value;
     // Validate to ensure the phone number is up to 10 digits
-    if (/^\d{0,10}$/.test(value)) {
+    if (/^\d{0,13}$/.test(value)) {
       setPhoneNumber(value); // Update state if valid
     }
   };

@@ -7,20 +7,20 @@ const Home = () => {
   const [query, setQuery] = useState("");
 
   const subGames = [
-    { id: 1, name: "Mega", imageUrl: "" },
-    { id: 2, name: "Direct", imageUrl: "" },
-    { id: 3, name: "Perm", imageUrl: "" },
-    { id: 4, name: "Banker", imageUrl: "" },
+    { id: 1, name: "Mega", imageUrl: "mega-logo.png" },
+    { id: 2, name: "Direct", imageUrl: "direct-logo.png" },
+    { id: 3, name: "Perm", imageUrl: "perm-logo.png" },
+    { id: 4, name: "Banker", imageUrl: "banker-logo.png" },
   ];
 
   const subGames1 = [
-    { id: 2, name: "Direct", imageUrl: "" },
-    { id: 3, name: "Perm", imageUrl: "" },
-    { id: 4, name: "Banker", imageUrl: "" },
+    { id: 2, name: "Direct", imageUrl: "direct-logo.png" },
+    { id: 3, name: "Perm", imageUrl: "perm-logo.png" },
+    { id: 4, name: "Banker", imageUrl: "banker-logo.png" },
   ];
 
   return (
-    <div className="h-[170vh]">
+    <div className="h-[170vh] overflow-auto">
       <SearchBar query={query} setQuery={setQuery} />
       <Banner image={"banner.png"} />
       <Content

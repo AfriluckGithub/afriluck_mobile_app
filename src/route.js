@@ -110,6 +110,10 @@ export const router = createBrowserRouter([
     element: <VerifyCodeScreen />,
   },
   {
+    path: "/verifycode-unauthenticated",
+    element: <VerifyCodeScreen />,
+  },
+  {
     path: "/createpassword",
     element: <CreatePassword />,
   },
