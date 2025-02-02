@@ -258,10 +258,9 @@ const SingleGame = () => {
                 .filter(
                   (game) =>
                     !(
-                      (type === "Anopa" || type === "Midday") &&
-                      (game.id === 5 || game.id === 6)
-                      || 
-                      (type === "6/57") && (game.id === 5)
+                      ((type === "Anopa" || type === "Midday") &&
+                        (game.id === 5 || game.id === 6)) ||
+                      (type === "6/57" && game.id === 5)
                     )
                 )
                 .map((game) => (
@@ -295,7 +294,9 @@ const SingleGame = () => {
               {perm
                 .filter(
                   (game) =>
-                    !((type === "Anopa" || type === "Midday") && game.id === 4)
+                    !((type === "Anopa" || type === "Midday") && (game.id === 4))
+                   ||
+                  (type === "6/57" && game.id === 4)
                 )
                 .map((game) => (
                   <div
