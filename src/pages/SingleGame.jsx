@@ -167,12 +167,17 @@ const SingleGame = () => {
     return current.some((range) => value >= range.min && value <= range.max);
   }
 
+  function getRange(value) {
+    return ranges.filter((range) => range.game === Number(selectedGame));
+  }
+
   const placeBet = () => {
     if (error !== "") {
       return;
     }
 
     const permValidation = isValidValue(val.length);
+    const range = getRange(val.length);
 
     const megaValidation =
       val.length >= 6 &&
@@ -208,9 +213,15 @@ const SingleGame = () => {
       dispatch(addTransactionData(transaction));
       navigate("/single_game_selection");
     } else {
-      setError(
-        "Kindly verify if the game, amount or numbers selected meets the required length."
-      );
+      if (!permValidation && type_picked === "Perm") {
+        setError(
+          `Selected Perm numbers has to be between ${range[0].min} and ${range[0].max}`
+        );
+      } else {
+        setError(
+          "Kindly verify if the game, amount or numbers selected meets the required length."
+        );
+      }
     }
   };
 
@@ -300,7 +311,7 @@ const SingleGame = () => {
                     }}
                   >
                     <p className="flex text-black font-Poppins justify-center items-center w-full">
-                    <img
+                      <img
                         alt="logo"
                         src={game.imageUrl}
                         className="h-10 w-16"
