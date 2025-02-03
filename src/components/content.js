@@ -77,7 +77,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
 
   return (
     <>
-      <div className="bg-white rounded-xl p-5 h-auto overflow-y-auto m-5 mb-10">
+      <div className="bg-white rounded-xl p-5 h-auto flex-1 overflow-auto m-5">
         <div className="w-full">
           <div className="flex justify-between items-center global-text-color text-md w-full">
             <p className="flex text-primary font-semibold">Anopa</p>

@@ -20,7 +20,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="h-[170vh] overflow-auto">
+    <div className="min-h-screen flex flex-col mb-24">
       <SearchBar query={query} setQuery={setQuery} />
       <Banner image={"banner.png"} />
       <Content
