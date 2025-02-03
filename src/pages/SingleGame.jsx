@@ -88,7 +88,7 @@ const SingleGame = () => {
     { id: 1, game: "Perm 2", imageUrl: "perm-2-logo.png" },
     { id: 2, game: "Perm 3", imageUrl: "perm-3-logo.png" },
     { id: 3, game: "Perm 4", imageUrl: "perm-4-logo.png" },
-    { id: 4, game: "Perm 5", imageUrl: "perm-5-logo.png" },
+    //{ id: 4, game: "Perm 5", imageUrl: "perm-5-logo.png" },
     { id: 5, game: "Perm 6", imageUrl: "perm-6-logo.png" },
   ];
 
