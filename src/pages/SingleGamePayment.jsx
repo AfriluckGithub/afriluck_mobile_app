@@ -78,13 +78,15 @@ const SingleGamePayment = () => {
     }
 
     const formattedNumber = `233${Number(mobileNumber)}`;
+    console.log("");
+    
     const requestBody = {
       msisdn:
         selectedNetwork === 4 ? memoizedUser.phone_number : formattedNumber,
       total_amount: Number(amount),
       bet_type_code: 2,
       bet_type: game_picked.toString().toLowerCase(),
-      game: game_type.toString().toLowerCase(),
+      game: game === "6/57"? "657":game_type.toString().toLowerCase(),
       selected_numbers: numbers,
       channel: network,
       discounted_amount: "",
