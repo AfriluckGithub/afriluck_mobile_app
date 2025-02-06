@@ -86,7 +86,7 @@ const SingleGamePayment = () => {
       total_amount: Number(amount),
       bet_type_code: 2,
       bet_type: game_picked.toString().toLowerCase(),
-      game: game === "6/57"? "657":game_type.toString().toLowerCase(),
+      game: game_type === "6/57"? "657":game_type.toString().toLowerCase(),
       selected_numbers: numbers,
       channel: network,
       discounted_amount: "",
