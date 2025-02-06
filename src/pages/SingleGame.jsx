@@ -162,8 +162,6 @@ const SingleGame = () => {
   };
 
   const determineGame = (selectedGame, type) => {
-    console.log("selectedGame => ", selectedGame);
-    console.log("type => ", type);
     if (type === "Direct") {
       return Number(selectedGame);
     } else if (type === "Perm") {

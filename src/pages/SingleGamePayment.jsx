@@ -84,7 +84,7 @@ const SingleGamePayment = () => {
       msisdn:
         selectedNetwork === 4 ? memoizedUser.phone_number : formattedNumber,
       total_amount: Number(amount),
-      bet_type_code: 2,
+      bet_type_code: transaction.game,
       bet_type: game_picked.toString().toLowerCase(),
       game: game_type === "6/57"? "657":game_type.toString().toLowerCase(),
       selected_numbers: numbers,

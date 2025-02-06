@@ -19,7 +19,7 @@ const SingleGameSelection = () => {
 
   const numbers = transaction.numbers;
   const amount = transaction.betAmount;
-  //const game = transaction.game;
+  const game = transaction.game;
   const type = transaction.type;
   const typePicked = transaction.typePicked;
   const movedPastPayment = transaction.movedPastPayment;
@@ -34,7 +34,7 @@ const SingleGameSelection = () => {
         const requestBody = JSON.stringify({
           amount: Number(amount),
           selected_numbers: numbers,
-          bet_type_code: 2,
+          bet_type_code: game,
           bet_type: typePicked.toLowerCase(),
         });
         console.log(requestBody);
