@@ -63,7 +63,7 @@ const SingleGameSelection = () => {
       }
     };
     calculatePermAmount();
-  }, [amount, numbers, total, typePicked, movedPastPayment]);
+  }, [amount, numbers, total, typePicked, movedPastPayment, game]);
 
   const back = () => {
     navigate("/single_game");
