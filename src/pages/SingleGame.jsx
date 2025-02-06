@@ -93,6 +93,7 @@ const SingleGame = () => {
   ];
 
   const selectGame = (id) => {
+    // console.log("Game Id => ", id);
     setSelectedGame(id);
   };
 
@@ -160,6 +161,20 @@ const SingleGame = () => {
     navigate("/");
   };
 
+  const determineGame = (selectedGame, type) => {
+    console.log("selectedGame => ", selectedGame);
+    console.log("type => ", type);
+    if (type === "Direct") {
+      return Number(selectedGame);
+    } else if (type === "Perm") {
+      return Number(selectedGame) + 1;
+    }else if (type === "Mega") {
+      return 1;
+    }else if (type === "Banker") {
+      return 2;
+    }
+  };
+
   function isValidValue(value) {
     const current = ranges.filter(
       (range) => range.game === Number(selectedGame)
@@ -205,7 +220,7 @@ const SingleGame = () => {
       const transaction = {
         numbers: inputValue,
         betAmount: betAmount,
-        game: selectedGame,
+        game: determineGame(selectedGame, type_picked),
         type: type,
         typePicked: type_picked,
         movedPastPayment: false,
@@ -294,9 +309,11 @@ const SingleGame = () => {
               {perm
                 .filter(
                   (game) =>
-                    !((type === "Anopa" || type === "Midday") && (game.id === 4))
-                   ||
-                  (type === "6/57" && game.id === 4)
+                    !(
+                      (type === "Anopa" || type === "Midday") &&
+                      game.id === 4
+                    ) ||
+                    (type === "6/57" && game.id === 4)
                 )
                 .map((game) => (
                   <div
