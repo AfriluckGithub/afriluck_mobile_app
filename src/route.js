@@ -29,6 +29,8 @@ import ChangeSecurityQuestions from "./components/Accounts/changesecurityquestio
 import DeleteAccount from "./components/Accounts/deleteaccount";
 import VerifySecurityCode from "./components/Accounts/verifysecuritycode";
 import ProfileScreen from "./components/Auth/profile";
+import ResetPasswordScreenUnAutheenticated from "./components/Auth/resetpasswordUnauthenticated";
+import VerifyCodeScreenUnAutheenticated from "./components/Auth/verifycodeUnauthenticated";
 
 export const router = createBrowserRouter([
   {
@@ -111,7 +113,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/verifycode-unauthenticated",
-    element: <VerifyCodeScreen />,
+    element: <VerifyCodeScreenUnAutheenticated />,
+  },
+  {
+    path: "/reset-password-unauthenticated",
+    element: <ResetPasswordScreenUnAutheenticated />,
   },
   {
     path: "/createpassword",

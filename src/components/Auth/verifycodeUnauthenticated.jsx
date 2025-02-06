@@ -24,17 +24,18 @@ const VerifyCodeScreenUnAutheenticated = () => {
   const verifyOtp = async () => {
     setLoading(true);
     const requestBody = {
+      phone_number: phoneNumber,
       otp: code,
     };
+    console.log(requestBody);
+    
     try {
-      const tempToken = localStorage.getItem("register_token");
-
       const res = await axios.post(
-        "https://staging.afriluck.com/api/V1/app/verify-otp",
+        "https://staging.afriluck.com/api/V1/app/verify-password-reset-otp",
         requestBody,
         {
           headers: {
-            Authorization: `Bearer ${tempToken}`,
+            //Authorization: `Bearer ${memoizedUser.token}`,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -46,7 +47,7 @@ const VerifyCodeScreenUnAutheenticated = () => {
       const status = res.status;
       setLoading(false);
       if (status === 200) {
-        navigate("/login");
+        navigate("/reset-password-unauthenticated");
       }
     } catch (error) {
       try {
