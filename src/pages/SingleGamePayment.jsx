@@ -89,7 +89,7 @@ const SingleGamePayment = () => {
       channel: network,
       discounted_amount: "",
       use_wallet: selectedNetwork === 4 ? true : false,
-      medium: "ussd",
+      medium: "app",
     };
 
     console.log("Request Body => ", requestBody);
