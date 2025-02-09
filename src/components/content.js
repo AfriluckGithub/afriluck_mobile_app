@@ -18,20 +18,21 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
   const [isVisibleAnopa, setIsVisibleAnopa] = useState(true);
   const [isVisibleMidday, setIsVisibleMidday] = useState(true);
   const [isVisibleEvening, setIsVisibleEvening] = useState(true);
-  const today = new Date().getDay();
 
-  
   function isWithinTimeRange() {
     const now = new Date();
     const currentDay = now.getDay();
     const currentTime = now.getHours() * 60 + now.getMinutes();
     const saturdayStart = 19 * 60 + 45;
     const sundayEnd = 19 * 60 + 45;
-    if ((currentDay === 6 && currentTime >= saturdayStart) || (currentDay === 0 && currentTime <= sundayEnd)) {
-        return true;
+    if (
+      (currentDay === 6 && currentTime >= saturdayStart) ||
+      (currentDay === 0 && currentTime <= sundayEnd)
+    ) {
+      return true;
     }
     return false;
-}
+  }
 
   useEffect(() => {
     const checkTime = () => {
@@ -49,7 +50,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
 
       if (
         (currentTimeInMinutes >= hideStart &&
-        currentTimeInMinutes <= hideEnd) || isWithinTimeRange
+          currentTimeInMinutes <= hideEnd)
       ) {
         setIsVisibleAnopa(false);
       } else {
@@ -58,7 +59,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
 
       if (
         (currentTimeInMinutes >= hideStartMid &&
-        currentTimeInMinutes <= hideEndMid) || isWithinTimeRange
+          currentTimeInMinutes <= hideEndMid)
       ) {
         setIsVisibleMidday(false);
       } else {
@@ -79,7 +80,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
     const interval = setInterval(checkTime, 60 * 1000);
 
     return () => clearInterval(interval);
-  }, [today]);
+  }, []);
 
   const filteredSubGames = subGames.filter((game) =>
     game.name.toLowerCase().includes(query.toLowerCase())
@@ -115,7 +116,9 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
               />
             ))
           ) : (
-            <p className="text-rose-500">{isWithinTimeRange? "Game closed till Sunday 7:45 PM":"Game closed till 7:45 PM"}</p>
+            <p className="text-rose-500">
+              Game closed till 7:45 PM
+            </p>
           )}
         </div>
         <hr className="m-5" />
@@ -140,7 +143,9 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
               />
             ))
           ) : (
-            <p className="text-rose-500">{isWithinTimeRange? "Game closed till Sunday 7:45 PM":"Game closed till 7:45 PM"}</p>
+            <p className="text-rose-500">
+              Game closed till 7:45 PM
+            </p>
           )}
         </div>
         <hr className="m-5" />
@@ -157,14 +162,18 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
           </div>
         </div>
         <div className="flex flex-wrap flex-row justify-center items-center">
-          {isVisibleEvening === true ?filteredSubGames.map((game) => (
-            <Game
-              image={game.imageUrl}
-              title={subtitle}
-              subtitle={game.name}
-              type={"6/57"}
-            />
-          )): <p className="text-rose-500">Game closed till 7:45 PM</p>}
+          {isVisibleEvening === true ? (
+            filteredSubGames.map((game) => (
+              <Game
+                image={game.imageUrl}
+                title={subtitle}
+                subtitle={game.name}
+                type={"6/57"}
+              />
+            ))
+          ) : (
+            <p className="text-rose-500">Game closed till 7:45 PM</p>
+          )}
         </div>
       </div>
     </>
