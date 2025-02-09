@@ -19,20 +19,20 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
   const [isVisibleMidday, setIsVisibleMidday] = useState(true);
   const [isVisibleEvening, setIsVisibleEvening] = useState(true);
 
-  function isWithinTimeRange() {
-    const now = new Date();
-    const currentDay = now.getDay();
-    const currentTime = now.getHours() * 60 + now.getMinutes();
-    const saturdayStart = 19 * 60 + 45;
-    const sundayEnd = 19 * 60 + 45;
-    if (
-      (currentDay === 6 && currentTime >= saturdayStart) ||
-      (currentDay === 0 && currentTime <= sundayEnd)
-    ) {
-      return true;
-    }
-    return false;
-  }
+  // function isWithinTimeRange() {
+  //   const now = new Date();
+  //   const currentDay = now.getDay();
+  //   const currentTime = now.getHours() * 60 + now.getMinutes();
+  //   const saturdayStart = 19 * 60 + 45;
+  //   const sundayEnd = 19 * 60 + 45;
+  //   if (
+  //     (currentDay === 6 && currentTime >= saturdayStart) ||
+  //     (currentDay === 0 && currentTime <= sundayEnd)
+  //   ) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   useEffect(() => {
     const checkTime = () => {
