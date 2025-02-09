@@ -14,7 +14,6 @@ const SingleGameSelection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
-  // const user = useSelector((state) => state.user.user);
   const transaction = useSelector((state) => state.transaction?.transactions) || {};
 
   const numbers = transaction.numbers;
