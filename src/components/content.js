@@ -19,20 +19,16 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
   const [isVisibleMidday, setIsVisibleMidday] = useState(true);
   const [isVisibleEvening, setIsVisibleEvening] = useState(true);
 
-  // function isWithinTimeRange() {
-  //   const now = new Date();
-  //   const currentDay = now.getDay();
-  //   const currentTime = now.getHours() * 60 + now.getMinutes();
-  //   const saturdayStart = 19 * 60 + 45;
-  //   const sundayEnd = 19 * 60 + 45;
-  //   if (
-  //     (currentDay === 6 && currentTime >= saturdayStart) ||
-  //     (currentDay === 0 && currentTime <= sundayEnd)
-  //   ) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
+  function isBetweenSaturdayAndSunday() {
+    const now = new Date();
+    const day = now.getDay();
+    const start = new Date(now);
+    start.setDate(now.getDate() - ((day === 0) ? 1 : (day < 6 ? day + 1 : 0)));
+    start.setHours(19, 45, 0, 0);
+    const end = new Date(start);
+    end.setDate(start.getDate() + 1);
+    return now >= start && now <= end;
+  }
 
   useEffect(() => {
     const checkTime = () => {
@@ -47,6 +43,11 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
       const hideEndMid = 19 * 60 + 45;
       const hideStartEvening = 19 * 60;
       const hideEndMidEvening = 19 * 60 + 45;
+
+      if (isBetweenSaturdayAndSunday()) {
+          setIsVisibleAnopa(false);
+          setIsVisibleMidday(false);
+      }
 
       if (
         (currentTimeInMinutes >= hideStart &&
