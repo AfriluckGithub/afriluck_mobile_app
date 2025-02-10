@@ -36,7 +36,6 @@ const SingleGameSelection = () => {
           bet_type_code: game,
           bet_type: typePicked.toLowerCase(),
         });
-        console.log(requestBody);
 
         const response = await fetch(
           "https://staging.afriluck.com/api/V1/app/bet-amount",
@@ -48,7 +47,6 @@ const SingleGameSelection = () => {
             body: requestBody,
           }
         );
-        console.log(response);
 
         const json = await response.json();
         console.log(json);
