@@ -118,7 +118,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
             ))
           ) : (
             <p className="text-rose-500">
-              Game closed till 7:45 PM
+              {isBetweenSaturdayAndSunday()? "Game closed till Sunday 7:45 PM": "Game closed till 7:45 PM"}
             </p>
           )}
         </div>
@@ -145,7 +145,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
             ))
           ) : (
             <p className="text-rose-500">
-              Game closed till 7:45 PM
+              {isBetweenSaturdayAndSunday()? "Game closed till Sunday 7:45 PM": "Game closed till 7:45 PM"}
             </p>
           )}
         </div>
