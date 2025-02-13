@@ -3,6 +3,7 @@ import "../App.css";
 import Game from "../components/game";
 import { QueryClientProvider, QueryClient } from "react-query";
 import { useEffect, useState } from "react";
+import { BsClock } from "react-icons/bs";
 
 const queryClient = new QueryClient();
 
@@ -19,70 +20,75 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
   const [isVisibleMidday, setIsVisibleMidday] = useState(true);
   const [isVisibleEvening, setIsVisibleEvening] = useState(true);
 
-  function isBetweenSaturdayAndSunday() {
+  // Draw start time for Anopa (10:00 AM), Midday (1:30 PM), and Evening (7:00 PM)
+  const anopaDrawStartTime = new Date();
+  anopaDrawStartTime.setHours(10, 0, 0, 0); // 10:00 AM
+
+  const middayDrawStartTime = new Date();
+  middayDrawStartTime.setHours(13, 30, 0, 0); // 1:30 PM
+
+  const eveningDrawStartTime = new Date();
+  eveningDrawStartTime.setHours(19, 0, 0, 0); // 7:00 PM
+
+  // Calculate time left for each draw
+  const [anopaTimeLeft, setAnopaTimeLeft] = useState(
+    calculateTimeLeft(anopaDrawStartTime)
+  );
+  const [middayTimeLeft, setMiddayTimeLeft] = useState(
+    calculateTimeLeft(middayDrawStartTime)
+  );
+  const [eveningTimeLeft, setEveningTimeLeft] = useState(
+    calculateTimeLeft(eveningDrawStartTime)
+  );
+
+  // Function to calculate time left
+  function calculateTimeLeft(drawStartTime) {
     const now = new Date();
-    const day = now.getDay();
-    const start = new Date(now);
-    start.setDate(now.getDate() - (day === 0 ? 1 : day < 6 ? day + 1 : 0));
-    start.setHours(19, 45, 0, 0);
-    const end = new Date(start);
-    end.setDate(start.getDate() + 1);
-    return now >= start && now <= end;
+    const difference = drawStartTime - now;
+    let timeLeft = {};
+
+    if (difference > 0) {
+      timeLeft = {
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    }
+
+    return timeLeft;
   }
 
+  // Update countdown every second
   useEffect(() => {
-    const checkTime = () => {
-      const now = new Date();
-      const currentHours = now.getHours();
-      const currentMinutes = now.getMinutes();
+    const timer = setInterval(() => {
+      setAnopaTimeLeft(calculateTimeLeft(anopaDrawStartTime));
+      setMiddayTimeLeft(calculateTimeLeft(middayDrawStartTime));
+      setEveningTimeLeft(calculateTimeLeft(eveningDrawStartTime));
+    }, 1000);
 
-      const currentTimeInMinutes = currentHours * 60 + currentMinutes;
-      const hideStart = 10 * 60;
-      const hideEnd = 19 * 60 + 45;
-      const hideStartMid = 13 * 60;
-      const hideEndMid = 19 * 60 + 45;
-      const hideStartEvening = 19 * 60;
-      const hideEndMidEvening = 19 * 60 + 45;
-
-      if (isBetweenSaturdayAndSunday()) {
-        setIsVisibleAnopa(false);
-        setIsVisibleMidday(false);
-      }
-
-      if (
-        currentTimeInMinutes >= hideStart &&
-        currentTimeInMinutes <= hideEnd
-      ) {
-        setIsVisibleAnopa(false);
-      } else {
-        setIsVisibleAnopa(true);
-      }
-
-      if (
-        currentTimeInMinutes >= hideStartMid &&
-        currentTimeInMinutes <= hideEndMid
-      ) {
-        setIsVisibleMidday(false);
-      } else {
-        setIsVisibleMidday(true);
-      }
-
-      if (
-        currentTimeInMinutes >= hideStartEvening &&
-        currentTimeInMinutes <= hideEndMidEvening
-      ) {
-        setIsVisibleEvening(false);
-      } else {
-        setIsVisibleEvening(true);
-      }
-    };
-
-    checkTime();
-    const interval = setInterval(checkTime, 60 * 1000);
-
-    return () => clearInterval(interval);
+    return () => clearInterval(timer);
   }, []);
 
+  // Check if the draw has started
+  const isAnopaDrawStarted = new Date() >= anopaDrawStartTime;
+  const isMiddayDrawStarted = new Date() >= middayDrawStartTime;
+  const isEveningDrawStarted = new Date() >= eveningDrawStartTime;
+
+  // Check if the draw is within 1 hour of starting
+  const isAnopaOneHourClose =
+    !isAnopaDrawStarted &&
+    anopaTimeLeft.hours === 0 &&
+    anopaTimeLeft.minutes <= 60;
+  const isMiddayOneHourClose =
+    !isMiddayDrawStarted &&
+    middayTimeLeft.hours === 0 &&
+    middayTimeLeft.minutes <= 60;
+  const isEveningOneHourClose =
+    !isEveningDrawStarted &&
+    eveningTimeLeft.hours === 0 &&
+    eveningTimeLeft.minutes <= 60;
+
+  // Filter games based on query
   const filteredSubGames = subGames.filter((game) =>
     game.name.toLowerCase().includes(query.toLowerCase())
   );
@@ -93,99 +99,146 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
 
   return (
     <>
-      <div className="space-y-6 h-auto flex-1 overflow-auto  pb-20">
-        <div className="flex flex-col  space-y-4 bg-bg-white  rounded-xl border-border-default border">
+      <div className="space-y-6 h-auto flex-1 overflow-auto pb-20">
+        {/* Anopa Section */}
+        <div className="flex flex-col space-y-4 bg-bg-white rounded-xl border-border-default border">
           <div className="w-full">
-            <div className="flex justify-between items-center  text-md w-full">
-              <p className="flex text-primary font-semibold px-6">Anopa</p>
-              <div className="flex bg-tertiary text-white px-6 py-3 rounded-tr-xl rounded-bl-xl">
-                <p className="flex text-white text-sm font-medium">
-                  Game closed till 7:45 PM
-                </p>
-              </div>
+            <div className="flex justify-between items-center text-md w-full">
+              <p className="flex text-primary text-lg font-semibold px-6">
+                Anopa
+              </p>
+              {isAnopaDrawStarted ? (
+                <div className="flex bg-tertiary text-white px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                  Game closed till 7 :45 PM
+                </div>
+              ) : isAnopaOneHourClose ? (
+                <div className="flex items-center space-x-2 bg-[#d0f8ff] text-primary px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                  <BsClock className="text-white" />
+                  <p className="flex text-sm font-medium">
+                    {`${anopaTimeLeft.minutes}m ${anopaTimeLeft.seconds}s`}
+                  </p>
+                </div>
+              ) : (
+                <div className="flex items-center space-x-2 bg-[#d0f8ff] text-primary px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                  <BsClock className="text-white" />
+                  <p className="flex text-sm font-medium">
+                    {`Draw starts at ${anopaDrawStartTime.toLocaleTimeString(
+                      [],
+                      { hour: "2-digit", minute: "2-digit" }
+                    )}`}
+                  </p>
+                </div>
+              )}
             </div>
           </div>
-          <div
-            className={`flex flex-row justify-between items-center space-x-8  p-6 border-t border-border-default`}
-          >
-            {isVisibleAnopa === true ? (
-              filteredSubGames1.map((game, index) => (
-                <Game
-                  key={index}
-                  image={game.imageUrl}
-                  title={subtitle}
-                  subtitle={game.name}
-                  type={"Anopa"}
-                />
-              ))
-            ) : (
-              <p className="text-rose-500">
-                {isBetweenSaturdayAndSunday()
-                  ? "Game closed till Sunday 7:45 PM"
-                  : "Game closed till 7:45 PM"}
+          <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-between items-center gap-4 p-6 border-t border-border-default">
+            {filteredSubGames1.map((game, index) => (
+              <Game
+                key={index}
+                image={game.imageUrl}
+                title={subtitle}
+                subtitle={game.name}
+                type={"Anopa"}
+                disabled={isAnopaDrawStarted} // Disable button if draw has started
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Midday Section */}
+        <div className="flex flex-col space-y-4 bg-bg-white rounded-xl border-border-default border">
+          <div className="w-full">
+            <div className="flex justify-between items-center text-md w-full">
+              <p className="flex text-primary text-lg font-semibold px-6">
+                Midday
               </p>
-            )}
+              {isMiddayDrawStarted ? (
+                <div className="flex bg-tertiary text-white px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                  Game closed till 7 :45 PM
+                </div>
+              ) : isMiddayOneHourClose ? (
+                <div className="flex items-center space-x-2 bg-[#FFEDD0] text-black px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                  <BsClock color="#00000" />
+                  <p className="flex text-sm font-medium">
+                    {`${middayTimeLeft.minutes}m ${middayTimeLeft.seconds}s left`}
+                  </p>
+                </div>
+              ) : (
+                <div className="flex items-center space-x-2 bg-[#d0f8ff] text-primary px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                  <BsClock color="#156064" />
+                  <p className="flex text-sm font-medium">
+                    {` ${middayDrawStartTime.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}`}
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-        <hr className="m-5" />
-        <div className="w-full">
-          <div className="flex justify-between global-text-color text-md">
-            <p className="text-primary font-semibold">Midday</p>
-            <p className="text-black">1:30 PM</p>
-          </div>
-          <div className="text-right text-gray-800 font-inter font-semibold">
-            <p></p>
-          </div>
-        </div>
-        <div
-          className={`flex flex-row justify-between items-center space-x-6  p-6 border-t border-border-default`}
-        >
-          {isVisibleMidday === true ? (
-            filteredSubGames1.map((game, index) => (
+          <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-between items-center gap-4 p-6 border-t border-border-default">
+            {filteredSubGames1.map((game, index) => (
               <Game
                 key={index}
                 image={game.imageUrl}
                 title={subtitle}
                 subtitle={game.name}
                 type={"Midday"}
+                disabled={isMiddayDrawStarted} // Disable button if draw has started
               />
-            ))
-          ) : (
-            <p className="text-rose-500">
-              {isBetweenSaturdayAndSunday()
-                ? "Game closed till Sunday 7:45 PM"
-                : "Game closed till 7:45 PM"}
-            </p>
-          )}
-        </div>
-        <hr className="m-5" />
-        <div className="flex flex-col">
-          <div
-            style={{ color: "#156064" }}
-            className="flex justify-between global-text-color text-md"
-          >
-            <p className="text-primary font-semibold">Afriluck 6/57</p>
-            <p className="text-black">7:00 PM</p>
-          </div>
-          <div className="text-right text-gray-800 font-inter font-semibold">
-            <p></p>
+            ))}
           </div>
         </div>
-        <div
-          className={`flex flex-row justify-between items-center space-x-6  p-6 border-t border-border-default`}
-        >
-          {isVisibleEvening === true ? (
-            filteredSubGames.map((game) => (
+
+        {/* Evening Section */}
+        <div className="flex flex-col space-y-4 bg-bg-white rounded-xl border-border-default border">
+          <div className="flex flex-col">
+            <div
+              style={{ color: "#156064" }}
+              className="flex justify-between items-center text-md w-full"
+            >
+              <p className="flex text-primary text-lg font-semibold px-6">
+                Afriluck 6/57
+              </p>
+              {isEveningDrawStarted ? (
+                <div className="flex bg-tertiary text-white px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                  Game closed till 7 :45 PM
+                </div>
+              ) : isEveningOneHourClose ? (
+                <div className="flex items-center space-x-2 bg-[#d0f8ff] text-primary px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                  <BsClock color="#156064" />
+                  <p className="flex text-sm font-medium">
+                    {`${eveningTimeLeft.minutes}m ${eveningTimeLeft.seconds}s`}
+                  </p>
+                </div>
+              ) : (
+                <div className="flex items-center space-x-2 bg-[#d0f8ff] text-primary px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                  <BsClock color="#156064" />
+                  <p className="flex text-sm font-medium">
+                    {` ${eveningDrawStartTime.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}`}
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="text-right text-gray-800 font-inter font-semibold">
+              <p></p>
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-between items-center gap-4 p-6 border-t border-border-default">
+            {filteredSubGames.map((game, index) => (
               <Game
+                key={index}
                 image={game.imageUrl}
                 title={subtitle}
                 subtitle={game.name}
                 type={"6/57"}
+                disabled={isEveningDrawStarted} // Disable button if draw has started
               />
-            ))
-          ) : (
-            <p className="text-rose-500">Game closed till 7:45 PM</p>
-          )}
+            ))}
+          </div>
         </div>
       </div>
     </>
