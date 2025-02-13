@@ -23,7 +23,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
     const now = new Date();
     const day = now.getDay();
     const start = new Date(now);
-    start.setDate(now.getDate() - ((day === 0) ? 1 : (day < 6 ? day + 1 : 0)));
+    start.setDate(now.getDate() - (day === 0 ? 1 : day < 6 ? day + 1 : 0));
     start.setHours(19, 45, 0, 0);
     const end = new Date(start);
     end.setDate(start.getDate() + 1);
@@ -45,13 +45,13 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
       const hideEndMidEvening = 19 * 60 + 45;
 
       if (isBetweenSaturdayAndSunday()) {
-          setIsVisibleAnopa(false);
-          setIsVisibleMidday(false);
+        setIsVisibleAnopa(false);
+        setIsVisibleMidday(false);
       }
 
       if (
-        (currentTimeInMinutes >= hideStart &&
-          currentTimeInMinutes <= hideEnd)
+        currentTimeInMinutes >= hideStart &&
+        currentTimeInMinutes <= hideEnd
       ) {
         setIsVisibleAnopa(false);
       } else {
@@ -59,8 +59,8 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
       }
 
       if (
-        (currentTimeInMinutes >= hideStartMid &&
-          currentTimeInMinutes <= hideEndMid)
+        currentTimeInMinutes >= hideStartMid &&
+        currentTimeInMinutes <= hideEndMid
       ) {
         setIsVisibleMidday(false);
       } else {
@@ -93,34 +93,39 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
 
   return (
     <>
-      <div className="bg-white rounded-xl p-5 h-auto flex-1 overflow-auto m-5 pb-20">
-        <div className="w-full">
-          <div className="flex justify-between items-center global-text-color text-md w-full">
-            <p className="flex text-primary font-semibold">Anopa</p>
-            <p className="flex text-black">10:00 AM</p>
+      <div className="space-y-6 h-auto flex-1 overflow-auto  pb-20">
+        <div className="flex flex-col  space-y-4 bg-bg-white  rounded-xl border-border-default border">
+          <div className="w-full">
+            <div className="flex justify-between items-center  text-md w-full">
+              <p className="flex text-primary font-semibold px-6">Anopa</p>
+              <div className="flex bg-tertiary text-white px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                <p className="flex text-white text-sm font-medium">
+                  Game closed till 7:45 PM
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="text-right text-gray-800 font-inter font-semibold">
-            <p></p>
+          <div
+            className={`flex flex-row justify-between items-center space-x-8  p-6 border-t border-border-default`}
+          >
+            {isVisibleAnopa === true ? (
+              filteredSubGames1.map((game, index) => (
+                <Game
+                  key={index}
+                  image={game.imageUrl}
+                  title={subtitle}
+                  subtitle={game.name}
+                  type={"Anopa"}
+                />
+              ))
+            ) : (
+              <p className="text-rose-500">
+                {isBetweenSaturdayAndSunday()
+                  ? "Game closed till Sunday 7:45 PM"
+                  : "Game closed till 7:45 PM"}
+              </p>
+            )}
           </div>
-        </div>
-        <div
-          className={`flex flex-wrap flex-row justify-center items-center flex-grow`}
-        >
-          {isVisibleAnopa === true ? (
-            filteredSubGames1.map((game, index) => (
-              <Game
-                key={index}
-                image={game.imageUrl}
-                title={subtitle}
-                subtitle={game.name}
-                type={"Anopa"}
-              />
-            ))
-          ) : (
-            <p className="text-rose-500">
-              {isBetweenSaturdayAndSunday()? "Game closed till Sunday 7:45 PM": "Game closed till 7:45 PM"}
-            </p>
-          )}
         </div>
         <hr className="m-5" />
         <div className="w-full">
@@ -132,7 +137,9 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
             <p></p>
           </div>
         </div>
-        <div className="flex flex-row justify-center items-center">
+        <div
+          className={`flex flex-row justify-between items-center space-x-6  p-6 border-t border-border-default`}
+        >
           {isVisibleMidday === true ? (
             filteredSubGames1.map((game, index) => (
               <Game
@@ -145,7 +152,9 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
             ))
           ) : (
             <p className="text-rose-500">
-              {isBetweenSaturdayAndSunday()? "Game closed till Sunday 7:45 PM": "Game closed till 7:45 PM"}
+              {isBetweenSaturdayAndSunday()
+                ? "Game closed till Sunday 7:45 PM"
+                : "Game closed till 7:45 PM"}
             </p>
           )}
         </div>
@@ -162,7 +171,9 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
             <p></p>
           </div>
         </div>
-        <div className="flex flex-wrap flex-row justify-center items-center">
+        <div
+          className={`flex flex-row justify-between items-center space-x-6  p-6 border-t border-border-default`}
+        >
           {isVisibleEvening === true ? (
             filteredSubGames.map((game) => (
               <Game

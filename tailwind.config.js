@@ -9,8 +9,18 @@ module.exports = {
         Poppins: ["Poppins", "sans-serif"],
       },
       colors: {
+        bg: {
+          default: "#F8F8F8",
+          white: "#FFFFFF",
+          tertiary: "#FCFCFC",
+        },
+        border: {
+          primary: "#D4EEEF",
+          default: "#EEEFF3",
+        },
         primary: "#156064",
         secondary: "#DEF1F5",
+        tertiary: "#EF5500",
         red: "#FF0000",
         danger: "#FFEFEF",
         text: {
