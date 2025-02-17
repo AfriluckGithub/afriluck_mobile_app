@@ -1,27 +1,29 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import { Input } from "@heroui/input";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
-import Input from "../components/input";
-import Button from "../components/button";
+// import Button from "../components/button";
 import { useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
-
+import { BsArrowLeft } from "react-icons/bs";
+import { Button } from "@heroui/button";
 const SingleGame = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [selectedGame, setSelectedGame] = useState([]);
+  const [selectedGame, setSelectedGame] = useState(1);
 
   const [betAmount, setBetAmount] = useState(0);
   // const [numbers, setNumbers] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [valuesArray, setValuesArray] = useState([]);
   const [val, setVal] = useState([]);
-  //const [total, setTotal] = useState(0);
 
+  //const [total, setTotal] = useState(0);
+  useEffect(() => {
+    setInputValue(Array(selectedGame).fill("")); // Reset input fields on game selection change
+  }, [selectedGame]);
   console.log(disabled);
   console.log(valuesArray);
 
@@ -101,30 +103,29 @@ const SingleGame = () => {
   //   setBetAmount(event.target.value);
   // };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (index, e) => {
     const value = e.target.value;
     const parts = value
       .split(/[-/ ]+/)
       .map((part) => part.trim())
       .filter((part) => part !== "");
 
-    if (type_picked === "Mega") {
-      if (parts.length < 0 || parts.length > 6) {
-        setError("Input length should contain a maxium of six characters");
-        return;
-      } else {
-        setDisabled(false);
-      }
-    } else if (type_picked === "Direct") {
-      setDisabled(false);
+    let newValue = parts.join(" ");
+
+    // Validate that input values are between 1 and 57
+    const numbers = newValue.split(" ").map(Number);
+    if (numbers.some((num) => isNaN(num) || num < 1 || num > 57)) {
+      setError("Numbers must be between 1 and 57");
+      return;
     } else {
-      setDisabled(false);
+      setError("");
     }
 
-    setVal(parts);
-    setValuesArray((prevArray) => [...prevArray, ...parts]);
-    setInputValue(value);
-    setError("");
+    setInputValue((prev) => {
+      const newValues = [...prev];
+      newValues[index] = newValue;
+      return newValues;
+    });
   };
 
   const handleAmountChange = (e) => {
@@ -166,9 +167,9 @@ const SingleGame = () => {
       return Number(selectedGame);
     } else if (type === "Perm") {
       return Number(selectedGame) + 1;
-    }else if (type === "Mega") {
+    } else if (type === "Mega") {
       return 1;
-    }else if (type === "Banker") {
+    } else if (type === "Banker") {
       return 2;
     }
   };
@@ -237,199 +238,242 @@ const SingleGame = () => {
       }
     }
   };
+  const renderInputFields = () => {
+    return Array.from({ length: selectedGame || 1 }).map((_, index) => (
+      <Input
+        key={index}
+        type="number"
+        variant="bordered"
+        placeholder={` 1`}
+        className={`${
+          error === ""
+            ? `w-24 text-black text-sm`
+            : `w-24 border-pink-500 text-pink-600 text-sm`
+        }`}
+        value={inputValue[index] || ""}
+        onChange={(e) => handleInputChange(index, e)}
+      />
+    ));
+  };
+
+  const renderInputFieldMega = () => {
+    const numInputs = type_picked === "Mega" ? 6 : selectedGame || 1;
+
+    return Array.from({ length: numInputs }).map((_, index) => (
+      <Input
+        key={index}
+        type="number"
+        variant="bordered"
+        placeholder={` 1`}
+        className={`${
+          error === ""
+            ? `w-24 text-black text-sm`
+            : `w-24 border-pink-500 text-pink-600 text-sm`
+        }`}
+        value={inputValue[index] || ""}
+        onChange={(e) => handleInputChange(index, e)}
+      />
+    ));
+  };
 
   // const handlePaymentScreen = () => {
   //   navigate("/single_game_payment");
   // };
   return (
     <>
-      <div className="h-full flex flex-col bg-[#F7F7F7] w-screen p-5">
-        <div className="bg-[#F7F7F7] h-auto rounded-lg mb-5 ">
-          <div className="flex justify-center items-center ml-2">
-            <div onClick={back} className="w-auto">
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </div>
-            <div className="flex flex-wrap justify-center items-center w-screen font-Poppins text-xl">
+      <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen  ">
+        <div className="bg-white h-auto py-6 px-48 border-b border-border-default ">
+          <div className="flex cursor-pointer  items-center ml-2">
+            <div
+              onClick={back}
+              className="flex items-center space-x-4 p-3 w-auto border-border-default border rounded-xl bg-bg-tertiary"
+            >
+              <BsArrowLeft />
               <p className="flex justify-start items-start text-black">
                 {type}
               </p>
             </div>
+            {/* <div className="flex flex-wrap justify-center items-center w-screen font-Poppins text-xl">
+              <p className="flex justify-start items-start text-black">
+                {type}
+              </p>
+            </div> */}
           </div>
         </div>
-        <div className="bg-white h-auto p-5 rounded-lg flex flex-col justify-center items-center">
-          <div className="flex flex-col justify-start items-start w-full mb-5">
-            {/* <span className="font-semibold text-md mb-5 font-Poppins">
-              Draw 148
-            </span> */}
-            {/* <span className="font-normal text-sm font-Poppins">
-              Mon 17/10/2024 10:00
-            </span> */}
-          </div>
-          {type_picked === "Direct" ? (
-            <div className="flex flex-wrap justify-center items-center">
-              {direct
-                .filter(
-                  (game) =>
-                    !(
-                      ((type === "Anopa" || type === "Midday") &&
-                        (game.id === 5 || game.id === 6)) ||
-                      (type === "6/57" && game.id === 5)
-                    )
-                )
-                .map((game) => (
-                  <div
-                    key={game.id}
-                    className="flex flex-wrap bg-gray-100 h-24 w-24 justify-center items-center m-1 rounded-md"
-                    onClick={() => selectGame(game.id)}
-                    style={{
-                      border:
-                        selectedGame === game.id
-                          ? "3px solid #3DB6BC"
-                          : "0px solid gray",
-                      backgroundColor:
-                        selectedGame === game.id ? "#F6FCFD" : "#F7F7F7",
-                      fontWeight: selectedGame === game.id ? "bold" : "normal",
-                    }}
-                  >
-                    <p className="flex flex-col text-black font-Poppins w-full justify-center items-center p-2">
-                      <img
-                        alt="logo"
-                        src={game.imageUrl}
-                        className="h-10 w-16"
-                      />
-                      {/* {game.game} */}
-                    </p>
-                  </div>
-                ))}
-            </div>
-          ) : type_picked === "Perm" ? (
-            <div className="flex flex-wrap justify-center items-center">
-              {perm
-                .filter(
-                  (game) =>
-                    !(
-                      (type === "Anopa" || type === "Midday") &&
-                      game.id === 4
-                    ) ||
-                    (type === "6/57" && game.id === 4)
-                )
-                .map((game) => (
-                  <div
-                    key={game.id}
-                    className="flex bg-gray-100 h-24 w-24 justify-center items-center m-1 rounded-md"
-                    onClick={() => selectGame(game.id)}
-                    style={{
-                      border:
-                        selectedGame === game.id
-                          ? "2px solid #156064"
-                          : "0px solid gray",
-                      backgroundColor:
-                        selectedGame === game.id ? "#F6FCFD" : "#F7F7F7",
-                      fontWeight: selectedGame === game.id ? "bold" : "normal",
-                    }}
-                  >
-                    <p className="flex text-black font-Poppins justify-center items-center w-full">
-                      <img
-                        alt="logo"
-                        src={game.imageUrl}
-                        className="h-10 w-16"
-                      />
-                      {/* {game.game} */}
-                    </p>
-                  </div>
-                ))}
-            </div>
-          ) : (
-            <div className="flex justify-center items-center h-32">
-              <p className="text-gray-500 font-Poppins">
-                {type_picked === "Mega" ? (
-                  <p>
-                    Kindly select 6 numbers between 1 & 57 seperated by a dash
-                  </p>
-                ) : (
-                  <p>Kindly select a number between 1 & 57</p>
-                )}
+        <div className="flex flex-col mx-48 ">
+          <div className="bg-white h-auto  border border-border-default rounded-2xl flex flex-col justify-center items-center mt-6">
+            <div className="flex items-start w-full px-6 py-4 bg-[#DEF5EE] rounded-t-2xl ">
+              <p className="text-primary font-medium text-lg">
+                {type_picked} Selection for {type}
               </p>
             </div>
-          )}
-        </div>
-        <div className="bg-white h-28 w-full p-5 rounded-lg mt-5">
-          <p>Selections</p>
-          <div>
-            <Input
-              type={"text"}
-              placeholder={`${
-                selectedGame === ""
-                  ? `Please select a number`
-                  : `Please pick ${selectedGame} numbers between 1 to 57`
-              }`}
-              className={`${
-                error === ""
-                  ? `bg-[#F5F5F7] input-md text-black text-sm`
-                  : `bg-[#F5F5F7] input-md border-pink-500 text-pink-600 text-sm`
-              }`}
-              value={inputValue}
-              onChange={handleInputChange}
-            />
-            {error && (
-              <p className="text-rose-500 h-auto w-full text-sm">{error}</p>
+            {type_picked === "Direct" ? (
+              <div className="flex w-full space-x-12 justify-between items-center px-6 py-4 ">
+                {direct
+                  .filter(
+                    (game) =>
+                      !(
+                        ((type === "Anopa" || type === "Midday") &&
+                          (game.id === 5 || game.id === 6)) ||
+                        (type === "6/57" && game.id === 5)
+                      )
+                  )
+                  .map((game) => (
+                    <div
+                      key={game.id}
+                      className="flex h-auto  w-full justify-between items-center m-1 rounded-xl py-12"
+                      onClick={() => selectGame(game.id)}
+                      style={{
+                        border:
+                          selectedGame === game.id
+                            ? "3px solid #3DB6BC"
+                            : "1px solid #EEEFF3",
+                        backgroundColor:
+                          selectedGame === game.id ? "#F6FCFD" : "#FEFFFF",
+                        fontWeight:
+                          selectedGame === game.id ? "bold" : "normal",
+                      }}
+                    >
+                      <p className="flex flex-col text-black font-Poppins w-full justify-center items-center p-2">
+                        <img
+                          alt="logo"
+                          src={game.imageUrl}
+                          className="h-10 w-16"
+                        />
+                        {/* {game.game} */}
+                      </p>
+                    </div>
+                  ))}
+              </div>
+            ) : type_picked === "Perm" ? (
+              <div className="flex w-full space-x-12 justify-between items-center ">
+                {perm
+                  .filter(
+                    (game) =>
+                      !(
+                        (type === "Anopa" || type === "Midday") &&
+                        game.id === 4
+                      ) ||
+                      (type === "6/57" && game.id === 4)
+                  )
+                  .map((game) => (
+                    <div
+                      key={game.id}
+                      className="flex h-auto  w-full justify-between items-center m-1 rounded-xl py-12"
+                      onClick={() => selectGame(game.id)}
+                      style={{
+                        border:
+                          selectedGame === game.id
+                            ? "3px solid #3DB6BC"
+                            : "1px solid #EEEFF3",
+                        backgroundColor:
+                          selectedGame === game.id ? "#F6FCFD" : "#FEFFFF",
+                        fontWeight:
+                          selectedGame === game.id ? "bold" : "normal",
+                      }}
+                    >
+                      <p className="flex text-black font-Poppins justify-center items-center w-full">
+                        <img
+                          alt="logo"
+                          src={game.imageUrl}
+                          className="h-10 w-16"
+                        />
+                        {/* {game.game} */}
+                      </p>
+                    </div>
+                  ))}
+              </div>
+            ) : (
+              <div className="flex justify-center items-center h-32">
+                <p className="text-gray-500 font-Poppins">
+                  {type_picked === "Mega" ? (
+                    <p>Kindly select 6 numbers between 1 & 57</p>
+                  ) : (
+                    <p>Kindly select a number between 1 & 57</p>
+                  )}
+                </p>
+              </div>
             )}
           </div>
-        </div>
-      </div>
-      <div className="flex flex-wrap justify-center items-center bg-[#F7F7F7]">
-        <div className="flex flex-row w-screen h-auto bg-white rounded-lg p-5 m-5">
-          <div className="flex justify-start items-start flex-col flex-wrap mr-5 w-full">
-            <p className="font-normal text-sm font-Poppins text-gray-400">
-              Bet Amount
-            </p>
-            <p className="flex flex-row font-bold text-sm">
-              <button
-                onClick={decrement}
-                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-auto w-10 rounded-xl mr-1 text-sm"
-              >
-                -
-              </button>
-              <button
-                value={betAmount}
-                onChange={handleAmountChange}
-                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-auto w-10 rounded-xl font-bold mr-1 text-xl"
-              >
-                {betAmount}
-              </button>
-              <button
-                onClick={increment}
-                className="flex justify-center items-center bg-gray-300 hover:bg-red-700 text-black h-auto w-10 rounded-xl font-normal text-sm"
-              >
-                +
-              </button>
-            </p>
-          </div>
-          <div className="flex flex-wrap flex-col justify-end w-full">
-            <p className="font-normal h-auto w-auto text-sm text-gray-400">
-              Total Amount
-            </p>
-            <p className="font-bold h-auto w-auto text-xl text-black">
-              <p>
-                {" "}
-                GHS{" "}
-                <input
-                  onChange={handleAmountChange}
-                  className="w-16 border-2 border-black rounded-lg pl-2"
-                  value={betAmount}
-                />
+          <div className="bg-white border border-border-default  w-full  rounded-xl mt-5">
+            <div className="px-6 py-4 border-b border-border-default">
+              <p className="text-black">Selections</p>
+            </div>
+            <div className="flex items-center w-full px-6 py-6">
+              <p className="w-full">
+                {selectedGame === ""
+                  ? `Please select a number`
+                  : `Please pick ${selectedGame} numbers between 1 to 57`}
               </p>
-            </p>
+              <div className="flex flex-col items-start">
+                <div className="flex  gap-2 justify-center ">
+                  {type_picked === "Mega"
+                    ? renderInputFieldMega()
+                    : renderInputFields()}
+                </div>
+                {error && (
+                  <p className="text-rose-500 h-auto w-full text-sm">{error}</p>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-        <footer className="flex flex-wrap justify-center items-center w-screen">
-          <Button
-            label={"Confirm"}
-            disabled={!betAmount || !inputValue || error !== ""}
-            onClick={placeBet}
-            className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white mb-5 text-base"
-          />
-        </footer>
+        <div className="flex w-full justify-center items-center ">
+          <div className="flex flex-row w-full h-auto items-end bg-white border border-border-default rounded-xl p-6 mx-48 my-6">
+            <div className="flex justify-start items-start flex-col flex-wrap  w-full space-y-2">
+              <p className="font-normal text-base font-Poppins text-black">
+                Bet Amount
+              </p>
+              <p className="flex flex-row font-bold text-sm space-x-2">
+                <button
+                  onClick={decrement}
+                  className="flex justify-center items-center px-6 py-2 border border-border-default bg-bg-tertiary hover:bg-red-700 text-black h-auto w-10 rounded-xl  text-sm"
+                >
+                  -
+                </button>
+                <button
+                  value={betAmount}
+                  onChange={handleAmountChange}
+                  className="flex justify-center items-center px-6 py-2 border border-border-default bg-bg-tertiary hover:bg-red-700 text-black h-auto w-10 rounded-xl font-medium  text-xl"
+                >
+                  {betAmount}
+                </button>
+                <button
+                  onClick={increment}
+                  className="flex justify-center items-center px-6 py-2 border border-border-default bg-bg-tertiary hover:bg-red-700 text-black h-auto w-10 rounded-xl font-normal text-sm"
+                >
+                  +
+                </button>
+              </p>
+            </div>
+            <div className="flex items-end space-x-5">
+              <div className="flex flex-wrap flex-col justify-end w-full space-y-2">
+                <p className="font-normal h-auto w-auto text-base text-black">
+                  Total Amount
+                </p>
+                <div className="flex items-center font-bold h-auto w-auto text-xl text-black space-x-2">
+                  <p> GHS</p>
+                  <Input
+                    onChange={handleAmountChange}
+                    value={betAmount}
+                    type="number"
+                    variant="bordered"
+                    size=""
+                    className="w-24"
+                  />
+                </div>
+              </div>
+              <Button
+                color="primary"
+                onPress={placeBet}
+                isDisabled={!betAmount || !inputValue || error !== ""}
+                size="lg"
+              >
+                Confirm
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

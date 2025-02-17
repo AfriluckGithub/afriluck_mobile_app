@@ -24,17 +24,23 @@ const Input = ({
 
   return (
     <label
-      className={`input input-bordered flex items-center gap-2 ${className}`}
+      className={`input input-bordered flex  items-center gap-2 ${className}`}
     >
       <div className="label">
         <span className="label-text">{label}</span>
       </div>
-      {icon && <img src={icon} alt="icon" className="flex justify-start items-start w-6 h-6" />}
+      {icon && (
+        <img
+          src={icon}
+          alt="icon"
+          className="flex justify-start items-start w-6 h-6"
+        />
+      )}
       <input
         tabIndex="-1"
         type={type === "password" && isPasswordVisible ? "text" : type}
         placeholder={placeholder}
-        className={`grow`}
+        className={` grow-0`}
         value={value}
         onChange={onChange}
       />
@@ -47,15 +53,14 @@ const Input = ({
             onClick={() => document.querySelector('input[type="date"]').focus()} // Focus on the date input
           />
         )} */}
-      {rightIcon &&
-        type === "password" && (
-          <img
-            src="eyeclose.svg"
-            alt="Toggle password visibility"
-            className="cursor-pointer"
-            onClick={handleTogglePasswordVisibility} 
-          />
-        )}
+      {rightIcon && type === "password" && (
+        <img
+          src="eyeclose.svg"
+          alt="Toggle password visibility"
+          className="cursor-pointer"
+          onClick={handleTogglePasswordVisibility}
+        />
+      )}
     </label>
   );
 };

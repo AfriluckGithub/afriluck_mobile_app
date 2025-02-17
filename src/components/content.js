@@ -20,15 +20,37 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
   const [isVisibleMidday, setIsVisibleMidday] = useState(true);
   const [isVisibleEvening, setIsVisibleEvening] = useState(true);
 
+  // Function to reset draw start times to the next day
+  const resetDrawStartTimes = () => {
+    const now = new Date();
+    const resetTime = new Date();
+    resetTime.setHours(19, 45, 0, 0); // 7:45 PM
+
+    if (now > resetTime) {
+      resetTime.setDate(resetTime.getDate() + 1); // Move to the next day
+    }
+
+    return resetTime;
+  };
+
   // Draw start time for Anopa (10:00 AM), Midday (1:30 PM), and Evening (7:00 PM)
-  const anopaDrawStartTime = new Date();
-  anopaDrawStartTime.setHours(10, 0, 0, 0); // 10:00 AM
+  const [anopaDrawStartTime, setAnopaDrawStartTime] = useState(() => {
+    const resetTime = resetDrawStartTimes();
+    resetTime.setHours(10, 0, 0, 0); // 10:00 AM
+    return resetTime;
+  });
 
-  const middayDrawStartTime = new Date();
-  middayDrawStartTime.setHours(13, 30, 0, 0); // 1:30 PM
+  const [middayDrawStartTime, setMiddayDrawStartTime] = useState(() => {
+    const resetTime = resetDrawStartTimes();
+    resetTime.setHours(13, 30, 0, 0); // 1:30 PM
+    return resetTime;
+  });
 
-  const eveningDrawStartTime = new Date();
-  eveningDrawStartTime.setHours(19, 0, 0, 0); // 7:00 PM
+  const [eveningDrawStartTime, setEveningDrawStartTime] = useState(() => {
+    const resetTime = resetDrawStartTimes();
+    resetTime.setHours(19, 0, 0, 0); // 7:00 PM
+    return resetTime;
+  });
 
   // Calculate time left for each draw
   const [anopaTimeLeft, setAnopaTimeLeft] = useState(
@@ -58,16 +80,43 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
     return timeLeft;
   }
 
-  // Update countdown every second
+  // Update countdown every second and reset draw times if necessary
   useEffect(() => {
     const timer = setInterval(() => {
+      const now = new Date();
+      const resetTime = new Date();
+      resetTime.setHours(19, 45, 0, 0); // 7:45 PM
+
+      if (now > resetTime) {
+        setAnopaDrawStartTime(() => {
+          const newTime = new Date();
+          newTime.setDate(newTime.getDate() + 1);
+          newTime.setHours(10, 0, 0, 0); // 10:00 AM
+          return newTime;
+        });
+
+        setMiddayDrawStartTime(() => {
+          const newTime = new Date();
+          newTime.setDate(newTime.getDate() + 1);
+          newTime.setHours(13, 30, 0, 0); // 1:30 PM
+          return newTime;
+        });
+
+        setEveningDrawStartTime(() => {
+          const newTime = new Date();
+          newTime.setDate(newTime.getDate() + 1);
+          newTime.setHours(19, 0, 0, 0); // 7:00 PM
+          return newTime;
+        });
+      }
+
       setAnopaTimeLeft(calculateTimeLeft(anopaDrawStartTime));
       setMiddayTimeLeft(calculateTimeLeft(middayDrawStartTime));
       setEveningTimeLeft(calculateTimeLeft(eveningDrawStartTime));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [anopaDrawStartTime, middayDrawStartTime, eveningDrawStartTime]);
 
   // Check if the draw has started
   const isAnopaDrawStarted = new Date() >= anopaDrawStartTime;
@@ -120,12 +169,12 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
                 </div>
               ) : (
                 <div className="flex items-center space-x-2 bg-[#d0f8ff] text-primary px-6 py-3 rounded-tr-xl rounded-bl-xl">
-                  <BsClock className="text-white" />
+                  <BsClock color="#156064" />
                   <p className="flex text-sm font-medium">
-                    {`Draw starts at ${anopaDrawStartTime.toLocaleTimeString(
-                      [],
-                      { hour: "2-digit", minute: "2-digit" }
-                    )}`}
+                    {` ${anopaDrawStartTime.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}`}
                   </p>
                 </div>
               )}

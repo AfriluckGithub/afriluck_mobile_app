@@ -1,7 +1,12 @@
+const {heroui} = require('@heroui/theme');
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "node_modules/preline/dist/*.js"],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "node_modules/preline/dist/*.js",
+    "./node_modules/@heroui/theme/dist/components/(button|input|ripple|spinner|form).js"
+  ],
   darkMode: "class",
   theme: {
     extend: {
@@ -31,6 +36,5 @@ module.exports = {
       },
     },
   },
-
-  plugins: [require("preline/plugin"), require("daisyui")],
+  plugins: [require("preline/plugin"),require("daisyui"),heroui()],
 };
