@@ -18,12 +18,10 @@ const SingleGame = () => {
   const [error, setError] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [valuesArray, setValuesArray] = useState([]);
-  const [val, setVal] = useState([]);
+  // const [val, setVal] = useState([]);
 
   //const [total, setTotal] = useState(0);
-  useEffect(() => {
-    setInputValue(Array(selectedGame).fill("")); // Reset input fields on game selection change
-  }, [selectedGame]);
+
   console.log(disabled);
   console.log(valuesArray);
 
@@ -95,6 +93,7 @@ const SingleGame = () => {
   ];
 
   const selectGame = (id) => {
+    setInputValue([]);
     // console.log("Game Id => ", id);
     setSelectedGame(id);
   };
@@ -105,16 +104,20 @@ const SingleGame = () => {
 
   const handleInputChange = (index, e) => {
     const value = e.target.value;
-    const parts = value
-      .split(/[-/ ]+/)
-      .map((part) => part.trim())
-      .filter((part) => part !== "");
 
-    let newValue = parts.join(" ");
+    let number = parseInt(value);
 
-    // Validate that input values are between 1 and 57
-    const numbers = newValue.split(" ").map(Number);
-    if (numbers.some((num) => isNaN(num) || num < 1 || num > 57)) {
+    // const parts = value
+    //   .split(/[-/ ]+/)
+    //   .map((part) => part.trim())
+    //   .filter((part) => part !== "");
+
+    // let newValue = parts.join(" ");
+
+    // // Validate that input values are between 1 and 57
+    // const numbers = newValue.split(" ").map(Number);
+    if (isNaN(value) || number < 1 || number > 57) {
+      number = 0;
       setError("Numbers must be between 1 and 57");
       return;
     } else {
@@ -123,9 +126,10 @@ const SingleGame = () => {
 
     setInputValue((prev) => {
       const newValues = [...prev];
-      newValues[index] = newValue;
+      newValues[index] = number;
       return newValues;
     });
+    // setVal(inputValue);
   };
 
   const handleAmountChange = (e) => {
@@ -174,11 +178,31 @@ const SingleGame = () => {
     }
   };
 
-  function isValidValue(value) {
+  function isValidValue(values) {
     const current = ranges.filter(
       (range) => range.game === Number(selectedGame)
     );
-    return current.some((range) => value >= range.min && value <= range.max);
+    if (current.length === 0) {
+      return false;
+    }
+    let currentRange = current[0];
+    console.log(current);
+    console.log(currentRange);
+    let validNumbers = values.filter((value) => {
+      let number = parseInt(value);
+
+      return !(isNaN(number) || number < 1 || number > 57);
+    });
+    console.log(validNumbers);
+
+    // let isRangeValid = current.some(
+    //   (range) =>
+    //     validNumbers.length >= range.min && validNumbers.length <= range.max
+    // );
+    return (
+      validNumbers.length >= currentRange.min &&
+      validNumbers.length <= currentRange.max
+    );
   }
 
   function getRange(value) {
@@ -189,8 +213,11 @@ const SingleGame = () => {
     if (error !== "") {
       return;
     }
+    let val = inputValue;
+    console.log(val);
+    console.log(val.length);
 
-    const permValidation = isValidValue(val.length);
+    const permValidation = isValidValue(val);
     const range = getRange(val.length);
 
     const megaValidation =
@@ -275,7 +302,11 @@ const SingleGame = () => {
       />
     ));
   };
-
+  useEffect(() => {
+    setInputValue(
+      new Array(selectedGame || (type_picked === "Mega" ? 6 : 1)).fill("")
+    );
+  }, [selectedGame, type_picked]);
   // const handlePaymentScreen = () => {
   //   navigate("/single_game_payment");
   // };
@@ -346,7 +377,7 @@ const SingleGame = () => {
                   ))}
               </div>
             ) : type_picked === "Perm" ? (
-              <div className="flex w-full space-x-12 justify-between items-center ">
+              <div className="flex w-full space-x-12 justify-between items-center px-6 py-4 ">
                 {perm
                   .filter(
                     (game) =>
@@ -387,9 +418,13 @@ const SingleGame = () => {
               <div className="flex justify-center items-center h-32">
                 <p className="text-gray-500 font-Poppins">
                   {type_picked === "Mega" ? (
-                    <p>Kindly select 6 numbers between 1 & 57</p>
+                    <p className=" text-2xl font-medium">
+                      Kindly select 6 numbers between 1 & 57
+                    </p>
                   ) : (
-                    <p>Kindly select a number between 1 & 57</p>
+                    <p className=" text-2xl font-medium">
+                      Kindly select a number between 1 & 57
+                    </p>
                   )}
                 </p>
               </div>
