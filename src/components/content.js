@@ -161,8 +161,8 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
                   Game closed till 7 :45 PM
                 </div>
               ) : isAnopaOneHourClose ? (
-                <div className="flex items-center space-x-2 bg-[#d0f8ff] text-primary px-6 py-3 rounded-tr-xl rounded-bl-xl">
-                  <BsClock className="text-white" />
+                <div className="flex items-center space-x-2 bg-[#FFEDD0] text-black px-6 py-3 rounded-tr-xl rounded-bl-xl">
+                  <BsClock color="#00000" />
                   <p className="flex text-sm font-medium">
                     {`${anopaTimeLeft.minutes}m ${anopaTimeLeft.seconds}s`}
                   </p>

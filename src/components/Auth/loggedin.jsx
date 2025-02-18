@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
-import Button from "../button";
+
+import { Button } from "@heroui/button";
 import { useNavigate } from "react-router-dom";
 import { useAvatar } from "../../context/AvatarContext";
 import { useSelector } from "react-redux";
@@ -9,16 +10,19 @@ const LoggedIn = () => {
 
   const user = useSelector((state) => state.user?.user);
   const memoizedUser = useMemo(() => {
-      return user ? { ...user } : null;
+    return user ? { ...user } : null;
   }, [user]);
 
-  const username = memoizedUser === null? "Username": `${memoizedUser.first_name} ${memoizedUser.last_name}`;
+  const username =
+    memoizedUser === null
+      ? "Username"
+      : `${memoizedUser.first_name} ${memoizedUser.last_name}`;
   const phoneNumber =
-  memoizedUser === null ? "0202020202" : memoizedUser.phone_number;
+    memoizedUser === null ? "0202020202" : memoizedUser.phone_number;
 
   return (
     <div className="flex flex-col w-full space-y-6   py-4">
-      <div className="flex flex-row space-x-4 p-4 w-full  items-center bg-white rounded-xl">
+      <div className="flex flex-row space-x-4 p-4 w-full  items-center bg-white rounded-xl border border-border-default">
         <div
           style={{ backgroundColor: "#156064" }}
           className="avatar flex h-12 w-12 text-center text-white rounded-full font-semibold justify-center items-center"
@@ -45,8 +49,8 @@ const LoggedIn = () => {
           onClick={() => navigate("/profilescreen")}
         />
       </div>
-      <div className="flex w-full space-x-4">
-        <div className="flex flex-col w-full items-center  bg-white rounded-xl p-4 space-y-2">
+      <div className="flex w-full space-x-6">
+        <div className="flex flex-col w-full items-center  bg-white rounded-xl p-4 space-y-4 border border-border-default">
           <div className="flex items-center space-x-2">
             <img src="credit.svg" alt="afriluck" className="w-6 h-6" />
             <p className="text-sm font-regular">Credit</p>
@@ -54,10 +58,13 @@ const LoggedIn = () => {
           <p className="text-lg font-semibold">GHS 0.00</p>
           <Button
             label="Topup"
-            className="bg-secondary text-primary w-full btn-sm"
-          />
+            className="bg-secondary text-primary w-full font-medium"
+            size="lg"
+          >
+            Topup
+          </Button>
         </div>
-        <div className="flex flex-col w-full items-center  bg-white rounded-xl p-4 space-y-2">
+        <div className="flex flex-col w-full items-center  bg-white rounded-xl p-4 space-y-4 border border-border-default">
           <div className="flex  items-center space-x-2">
             <img src="wins.svg" alt="afriluck" className=" w-6 h-6" />
             <p className="text-sm font-regular">Wins Account</p>
@@ -65,8 +72,11 @@ const LoggedIn = () => {
           <p className="text-lg font-semibold">GHS 0.00</p>
           <Button
             label="Withdraw"
-            className="bg-primary text-white w-full btn-sm"
-          />
+            className="bg-primary text-white w-full font-medium"
+            size="lg"
+          >
+            Withdraw
+          </Button>
         </div>
       </div>
     </div>

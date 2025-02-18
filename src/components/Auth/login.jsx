@@ -10,6 +10,7 @@ import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/userSlice";
+import { BsArrowLeft } from "react-icons/bs";
 
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -73,77 +74,99 @@ const LoginScreen = () => {
     }
   };
 
+  const back = () => {
+    navigate("/single_game");
+  };
+
   return (
-    <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6 w-screen">
-      <Subheader title="Login" />
-      <div className="flex flex-col lg:w-[40%] items-center justify-center bg-white rounded-xl p-6 my-20 w-screen">
-        <img src="afriluck.svg" alt="afriluck" className="mb-6" />
-        <div className="flex flex-col w-screen max-w-md space-y-6 p-5">
-          <Input
-            type={"number"}
-            placeholder={"020 000 0000"}
-            icon={"ghana.svg"}
-            className="bg-[#F5F5F7] input-md"
-            value={phoneNumber}
-            onChange={handlePhoneNumberChange}
-          />
-          <Input
-            type={"password"}
-            placeholder={"Password"}
-            icon={"password.svg"}
-            className="bg-[#F5F5F7] input-md"
-            value={password}
-            rightIcon
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <NavLink
-            to="/forgotpassword"
-            className="text-base text-[#156064] mb-4 text-center font-semibold"
+    <div className="flex flex-col w-full items-start h-screen bg-[#F7F7F7]  ">
+      <div className="bg-white flex w-full h-auto py-6 px-48 border-b border-border-default ">
+        <div className="flex cursor-pointer  items-center ml-2">
+          <div
+            onClick={back}
+            className="flex items-center space-x-4 p-3 w-auto border-border-default border rounded-xl bg-bg-tertiary"
           >
-            Forgot Password?
-          </NavLink>
-          <div className="flex flex-col space-y-2">
-            <Button
-              label={"Login"}
-              className="bg-primary text-white"
-              disabled={!phoneNumber || !password}
-              onClick={openModal}
-            />
-            <Button
-              label={"Signup"}
-              className="bg-secondary text-primary"
-              onClick={handleSignup}
-            />
+            <BsArrowLeft />
+            <p className="flex justify-start items-start text-black">Login</p>
           </div>
-          <div>
-            {error ? (
-              <p className="flex justify-center items-center text-rose-500 text-sm">
-                {error}
-              </p>
-            ) : (
-              <p></p>
-            )}
-          </div>
-          <div className="flex justify-center items-center w-full h-auto">
-            {loading ? (
-              <OrbitProgress
-                color="#000"
-                size="small"
-                text="loading"
-                textColor=""
+          {/* <div className="text-xl font-Poppins w-full justify-center items-center">
+                  <p className="flex justify-center items-center text-black">
+                    {type}
+                  </p>
+                </div> */}
+        </div>
+      </div>
+      {/* <Subheader title="Login" /> */}
+      <div className="flex w-full items-center justify-center">
+        <div className="flex flex-col  lg:w-[40%] items-center justify-center bg-white rounded-xl p-6 my-20 w-full ">
+          <img src="afriluck.svg" alt="afriluck" className="mb-6" />
+          <div className="flex flex-col w-screen max-w-md space-y-6 p-5">
+            <Input
+              type={"number"}
+              placeholder={"020 000 0000"}
+              icon={"ghana.svg"}
+              className="bg-[#F5F5F7] input-md"
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange}
+            />
+            <Input
+              type={"password"}
+              placeholder={"Password"}
+              icon={"password.svg"}
+              className="bg-[#F5F5F7] input-md"
+              value={password}
+              rightIcon
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <NavLink
+              to="/forgotpassword"
+              className="text-base text-[#156064] mb-4 text-center font-semibold"
+            >
+              Forgot Password?
+            </NavLink>
+            <div className="flex flex-col space-y-2">
+              <Button
+                label={"Login"}
+                className="bg-primary text-white"
+                disabled={!phoneNumber || !password}
+                onClick={openModal}
               />
-            ) : (
-              <p></p>
-            )}
-          </div>
-          <div className="flex flex-col space-y-2">
-            <div className="flex w-full justify-center items-center text-base mt-4 space-x-2">
-              <img src="18plus.svg" alt="18plus" className="w-6 h-6" />
-              <p>Play Responsibly</p>
+              <Button
+                label={"Signup"}
+                className="bg-secondary text-primary"
+                onClick={handleSignup}
+              />
             </div>
-            <p className="text-center text-base text-text-muted">
-              version 1.0.0
-            </p>
+            <div>
+              {error ? (
+                <p className="flex justify-center items-center text-rose-500 text-sm">
+                  {error}
+                </p>
+              ) : (
+                <p></p>
+              )}
+            </div>
+            <div className="flex justify-center items-center w-full h-auto">
+              {loading ? (
+                <OrbitProgress
+                  color="#000"
+                  size="small"
+                  text="loading"
+                  textColor=""
+                />
+              ) : (
+                <p></p>
+              )}
+            </div>
+            <div className="flex flex-col space-y-2">
+              <div className="flex w-full justify-center items-center text-base mt-4 space-x-2">
+                <img src="18plus.svg" alt="18plus" className="w-6 h-6" />
+                <p>Play Responsibly</p>
+              </div>
+              <p className="text-center text-base text-text-muted">
+                version 1.0.0
+              </p>
+            </div>
           </div>
         </div>
       </div>

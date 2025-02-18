@@ -62,9 +62,7 @@ const Header = () => {
               </div>
             </div>
           ) : (
-            <div className="flex">
-              <Auth />
-            </div>
+            ""
           )}
         </Link>
         {/* <div className="flex flex-wrap w-full text-center font-medium text-xl justify-center items-center">
