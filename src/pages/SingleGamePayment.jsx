@@ -210,7 +210,7 @@ const SingleGamePayment = () => {
   return (
     <>
       <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen  ">
-        <div className="bg-white h-auto py-6 px-48 border-b border-border-default ">
+        <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
           <div className="flex cursor-pointer  items-center ml-2">
             <div
               onClick={back}
@@ -228,7 +228,7 @@ const SingleGamePayment = () => {
             </div> */}
           </div>
         </div>
-        <div className="mx-48 py-6">
+        <div className="mx-4 md:mx-12 lg:mx-48 py-6">
           <div className=" bg-white border border-border-default rounded-2xl">
             <div className="flex flex-row justify-center items-center  w-full p-6 rounded-t-2xl">
               <span className="font-xs text-lg  text-black">
@@ -255,7 +255,7 @@ const SingleGamePayment = () => {
             <span>
               <p className="font-md font-normal mb-5">Select Channel</p>
             </span>
-            <div className="flex flex-row  justify-between items-start space-x-6">
+            <div className="grid grid-cols-2 gap-4 md:flex flex-row  md:justify-between md:items-start md:space-x-6">
               {networks
                 .filter(
                   (network) => !(memoizedUser === null && network.id === 4)
@@ -290,7 +290,7 @@ const SingleGamePayment = () => {
                 ))}
             </div>
           </div>
-          <div className="flex w-full items-end justify-between bg-white p-6 my-6 rounded-2xl border border-border-default">
+          <div className="block space-y-4 md:flex w-full items-end justify-between bg-white p-6 my-6 rounded-2xl border border-border-default">
             <div>
               {selectedNetwork !== 4 ? (
                 <p className="mb-1 text-sm">Enter phone number</p>
@@ -318,7 +318,7 @@ const SingleGamePayment = () => {
                 (!mobileNumber && selectedNetwork !== 4)
               }
               onPress={placeBet}
-              className="font-bold  bg-primary text-white text-base"
+              className=" font-bold w-full md:w-auto bg-primary text-white text-base"
               size="lg"
             >
               Pay GHS {amount}.00

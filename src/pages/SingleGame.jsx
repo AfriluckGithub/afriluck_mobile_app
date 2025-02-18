@@ -313,7 +313,7 @@ const SingleGame = () => {
   return (
     <>
       <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen  ">
-        <div className="bg-white h-auto py-6 px-48 border-b border-border-default ">
+        <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
           <div className="flex cursor-pointer  items-center ml-2">
             <div
               onClick={back}
@@ -331,7 +331,7 @@ const SingleGame = () => {
             </div> */}
           </div>
         </div>
-        <div className="flex flex-col mx-48 ">
+        <div className="flex flex-col mx-4 md:mx-12 lg:mx-48">
           <div className="bg-white h-auto  border border-border-default rounded-2xl flex flex-col justify-center items-center mt-6">
             <div className="flex items-start w-full px-6 py-4 bg-[#DEF5EE] rounded-t-2xl ">
               <p className="text-primary font-medium text-lg">
@@ -339,7 +339,7 @@ const SingleGame = () => {
               </p>
             </div>
             {type_picked === "Direct" ? (
-              <div className="flex w-full space-x-12 justify-between items-center px-6 py-4 ">
+              <div className="block space-y-4  w-full md:grid grid-cols-2 md:gap-4 md:space-y-0  lg:flex lg:space-x-6 justify-between items-center px-6 py-4 ">
                 {direct
                   .filter(
                     (game) =>
@@ -352,7 +352,7 @@ const SingleGame = () => {
                   .map((game) => (
                     <div
                       key={game.id}
-                      className="flex h-auto  w-full justify-between items-center m-1 rounded-xl py-12"
+                      className="flex  h-auto  w-full justify-between items-center m-1 rounded-xl py-12"
                       onClick={() => selectGame(game.id)}
                       style={{
                         border:
@@ -377,7 +377,7 @@ const SingleGame = () => {
                   ))}
               </div>
             ) : type_picked === "Perm" ? (
-              <div className="flex w-full space-x-12 justify-between items-center px-6 py-4 ">
+              <div className="block space-y-4  w-full md:grid grid-cols-2 md:gap-4 md:space-y-0  lg:flex lg:space-x-6 justify-between items-center px-6 py-4 ">
                 {perm
                   .filter(
                     (game) =>
@@ -434,14 +434,14 @@ const SingleGame = () => {
             <div className="px-6 py-4 border-b border-border-default">
               <p className="text-black">Selections</p>
             </div>
-            <div className="flex items-center w-full px-6 py-6">
+            <div className="block md:flex items-center w-full px-6 py-6">
               <p className="w-full">
                 {selectedGame === ""
                   ? `Please select a number`
                   : `Please pick ${selectedGame} numbers between 1 to 57`}
               </p>
-              <div className="flex flex-col items-start">
-                <div className="flex  gap-2 justify-center ">
+              <div className="flex flex-col w-full items-start">
+                <div className="grid grid-cols-3 md:flex  gap-4 justify-center mt-4 ">
                   {type_picked === "Mega"
                     ? renderInputFieldMega()
                     : renderInputFields()}
@@ -453,9 +453,9 @@ const SingleGame = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-full justify-center items-center ">
-          <div className="flex flex-row w-full h-auto items-end bg-white border border-border-default rounded-xl p-6 mx-48 my-6">
-            <div className="flex justify-start items-start flex-col flex-wrap  w-full space-y-2">
+        <div className="flex w-full justify-center items-center  ">
+          <div className="block  space-y-4 md:flex flex-row w-full h-auto items-end bg-white border border-border-default rounded-xl p-6 mx-4 md:mx-12 lg:mx-48 my-6">
+            <div className="flex justify-start items-start  flex-col flex-wrap  w-full  space-y-2">
               <p className="font-normal text-base font-Poppins text-black">
                 Bet Amount
               </p>
@@ -481,8 +481,8 @@ const SingleGame = () => {
                 </button>
               </p>
             </div>
-            <div className="flex items-end space-x-5">
-              <div className="flex flex-wrap flex-col justify-end w-full space-y-2">
+            <div className="flex items-end space-x-2 md:space-x-5 ">
+              <div className="flex flex-wrap flex-col justify-end items-start w-full md:items-start space-y-4">
                 <p className="font-normal h-auto w-auto text-base text-black">
                   Total Amount
                 </p>

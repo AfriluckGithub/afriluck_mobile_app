@@ -104,7 +104,7 @@ const SingleGameSelection = () => {
 
   return (
     <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen  ">
-      <div className="bg-white h-auto py-6 px-48 border-b border-border-default ">
+      <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
         <div className="flex cursor-pointer  items-center ml-2">
           <div
             onClick={back}
@@ -120,7 +120,7 @@ const SingleGameSelection = () => {
           </div> */}
         </div>
       </div>
-      <div className="flex h-screen flex-col mx-48 my-12 ">
+      <div className="flex h-screen flex-col mx-4 md:mx-12 lg:mx-48 my-12 ">
         <div className="flex flex-col bg-white rounded-2xl border border-border-default">
           <div className=" flex   items-center px-6 py-4  border-b border-border-default">
             <p className="text-black text-xl font-normal ">Selections</p>

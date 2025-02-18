@@ -12,7 +12,7 @@ const Profile = () => {
     return user ? { ...user } : null;
   }, [user]);
   return (
-    <div className="flex flex-col h-[1200px]  my-32 space-y-6 mx-48">
+    <div className="flex flex-col h-[1200px]  my-32 space-y-6 mx-4 md:mx-12 lg:mx-48">
       <div className="space-y-6">
         <div className="space-y-4 ">
           <Auth />
