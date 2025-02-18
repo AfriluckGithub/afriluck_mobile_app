@@ -79,8 +79,9 @@ const LoginScreen = () => {
   };
 
   return (
-    <div className="flex flex-col w-full items-start h-screen bg-[#F7F7F7]  ">
-      <div className="bg-white flex w-full h-auto py-6 px-48 border-b border-border-default ">
+    <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
+      <Subheader title="Login" />
+      {/* <div className="bg-white flex w-full h-auto py-6 px-48 border-b border-border-default ">
         <div className="flex cursor-pointer  items-center ml-2">
           <div
             onClick={back}
@@ -89,18 +90,18 @@ const LoginScreen = () => {
             <BsArrowLeft />
             <p className="flex justify-start items-start text-black">Login</p>
           </div>
-          {/* <div className="text-xl font-Poppins w-full justify-center items-center">
+          <div className="text-xl font-Poppins w-full justify-center items-center">
                   <p className="flex justify-center items-center text-black">
                     {type}
                   </p>
-                </div> */}
+                </div>
         </div>
-      </div>
+      </div> */}
       {/* <Subheader title="Login" /> */}
-      <div className="flex w-full items-center justify-center">
-        <div className="flex flex-col  lg:w-[40%] items-center justify-center bg-white rounded-xl p-6 my-20 w-full ">
-          <img src="afriluck.svg" alt="afriluck" className="mb-6" />
-          <div className="flex flex-col w-screen max-w-md space-y-6 p-5">
+      <div className="flex w-full items-center justify-center ">
+        <div className="flex flex-col  items-center justify-center bg-white rounded-xl   w-full ">
+          <img src="afriluck.svg" alt="afriluck" className="my-6" />
+          <div className="flex flex-col w-screen max-w-md space-y-6 px-12 md:px-0 py-6">
             <Input
               type={"number"}
               placeholder={"020 000 0000"}

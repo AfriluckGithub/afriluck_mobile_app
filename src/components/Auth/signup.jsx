@@ -65,7 +65,7 @@ const SignupScreen = () => {
 
     const headers = {
       "Content-Type": "application/json",
-      "Accept": "application/json"
+      Accept: "application/json",
     };
     console.log(requestBody);
 
@@ -79,13 +79,13 @@ const SignupScreen = () => {
       console.log("Login Response => ", res);
 
       if (res.status === 200) {
-          localStorage.setItem("register_token", res.data.success.token);
-          console.log("Reg Token => ", localStorage.getItem("register_token"));
-          navigate("/verifycode");
+        localStorage.setItem("register_token", res.data.success.token);
+        console.log("Reg Token => ", localStorage.getItem("register_token"));
+        navigate("/verifycode");
       }
     } catch (e) {
       setLoading(false);
-      setError(e.response.data.error)
+      setError(e.response.data.error);
       console.log(e.response.data.error);
     }
   };
@@ -122,9 +122,9 @@ const SignupScreen = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6">
+    <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
       <Subheader title="Signup" />
-      <div className="flex flex-col w-full lg:w-[40%] items-center justify-center  bg-white rounded-xl p-6 my-20 space-y-4">
+      <div className="flex flex-col w-full  items-center justify-center  bg-white rounded-xl p-6 my-20 space-y-4">
         <img src="afriluck.svg" alt="afriluck" className="mb-6" />
         <p className="text-center text-base text-text-black mb-4">
           New user sign up
@@ -171,10 +171,18 @@ const SignupScreen = () => {
                 style={{ color: "red" }}
                 className="flex text-sm justify-center"
               >
-                <p>{`${index+1} .`} {error}</p> 
+                <p>
+                  {`${index + 1} .`} {error}
+                </p>
               </p>
             ))}
-            {error? <p className="flex justify-center items-center w-full text-rose-500 text-sm text-wrap text-center">{error}</p>: ""}
+            {error ? (
+              <p className="flex justify-center items-center w-full text-rose-500 text-sm text-wrap text-center">
+                {error}
+              </p>
+            ) : (
+              ""
+            )}
           </div>
           <div className="flex justify-center items-center w-full h-auto">
             {loading ? (

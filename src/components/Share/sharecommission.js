@@ -4,9 +4,9 @@ import DATA from "../../data/commission";
 
 const Sharecommission = () => {
   return (
-    <div className="flex flex-col w-full items-center h-screen bg-[#F7F7F7] p-6">
+    <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
       <Subheader title="Share Commission" />
-      <div className="flex flex-col items-center w-full h-screen space-y-6  rounded-xl  mt-20">
+      <div className="flex flex-col items-center w-full h-screen space-y-6  rounded-xl  mt-20 ">
         <div className="flex items-center justify-between w-full p-4 md:p-6 rounded-xl bg-white space-x-2 md:space-x-4">
           {DATA.Users.map((index) => (
             <div

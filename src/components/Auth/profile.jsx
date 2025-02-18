@@ -67,11 +67,11 @@ const ProfileScreen = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-full bg-[#F7F7F7] p-6">
+    <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
       <div className="mb-6">
         <Subheader title="Profile" />
       </div>
-      <div className="flex flex-col  h-full w-[30%]  items-center justify-center  bg-white rounded-xl px-6 py-6 my-24 space-y-4">
+      <div className="flex flex-col w-full space-y-4 justify-between items-center px-4 py-4 bg-white rounded-xl border border-border-default">
         <div className="flex flex-col w-full max-w-md space-y-6">
           <div className="flex flex-col items-center space-y-2">
             <Avatar onUpdate={handleAvatarUpdate} />
