@@ -87,7 +87,7 @@ const SingleGamePayment = () => {
       bet_type_code: transaction.game,
       bet_type: game_picked.toString().toLowerCase(),
       game: game_type === "6/57" ? "657" : game_type.toString().toLowerCase(),
-      selected_numbers: numbers,
+      selected_numbers: String(numbers),
       channel: network,
       discounted_amount: "",
       use_wallet: selectedNetwork === 4 ? true : false,
