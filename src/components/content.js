@@ -180,7 +180,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
               )}
             </div>
           </div>
-          <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-between items-center gap-4 p-6 border-t border-border-default">
+          <div className="block space-y-4  w-full md:grid grid-cols-2 md:gap-4 md:space-y-0  lg:flex lg:space-x-6 justify-between items-center px-6 py-4 border-t border-border-default ">
             {filteredSubGames1.map((game, index) => (
               <Game
                 key={index}
@@ -225,7 +225,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
               )}
             </div>
           </div>
-          <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-between items-center gap-4 p-6 border-t border-border-default">
+          <div className="block space-y-4  w-full md:grid grid-cols-2 md:gap-4 md:space-y-0  lg:flex lg:space-x-6 justify-between items-center px-6 py-4 border-t border-border-default ">
             {filteredSubGames1.map((game, index) => (
               <Game
                 key={index}
@@ -276,7 +276,7 @@ const Body = ({ title, image, subtitle, subGames, subGames1, query }) => {
               <p></p>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap justify-between items-center gap-4 p-6 border-t border-border-default">
+          <div className="block space-y-4  w-full md:grid grid-cols-2 md:gap-4 md:space-y-0  lg:flex lg:space-x-6 justify-between items-center px-6 py-4 border-t border-border-default ">
             {filteredSubGames.map((game, index) => (
               <Game
                 key={index}
