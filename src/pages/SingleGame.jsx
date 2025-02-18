@@ -418,11 +418,11 @@ const SingleGame = () => {
               <div className="flex justify-center items-center h-32">
                 <p className="text-gray-500 font-Poppins">
                   {type_picked === "Mega" ? (
-                    <p className=" text-2xl font-medium">
+                    <p className=" text-2xl font-medium px-4">
                       Kindly select 6 numbers between 1 & 57
                     </p>
                   ) : (
-                    <p className=" text-2xl font-medium">
+                    <p className=" text-2xl font-medium px-4">
                       Kindly select a number between 1 & 57
                     </p>
                   )}
