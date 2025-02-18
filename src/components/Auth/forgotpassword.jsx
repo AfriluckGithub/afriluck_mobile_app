@@ -53,9 +53,9 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6">
+    <div className="flex flex-col items-center h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
       <Subheader title="Forgot Password" />
-      <div className="flex flex-col w-full lg:w-[40%] items-center justify-center  bg-white rounded-xl p-6 my-20 space-y-4">
+      <div className="flex flex-col w-full lg:w[40%]  items-center justify-center  bg-white rounded-xl p-6 my-20 space-y-4">
         <img src="afriluck.svg" alt="afriluck" className="mb-6" />
         <p className="text-center text-base text-text-black mb-4">
           A verification code will be sent to the number you provide below
