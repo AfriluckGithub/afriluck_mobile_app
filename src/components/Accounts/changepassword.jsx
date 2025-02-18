@@ -13,15 +13,13 @@ const ChangePassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [
-    typingTimeout, 
+    typingTimeout,
     //setTypingTimeout
   ] = useState(null);
-  const [open, 
-    setOpen
-  ] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const openModal = () => {
-     setOpen(true);
+    setOpen(true);
   };
 
   const user = useSelector((state) => state.user.user);
@@ -34,29 +32,33 @@ const ChangePassword = () => {
     try {
       setLoading(true);
       const requestBody = {
-        "current_password": password,
-        "password": newPassword
-      }
+        current_password: password,
+        password: newPassword,
+      };
       console.log(requestBody);
-      const res = await axios.post('https://staging.afriluck.com/api/V1/app/update-password', requestBody, {
-        headers: {
-          'Authorization': `Bearer ${memoizedUser.token}`,
-          'Content-Type': 'application/json',
-        },
-      })
+      const res = await axios.post(
+        "https://staging.afriluck.com/api/V1/app/update-password",
+        requestBody,
+        {
+          headers: {
+            Authorization: `Bearer ${memoizedUser.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setLoading(false);
       if (res.status === 200) {
-          //openModal();
-          //setTimeout(() => {
-           //handleSuccess();
-           openModal();
-          //}, 2300)
+        //openModal();
+        //setTimeout(() => {
+        //handleSuccess();
+        openModal();
+        //}, 2300)
       }
-    }catch(e) {
+    } catch (e) {
       setLoading(false);
       console.log(e);
     }
-  }
+  };
 
   const handleSuccess = () => {
     navigate("/profile");
@@ -104,7 +106,7 @@ const ChangePassword = () => {
     };
   }, [typingTimeout]);
   return (
-    <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6">
+    <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6 mt-6">
       <Subheader title="Change  Password" />
       <div className="flex flex-col w-full lg:w-[40%] items-center justify-center  bg-white rounded-xl p-6 my-20 space-y-4">
         <img src="afriluck.svg" alt="afriluck" className="mb-6" />
@@ -150,15 +152,15 @@ const ChangePassword = () => {
           </div>
         </div>
         {loading ? (
-            <OrbitProgress
-              color="#000"
-              size="small"
-              text="loading"
-              textColor=""
-            />
-          ) : (
-            <p></p>
-          )}
+          <OrbitProgress
+            color="#000"
+            size="small"
+            text="loading"
+            textColor=""
+          />
+        ) : (
+          <p></p>
+        )}
       </div>
       <Modal
         isOpen={open}
