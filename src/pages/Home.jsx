@@ -21,16 +21,20 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col mb-24">
-      <SearchBar query={query} setQuery={setQuery} />
-      <Banner image={"banner.png"} />
-      <Content
-        query={query}
-        subGames={subGames}
-        subGames1={subGames1}
-        image={"game.png"}
-        title={"Morning Draw"}
-        subtitle={"Super Monday"}
-      />
+      {/* <SearchBar query={query} setQuery={setQuery} /> */}
+      <div className="mt-24 mx-4 md:mx-12 xl:mx-48">
+        <Banner image={"banner.svg"} />
+      </div>
+      <div className="mx-4 md:mx-12 xl:mx-48">
+        <Content
+          query={query}
+          subGames={subGames}
+          subGames1={subGames1}
+          image={"game.png"}
+          title={"Morning Draw"}
+          subtitle={"Super Monday"}
+        />
+      </div>
     </div>
   );
 };

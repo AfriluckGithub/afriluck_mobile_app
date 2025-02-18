@@ -60,9 +60,10 @@ const Customerservice = () => {
   };
 
   return (
-    <div className="flex flex-col w-full h-screen bg-[#F7F7F7] p-6">
+    <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
       <Subheader title="Customer Service" />
-      <div className="w-full flex flex-col items-center bg-white rounded-xl p-6 my-20 space-y-8">
+
+      <div className="flex flex-col w-full space-y-4 justify-between px-4 py-4 bg-white rounded-xl border border-border-default">
         <div className="w-full flex flex-col items-center text-center space-y-1">
           <div
             className={`w-20 h-20 mb-4 bg-[#f6f6f6] rounded-full flex flex-col items-center justify-evenly`}

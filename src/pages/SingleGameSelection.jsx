@@ -1,20 +1,24 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { BsXCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
 import { useEffect, useState } from "react";
-import Button from "../components/button";
+
+import { Button } from "@heroui/button";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addTransactionData,
   clearTransactionData,
 } from "../store/transactionSlice";
+import { BsArrowLeft } from "react-icons/bs";
 
 const SingleGameSelection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [total, setTotal] = useState(0);
-  const transaction = useSelector((state) => state.transaction?.transactions) || {};
+  const transaction =
+    useSelector((state) => state.transaction?.transactions) || {};
 
   const numbers = transaction.numbers;
   const amount = transaction.betAmount;
@@ -25,9 +29,9 @@ const SingleGameSelection = () => {
 
   useEffect(() => {
     const calculatePermAmount = async () => {
-      if(movedPastPayment) {
-          setTotal(amount);
-          return;
+      if (movedPastPayment) {
+        setTotal(amount);
+        return;
       }
       try {
         const requestBody = JSON.stringify({
@@ -75,7 +79,7 @@ const SingleGameSelection = () => {
           game: transaction.game,
           type: transaction.type,
           typePicked: transaction.typePicked,
-          movedPastPayment: true 
+          movedPastPayment: true,
         })
       );
     }
@@ -87,55 +91,77 @@ const SingleGameSelection = () => {
     back();
   };
 
+  const handleDeleteSingle = (numberToDelete) => {
+    const updatedNumbers = numbers.filter((num) => num !== numberToDelete);
+
+    dispatch(
+      addTransactionData({
+        ...transaction,
+        numbers: updatedNumbers,
+      })
+    );
+  };
+
   return (
-    <div className="bg-[#F7F7F7] h-screen w-screen flex">
-      <div className="flex flex-col w-full p-5">
-        <div className="h-16 w-full rounded-lg">
-          <div className="flex flex-row w-full">
-            <div onClick={back} className="">
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </div>
-            <div className="text-xl font-Poppins w-full justify-center items-center">
-              <p className="flex justify-center items-center text-black">
-                {type}
-              </p>
-            </div>
+    <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen  ">
+      <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
+        <div className="flex cursor-pointer  items-center ml-2">
+          <div
+            onClick={back}
+            className="flex items-center space-x-4 p-3 w-auto border-border-default border rounded-xl bg-bg-tertiary"
+          >
+            <BsArrowLeft />
+            <p className="flex justify-start items-start text-black">{type}</p>
           </div>
+          {/* <div className="text-xl font-Poppins w-full justify-center items-center">
+            <p className="flex justify-center items-center text-black">
+              {type}
+            </p>
+          </div> */}
         </div>
-        <div className="h-screen w-full p-5 rounded-2xl justify-between">
-          <div className="bg-white h-auto p-2 pl-5 pt-5 rounded-t-lg">
-            <p className="text-black font-normal mb-5">Selections</p>
+      </div>
+      <div className="flex h-screen flex-col mx-4 md:mx-12 lg:mx-48 my-12 ">
+        <div className="flex flex-col bg-white rounded-2xl border border-border-default">
+          <div className=" flex   items-center px-6 py-4  border-b border-border-default">
+            <p className="text-black text-xl font-normal ">Selections</p>
           </div>
           <div className="h-auto flex flex-col justify-between">
-            <div className="h-full flex flex-col w-full bg-white p-5">
+            <div className="h-full flex flex-col w-full  p-6 space-y-6">
               <div
                 style={{ backgroundColor: "#F6FCFD" }}
-                className="flex flex-row w-full h-auto rounded-md p-5 items-center"
+                className="flex flex-row w-full h-auto justify-between  px-6 py-2 rounded-xl items-center border border-border-default"
               >
                 <div className="flex flex-col w-full">
-                  <p className="w-full font-normal text-xl">{numbers}</p>
+                  <p className="w-full font-medium text-xl">{numbers}</p>
                   <p className="text-gray-400">{`${typePicked} | GHS ${
                     typePicked === "Perm" ? total : amount
                   }.00`}</p>
                 </div>
+                <div onClick={handleDeleteSingle} className="cursor-pointer">
+                  <BsXCircleFill size={24} color="#c1c0c0" />
+                </div>
               </div>
-              <div
-                style={{ backgroundColor: "#FFEFEF" }}
-                onClick={handleClear}
-                className="flex w-auto h-16 mt-5 rounded-md justify-center items-center"
-              >
-                <FontAwesomeIcon icon={faTrash} color="red" />{" "}
-                <p className="ml-2 text-red font-semibold">Clear All</p>
+              <div className="flex w-full  justify-end space-x-6 items-center ">
+                <Button
+                  style={{ backgroundColor: "#FFEFEF" }}
+                  onPress={handleClear}
+                  variant="flat"
+                  size="lg"
+                  startContent={<FontAwesomeIcon icon={faTrash} color="red" />}
+                >
+                  <p className=" text-red ">Clear All</p>
+                </Button>
+                <Button
+                  disabled={false}
+                  onPress={handlePaymentScreen}
+                  className="bg-primary text-white  "
+                  size="lg"
+                  variant="primary"
+                >
+                  Place Bet
+                </Button>
               </div>
             </div>
-            <footer className="flex flex-wrap w-screen h-auto bg-gray-100 justify-center items-center absolute bottom-0 left-0 p-5">
-              <Button
-                label={"Place Bet"}
-                disabled={false}
-                onClick={handlePaymentScreen}
-                className="font-bold rounded-lg h-16 bg-primary text-white w-full text-base"
-              />
-            </footer>
           </div>
         </div>
       </div>

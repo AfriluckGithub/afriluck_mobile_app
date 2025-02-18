@@ -29,7 +29,7 @@ const ChangeSecurityQuestions = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6">
+    <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6 mt-6">
       <Subheader title="Change Security Questions" />
       <div className="flex flex-col w-full lg:w-[40%] items-center justify-center  bg-white rounded-xl p-6 my-20 space-y-4">
         <img src="afriluck.svg" alt="afriluck" className="mb-6" />

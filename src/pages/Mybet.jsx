@@ -12,8 +12,8 @@ const Mybet = () => {
   const user = useSelector((state) => state.user?.user);
 
   const memoizedUser = useMemo(() => {
-      return user ? { ...user } : null;
-    }, [user]);
+    return user ? { ...user } : null;
+  }, [user]);
 
   useEffect(() => {
     try {
@@ -60,23 +60,27 @@ const Mybet = () => {
 
   return (
     <>
-      <div className="flex flex-col bg-[#F7F7F7] h-screen w-screen">
-        <div className="">
+      <div className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48">
+        {/* <div className="">
           <SearchBar />
-        </div>
-        <div className="flex flex-col w-full mt-5">
+        </div> */}
+        <div className="flex flex-col w-full my-32 ">
           {results.map((result) => (
-            <div className="bg-white rounded-lg h-auto m-5 p-3">
-              <div className="flex flex-row w-auto">
+            <div className="bg-white rounded-xl h-auto w-full p-6 my-6 border border-border-default ">
+              <div className="flex flex-row w-auto space-x-4 pb-4">
                 <span>
                   <img alt="afriluck" src="afriluck_lg.png" />
                 </span>
-                <div className="flex flex-col items-start text-gray-600 mb-2 font-sans text-wrap w-full ml-5">
-                  <div className="flex flex-row font-semibold text-base">
-                    <div className="mr-2">{result.draw_code},</div>
-                    <div>{result.date}</div>
+                <div className="flex flex-col items-start font-semibold text-gray-600 space-y-1 font-sans text-wrap w-full ">
+                  <div className="flex flex-row text-base">
+                    <div className="mr-2 font-medium font-Poppins">
+                      {result.draw_code},
+                    </div>
+                    <div className="font-Poppins">{result.date}</div>
                   </div>
-                  <div className="text-gray-600">{result.selected_numbers}</div>
+                  <div className="text-gray-400 font-Poppins ">
+                    {result.selected_numbers}
+                  </div>
                 </div>
               </div>
               <hr />

@@ -4,10 +4,13 @@ import Subheader from "../subheader";
 
 const Policy = () => {
   return (
-    <div className="flex flex-col w-full h-screen  bg-[#F7F7F7] p-6">
+    <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
       <Subheader title="Privacy Policy" />
       {PolicyData.map((policy, index) => (
-        <div key={index} className="w-full bg-white rounded-xl p-6 my-20">
+        <div
+          key={index}
+          className="flex flex-col w-full space-y-4 justify-between px-4 py-4 bg-white rounded-xl border border-border-default"
+        >
           <p>{policy.description}</p>
         </div>
       ))}

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const Accounts = () => {
   return (
-    <div className="flex flex-col w-full space-y-4 justify-between px-4 py-4 bg-white rounded-xl">
+    <div className="flex flex-col w-full space-y-4 justify-between px-4 py-4 bg-white rounded-xl border border-border-default">
       {AccountData.map((account, index) => (
         <NavLink
           key={index}

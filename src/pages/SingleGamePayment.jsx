@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
 import { OrbitProgress } from "react-loading-indicators";
 import Input from "../components/input";
 import { ToastContainer, toast } from "react-toastify";
-import Button from "../components/button";
+import { Button } from "@heroui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
+import { BsArrowLeft } from "react-icons/bs";
 
 const SingleGamePayment = () => {
   const navigate = useNavigate();
@@ -79,14 +79,14 @@ const SingleGamePayment = () => {
 
     const formattedNumber = `233${Number(mobileNumber)}`;
     console.log("");
-    
+
     const requestBody = {
       msisdn:
         selectedNetwork === 4 ? memoizedUser.phone_number : formattedNumber,
       total_amount: Number(amount),
       bet_type_code: transaction.game,
       bet_type: game_picked.toString().toLowerCase(),
-      game: game_type === "6/57"? "657":game_type.toString().toLowerCase(),
+      game: game_type === "6/57" ? "657" : game_type.toString().toLowerCase(),
       selected_numbers: numbers,
       channel: network,
       discounted_amount: "",
@@ -113,7 +113,7 @@ const SingleGamePayment = () => {
             type: transaction.type,
             typePicked: transaction.typePicked,
             movedPastPayment: true,
-            mobileNumber: mobileNumber
+            mobileNumber: mobileNumber,
           })
         );
         moveToCheckPaymentStatuds();
@@ -209,79 +209,91 @@ const SingleGamePayment = () => {
 
   return (
     <>
-      <div className="w-screen h-screen p-5 bg-[#F7F7F7] flex flex-col">
-        <div className="bg-gray-100 h-16 w-full p-5 rounded-lg">
-          <div className="flex flex-row w-auto items-center">
-            <div onClick={back}>
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </div>
-            <div className="font-normal w-full text-xl font-Poppins justify-center items-center">
+      <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen  ">
+        <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
+          <div className="flex cursor-pointer  items-center ml-2">
+            <div
+              onClick={back}
+              className="flex items-center space-x-4 p-3 w-auto border-border-default border rounded-xl bg-bg-tertiary"
+            >
+              <BsArrowLeft />
               <p className="flex justify-center items-center text-black">
                 Payment
               </p>
             </div>
+            {/* <div className="font-normal w-full text-xl font-Poppins justify-center items-center">
+              <p className="flex justify-center items-center text-black">
+                Payment
+              </p>
+            </div> */}
           </div>
         </div>
-        <div className="flex flex-row justify-center items-center bg-white h-18 w-full p-5 rounded-tl-lg rounded-tr-lg mt-3">
-          <span className="font-xs text-lg mb-2 text-black">
-            <p>{game_type}</p>
-            <p className="text-xs text-black">Draw 148</p>
-          </span>
-          <span className="font-normal text-sm font-Poppins ml-auto text-black">
-            {getFormattedDate()}
-          </span>
-        </div>
-        <div
-          className="bg-white h-auto w-full rounded-bl-lg rounded-br-lg"
-          style={{ backgroundColor: "#E4F5F6" }}
-        >
-          <div className="flex flex-col text-gray-800 justify-center items-center p-3">
-            <p className="font-Poppins text-sm mb-2">
-              <p>You will be charged</p>
-            </p>
-            <p className="font-bold text-xl">{`GHS ${amount}.00`}</p>
+        <div className="mx-4 md:mx-12 lg:mx-48 py-6">
+          <div className=" bg-white border border-border-default rounded-2xl">
+            <div className="flex flex-row justify-center items-center  w-full p-6 rounded-t-2xl">
+              <span className="font-xs text-lg  text-black">
+                <p>{game_type}</p>
+                <p className="text-xs text-black">Draw 148</p>
+              </span>
+              <span className="font-medium text-md font-Poppins ml-auto text-black">
+                {getFormattedDate()}
+              </span>
+            </div>
+            <div
+              className="bg-white h-auto w-full rounded-b-2xl"
+              style={{ backgroundColor: "#f6fcfd" }}
+            >
+              <div className="flex flex-col text-gray-800 justify-center items-center p-3">
+                <p className="font-Poppins text-sm mb-2">
+                  <p>You will be charged</p>
+                </p>
+                <p className="font-bold text-xl">{`GHS ${amount}.00`}</p>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col bg-white h-auto w-full p-5 rounded-lg mt-5">
-          <span>
-            <p className="font-md font-normal mb-5">Select Channel</p>
-          </span>
-          <div className="flex flex-row flex-auto flex-wrap justify-center items-center">
-            {networks
-              .filter((network) => !(memoizedUser === null && network.id === 4))
-              .map((network) => (
-                <div
-                  key={network.id}
-                  className="flex flex-col bg-gray-100 h-24 w-24 p-2 mr-2 justify-center items-center rounded-lg mb-2 focus:outline-none ripple"
-                  onClick={() => selectNetwork(network.id)}
-                  style={{
-                    border:
-                      selectedNetwork === network.id
-                        ? "2px solid #3DB6BC"
-                        : "0px solid gray",
-                    backgroundColor:
-                      selectedNetwork === network.id ? "#F6FCFD" : "#F7F7F7",
-                    fontWeight:
-                      selectedNetwork === network.id ? "bold" : "normal",
-                  }}
-                >
-                  <img
-                    className="flex mb-2 w-auto"
-                    src={network.image}
-                    alt={network.placeholder}
-                  />
-                  <p className="flex w-full justify-center items-center">
-                    <p className="flex text-xs w-full justify-center items-center text-black">
-                      {network.name}
+          <div className="flex flex-col bg-white h-auto w-full p-6 rounded-2xl mt-5 border border-border-default">
+            <span>
+              <p className="font-md font-normal mb-5">Select Channel</p>
+            </span>
+            <div className="grid grid-cols-2 gap-4 md:flex flex-row  md:justify-between md:items-start md:space-x-6">
+              {networks
+                .filter(
+                  (network) => !(memoizedUser === null && network.id === 4)
+                )
+                .map((network) => (
+                  <div
+                    key={network.id}
+                    className="flex flex-col bg-gray-100 h-24 w-full p-2 mr-2 justify-center items-center rounded-xl mb-2 focus:outline-none ripple"
+                    onClick={() => selectNetwork(network.id)}
+                    style={{
+                      border:
+                        selectedNetwork === network.id
+                          ? "2px solid #3DB6BC"
+                          : "0px solid gray",
+                      backgroundColor:
+                        selectedNetwork === network.id ? "#F6FCFD" : "#F7F7F7",
+                      fontWeight:
+                        selectedNetwork === network.id ? "bold" : "normal",
+                    }}
+                  >
+                    <img
+                      className="flex mb-2 w-auto"
+                      src={network.image}
+                      alt={network.placeholder}
+                    />
+                    <p className="flex w-full justify-center items-center">
+                      <p className="flex text-xs w-full justify-center items-center text-black">
+                        {network.name}
+                      </p>
                     </p>
-                  </p>
-                </div>
-              ))}
+                  </div>
+                ))}
+            </div>
           </div>
-          <div className="mt-10">
+          <div className="block space-y-4 md:flex w-full items-end justify-between bg-white p-6 my-6 rounded-2xl border border-border-default">
             <div>
               {selectedNetwork !== 4 ? (
-                <p className="mb-5">Enter phone number</p>
+                <p className="mb-1 text-sm">Enter phone number</p>
               ) : (
                 <p></p>
               )}
@@ -290,7 +302,7 @@ const SingleGamePayment = () => {
                   type={"number"}
                   placeholder={"020 000 0000"}
                   icon={"ghana.svg"}
-                  className="bg-[#F5F5F7] input-md focus:outline-none text-black"
+                  className="bg-[#F5F5F7] w-full input-md focus:outline-none text-black"
                   value={mobileNumber}
                   onChange={handleInputChange}
                 />
@@ -298,34 +310,35 @@ const SingleGamePayment = () => {
                 <p></p>
               )}
             </div>
+            <Button
+              label={`Pay GHS ${amount}.00`}
+              isDisabled={
+                !network ||
+                !isValidMobile ||
+                (!mobileNumber && selectedNetwork !== 4)
+              }
+              onPress={placeBet}
+              className=" font-bold w-full md:w-auto bg-primary text-white text-base"
+              size="lg"
+            >
+              Pay GHS {amount}.00
+            </Button>
+          </div>
+          <div className="flex flex-wrap w-full h-auto justify-center items-center">
+            {loading ? (
+              <OrbitProgress
+                color="#000"
+                size="small"
+                text="loading"
+                textColor=""
+              />
+            ) : (
+              <p></p>
+            )}
+            <ToastContainer />
           </div>
         </div>
-        <div className="flex flex-wrap w-full h-auto justify-center items-center">
-          {loading ? (
-            <OrbitProgress
-              color="#000"
-              size="small"
-              text="loading"
-              textColor=""
-            />
-          ) : (
-            <p></p>
-          )}
-          <ToastContainer />
-        </div>
       </div>
-      <footer className="bg-gray-100 flex flex-row flex-wrap w-full mb-5 justify-center items-center">
-        <Button
-          label={`Pay GHS ${amount}.00`}
-          disabled={
-            !network ||
-            !isValidMobile ||
-            (!mobileNumber && selectedNetwork !== 4)
-          }
-          onClick={placeBet}
-          className="font-bold rounded-lg w-11/12 h-16 bg-primary text-white text-base"
-        />
-      </footer>
     </>
   );
 };

@@ -22,7 +22,7 @@ const Logout = () => {
 
   return (
     <>
-      <div className="flex flex-row w-full justify-between px-4 py-6 bg-white rounded-xl">
+      <div className="flex flex-row w-full justify-between px-4 py-6 bg-white rounded-xl border border-border-default">
         <div
           className="flex flex-row items-center space-x-2 cursor-pointer"
           onClick={handleLogout}

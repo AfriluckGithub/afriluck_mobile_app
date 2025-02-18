@@ -23,11 +23,11 @@ const Modal = ({
     <div>
       {/* Modal overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 bg-gray-500 bg-opacity-50 flex items-center justify-center">
-          <dialog id="my_modal_1" className="modal" open>
-            <div className={`modal-box ${sizeClasses[size]}`}>
+        <div className="fixed inset-0 z-50 bg-gray-200 bg-opacity-50 flex items-center justify-center">
+          <dialog id="my_modal_1" className="modal " open>
+            <div className={`modal-box ${sizeClasses[size]} bg-white`}>
               {type === "success" ? (
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center bg-white">
                   <div
                     className={`w-16 h-16 bg-[${imgBg}] rounded-full flex items-center justify-center mb-4`}
                   >

@@ -1,9 +1,13 @@
-const Banner = ({image}) => {
-    return (
-        <div className="m-5">
-            <img src={image} alt="Afriluck Lotto" class="w-full h-auto object-fill rounded-lg" />
-        </div>
-    );
+const Banner = ({ image }) => {
+  return (
+    <div className="my-6">
+      <img
+        src={image}
+        alt="Afriluck Lotto"
+        class="w-full h-auto object-fill rounded-xl"
+      />
+    </div>
+  );
 };
 
 export default Banner;

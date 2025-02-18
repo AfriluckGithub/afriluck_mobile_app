@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className="w-full fixed flex flex-row justify-between left-0 bottom-0 right-0 bg-[#F7F7F7] border-t border-gray-100  py-6">
+    <div className="w-full fixed flex flex-row px-4 md:px-6 xl:px-48 justify-between left-0 bottom-0 right-0 bg-bg-white border-t border-gray-100  py-4">
       <NavLink
         to="/"
         className={({ isActive }) =>
