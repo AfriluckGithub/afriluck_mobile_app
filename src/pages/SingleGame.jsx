@@ -16,8 +16,12 @@ const SingleGame = () => {
   // const [numbers, setNumbers] = useState([]);
   const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
-  const [disabled, setDisabled] = useState(true);
-  const [valuesArray, setValuesArray] = useState([]);
+  const [disabled, 
+    //setDisabled
+  ] = useState(true);
+  const [valuesArray, 
+    //setValuesArray
+  ] = useState([]);
   // const [val, setVal] = useState([]);
 
   //const [total, setTotal] = useState(0);

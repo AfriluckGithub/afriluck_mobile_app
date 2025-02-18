@@ -16,7 +16,9 @@ export default function Content({ subGames, subGames1, query }) {
 }
 
 const Body = ({ subGames, subGames1, query }) => {
-  const [drawTimes, setDrawTimes] = useState({
+  const [drawTimes, 
+    //setDrawTimes
+  ] = useState({
     Anopa: new Date().setHours(10, 0, 0, 0),
     Midday: new Date().setHours(13, 30, 0, 0),
     Afriluck: new Date().setHours(19, 0, 0, 0),

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import SearchBar from "../components/searchbar";
+//import SearchBar from "../components/searchbar";
 import Banner from "../components/banner";
 import Content from "../components/content";
 
 const Home = () => {
-  const [query, setQuery] = useState("");
+  const [query, 
+    //setQuery
+  ] = useState("");
 
   const subGames = [
     { id: 1, name: "Mega", imageUrl: "mega-logo.png" },

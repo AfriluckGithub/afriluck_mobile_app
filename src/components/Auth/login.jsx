@@ -10,7 +10,7 @@ import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/userSlice";
-import { BsArrowLeft } from "react-icons/bs";
+//import { BsArrowLeft } from "react-icons/bs";
 
 const LoginScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -74,9 +74,9 @@ const LoginScreen = () => {
     }
   };
 
-  const back = () => {
-    navigate("/single_game");
-  };
+  // const back = () => {
+  //   navigate("/single_game");
+  // };
 
   return (
     <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
