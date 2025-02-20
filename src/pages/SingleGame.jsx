@@ -16,10 +16,12 @@ const SingleGame = () => {
   // const [numbers, setNumbers] = useState([]);
   const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
-  const [disabled, 
+  const [
+    disabled,
     //setDisabled
   ] = useState(true);
-  const [valuesArray, 
+  const [
+    valuesArray,
     //setValuesArray
   ] = useState([]);
   // const [val, setVal] = useState([]);
@@ -270,7 +272,31 @@ const SingleGame = () => {
     }
   };
   const renderInputFields = () => {
-    return Array.from({ length: selectedGame || 1 }).map((_, index) => (
+    let inputNum = 0;
+    const currentGame =
+      type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
+    console.log("Selected Game => ", currentGame);
+
+    switch (currentGame) {
+      case 2:
+        inputNum = 15;
+        break;
+      case 3:
+        inputNum = 10;
+        break;
+      case 4:
+        inputNum =  8;
+        break;
+      case 6:
+        inputNum = 8;
+        break;
+      default:
+        console.log("Nothing");
+        
+    }
+
+    const numInputs = type_picked === "Perm" ? inputNum : selectedGame || 1;
+    return Array.from({ length: numInputs || 1 }).map((_, index) => (
       <Input
         key={index}
         type="number"
@@ -442,7 +468,7 @@ const SingleGame = () => {
               <p className="w-full">
                 {selectedGame === ""
                   ? `Please select a number`
-                  : `Please pick ${selectedGame} numbers between 1 to 57`}
+                  : type_picked === "Perm"? `Please choose ${Number(selectedGame)+1===2? 3: Number(selectedGame)+1===3? 4: Number(selectedGame)+1===4? 5:Number(selectedGame)+1===6? 7: selectedGame} or not more than ${Number(selectedGame)+1===2? 15: Number(selectedGame)+1===3? 10: Number(selectedGame)+1===4? 8: Number(selectedGame)+1===6? 8: selectedGame} numbers`: `Please pick ${selectedGame} numbers between 1 to 57`}
               </p>
               <div className="flex flex-col w-full items-start">
                 <div className="grid grid-cols-3 md:flex  gap-4 justify-center mt-4 ">
