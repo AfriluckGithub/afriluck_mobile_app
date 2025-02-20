@@ -23,7 +23,6 @@ const Mybet = () => {
       }
       const getMyBets = async () => {
         setLoading(true);
-        console.log("Token => ", token);
         try {
           const res = await axios.get(
             "https://staging.afriluck.com/api/V1/app/my-bets",
@@ -64,6 +63,7 @@ const Mybet = () => {
         {/* <div className="">
           <SearchBar />
         </div> */}
+        {(error || results.length===0) && <p className="h-full text-wrap p-5 text-center text-black">{error}</p>}
         <div className="flex flex-col w-full my-32 ">
           {results.map((result) => (
             <div className="bg-white rounded-xl h-auto w-full p-6 my-6 border border-border-default ">
@@ -110,7 +110,6 @@ const Mybet = () => {
             <p></p>
           )}
         </div>
-        {error && <p className="h-full text-wrap p-5 text-center">{error}</p>}
       </div>
     </>
   );

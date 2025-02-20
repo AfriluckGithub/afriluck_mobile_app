@@ -3,7 +3,7 @@ import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
 
@@ -20,6 +20,8 @@ const SignupScreen = () => {
   const [errors, setErrors] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const ref = searchParams.get("ref");
   // const openModal = () => {
   //   setOpen(true);
   // };
@@ -61,6 +63,7 @@ const SignupScreen = () => {
       last_name: lastName,
       phone_number: phoneNumber,
       password: password,
+      ref: ref
     };
 
     const headers = {

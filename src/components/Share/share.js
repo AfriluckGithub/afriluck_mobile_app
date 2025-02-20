@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Subheader from "../subheader";
+import { useSelector } from "react-redux";
 
 const ShareScreen = () => {
   const [openModal, setOpenModal] = useState(false);
-  const linkToCopy = "https://app.afriluck.com/join/"; // Link to copy
+  const user = useSelector((state) => state.user?.user);
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
+  const linkToCopy = `${window.location.origin}/signup?ref=${memoizedUser.share_code}`; // Link to copy
 
   const handleCopy = () => {
     console.log("Copy button clicked"); // Debugging: Check if the function is called
