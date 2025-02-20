@@ -40,7 +40,7 @@ const SingleGamePayment = () => {
 
   const amount = transaction.betAmount;
   const numbers = transaction.numbers;
-  const game_type = transaction.type;
+  var game_type = transaction.type;
   const game_picked = transaction.typePicked;
 
   const getFormattedDate = () => {
@@ -79,8 +79,16 @@ const SingleGamePayment = () => {
 
     const formattedNumber = `233${Number(mobileNumber)}`;
 
+
+    if (game_type === "6/57") {
+      game_type = "657";
+    } else if (game_type === "Midday") {
+      game_type = "mid";
+    } else if (game_type === "Afriluck 6/57") {
+      game_type = "657";
+    }
+
     console.log("Game => ", game_type);
-    
 
     const requestBody = {
       msisdn:
@@ -88,7 +96,7 @@ const SingleGamePayment = () => {
       total_amount: Number(amount),
       bet_type_code: transaction.game,
       bet_type: game_picked.toString().toLowerCase(),
-      game: game_type === "6/57" ? "657" : game_type === "Midday"? "mid" : game_type.toString().toLowerCase(),
+      game: game_type.toString().toLowerCase(),
       selected_numbers: String(numbers),
       channel: network,
       discounted_amount: "",
