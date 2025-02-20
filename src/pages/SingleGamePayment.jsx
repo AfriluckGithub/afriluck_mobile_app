@@ -40,7 +40,7 @@ const SingleGamePayment = () => {
 
   const amount = transaction.betAmount;
   const numbers = transaction.numbers;
-  const game_type = transaction.type === "midday" ? "mid" : transaction.type;
+  const game_type = transaction.type;
   const game_picked = transaction.typePicked;
 
   const getFormattedDate = () => {
@@ -79,13 +79,16 @@ const SingleGamePayment = () => {
 
     const formattedNumber = `233${Number(mobileNumber)}`;
 
+    console.log("Game => ", game_type);
+    
+
     const requestBody = {
       msisdn:
         selectedNetwork === 4 ? memoizedUser.phone_number : formattedNumber,
       total_amount: Number(amount),
       bet_type_code: transaction.game,
       bet_type: game_picked.toString().toLowerCase(),
-      game: game_type === "6/57" ? "657" : game_type.toString().toLowerCase(),
+      game: game_type === "6/57" ? "657" : game_type === "Midday"? "mid" : game_type.toString().toLowerCase(),
       selected_numbers: String(numbers),
       channel: network,
       discounted_amount: "",
@@ -250,7 +253,7 @@ const SingleGamePayment = () => {
               </div>
             </div>
           </div>
-          <ToastContainer/>
+          <ToastContainer />
           <div className="flex flex-col bg-white h-auto w-full p-6 rounded-2xl mt-5 border border-border-default">
             <span>
               <p className="font-md font-normal mb-5">Select Channel</p>
@@ -324,17 +327,17 @@ const SingleGamePayment = () => {
               Pay GHS {amount}.00
             </Button>
             <div className="flex flex-wrap w-full h-auto justify-center items-center">
-            {loading ? (
-              <OrbitProgress
-                color="#000"
-                size="small"
-                text="loading"
-                textColor=""
-              />
-            ) : (
-              <p></p>
-            )}
-          </div>
+              {loading ? (
+                <OrbitProgress
+                  color="#000"
+                  size="small"
+                  text="loading"
+                  textColor=""
+                />
+              ) : (
+                <p></p>
+              )}
+            </div>
           </div>
         </div>
       </div>
