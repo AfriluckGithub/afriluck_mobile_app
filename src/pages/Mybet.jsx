@@ -39,10 +39,10 @@ const Mybet = () => {
           if (res.status === 200) {
             setResults(res.data.success);
           } else if (res.status === 401) {
-            setError("Oops, nothing to display here. Kindly log-in");
+            setError("Please log in to see your ticket info");
           }
         } catch (e) {
-          setError("Oops, nothing to display here. Kindly log-in");
+          setError("Please log in to see your ticket info");
           setLoading(false);
           console.log(e);
         }
@@ -52,7 +52,7 @@ const Mybet = () => {
       try {
         setLoading(false);
         console.log(error);
-        setError("Oops, nothing to display here. Kindly log-in");
+        setError("Please log in to see your ticket info");
       } catch (error) {
         console.log(error);
       }
