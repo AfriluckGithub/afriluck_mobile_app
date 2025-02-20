@@ -57,13 +57,16 @@ const Draw = () => {
       }
     }
   }, [memoizedUser]);
-
+  
   return (
     <>
       <div className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48">
         {/* <div className="">
           <SearchBar />
         </div> */}
+        {error && (
+          <p className="h-full text-wrap p-5 text-center text-black">{error}</p>
+        )}
         <div className="flex flex-col w-full my-32 ">
           {results.map((result) => (
             <div className="bg-white rounded-xl h-auto w-full p-6 my-6 border border-border-default ">
@@ -110,7 +113,6 @@ const Draw = () => {
             <p></p>
           )}
         </div>
-        {error && <p className="h-full text-wrap p-5 text-center">{error}</p>}
       </div>
     </>
   );

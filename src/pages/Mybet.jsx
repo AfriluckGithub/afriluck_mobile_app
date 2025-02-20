@@ -38,6 +38,8 @@ const Mybet = () => {
 
           if (res.status === 200) {
             setResults(res.data.success);
+          } else if (res.status === 401) {
+            setError("Oops, nothing to display here. Kindly log-in");
           }
         } catch (e) {
           setError("Oops, nothing to display here. Kindly log-in");
@@ -56,6 +58,7 @@ const Mybet = () => {
       }
     }
   }, [memoizedUser]);
+  console.log("Error => ", error);
 
   return (
     <>
@@ -63,7 +66,6 @@ const Mybet = () => {
         {/* <div className="">
           <SearchBar />
         </div> */}
-        {(error || results.length===0) && <p className="h-full text-wrap p-5 text-center text-black">{error}</p>}
         <div className="flex flex-col w-full my-32 ">
           {results.map((result) => (
             <div className="bg-white rounded-xl h-auto w-full p-6 my-6 border border-border-default ">
@@ -97,8 +99,12 @@ const Mybet = () => {
               </div>
             </div>
           ))}
-        </div>
-        <div className="flex justify-center items-center h-screen">
+          {error && (
+            <p className="flex justify-center items-center h-screen text-wrap p-5 text-center text-black">
+              {error}
+            </p>
+          )}
+          <div className="flex justify-center items-center h-screen">
           {loading ? (
             <OrbitProgress
               color="#000"
@@ -109,6 +115,7 @@ const Mybet = () => {
           ) : (
             <p></p>
           )}
+        </div>
         </div>
       </div>
     </>
