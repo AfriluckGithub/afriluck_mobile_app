@@ -54,7 +54,7 @@ const Sharecommission = () => {
           </div>
           <div className="flex w-full items-center justify-between">
             <p className="font-semibold">Yesterday</p>
-            <p className=" font-semibold">GHS 1200.00</p>
+            <p className=" font-semibold">GHS {commission.totalCommission}</p>
           </div>
         </div>
         <div className="flex flex-col w-full rounded-xl bg-white">
