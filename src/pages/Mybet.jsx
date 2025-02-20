@@ -25,7 +25,7 @@ const Mybet = () => {
         setLoading(true);
         try {
           const res = await axios.get(
-            "https://staging.afriluck.com/api/V1/app/my-bets",
+            "https://app.afriluck.com/api/V1/app/my-bets",
             {
               headers: {
                 Authorization: `Bearer ${token}`,

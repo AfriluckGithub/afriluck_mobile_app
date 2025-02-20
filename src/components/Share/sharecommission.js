@@ -13,7 +13,7 @@ const Sharecommission = () => {
   useEffect(() => {
     const getCommission = async () => {
       const response = await fetch(
-        "https://staging.afriluck.com/api/V1/app/commissions",
+        "https://app.afriluck.com/api/V1/app/commissions",
         {
           method: 'get',
           headers: {

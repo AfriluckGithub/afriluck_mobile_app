@@ -20,7 +20,7 @@ const ForgotPassword = () => {
     console.log(requestBody);
 
     const response = await fetch(
-      "https://staging.afriluck.com/api/V1/app/request-password-reset-otp",
+      "https://app.afriluck.com/api/V1/app/request-password-reset-otp",
       {
         method: "POST",
         headers: {

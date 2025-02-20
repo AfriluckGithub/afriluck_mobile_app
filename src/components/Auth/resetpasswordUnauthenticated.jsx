@@ -18,7 +18,7 @@ const ResetPasswordScreenUnAutheenticated = () => {
 
   const handleSuccess = async () => {
     const response = await fetch(
-      "https://staging.afriluck.com/api/V1/app/reset-password",
+      "https://app.afriluck.com/api/V1/app/reset-password",
       {
         method: "POST",
         headers: {

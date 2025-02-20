@@ -37,7 +37,7 @@ const ChangePassword = () => {
       };
       console.log(requestBody);
       const res = await axios.post(
-        "https://staging.afriluck.com/api/V1/app/update-password",
+        "https://app.afriluck.com/api/V1/app/update-password",
         requestBody,
         {
           headers: {

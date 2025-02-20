@@ -42,7 +42,7 @@ const SingleGameSelection = () => {
         });
 
         const response = await fetch(
-          "https://staging.afriluck.com/api/V1/app/bet-amount",
+          "https://app.afriluck.com/api/V1/app/bet-amount",
           {
             method: "POST",
             headers: {

@@ -74,7 +74,7 @@ const SignupScreen = () => {
 
     try {
       const res = await axios.post(
-        "https://staging.afriluck.com/api/V1/app/register",
+        "https://app.afriluck.com/api/V1/app/register",
         requestBody,
         { headers }
       );

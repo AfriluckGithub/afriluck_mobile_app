@@ -26,7 +26,7 @@ const Draw = () => {
         console.log("Token => ", token);
         try {
           const res = await axios.get(
-            "https://staging.afriluck.com/api/V1/app/draw-results",
+            "https://app.afriluck.com/api/V1/app/draw-results",
             {
               headers: {
                 Authorization: `Bearer ${token}`,

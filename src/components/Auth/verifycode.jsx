@@ -31,7 +31,7 @@ const VerifyCodeScreen = () => {
       const tempToken = localStorage.getItem("register_token");
 
       const res = await axios.post(
-        "https://staging.afriluck.com/api/V1/app/verify-otp",
+        "https://app.afriluck.com/api/V1/app/verify-otp",
         requestBody,
         {
           headers: {

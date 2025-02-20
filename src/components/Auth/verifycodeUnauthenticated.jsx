@@ -31,7 +31,7 @@ const VerifyCodeScreenUnAutheenticated = () => {
     
     try {
       const res = await axios.post(
-        "https://staging.afriluck.com/api/V1/app/verify-password-reset-otp",
+        "https://app.afriluck.com/api/V1/app/verify-password-reset-otp",
         requestBody,
         {
           headers: {
