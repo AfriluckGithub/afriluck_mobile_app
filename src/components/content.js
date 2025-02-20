@@ -94,7 +94,7 @@ const Body = ({ subGames, subGames1, query }) => {
             </p>
             {section.started ? (
               <div className="flex bg-tertiary text-xs md:text-base text-white px-6 py-3 rounded-tr-xl rounded-bl-xl">
-                Game closed till next draw
+                Next draw at 7:45pm
               </div>
             ) : (
               <div className="flex items-center space-x-2 bg-[#d0f8ff] text-xs md:text-base text-primary px-6 py-3 rounded-tr-xl rounded-bl-xl">
