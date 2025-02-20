@@ -40,7 +40,7 @@ const SingleGamePayment = () => {
 
   const amount = transaction.betAmount;
   const numbers = transaction.numbers;
-  const game_type = transaction.type;
+  const game_type = transaction.type === "midday" ? "mid" : transaction.type;
   const game_picked = transaction.typePicked;
 
   const getFormattedDate = () => {
@@ -78,7 +78,6 @@ const SingleGamePayment = () => {
     }
 
     const formattedNumber = `233${Number(mobileNumber)}`;
-    console.log("");
 
     const requestBody = {
       msisdn:
@@ -251,6 +250,7 @@ const SingleGamePayment = () => {
               </div>
             </div>
           </div>
+          <ToastContainer/>
           <div className="flex flex-col bg-white h-auto w-full p-6 rounded-2xl mt-5 border border-border-default">
             <span>
               <p className="font-md font-normal mb-5">Select Channel</p>
@@ -323,8 +323,7 @@ const SingleGamePayment = () => {
             >
               Pay GHS {amount}.00
             </Button>
-          </div>
-          <div className="flex flex-wrap w-full h-auto justify-center items-center">
+            <div className="flex flex-wrap w-full h-auto justify-center items-center">
             {loading ? (
               <OrbitProgress
                 color="#000"
@@ -335,7 +334,7 @@ const SingleGamePayment = () => {
             ) : (
               <p></p>
             )}
-            <ToastContainer />
+          </div>
           </div>
         </div>
       </div>
