@@ -20,7 +20,7 @@ const SingleGameSelection = () => {
   const transaction =
     useSelector((state) => state.transaction?.transactions) || {};
 
-  const numbers = String(transaction.numbers).split(/( )/);
+  const numbers = String(transaction.numbers).length > 1? String(transaction.numbers).split(/( )/): transaction.numbers;
   const amount = transaction.betAmount;
   const game = transaction.game;
   const type = transaction.type;
