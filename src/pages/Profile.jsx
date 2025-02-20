@@ -26,8 +26,8 @@ const Profile = () => {
           {memoizedUser ? <Accounts /> : <p></p>}
         </div>
         <div className="space-y-4">
-          <h1 className="text-lg">Share Activity</h1>
-          <Share />
+          {memoizedUser ? <h1 className="text-lg">Share Activity</h1> : <p></p>}
+          {memoizedUser ? <Share /> : <p></p>}
         </div>
         <div className="space-y-4">
           <h1 className="text-lg">Privacy Data</h1>

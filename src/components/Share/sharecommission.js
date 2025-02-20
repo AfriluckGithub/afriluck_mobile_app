@@ -1,8 +1,35 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Subheader from "../subheader";
 import DATA from "../../data/commission";
+import { useSelector } from "react-redux";
 
 const Sharecommission = () => {
+  const [commission, setCommission] = useState({});
+  const user = useSelector((state) => state.user?.user);
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
+
+  useEffect(() => {
+    const getCommission = async () => {
+      const response = await fetch(
+        "https://staging.afriluck.com/api/V1/app/commissions",
+        {
+          method: 'get',
+          headers: {
+            'Authorization': `bearer ${memoizedUser.token}`
+          }
+        }
+      );
+      const json = await response.json();
+      console.log(json);
+      setCommission(json.success);
+    };
+    getCommission();
+  }, [memoizedUser.token]);
+
+  console.log(commission);
+  
   return (
     <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
       <Subheader title="Share Commission" />
@@ -35,17 +62,35 @@ const Sharecommission = () => {
             <p className="pl-2">Level 1 Users</p>
           </div>
           <div className="flex items-center justify-between w-full p-4 md:p-6 rounded-xl bg-white space-x-2 md:space-x-4">
-            {DATA.Level1.map((index) => (
+            {/* {DATA.Level1.map((index) => ( */}
               <div
-                key={index}
+                // key={index}
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
               >
                 <span className="text-wrap text-xs md:text-base font-medium">
-                  {index.title}
+                  <p>Top-up Count</p>
                 </span>
-                <p className="text-sm">{index.value}</p>
+                <p className="text-sm">{commission.level1Count}</p>
               </div>
-            ))}
+              <div
+                // key={index}
+                className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
+              >
+                <span className="text-wrap text-xs md:text-base font-medium">
+                  <p>Amount(GHS)</p>
+                </span>
+                <p className="text-sm">{0}</p>
+              </div>
+              <div
+                // key={index}
+                className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
+              >
+                <span className="text-wrap text-xs md:text-base font-medium">
+                  <p>Comm(GHS)</p>
+                </span>
+                <p className="text-sm">{commission.level1TotalCommission}</p>
+              </div>
+            {/* ))} */}
           </div>
         </div>
         <div className="flex flex-col w-full rounded-xl bg-white">
@@ -53,17 +98,35 @@ const Sharecommission = () => {
             <p className="pl-2">Level 2 Users</p>
           </div>
           <div className="flex items-center justify-between w-full p-4 md:p-6 rounded-xl bg-white space-x-2 md:space-x-4">
-            {DATA.Level2.map((index) => (
+            {/* {DATA.Level2.map((index) => ( */}
               <div
-                key={index}
+                // key={index}
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
               >
                 <span className="text-wrap text-xs md:text-base font-medium">
-                  {index.title}
+                  <p>Top-up Count</p>
                 </span>
-                <p className="text-sm">{index.value}</p>
+                <p className="text-sm">{commission.level2Count}</p>
               </div>
-            ))}
+              <div
+                // key={index}
+                className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
+              >
+                <span className="text-wrap text-xs md:text-base font-medium">
+                  <p>Amount(GHS)</p>
+                </span>
+                <p className="text-sm">{0}</p>
+              </div>
+              <div
+                // key={index}
+                className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
+              >
+                <span className="text-wrap text-xs md:text-base font-medium">
+                  <p>Comm(GHS)</p>
+                </span>
+                <p className="text-sm">{commission.level2TotalCommission}</p>
+              </div>
+            {/* ))} */}
           </div>
         </div>
         <div className="flex flex-col w-full rounded-xl bg-white">
@@ -71,17 +134,33 @@ const Sharecommission = () => {
             <p className="pl-2">Level 3 Users</p>
           </div>
           <div className="flex items-center justify-between w-full p-4 md:p-6 rounded-xl bg-white space-x-2 md:space-x-4">
-            {DATA.Level3.map((index) => (
-              <div
-                key={index}
+          <div
+                // key={index}
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
               >
                 <span className="text-wrap text-xs md:text-base font-medium">
-                  {index.title}
+                  <p>Top-up Count</p>
                 </span>
-                <p className="text-sm">{index.value}</p>
+                <p className="text-sm">{commission.level3Count}</p>
               </div>
-            ))}
+              <div
+                // key={index}
+                className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
+              >
+                <span className="text-wrap text-xs md:text-base font-medium">
+                  <p>Amount(GHS)</p>
+                </span>
+                <p className="text-sm">{0}</p>
+              </div>
+              <div
+                // key={index}
+                className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
+              >
+                <span className="text-wrap text-xs md:text-base font-medium">
+                  <p>Comm(GHS)</p>
+                </span>
+                <p className="text-sm">{commission.level3TotalCommission}</p>
+              </div>
           </div>
         </div>
       </div>
