@@ -15,12 +15,12 @@ function App() {
 
   return (
     <div className="bg-[#F7F7F7] h-screen flex flex-col">
+      <PWAInstallPrompt />
       <Header />
       <div className="flex-1 overflow-y-auto">
         <Outlet />
       </div>
       <Footer />
-      <PWAInstallPrompt />
     </div>
   );
 }

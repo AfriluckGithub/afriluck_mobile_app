@@ -1,47 +1,66 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const usePWAInstallPrompt = () => {
+const PWAInstallPrompt = () => {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [isPWAInstalled, setIsPWAInstalled] = useState(false);
 
   useEffect(() => {
-    const handler = (event) => {
-      event.preventDefault();
+    const handleBeforeInstallPrompt = (event) => {
+      event.preventDefault(); // Prevent automatic prompt
       setDeferredPrompt(event);
     };
 
-    window.addEventListener("beforeinstallprompt", handler);
+    const handleAppInstalled = () => {
+      setIsPWAInstalled(true);
+    };
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("appinstalled", handleAppInstalled);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener("appinstalled", handleAppInstalled);
     };
   }, []);
 
-  return deferredPrompt;
-};
-
-export default function PWAInstallPrompt() {
-  const deferredPrompt = usePWAInstallPrompt();
-
-  const handleInstallClick = () => {
+  const installPWA = () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
       deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === "accepted") {
-          console.log("User accepted the install prompt");
+          console.log("User accepted the PWA install.");
         } else {
-          console.log("User dismissed the install prompt");
+          console.log("User dismissed the PWA install.");
         }
+        setDeferredPrompt(null);
       });
     }
   };
 
   return (
-    <div>
-      {deferredPrompt && (
-        <button onClick={handleInstallClick} style={{ padding: "10px", fontSize: "16px" }}>
+    <>
+      {!isPWAInstalled && deferredPrompt && (
+        <button onClick={installPWA} style={styles.button}>
           Install App
         </button>
       )}
-    </div>
+    </>
   );
-}
+};
+
+const styles = {
+  button: {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    padding: "10px 20px",
+    fontSize: "16px",
+    backgroundColor: "#007bff",
+    color: "#fff",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+};
+
+export default PWAInstallPrompt;
