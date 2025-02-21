@@ -18,8 +18,7 @@ const SingleGamePaymentCheckStatus = () => {
     "Your payment is being processed. Tap the button below to check payment status."
   );
 
-  const transaction =
-    useSelector((state) => state.transaction?.transactions);
+  const transaction = useSelector((state) => state.transaction?.transactions);
 
   const memoizedTransaction = useMemo(() => {
     return transaction ? { ...transaction } : null;
@@ -54,8 +53,6 @@ const SingleGamePaymentCheckStatus = () => {
       console.log(json);
 
       if (status === "Unpaid") {
-        console.log("Gets here...");
-
         setStatusText("Check Again");
         setStatusInfoText(
           "Your payment is being processed. Tap on the check again button to confirm final payment status."
