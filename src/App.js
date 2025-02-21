@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import "./output.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import PWAInstallPrompt from "./PWAInstallPrompt";
 
 function App() {
   // const location = useLocation();
@@ -19,6 +20,7 @@ function App() {
         <Outlet />
       </div>
       <Footer />
+      <PWAInstallPrompt />
     </div>
   );
 }

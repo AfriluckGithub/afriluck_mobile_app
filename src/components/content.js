@@ -94,10 +94,7 @@ const Body = ({ subGames, subGames1, query }) => {
       games: subGames,
     },
   ];
-
-  console.log(gameSections);
   
-
   gameSections.sort((a, b) => a.started - b.started);
 
   return (
