@@ -27,7 +27,7 @@ const Profile = () => {
         </div>
         <div className="space-y-4">
           <h1 className="text-lg">Share Activity</h1>
-          <Share disabled={memoizedUser? false: true}/>
+          <Share />
         </div>
         <div className="space-y-4">
           <h1 className="text-lg">Privacy Data</h1>
