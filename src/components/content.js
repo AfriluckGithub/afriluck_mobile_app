@@ -34,6 +34,20 @@ const Body = ({ subGames, subGames1, query }) => {
     };
   };
 
+  function isBetweenGameTime(startHour, startMinute, endHour, endMinute) {
+    const now = new Date();
+    
+    // Define start and end times
+    const startTime = new Date();
+    startTime.setHours(startHour, startMinute, 0, 0); // 7:45 PM
+
+    const endTime = new Date();
+    endTime.setHours(endHour, endMinute, 0, 0); // 10:00 AM (next day)
+
+    // If current time is after startTime or before endTime, return true
+    return now >= startTime || now < endTime;
+}
+
   const [timeLeft, setTimeLeft] = useState({
     Anopa: calculateTimeLeft(drawTimes.Anopa),
     Midday: calculateTimeLeft(drawTimes.Midday),
@@ -42,6 +56,8 @@ const Body = ({ subGames, subGames1, query }) => {
 
   useEffect(() => {
     const timer = setInterval(() => {
+      // console.log("Time => ", new Date().getTime());
+      
       setTimeLeft({
         Anopa: calculateTimeLeft(drawTimes.Anopa),
         Midday: calculateTimeLeft(drawTimes.Midday),
@@ -53,9 +69,9 @@ const Body = ({ subGames, subGames1, query }) => {
   }, [drawTimes]);
 
   const isDrawStarted = {
-    Anopa: new Date() >= drawTimes.Anopa,
-    Midday: new Date() >= drawTimes.Midday,
-    Afriluck: new Date() >= drawTimes.Afriluck,
+    Anopa: isBetweenGameTime(19, 45, 10, 0),
+    Midday: isBetweenGameTime(19, 45, 13, 30),
+    Afriluck: isBetweenGameTime(19, 45, 19, 0),
   };
 
   let gameSections = [
@@ -79,6 +95,9 @@ const Body = ({ subGames, subGames1, query }) => {
     },
   ];
 
+  console.log(gameSections);
+  
+
   gameSections.sort((a, b) => a.started - b.started);
 
   return (
@@ -92,9 +111,9 @@ const Body = ({ subGames, subGames1, query }) => {
             <p className="text-base md:text-lg text-primary  font-semibold px-6">
               {section.name}
             </p>
-            {section.started ? (
+            {!section.started ? (
               <div className="flex bg-tertiary text-xs md:text-base text-white px-6 py-3 rounded-tr-xl rounded-bl-xl">
-                Next draw at 7:45pm
+                Game closed till 7:45pm
               </div>
             ) : (
               <div className="flex items-center space-x-2 bg-[#d0f8ff] text-xs md:text-base text-primary px-6 py-3 rounded-tr-xl rounded-bl-xl">
@@ -112,7 +131,7 @@ const Body = ({ subGames, subGames1, query }) => {
                 image={game.imageUrl}
                 subtitle={game.name}
                 type={section.name}
-                disabled={section.started}
+                disabled={!section.started}
               />
             ))}
           </div>
