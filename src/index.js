@@ -9,8 +9,17 @@ import { AvatarProvider } from "./context/AvatarContext";
 import store, { persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
-import { register } from './serviceWorkerRegistration';
-register();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/serviceWorkerRegistration.js")
+      .then((reg) => console.log("Service Worker registered:", reg))
+      .catch((err) =>
+        console.error("Service Worker registration failed:", err)
+      );
+  });
+}
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
