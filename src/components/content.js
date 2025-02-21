@@ -55,9 +55,7 @@ const Body = ({ subGames, subGames1, query }) => {
   });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      // console.log("Time => ", new Date().getTime());
-      
+    const timer = setInterval(() => {     
       setTimeLeft({
         Anopa: calculateTimeLeft(drawTimes.Anopa),
         Midday: calculateTimeLeft(drawTimes.Midday),
@@ -95,7 +93,7 @@ const Body = ({ subGames, subGames1, query }) => {
     },
   ];
   
-  gameSections.sort((a, b) => a.started - b.started);
+  gameSections.sort((a, b) => !a.started - !b.started);
 
   return (
     <div className="space-y-6 h-auto flex-1 overflow-auto pb-20">
