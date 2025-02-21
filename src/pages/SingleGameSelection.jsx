@@ -36,10 +36,12 @@ const SingleGameSelection = () => {
       try {
         const requestBody = JSON.stringify({
           amount: Number(amount),
-          selected_numbers: numbers,
+          selected_numbers: numbers.join(", "),
           bet_type_code: game,
           bet_type: typePicked.toLowerCase(),
         });
+
+        console.log(requestBody);
 
         const response = await fetch(
           "https://app.afriluck.com/api/V1/app/bet-amount",
