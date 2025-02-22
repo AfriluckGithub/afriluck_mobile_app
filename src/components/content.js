@@ -76,13 +76,13 @@ const Body = ({ subGames, subGames1, query }) => {
     {
       name: "Anopa",
       timeLeft: timeLeft.Anopa,
-      started: isDrawStarted.Anopa,
+      started: false,
       games: subGames1,
     },
     {
       name: "Midday",
       timeLeft: timeLeft.Midday,
-      started: isDrawStarted.Midday,
+      started: false,
       games: subGames1,
     },
     {
