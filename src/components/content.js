@@ -34,19 +34,19 @@ const Body = ({ subGames, subGames1, query }) => {
     };
   };
 
-//   function isBetweenGameTime(startHour, startMinute, endHour, endMinute) {
-//     const now = new Date();
+  function isBetweenGameTime(startHour, startMinute, endHour, endMinute) {
+    const now = new Date();
     
-//     // Define start and end times
-//     const startTime = new Date();
-//     startTime.setHours(startHour, startMinute, 0, 0); // 7:45 PM
+    // Define start and end times
+    const startTime = new Date();
+    startTime.setHours(startHour, startMinute, 0, 0); // 7:45 PM
 
-//     const endTime = new Date();
-//     endTime.setHours(endHour, endMinute, 0, 0); // 10:00 AM (next day)
+    const endTime = new Date();
+    endTime.setHours(endHour, endMinute, 0, 0); // 10:00 AM (next day)
 
-//     // If current time is after startTime or before endTime, return true
-//     return now >= startTime || now < endTime;
-// }
+    // If current time is after startTime or before endTime, return true
+    return now >= startTime || now < endTime;
+}
 
   const [timeLeft, setTimeLeft] = useState({
     Anopa: calculateTimeLeft(drawTimes.Anopa),
@@ -66,30 +66,29 @@ const Body = ({ subGames, subGames1, query }) => {
     return () => clearInterval(timer);
   }, [drawTimes]);
 
-  // const isDrawStarted = {
-  //   Anopa: isBetweenGameTime(19, 45, 10, 0),
-  //   Midday: isBetweenGameTime(19, 45, 13, 30),
-  //   Afriluck: isBetweenGameTime(19, 45, 19, 0),
-  // };
+  const isDrawStarted = {
+    Anopa: isBetweenGameTime(19, 45, 10, 0),
+    Midday: isBetweenGameTime(19, 45, 13, 30),
+    Afriluck: isBetweenGameTime(19, 45, 19, 0),
+  };
 
   let gameSections = [
     {
       name: "Anopa",
       timeLeft: timeLeft.Anopa,
-      started: false,
+      started: isDrawStarted.Anopa,
       games: subGames1,
     },
     {
       name: "Midday",
       timeLeft: timeLeft.Midday,
-      started: false,
+      started: isDrawStarted.Midday,
       games: subGames1,
     },
     {
       name: "Afriluck 6/57",
       timeLeft: timeLeft.Afriluck,
-      //started: isDrawStarted.Afriluck,
-      started: false,
+      started: isDrawStarted.Afriluck,
       games: subGames,
     },
   ];
