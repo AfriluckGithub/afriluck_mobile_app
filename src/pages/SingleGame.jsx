@@ -523,7 +523,6 @@ const SingleGame = () => {
                     value={betAmount}
                     type="number"
                     inputMode="numeric"
-                    style={{ appearance: "textfield", MozAppearance: "textfield" }}
                     variant="bordered"
                     size=""
                     className="w-24"
