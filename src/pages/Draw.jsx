@@ -3,6 +3,7 @@ import axios from "axios";
 //import SearchBar from "../components/myBetSearchbar";
 import { useSelector } from "react-redux";
 import { OrbitProgress } from "react-loading-indicators";
+import { trackEvent } from '@aptabase/web';
 
 const Draw = () => {
   const [results, setResults] = useState([]);
@@ -10,6 +11,7 @@ const Draw = () => {
   const [error, setError] = useState("");
   //const [token, setToken] = useState("");
   const user = useSelector((state) => state.user?.user);
+  trackEvent('draw_results');
 
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
