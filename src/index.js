@@ -10,6 +10,8 @@ import store, { persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { register } from "./serviceWorkerRegistration";
+import { init } from '@aptabase/web';
+init('A-US-4377680822');
 register();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

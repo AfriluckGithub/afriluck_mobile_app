@@ -6,8 +6,10 @@ import "./output.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import PWAInstallPrompt from "./PWAInstallPrompt";
+import { trackEvent } from '@aptabase/web';
 
 function App() {
+  trackEvent('started_app');
   // const location = useLocation();
   // useEffect(() => {
   //   window.HSStaticMethods.autoInit();

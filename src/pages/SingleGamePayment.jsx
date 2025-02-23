@@ -10,6 +10,7 @@ import { Button } from "@heroui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
 import { BsArrowLeft } from "react-icons/bs";
+import { trackEvent } from '@aptabase/web';
 
 const SingleGamePayment = () => {
   const navigate = useNavigate();
@@ -114,6 +115,7 @@ const SingleGamePayment = () => {
       console.log(res.data);
       if (res.status === 200) {
         setLoading(false);
+        trackEvent('payment_request', requestBody);
 
         dispatch(
           addTransactionData({
