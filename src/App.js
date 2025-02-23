@@ -6,14 +6,17 @@ import "./output.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import PWAInstallPrompt from "./PWAInstallPrompt";
-import { trackEvent } from '@aptabase/web';
+import { useAptabase } from '@aptabase/react';
+import { useEffect } from "react";
 
 function App() {
+  const { trackEvent } = useAptabase();
   trackEvent('started_app');
+  
   // const location = useLocation();
-  // useEffect(() => {
-  //   window.HSStaticMethods.autoInit();
-  // }, [location.pathname]);
+  useEffect(() => {
+     //window.HSStaticMethods.autoInit();
+  }, [trackEvent]);
 
   return (
     <div className="bg-[#F7F7F7] h-screen flex flex-col">
