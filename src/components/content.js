@@ -88,7 +88,8 @@ const Body = ({ subGames, subGames1, query }) => {
     {
       name: "Afriluck 6/57",
       timeLeft: timeLeft.Afriluck,
-      started: isDrawStarted.Afriluck,
+      //started: isDrawStarted.Afriluck,
+      started: false,
       games: subGames,
     },
   ];
