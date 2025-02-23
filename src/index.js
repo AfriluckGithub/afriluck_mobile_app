@@ -11,7 +11,10 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { register } from "./serviceWorkerRegistration";
 import { init } from '@aptabase/web';
-init('A-US-4377680822', { appVersion: 0.1, isDebug: false });
+import dotenv from 'dotenv';
+dotenv.config();
+
+init(process.env.APT_API_KEY, { appVersion: 0.1, isDebug: false });
 register();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
