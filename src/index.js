@@ -12,7 +12,7 @@ import { Provider } from "react-redux";
 import { register } from "./serviceWorkerRegistration";
 import { init } from '@aptabase/web';
 
-init('A-US-4377680822', { appVersion: 1, debug: false });
+init('A-US-1350173163', { appVersion: 1, debug: false });
 register();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
