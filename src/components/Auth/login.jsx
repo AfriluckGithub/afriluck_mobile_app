@@ -41,6 +41,8 @@ const LoginScreen = () => {
       );
       setLoading(false);
       if (res.status === 200) {
+        console.log("success => ", res.data.success);
+        
         dispatch(login(res.data.success));
         handleSuccess();
       } else if (res.status === 401) {

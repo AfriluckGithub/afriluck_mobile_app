@@ -24,6 +24,7 @@
     "font-awesome": "^4.7.0",
     "framer-motion": "^12.4.3",
     "localforage": "^1.10.0",
+    "lucide-react": "^0.475.0",
     "match-sorter": "^7.0.0",
     "preline": "^2.5.1",
     "react": "^18.3.1",

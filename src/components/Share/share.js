@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import Subheader from "../subheader";
 import { useSelector } from "react-redux";
+import SocialShare from "../SocialShare";
 
 const ShareScreen = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -9,6 +10,12 @@ const ShareScreen = () => {
     return user ? { ...user } : null;
   }, [user]);
   const linkToCopy = `${window.location.origin}/signup?ref=${memoizedUser.share_code}`; // Link to copy
+
+  console.log("user => ", memoizedUser);
+  
+
+  console.log("link to copy => ",linkToCopy);
+  
 
   const handleCopy = () => {
     console.log("Copy button clicked"); // Debugging: Check if the function is called
@@ -45,7 +52,7 @@ const ShareScreen = () => {
   };
 
   return (
-    <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
+    <div className="flex flex-col h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
       <Subheader title="Share" />
       <div className="flex flex-col w-full space-y-4 justify-between px-4 py-4 bg-white rounded-xl border border-border-default">
         <h1 className="text-xl font-semibold text-center my-4">
@@ -55,7 +62,7 @@ const ShareScreen = () => {
           We want our customers to have fun when they play our games, and we
           strive to create a lighthearted and enjoyable experience.
         </p>
-        <div className="bg-white w-full border rounded-xl p-6 xl:w-[50%]">
+        <div className="flex flex-col justify-center items-center bg-white w-full border rounded-xl p-6 xl:w-[50%]">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Share your link:
           </label>
@@ -73,6 +80,7 @@ const ShareScreen = () => {
               <img src="copy.svg" alt="Copy" />
             </div>
           </div>
+          <SocialShare url={linkToCopy}/>
         </div>
       </div>
       <Modal isOpen={openModal} />
