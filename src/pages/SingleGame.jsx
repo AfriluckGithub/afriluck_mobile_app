@@ -236,7 +236,7 @@ const SingleGame = () => {
     if (error !== "") {
       return;
     }
-    if (type_picked==="Mega" && repeatedNumbers) {
+    if (repeatedNumbers) {
       setError(`Repeated numbers are not allowed`);
       return;
     }
