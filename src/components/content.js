@@ -53,26 +53,6 @@ const Body = ({ subGames, subGames1, query }) => {
     };
   }
 
-  function isAnopaActive() {
-    const now = new Date();
-    const currentHours = now.getHours();
-    const currentMinutes = now.getMinutes();
-
-    const startHour = 19;
-    const startMinute = 45;
-    const endHour = 10;
-    const endMinute = 0;
-    if (
-      (currentHours > startHour || (currentHours === startHour && currentMinutes >= startMinute)) ||
-      (currentHours < endHour || (currentHours === endHour && currentMinutes < endMinute))
-    ) {
-      return false; 
-    }
-    
-    return true;
-  }
-
-
   function isGameActive(startHour, startMinute, endHour, endMinute) {
     const now = new Date();
     const currentHours = now.getHours();
@@ -89,17 +69,16 @@ const Body = ({ subGames, subGames1, query }) => {
       endMinute = 30;
     }
     if (
-      (currentHours > startHour || (currentHours === startHour && currentMinutes >= startMinute)) ||
-      (currentHours < endHour || (currentHours === endHour && currentMinutes < endMinute))
+      currentHours > startHour ||
+      (currentHours === startHour && currentMinutes >= startMinute) ||
+      currentHours < endHour ||
+      (currentHours === endHour && currentMinutes < endMinute)
     ) {
-      return false; 
+      return false;
     }
-    
+
     return true;
   }
-
-  console.log("Is Anopa active => ", isAnopaActive());
-  
 
   // function isBetweenGameTime(drawTime) {
   //   const now = new Date();
