@@ -62,7 +62,7 @@ const SingleGamePaymentCheckStatus = () => {
         setStatusText("Okay");
         setStatusImage("success-status.svg");
         setStatusInfoText(
-          "Congratulations in advance. Thanks for your contribution. For any prize below GHS 12,000.00, wins will be redeemed instantly to your wins account. For any prize equal or above GHS 12,000.00, Please contact Afriluck for verification."
+          `Remember, matching all six numbers for Ghc20 is the key to claiming a life-changing jackpot prize of 70 million! Good Luck!!`
         );
       }
     } catch (e) {
