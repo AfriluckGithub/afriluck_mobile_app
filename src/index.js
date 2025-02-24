@@ -10,23 +10,25 @@ import store, { persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { register } from "./serviceWorkerRegistration";
-import { init } from '@aptabase/web';
+import { init } from "@aptabase/web";
+import { AptabaseProvider } from "@aptabase/react";
 
-init('A-US-1350173163');
 register();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <AuthProvider>
-        <AvatarProvider>
-          <PersistGate loading={null} persistor={persistor}>
-            <RouterProvider router={router} />
-          </PersistGate>
-        </AvatarProvider>
-      </AuthProvider>
-    </Provider>
+    <AptabaseProvider appKey="A-US-1350173163">
+      <Provider store={store}>
+        <AuthProvider>
+          <AvatarProvider>
+            <PersistGate loading={null} persistor={persistor}>
+              <RouterProvider router={router} />
+            </PersistGate>
+          </AvatarProvider>
+        </AuthProvider>
+      </Provider>
+    </AptabaseProvider>
   </React.StrictMode>
 );
 //serviceWorkerRegistration.unregister();
