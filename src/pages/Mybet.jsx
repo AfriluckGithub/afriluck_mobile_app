@@ -49,7 +49,7 @@ const Mybet = () => {
   
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+    return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
   };
 
   const groupedResults = results.reduce((acc, result) => {
