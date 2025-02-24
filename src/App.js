@@ -11,11 +11,11 @@ import { useEffect } from "react";
 
 function App() {
   const { trackEvent } = useAptabase();
-  trackEvent('started_app');
   
   // const location = useLocation();
   useEffect(() => {
      //window.HSStaticMethods.autoInit();
+     trackEvent('started_app');
   }, [trackEvent]);
 
   return (
