@@ -46,12 +46,18 @@ const Mybet = () => {
       getMyBets();
     }
   }, [memoizedUser]);
+  
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+  };
 
   const groupedResults = results.reduce((acc, result) => {
-    if (!acc[result.date]) {
-      acc[result.date] = [];
+    const formattedDate = formatDate(result.date);
+    if (!acc[formattedDate]) {
+      acc[formattedDate] = [];
     }
-    acc[result.date].push(result);
+    acc[formattedDate].push(result);
     return acc;
   }, {});
 
