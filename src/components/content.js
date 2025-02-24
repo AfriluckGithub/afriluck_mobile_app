@@ -30,28 +30,30 @@ const Body = ({ subGames, subGames1, query }) => {
     const dayOfWeek = now.getDay();
     let targetTime = new Date();
 
-    if (dayOfWeek === 0) {
-      if (now.getHours() >= 17 && now.getMinutes() >= 30) {
+    // Determine if the next game starts the next day
+    const isNextDay = now.getHours() > drawTime.startHour || 
+                      (now.getHours() === drawTime.startHour && now.getMinutes() >= drawTime.startMinute);
+
+    if (isNextDay) {
         targetTime.setDate(targetTime.getDate() + 1);
-      }
-      targetTime.setHours(19, 45, 0, 0);
+    }
+
+    // Special case for Sunday (next start is Monday at 7:45 PM)
+    if (dayOfWeek === 0 && now.getHours() >= 17 && now.getMinutes() >= 30) {
+        targetTime.setDate(targetTime.getDate() + 1);
+        targetTime.setHours(19, 45, 0, 0);
     } else {
-      if (
-        now.getHours() >= drawTime.startHour &&
-        now.getMinutes() >= drawTime.startMinute
-      ) {
-        targetTime.setDate(targetTime.getDate() + 1);
-      }
-      targetTime.setHours(drawTime.startHour, drawTime.startMinute, 0, 0);
+        targetTime.setHours(drawTime.startHour, drawTime.startMinute, 0, 0);
     }
 
     const difference = targetTime - now;
     return {
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
     };
-  }
+}
+
 
   function isGameActive(startHour, startMinute, endHour, endMinute) {
     const now = new Date();
