@@ -10,7 +10,6 @@ import store, { persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { register } from "./serviceWorkerRegistration";
-import { init } from "@aptabase/web";
 import { AptabaseProvider } from "@aptabase/react";
 
 register();

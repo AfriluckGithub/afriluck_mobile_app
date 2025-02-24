@@ -7,7 +7,6 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import PWAInstallPrompt from "./PWAInstallPrompt";
 import { useAptabase } from '@aptabase/react';
-import { useEffect } from "react";
 
 function App() {
   const { trackEvent } = useAptabase();
