@@ -26,26 +26,36 @@ const Body = ({ subGames, subGames1, query }) => {
 
   const calculateTimeLeft = (drawTime) => {
     const now = new Date();
-    const difference = drawTime - now;
+    
+    let targetTime = new Date(drawTime);
+    
+    if (now > targetTime) {
+        targetTime.setDate(targetTime.getDate() + 1);
+    }
+
+    const difference = targetTime - now;
+
     return {
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / 1000 / 60) % 60),
-      seconds: Math.floor((difference / 1000) % 60),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
     };
-  };
+};
 
   function isBetweenGameTime(startHour, startMinute, endHour, endMinute) {
     const now = new Date();
-    
-    // Define start and end times
-    const startTime = new Date();
-    startTime.setHours(startHour, startMinute, 0, 0); // 7:45 PM
+    let startTime = new Date();
+    startTime.setHours(startHour, startMinute, 0, 0);
 
-    const endTime = new Date();
-    endTime.setHours(endHour, endMinute, 0, 0); // 10:00 AM (next day)
 
-    // If current time is after startTime or before endTime, return true
-    return now >= startTime || now < endTime;
+    let endTime = new Date();
+    endTime.setDate(endTime.getDate() + 1);
+    endTime.setHours(endHour, endMinute, 0, 0);
+
+    if (now >= startTime || now < endTime) {
+        return true;
+    }
+    return false;
 }
 
   const [timeLeft, setTimeLeft] = useState({
