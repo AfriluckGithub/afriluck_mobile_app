@@ -66,7 +66,7 @@ const Mybet = () => {
   return (
     <div className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48">
       {!memoizedUser && (
-        <p className="flex justify-center items-center h-screen w-screen text-wrap text-center text-black">
+        <p className="flex justify-center items-center h-screen text-wrap text-center text-black">
           {"Please log in to see your ticket info"}
         </p>
       )}

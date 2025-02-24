@@ -215,13 +215,31 @@ const SingleGame = () => {
     return ranges.filter((range) => range.game === Number(selectedGame));
   }
 
+  function hasRepeatedNumbers(arr) {
+    const seen = new Set();
+    for (let num of arr) {
+      if (seen.has(num)) {
+        console.log("Has repeated numbers");
+        
+        return true;
+      }
+      seen.add(num);
+    }
+    return false;
+  }
+
   const placeBet = () => {
+    let val = inputValue;
+    console.log("Val", val);
+    console.log(val.length);
+    const repeatedNumbers = hasRepeatedNumbers(val);
     if (error !== "") {
       return;
     }
-    let val = inputValue;
-    console.log(val);
-    console.log(val.length);
+    if (repeatedNumbers) {
+      setError(`Repeated numbers are not allowed`);
+      return;
+    }
 
     const permValidation = isValidValue(val);
     const range = getRange(val.length);
@@ -242,6 +260,8 @@ const SingleGame = () => {
       type_picked === "Banker" &&
       Number(betAmount) > 0 &&
       !val.some((item) => Number(item) > 57);
+
+    console.log("repeated => ", repeatedNumbers);
 
     if (
       megaValidation ||
@@ -264,6 +284,8 @@ const SingleGame = () => {
         setError(
           `Selected Perm numbers has to be between ${range[0].min} and ${range[0].max}`
         );
+      } else if(repeatedNumbers) {
+        setError(`Repeated numbers are not allowed`);
       } else {
         setError(
           "Kindly verify if the game, amount or numbers selected meets the required length."
@@ -271,6 +293,7 @@ const SingleGame = () => {
       }
     }
   };
+
   const renderInputFields = () => {
     let inputNum = 0;
     const currentGame =
@@ -291,6 +314,7 @@ const SingleGame = () => {
         inputNum = 8;
         break;
       default:
+        inputNum = 0;
         console.log("Nothing");
         
     }
@@ -463,6 +487,9 @@ const SingleGame = () => {
           <div className="bg-white border border-border-default  w-full  rounded-xl mt-5">
             <div className="px-6 py-4 border-b border-border-default">
               <p className="text-black">Selections</p>
+            </div>
+            <div className="text-red-500">
+              {error.length > 0 && (<p>{error}</p>)}
             </div>
             <div className="block md:flex items-center w-full px-6 py-6">
               <p className="w-full">
