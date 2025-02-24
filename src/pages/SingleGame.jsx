@@ -393,7 +393,7 @@ const SingleGame = () => {
               </p>
             </div>
             {type_picked === "Direct" ? (
-              <div className="block space-y-4  w-full md:grid grid-cols-2 md:gap-4 md:space-y-0  lg:flex lg:space-x-6 justify-between items-center px-6 py-4 ">
+              <div className="justify-center items-center w-auto grid grid-cols-2 gap-2 space-x-1 p-5">
                 {direct
                   .filter(
                     (game) =>
@@ -406,7 +406,7 @@ const SingleGame = () => {
                   .map((game) => (
                     <div
                       key={game.id}
-                      className="flex  h-auto  w-full justify-between items-center m-1 rounded-xl py-12"
+                      className="flex flex-row h-28 w-28 rounded-lg"
                       onClick={() => selectGame(game.id)}
                       style={{
                         border:
@@ -431,7 +431,7 @@ const SingleGame = () => {
                   ))}
               </div>
             ) : type_picked === "Perm" ? (
-              <div className="block space-y-4  w-full md:grid grid-cols-2 md:gap-4 md:space-y-0  lg:flex lg:space-x-6 justify-between items-center px-6 py-4 ">
+              <div className="justify-center items-center w-auto grid grid-cols-2 gap-2 space-x-1 p-5">
                 {perm
                   .filter(
                     (game) =>
@@ -444,7 +444,7 @@ const SingleGame = () => {
                   .map((game) => (
                     <div
                       key={game.id}
-                      className="flex h-auto  w-full justify-between items-center m-1 rounded-xl py-12"
+                      className="flex flex-row h-28 w-28 rounded-lg"
                       onClick={() => selectGame(game.id)}
                       style={{
                         border:
