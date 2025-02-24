@@ -73,34 +73,21 @@ const Body = ({ subGames, subGames1, query }) => {
   }
 
 
-  function isMiddatActive() {
+  function isGameActive(startHour, startMinute, endHour, endMinute) {
     const now = new Date();
     const currentHours = now.getHours();
     const currentMinutes = now.getMinutes();
+    const dayOfWeek = now.getDay();
 
-    const startHour = 19;
-    const startMinute = 45;
-    const endHour = 13;
-    const endMinute = 30;
-    if (
-      (currentHours > startHour || (currentHours === startHour && currentMinutes >= startMinute)) ||
-      (currentHours < endHour || (currentHours === endHour && currentMinutes < endMinute))
-    ) {
-      return false; 
+    // const startHour = 19;
+    // const startMinute = 45;
+    // const endHour = 19;
+    // const endMinute = 0;
+
+    if (dayOfWeek === 0) {
+      endHour = 17;
+      endMinute = 30;
     }
-    
-    return true;
-  }
-
-  function isEveningActive() {
-    const now = new Date();
-    const currentHours = now.getHours();
-    const currentMinutes = now.getMinutes();
-
-    const startHour = 19;
-    const startMinute = 45;
-    const endHour = 19;
-    const endMinute = 0;
     if (
       (currentHours > startHour || (currentHours === startHour && currentMinutes >= startMinute)) ||
       (currentHours < endHour || (currentHours === endHour && currentMinutes < endMinute))
@@ -114,32 +101,32 @@ const Body = ({ subGames, subGames1, query }) => {
   console.log("Is Anopa active => ", isAnopaActive());
   
 
-  function isBetweenGameTime(drawTime) {
-    const now = new Date();
-    const dayOfWeek = now.getDay();
+  // function isBetweenGameTime(drawTime) {
+  //   const now = new Date();
+  //   const dayOfWeek = now.getDay();
 
-    let startHour = drawTime.startHour;
-    let startMinute = drawTime.startMinute;
-    let endHour = drawTime.endHour;
-    let endMinute = drawTime.endMinute;
+  //   let startHour = drawTime.startHour;
+  //   let startMinute = drawTime.startMinute;
+  //   let endHour = drawTime.endHour;
+  //   let endMinute = drawTime.endMinute;
 
-    if (dayOfWeek === 0) {
-      endHour = 17;
-      endMinute = 30;
-    }
+  //   if (dayOfWeek === 0) {
+  //     endHour = 17;
+  //     endMinute = 30;
+  //   }
 
-    let startTime = new Date();
-    startTime.setHours(startHour, startMinute, 0, 0);
+  //   let startTime = new Date();
+  //   startTime.setHours(startHour, startMinute, 0, 0);
 
-    let endTime = new Date();
-    endTime.setHours(endHour, endMinute, 0, 0);
+  //   let endTime = new Date();
+  //   endTime.setHours(endHour, endMinute, 0, 0);
 
-    if (dayOfWeek !== 0) {
-      endTime.setDate(endTime.getDate() + 1);
-    }
+  //   if (dayOfWeek !== 0) {
+  //     endTime.setDate(endTime.getDate() + 1);
+  //   }
 
-    return now >= startTime || now < endTime;
-  }
+  //   return now >= startTime || now < endTime;
+  // }
 
   const drawTimes = {
     Anopa: { startHour: 10, startMinute: 0, endHour: 19, endMinute: 45 },
@@ -171,29 +158,29 @@ const Body = ({ subGames, subGames1, query }) => {
     return () => clearInterval(timer);
   }, [drawTimes.Afriluck, drawTimes.Anopa, drawTimes.Midday]);
 
-  const isDrawStarted = {
-    Anopa: isBetweenGameTime(19, 45, 10, 0),
-    Midday: isBetweenGameTime(19, 45, 13, 30),
-    Afriluck: isBetweenGameTime(19, 45, 19, 0),
-  };
+  // const isDrawStarted = {
+  //   Anopa: isBetweenGameTime(19, 45, 10, 0),
+  //   Midday: isBetweenGameTime(19, 45, 13, 30),
+  //   Afriluck: isBetweenGameTime(19, 45, 19, 0),
+  // };
 
   let gameSections = [
     {
       name: "Anopa",
       timeLeft: timeLeft.Anopa,
-      started: isAnopaActive(),
+      started: isGameActive(19, 45, 10, 0),
       games: subGames1,
     },
     {
       name: "Midday",
       timeLeft: timeLeft.Midday,
-      started: isMiddatActive(),
+      started: isGameActive(19, 45, 13, 30),
       games: subGames1,
     },
     {
       name: "Afriluck 6/57",
       timeLeft: timeLeft.Afriluck,
-      started: isEveningActive(),
+      started: isGameActive(19, 45, 19, 0),
       games: subGames,
     },
   ];
