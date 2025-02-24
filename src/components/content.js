@@ -168,7 +168,7 @@ const Body = ({ subGames, subGames1, query }) => {
     {
       name: "Midday",
       timeLeft: timeLeft.Midday,
-      started: isMiddatActive(),
+      started: isDrawStarted.Midday,
       games: subGames1,
     },
     {
