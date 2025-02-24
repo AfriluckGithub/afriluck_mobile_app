@@ -16,47 +16,81 @@ export default function Content({ subGames, subGames1, query }) {
 }
 
 const Body = ({ subGames, subGames1, query }) => {
-  const [drawTimes, 
-    //setDrawTimes
-  ] = useState({
-    Anopa: new Date().setHours(10, 0, 0, 0),
-    Midday: new Date().setHours(13, 30, 0, 0),
-    Afriluck: new Date().setHours(19, 0, 0, 0),
-  });
+  // const [
+  //   //drawTimes,
+  //   //setDrawTimes
+  // ] = useState({
+  //   Anopa: new Date().setHours(10, 0, 0, 0),
+  //   Midday: new Date().setHours(13, 30, 0, 0),
+  //   Afriluck: new Date().setHours(19, 0, 0, 0),
+  // });
 
-  const calculateTimeLeft = (drawTime) => {
+  function calculateTimeLeft(drawTime) {
     const now = new Date();
-    
-    let targetTime = new Date(drawTime);
-    
-    if (now > targetTime) {
+    const dayOfWeek = now.getDay();
+    let targetTime = new Date();
+
+    if (dayOfWeek === 0) {
+      if (now.getHours() >= 17 && now.getMinutes() >= 30) {
         targetTime.setDate(targetTime.getDate() + 1);
+      }
+      targetTime.setHours(19, 45, 0, 0);
+    } else {
+      if (
+        now.getHours() >= drawTime.startHour &&
+        now.getMinutes() >= drawTime.startMinute
+      ) {
+        targetTime.setDate(targetTime.getDate() + 1);
+      }
+      targetTime.setHours(drawTime.startHour, drawTime.startMinute, 0, 0);
     }
 
     const difference = targetTime - now;
-
     return {
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / 1000 / 60) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
     };
-};
+  }
 
-  function isBetweenGameTime(startHour, startMinute, endHour, endMinute) {
+  function isBetweenGameTime(drawTime) {
     const now = new Date();
+    const dayOfWeek = now.getDay();
+
+    let startHour = drawTime.startHour;
+    let startMinute = drawTime.startMinute;
+    let endHour = drawTime.endHour;
+    let endMinute = drawTime.endMinute;
+
+    if (dayOfWeek === 0) {
+      endHour = 17;
+      endMinute = 30;
+    }
+
     let startTime = new Date();
     startTime.setHours(startHour, startMinute, 0, 0);
 
-
     let endTime = new Date();
-    endTime.setDate(endTime.getDate() + 1);
     endTime.setHours(endHour, endMinute, 0, 0);
 
-    if (now >= startTime || now < endTime) {
-        return true;
+    if (dayOfWeek !== 0) {
+      endTime.setDate(endTime.getDate() + 1);
     }
-    return false;
-}
+
+    return now >= startTime || now < endTime;
+  }
+
+  const drawTimes = {
+    Anopa: { startHour: 10, startMinute: 0, endHour: 19, endMinute: 45 },
+    Midday: { startHour: 13, startMinute: 30, endHour: 19, endMinute: 45 },
+    Afriluck: { startHour: 19, startMinute: 45, endHour: 19, endMinute: 45 },
+  };
+
+  // const timeLeft = {
+  //   Anopa: calculateTimeLeft(drawTimes.Anopa),
+  //   Midday: calculateTimeLeft(drawTimes.Midday),
+  //   Afriluck: calculateTimeLeft(drawTimes.Afriluck),
+  //   };
 
   const [timeLeft, setTimeLeft] = useState({
     Anopa: calculateTimeLeft(drawTimes.Anopa),
@@ -65,7 +99,7 @@ const Body = ({ subGames, subGames1, query }) => {
   });
 
   useEffect(() => {
-    const timer = setInterval(() => {     
+    const timer = setInterval(() => {
       setTimeLeft({
         Anopa: calculateTimeLeft(drawTimes.Anopa),
         Midday: calculateTimeLeft(drawTimes.Midday),
@@ -74,7 +108,7 @@ const Body = ({ subGames, subGames1, query }) => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [drawTimes]);
+  }, [drawTimes.Afriluck, drawTimes.Anopa, drawTimes.Midday]);
 
   const isDrawStarted = {
     Anopa: isBetweenGameTime(19, 45, 10, 0),
@@ -102,7 +136,7 @@ const Body = ({ subGames, subGames1, query }) => {
       games: subGames,
     },
   ];
-  
+
   gameSections.sort((a, b) => !a.started - !b.started);
 
   return (
@@ -116,7 +150,7 @@ const Body = ({ subGames, subGames1, query }) => {
             <p className="text-base md:text-lg text-primary  font-semibold px-6">
               {section.name}
             </p>
-            {!section.started ? (
+            {section.started ? (
               <div className="flex bg-tertiary text-xs md:text-base text-white px-6 py-3 rounded-tr-xl rounded-bl-xl">
                 Game closed till 7:45pm
               </div>
@@ -136,7 +170,7 @@ const Body = ({ subGames, subGames1, query }) => {
                 image={game.imageUrl}
                 subtitle={game.name}
                 type={section.name}
-                disabled={!section.started}
+                disabled={section.started}
               />
             ))}
           </div>
