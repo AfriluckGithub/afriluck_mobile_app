@@ -13,14 +13,13 @@ const Draw = () => {
   const user = useSelector((state) => state.user?.user);
   const { trackEvent } = useAptabase();
 
-  trackEvent('draw_results');
-
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
   }, [user]);
 
   useEffect(() => {
     try {
+      trackEvent('draw_results');
       var token = null;
       if (memoizedUser) {
         token = memoizedUser.token;
@@ -60,7 +59,7 @@ const Draw = () => {
         console.log(error);
       }
     }
-  }, [memoizedUser]);
+  }, [memoizedUser, trackEvent]);
   
   return (
     <>
