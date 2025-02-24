@@ -92,6 +92,25 @@ const Body = ({ subGames, subGames1, query }) => {
     return true;
   }
 
+  function isEveningActive() {
+    const now = new Date();
+    const currentHours = now.getHours();
+    const currentMinutes = now.getMinutes();
+
+    const startHour = 19;
+    const startMinute = 45;
+    const endHour = 19;
+    const endMinute = 0;
+    if (
+      (currentHours > startHour || (currentHours === startHour && currentMinutes >= startMinute)) ||
+      (currentHours < endHour || (currentHours === endHour && currentMinutes < endMinute))
+    ) {
+      return false; 
+    }
+    
+    return true;
+  }
+
   console.log("Is Anopa active => ", isAnopaActive());
   
 
@@ -174,7 +193,7 @@ const Body = ({ subGames, subGames1, query }) => {
     {
       name: "Afriluck 6/57",
       timeLeft: timeLeft.Afriluck,
-      started: isDrawStarted.Afriluck,
+      started: isEveningActive(),
       games: subGames,
     },
   ];
