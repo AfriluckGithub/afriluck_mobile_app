@@ -1,4 +1,4 @@
-import { Facebook, Twitter } from "lucide-react";
+import { Twitter } from "lucide-react";
 
 export default function SocialShare({ url }) {
   //const currentUrl = encodeURIComponent(window.location.href);
