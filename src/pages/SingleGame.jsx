@@ -236,7 +236,7 @@ const SingleGame = () => {
     if (error !== "") {
       return;
     }
-    if (repeatedNumbers) {
+    if (type_picked==="Mega" && repeatedNumbers) {
       setError(`Repeated numbers are not allowed`);
       return;
     }
@@ -488,9 +488,7 @@ const SingleGame = () => {
             <div className="px-6 py-4 border-b border-border-default">
               <p className="text-black">Selections</p>
             </div>
-            <div className="text-red-500">
-              {error.length > 0 && (<p>{error}</p>)}
-            </div>
+            
             <div className="block md:flex items-center w-full px-6 py-6">
               <p className="w-full">
                 {selectedGame === ""
