@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Twitter } from "lucide-react";
-import { faWhatsapp } from "@fortawesome/free-brands-svg-icons"
+import { faWhatsapp, faTelegram, faTwitter } from "@fortawesome/free-brands-svg-icons"
 
 export default function SocialShare({ url }) {
   //const currentUrl = encodeURIComponent(window.location.href);
@@ -24,7 +23,7 @@ export default function SocialShare({ url }) {
         rel="noopener noreferrer"
         className="text-blue-400 hover:text-blue-600"
       >
-        <Twitter size={28} />
+        <FontAwesomeIcon icon={faTwitter} className="w-7 h-7"/>
       </a>
 
       <a
@@ -33,20 +32,7 @@ export default function SocialShare({ url }) {
         rel="noopener noreferrer"
         className="text-pink-500 hover:text-pink-700"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M22 2L11 13" />
-          <path d="M22 2L15 22 11 13 2 9l20-7z" />
-        </svg>
+        <FontAwesomeIcon icon={faTelegram} className="w-7 h-7"/>
       </a>
 
       <a
