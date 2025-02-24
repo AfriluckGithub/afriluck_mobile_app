@@ -66,10 +66,10 @@ const Body = ({ subGames, subGames1, query }) => {
       (currentHours > startHour || (currentHours === startHour && currentMinutes >= startMinute)) ||
       (currentHours < endHour || (currentHours === endHour && currentMinutes < endMinute))
     ) {
-      return true; 
+      return false; 
     }
     
-    return false;
+    return true;
   }
 
 
@@ -86,10 +86,10 @@ const Body = ({ subGames, subGames1, query }) => {
       (currentHours > startHour || (currentHours === startHour && currentMinutes >= startMinute)) ||
       (currentHours < endHour || (currentHours === endHour && currentMinutes < endMinute))
     ) {
-      return true; 
+      return false; 
     }
     
-    return false;
+    return true;
   }
 
   console.log("Is Anopa active => ", isAnopaActive());
@@ -168,7 +168,7 @@ const Body = ({ subGames, subGames1, query }) => {
     {
       name: "Midday",
       timeLeft: timeLeft.Midday,
-      started: isDrawStarted.Midday,
+      started: isMiddatActive(),
       games: subGames1,
     },
     {
@@ -179,7 +179,7 @@ const Body = ({ subGames, subGames1, query }) => {
     },
   ];
 
-  gameSections.sort((a, b) => !a.started - !b.started);
+  gameSections.sort((a, b) => a.started - b.started);
 
   return (
     <div className="space-y-6 h-auto flex-1 overflow-auto pb-20">
