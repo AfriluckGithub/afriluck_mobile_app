@@ -59,7 +59,7 @@ const Draw = () => {
         console.log(error);
       }
     }
-  }, [memoizedUser, trackEvent]);
+  }, [memoizedUser]);
   
   return (
     <>
