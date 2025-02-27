@@ -86,7 +86,7 @@ const SingleGame = () => {
     { id: 2, game: "Direct 2", imageUrl: "direct-2-logo.png" },
     { id: 3, game: "Direct 3", imageUrl: "direct-3-logo.png" },
     { id: 4, game: "Direct 4", imageUrl: "direct-4-logo.png" },
-    { id: 5, game: "Direct 5", imageUrl: "direct-5-logo.png" },
+    //{ id: 5, game: "Direct 5", imageUrl: "direct-5-logo.png" },
     { id: 6, game: "Direct 6", imageUrl: "direct-6-logo.png" },
   ];
 
