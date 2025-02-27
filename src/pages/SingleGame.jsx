@@ -489,14 +489,14 @@ const SingleGame = () => {
               <p className="text-black">Selections</p>
             </div>
             
-            <div className="block md:flex items-center w-full px-6 py-6">
+            <div className="block md:flex items-center px-6 py-6 w-full">
               <p className="w-full">
                 {selectedGame === ""
                   ? `Please select a number`
                   : type_picked === "Perm"? `Please choose ${Number(selectedGame)+1===2? 3: Number(selectedGame)+1===3? 4: Number(selectedGame)+1===4? 5:Number(selectedGame)+1===6? 7: selectedGame} or not more than ${Number(selectedGame)+1===2? 15: Number(selectedGame)+1===3? 10: Number(selectedGame)+1===4? 8: Number(selectedGame)+1===6? 8: selectedGame} numbers`: `Please pick ${selectedGame} numbers between 1 to 57`}
               </p>
-              <div className="flex flex-col w-full items-start">
-                <div className="grid grid-cols-3 md:flex  gap-4 justify-center mt-4 ">
+              <div className="flex flex-col flex-wrap w-full items-start">
+                <div className="grid grid-cols-3 md:flex gap-4 justify-start mt-4 w-full">
                   {type_picked === "Mega"
                     ? renderInputFieldMega()
                     : renderInputFields()}

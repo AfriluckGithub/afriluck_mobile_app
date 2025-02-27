@@ -15,7 +15,7 @@ const Game = ({ title, image, subtitle, type, disabled }) => {
   return (
     <div
       onClick={handleCurrentGame}
-      className="flex flex-col cursor-pointer bg-white border-border-default border rounded-xl w-full h-24  md:h-32 xl:h-48 justify-center items-center "
+      className="flex flex-col cursor-pointer bg-white border-border-default border rounded-xl"
     >
       <div className="w-full h-[60%]  md:h-[60%] xl:h-[70%]">
         <img

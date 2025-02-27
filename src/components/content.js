@@ -173,7 +173,7 @@ const Body = ({ subGames, subGames1, query }) => {
       {gameSections.map((section, index) => (
         <div
           key={index}
-          className="flex flex-col space-y-4 bg-bg-white rounded-xl border-border-default border"
+          className="flex flex-col flex-wrap space-y-4 bg-bg-white rounded-xl border-border-default border"
         >
           <div className="w-full flex justify-between items-center text-md">
             <p className="text-base md:text-lg text-primary  font-semibold px-6">
