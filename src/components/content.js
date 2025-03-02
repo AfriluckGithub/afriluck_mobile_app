@@ -152,13 +152,13 @@ const Body = ({ subGames, subGames1, query }) => {
     {
       name: "Anopa",
       timeLeft: timeLeft.Anopa,
-      started: isGameActive(19, 45, 10, 0) || isSunday,
+      started: isGameActive(19, 45, 10, 0) || (isSunday || isGameActive(19, 45, 10, 0)),
       games: subGames1,
     },
     {
       name: "Midday",
       timeLeft: timeLeft.Midday,
-      started: isGameActive(19, 45, 13, 30) || isSunday,
+      started: isGameActive(19, 45, 13, 30) || (isSunday || isGameActive(19, 45, 10, 0)),
       games: subGames1,
     },
     {
