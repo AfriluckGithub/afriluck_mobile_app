@@ -16,6 +16,9 @@ export default function Content({ subGames, subGames1, query }) {
 }
 
 const Body = ({ subGames, subGames1, query }) => {
+  let today = new Date();
+  const dayOfWeek = today.getDay();
+  const isSunday = dayOfWeek === 0;
   // const [
   //   //drawTimes,
   //   //setDrawTimes
@@ -155,13 +158,13 @@ const Body = ({ subGames, subGames1, query }) => {
     {
       name: "Midday",
       timeLeft: timeLeft.Midday,
-      started: isGameActive(19, 45, 13, 30),
+      started: isGameActive(19, 45, 13, 30) || isSunday,
       games: subGames1,
     },
     {
       name: "Afriluck 6/57",
       timeLeft: timeLeft.Afriluck,
-      started: isGameActive(19, 45, 19, 0),
+      started: isGameActive(19, 45, 19, 0) || isSunday,
       games: subGames,
     },
   ];
