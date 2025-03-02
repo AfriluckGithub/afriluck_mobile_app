@@ -16,9 +16,6 @@ export default function Content({ subGames, subGames1, query }) {
 }
 
 const Body = ({ subGames, subGames1, query }) => {
-  //let today = new Date();
-  //const dayOfWeek = today.getDay();
-  //const isSunday = dayOfWeek === 0;
   // const [
   //   //drawTimes,
   //   //setDrawTimes
