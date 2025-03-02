@@ -41,7 +41,7 @@ const Body = ({ subGames, subGames1, query }) => {
     // Special case for Sunday (next start is Monday at 7:45 PM)
     if (dayOfWeek === 0 && now.getHours() >= 17 && now.getMinutes() >= 30) {
         targetTime.setDate(targetTime.getDate() + 1);
-        targetTime.setHours(19, 45, 0, 0);
+        //targetTime.setHours(19, 45, 0, 0);
     } else {
         targetTime.setHours(drawTime.startHour, drawTime.startMinute, 0, 0);
     }
