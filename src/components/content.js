@@ -152,7 +152,7 @@ const Body = ({ subGames, subGames1, query }) => {
     {
       name: "Anopa",
       timeLeft: timeLeft.Anopa,
-      started: isGameActive(19, 45, 10, 0),
+      started: isGameActive(19, 45, 10, 0) || isSunday,
       games: subGames1,
     },
     {
@@ -164,7 +164,7 @@ const Body = ({ subGames, subGames1, query }) => {
     {
       name: "Afriluck 6/57",
       timeLeft: timeLeft.Afriluck,
-      started: isGameActive(19, 45, 19, 0) || isSunday,
+      started: isGameActive(19, 45, 19, 0),
       games: subGames,
     },
   ];
