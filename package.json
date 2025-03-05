@@ -22,7 +22,6 @@
     "crypto": "^1.0.1",
     "crypto-browserify": "^3.12.1",
     "font-awesome": "^4.7.0",
-    "framer-motion": "^12.4.3",
     "localforage": "^1.10.0",
     "lucide-react": "^0.475.0",
     "match-sorter": "^7.0.0",

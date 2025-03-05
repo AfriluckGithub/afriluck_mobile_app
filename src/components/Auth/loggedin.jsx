@@ -10,6 +10,7 @@ const LoggedIn = () => {
   const { avatar } = useAvatar();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [balance, setBalance] = useState(0.0);
 
   const user = useSelector((state) => state.user?.user);
   const memoizedUser = useMemo(() => {
@@ -22,6 +23,32 @@ const LoggedIn = () => {
       : `${memoizedUser.first_name} ${memoizedUser.last_name}`;
   const phoneNumber =
     memoizedUser === null ? "0202020202" : memoizedUser.phone_number;
+
+  const getBanalce = async () => {
+    const response = await fetch(
+      "https://app.afriluck.com/api/V1/app/account/balance",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${memoizedUser.token}`,
+        },
+      }
+    );
+    const json = await response.json();
+
+    if (response.status === 200) {
+       setBalance(json.balance);
+    }else{
+       setBalance(0.0);
+    }
+    console.log(json);
+  };
+
+  if (!isOpen) {
+    console.log("isOpen is false");
+    getBanalce();
+  }
 
   return (
     <div className="flex flex-col w-full space-y-6  py-4">
@@ -58,7 +85,9 @@ const LoggedIn = () => {
             <img src="credit.svg" alt="afriluck" className="w-6 h-6" />
             <p className="text-sm font-regular">Credit</p>
           </div>
-          <p className="text-lg font-semibold">GHS {memoizedUser.balance? memoizedUser.balance: 0.00}</p>
+          <p className="text-lg font-semibold">
+            GHS {balance}
+          </p>
           <Button
             label="Topup"
             onPress={() => setIsOpen(true)}
@@ -67,7 +96,7 @@ const LoggedIn = () => {
           >
             Topup
           </Button>
-          <TopUpModal isOpen={isOpen} onCancel={() => setIsOpen(false)}/>
+          <TopUpModal isOpen={isOpen} onCancel={() => setIsOpen(false)} />
         </div>
         {/* <div className="flex flex-col w-full items-center  bg-white rounded-xl p-4 space-y-4 border border-border-default">
           <div className="flex  items-center space-x-2">
