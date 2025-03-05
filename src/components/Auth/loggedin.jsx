@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@heroui/button";
 import { useNavigate } from "react-router-dom";
@@ -38,14 +38,38 @@ const LoggedIn = () => {
     const json = await response.json();
 
     if (response.status === 200) {
-       setBalance(json.balance);
-    }else{
-       setBalance(0.0);
+      setBalance(json.balance);
+    } else {
+      setBalance(memoizedUser.balance);
     }
   };
 
+  useEffect(() => {
+    const getBanalce = async () => {
+      const response = await fetch(
+        "https://app.afriluck.com/api/V1/app/account/balance",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${memoizedUser.token}`,
+          },
+        }
+      );
+      const json = await response.json();
+
+      if (response.status === 200) {
+        setBalance(json.balance);
+      } else {
+        setBalance(memoizedUser.balance);
+      }
+    };
+    getBanalce();
+  }, [memoizedUser]);
+
   if (!isOpen) {
     getBanalce();
+    
   }
 
   return (
@@ -83,9 +107,7 @@ const LoggedIn = () => {
             <img src="credit.svg" alt="afriluck" className="w-6 h-6" />
             <p className="text-sm font-regular">Credit</p>
           </div>
-          <p className="text-lg font-semibold">
-            GHS {balance}.00
-          </p>
+          <p className="text-lg font-semibold">GHS {balance}.00</p>
           <Button
             label="Topup"
             onPress={() => setIsOpen(true)}
