@@ -11,6 +11,7 @@ const Profile = () => {
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
   }, [user]);
+  window.scrollTo(0, 0);
   return (
     <div className="flex flex-col h-[1200px]  my-32 space-y-6 mx-4 md:mx-12 lg:mx-48">
       <div className="space-y-6">

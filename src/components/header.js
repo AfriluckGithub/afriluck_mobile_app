@@ -18,6 +18,7 @@ const Header = () => {
 
  
   useEffect(() => {
+    if (memoizedUser) {
     const getBanalce = async () => {
       const response = await fetch(
         "https://app.afriluck.com/api/V1/app/account/balance",
@@ -38,6 +39,7 @@ const Header = () => {
       }
     };
     getBanalce();
+  }
    }, [memoizedUser]);
   
 

@@ -69,7 +69,6 @@ const LoggedIn = () => {
 
   if (!isOpen) {
     getBanalce();
-    
   }
 
   return (
