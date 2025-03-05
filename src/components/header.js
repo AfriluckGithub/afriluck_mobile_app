@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaRegUser, FaBars, FaTimes } from "react-icons/fa";
 import SearchBar from "./searchbar";
@@ -8,12 +8,38 @@ import { useSelector } from "react-redux";
 const Header = () => {
   const [query, setQuery] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [balance, setBalance] = useState(0.0);
   const location = useLocation();
   const user = useSelector((state) => state.user.user);
 
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
   }, [user]);
+
+ 
+  useEffect(() => {
+    const getBanalce = async () => {
+      const response = await fetch(
+        "https://app.afriluck.com/api/V1/app/account/balance",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${memoizedUser.token}`,
+          },
+        }
+      );
+      const json = await response.json();
+  
+      if (response.status === 200) {
+         setBalance(json.balance);
+      }else{
+         setBalance(0.0);
+      }
+    };
+    getBanalce();
+   }, [memoizedUser]);
+  
 
   const getIcon = () => {
     return location.pathname === "/bet" ? (
@@ -30,7 +56,7 @@ const Header = () => {
       <div>
           {memoizedUser? (
             <p className="text-lg font-semibold text-primary">
-              GHS {memoizedUser.balance}.00
+              GHS {balance}.00
             </p>
           ) : (
             <p className="text-lg font-semibold text-primary"></p>

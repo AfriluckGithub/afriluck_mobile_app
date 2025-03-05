@@ -42,11 +42,9 @@ const LoggedIn = () => {
     }else{
        setBalance(0.0);
     }
-    console.log(json);
   };
 
   if (!isOpen) {
-    console.log("isOpen is false");
     getBanalce();
   }
 
@@ -86,7 +84,7 @@ const LoggedIn = () => {
             <p className="text-sm font-regular">Credit</p>
           </div>
           <p className="text-lg font-semibold">
-            GHS {balance}
+            GHS {balance}.00
           </p>
           <Button
             label="Topup"
