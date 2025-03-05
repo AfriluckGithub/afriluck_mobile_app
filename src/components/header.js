@@ -55,7 +55,7 @@ const Header = () => {
       <img src="afriluck.svg" alt="Logo" className="w-24 h-auto ml-6" />
       <div>
         {memoizedUser ? (
-          <p className="text-lg font-semibold text-primary">GHS {balance}.00</p>
+          <p className="text-lg font-semibold text-primary">{location.pathname === "/profile"? <p></p>:<p> GHS {balance}.00</p>}</p>
         ) : (
           <p className="text-lg font-semibold text-primary"></p>
         )}
