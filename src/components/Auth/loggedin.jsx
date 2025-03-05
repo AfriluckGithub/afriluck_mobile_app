@@ -58,7 +58,7 @@ const LoggedIn = () => {
             <img src="credit.svg" alt="afriluck" className="w-6 h-6" />
             <p className="text-sm font-regular">Credit</p>
           </div>
-          <p className="text-lg font-semibold">GHS 0.00</p>
+          <p className="text-lg font-semibold">GHS {memoizedUser.balance? memoizedUser.balance: 0.00}</p>
           <Button
             label="Topup"
             onPress={() => setIsOpen(true)}
@@ -67,7 +67,7 @@ const LoggedIn = () => {
           >
             Topup
           </Button>
-          <TopUpModal isOpen={isOpen} mobileNumber={memoizedUser.phone_number} onCancel={() => setIsOpen(false)}/>
+          <TopUpModal isOpen={isOpen} onCancel={() => setIsOpen(false)}/>
         </div>
         {/* <div className="flex flex-col w-full items-center  bg-white rounded-xl p-4 space-y-4 border border-border-default">
           <div className="flex  items-center space-x-2">

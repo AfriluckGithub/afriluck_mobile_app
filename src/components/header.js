@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaRegUser, FaBars, FaTimes } from "react-icons/fa";
 import SearchBar from "./searchbar";
 import "../output.css";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [query, setQuery] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const user = useSelector((state) => state.user.user);
+
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
 
   const getIcon = () => {
     return location.pathname === "/bet" ? (
@@ -21,7 +27,15 @@ const Header = () => {
     <div className="flex px-4 md:px-6 xl:flex flex-row justify-between items-center w-full h-auto bg-white xl:px-48 fixed py-6 top-0 left-0 right-0 z-50 border-b border-border-primary">
       {/* Logo */}
       <img src="afriluck.svg" alt="Logo" className="w-24 h-auto ml-6" />
-
+      <div>
+          {memoizedUser? (
+            <p className="text-lg font-semibold text-primary">
+              GHS {memoizedUser.balance}.00
+            </p>
+          ) : (
+            <p className="text-lg font-semibold text-primary"></p>
+          )}
+        </div>
       {/* Search Bar (Hidden on Mobile, Shown on Tablet & Desktop) */}
       <div className="hidden md:block w-[45%] xl:w-[40%]">
         {location.pathname !== "/profile" && (
@@ -42,7 +56,7 @@ const Header = () => {
           {getIcon()}
         </div>
       </div>
-      <div className="sm:block md:hidden  ">
+      <div className="sm:block md:hidden">
         <div className="flex items-center space-x-4">
           <Link to="/profile" onClick={() => setIsMenuOpen(false)}>
             <div className="w-12 h-12 flex items-center justify-center bg-[#14B1B9] text-white rounded-full border-4 border-border-primary">
