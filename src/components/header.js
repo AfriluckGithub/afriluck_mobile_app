@@ -16,32 +16,30 @@ const Header = () => {
     return user ? { ...user } : null;
   }, [user]);
 
- 
   useEffect(() => {
     if (memoizedUser) {
-    const getBanalce = async () => {
-      const response = await fetch(
-        "https://app.afriluck.com/api/V1/app/account/balance",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${memoizedUser.token}`,
-          },
+      const getBanalce = async () => {
+        const response = await fetch(
+          "https://app.afriluck.com/api/V1/app/account/balance",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${memoizedUser.token}`,
+            },
+          }
+        );
+        const json = await response.json();
+
+        if (response.status === 200) {
+          setBalance(json.balance);
+        } else {
+          setBalance(memoizedUser.balance);
         }
-      );
-      const json = await response.json();
-  
-      if (response.status === 200) {
-         setBalance(json.balance);
-      }else{
-         setBalance(0.0);
-      }
-    };
-    getBanalce();
-  }
-   }, [memoizedUser]);
-  
+      };
+      getBanalce();
+    }
+  }, [memoizedUser]);
 
   const getIcon = () => {
     return location.pathname === "/bet" ? (
@@ -56,14 +54,12 @@ const Header = () => {
       {/* Logo */}
       <img src="afriluck.svg" alt="Logo" className="w-24 h-auto ml-6" />
       <div>
-          {memoizedUser? (
-            <p className="text-lg font-semibold text-primary">
-              GHS {balance}.00
-            </p>
-          ) : (
-            <p className="text-lg font-semibold text-primary"></p>
-          )}
-        </div>
+        {memoizedUser ? (
+          <p className="text-lg font-semibold text-primary">GHS {balance}.00</p>
+        ) : (
+          <p className="text-lg font-semibold text-primary"></p>
+        )}
+      </div>
       {/* Search Bar (Hidden on Mobile, Shown on Tablet & Desktop) */}
       <div className="hidden md:block w-[45%] xl:w-[40%]">
         {location.pathname !== "/profile" && (
