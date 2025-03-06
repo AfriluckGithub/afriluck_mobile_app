@@ -63,9 +63,11 @@ const SignupScreen = () => {
       last_name: lastName,
       phone_number: phoneNumber,
       password: password,
-      ref: ref
+      ref: String(ref)
     };
 
+    console.log("Request body => ", requestBody);
+    
     const headers = {
       "Content-Type": "application/json",
       Accept: "application/json",
