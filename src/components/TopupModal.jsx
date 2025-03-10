@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { OrbitProgress } from "react-loading-indicators";
 import Input from "./input";
 import { useNavigate } from "react-router-dom";
+import { BsArrowLeft } from "react-icons/bs";
 
 const TopUpPage = () => {
   const [amount, setAmount] = useState("");
@@ -64,64 +65,66 @@ const TopUpPage = () => {
   };
   return (
     <div className="flex flex-col w-full h-screen bg-[#F7F7F7] p-6">
-      <div className="bg-white p-6 mt-6 h-auto justify-center items-center rounded-xl">
-      <div className="mt-20 p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Wallet Topup
-        </h2>
-      </div>
-      <div className="flex flex-col">
-        <Input
-          label={"Amount"}
-          type="number"
-          onChange={(e) => setAmount(e.target.value)}
-          className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200 mb-4"
-          placeholder="0.00 GHS"
-        />
-
-        <select
-          className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200 mb-5 font-Poppins font-semibold"
-          value={network}
-          onChange={handleChange}
+      <div className="flex cursor-pointer  items-center ml-2">
+        <div
+          onClick={back}
+          className="flex items-center space-x-4 p-3 w-auto border-border-default border rounded-xl bg-bg-tertiary"
         >
-          <option value="">Select a Network</option>
-          <option value="MTN">MTN</option>
-          <option value="Vodafone">Vodafone</option>
-          <option value="AirtelTigo">AirtelTigo</option>
-        </select>
-        <div className="flex justify-center items-center w-full h-auto">
-          {loading ? (
-            <OrbitProgress
-              color="#000"
-              size="small"
-              text="loading"
-              textColor=""
-            />
-          ) : (
-            <p className="mb-5 text-green-800 text-center text-wrap">
-              {message}
-            </p>
-          )}
-        </div>
-        <div className="flex justify-between mt-4 space-x-10">
-          <Button
-            label={"Back"}
-            onClick={back}
-            className="bg-danger-400 text-white w-32 font-medium h-16"
-          >
-            Back
-          </Button>
-          <Button
-            label={"Top Up"}
-            onClick={deposit}
-            className="bg-secondary text-primary w-32 font-medium h-16"
-            size="sm"
-          >
-            Top Up
-          </Button>
+          <BsArrowLeft />
+          <p className="flex justify-start items-start text-black">Back</p>
         </div>
       </div>
-    </div>
+      <div className="bg-white p-6 mt-6 h-auto justify-center items-center rounded-xl">
+        <div className="mt-20 p-6">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Wallet Topup
+          </h2>
+        </div>
+        <div className="flex flex-col">
+          <Input
+            label={"Amount"}
+            type="number"
+            onChange={(e) => setAmount(e.target.value)}
+            className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200 mb-4"
+            placeholder="0.00 GHS"
+          />
+
+          <select
+            className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200 mb-5 font-Poppins font-semibold"
+            value={network}
+            onChange={handleChange}
+          >
+            <option value="">Select a Network</option>
+            <option value="MTN">MTN</option>
+            <option value="Vodafone">Vodafone</option>
+            <option value="AirtelTigo">AirtelTigo</option>
+          </select>
+          <div className="flex justify-center items-center w-full h-auto">
+            {loading ? (
+              <OrbitProgress
+                color="#000"
+                size="small"
+                text="loading"
+                textColor=""
+              />
+            ) : (
+              <p className="mb-5 text-green-800 text-center text-wrap">
+                {message}
+              </p>
+            )}
+          </div>
+          <div className="flex">
+            <Button
+              label={"Top Up"}
+              onClick={deposit}
+              className="bg-secondary text-primary w-full font-medium h-16"
+              size="sm"
+            >
+              Top Up
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
