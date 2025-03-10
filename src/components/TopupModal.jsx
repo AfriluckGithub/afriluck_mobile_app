@@ -80,7 +80,7 @@ const TopUpPage = () => {
         />
 
         <select
-          className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200 mb-5"
+          className="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200 mb-5 font-Poppins font-semibold"
           value={network}
           onChange={handleChange}
         >
@@ -109,7 +109,7 @@ const TopUpPage = () => {
             onClick={back}
             className="bg-danger-400 text-white w-32 font-medium h-16"
           >
-            Cancel
+            Back
           </Button>
           <Button
             label={"Top Up"}
