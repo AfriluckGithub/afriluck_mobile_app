@@ -63,13 +63,14 @@ const TopUpPage = () => {
     }
   };
   return (
-    <div className="flex flex-col w-full h-full bg-white">
+    <div className="flex flex-col w-full h-screen bg-[#F7F7F7] p-6">
+      <div className="bg-white p-6 mt-6 h-auto justify-center items-center rounded-xl">
       <div className="mt-20 p-6">
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
           Wallet Topup
         </h2>
       </div>
-      <div className="flex flex-col items-center justify-center p-6 h-full">
+      <div className="flex flex-col">
         <Input
           label={"Amount"}
           type="number"
@@ -120,6 +121,7 @@ const TopUpPage = () => {
           </Button>
         </div>
       </div>
+    </div>
     </div>
   );
 };
