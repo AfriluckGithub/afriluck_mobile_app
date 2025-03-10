@@ -102,18 +102,18 @@ const TopUpPage = () => {
             </p>
           )}
         </div>
-        <div className="flex justify-between mt-4">
+        <div className="flex justify-between mt-4 space-x-10">
           <Button
             label={"Back"}
             onClick={back}
-            className="bg-danger-500 text-white w-auto font-medium"
+            className="bg-danger-400 text-white w-32 font-medium h-16"
           >
             Cancel
           </Button>
           <Button
             label={"Top Up"}
             onClick={deposit}
-            className="bg-secondary text-primary w-auto font-medium"
+            className="bg-secondary text-primary w-32 font-medium h-16"
             size="sm"
           >
             Top Up
