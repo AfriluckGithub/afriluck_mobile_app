@@ -75,7 +75,7 @@ const TopUpPage = () => {
         </div>
       </div>
       <div className="bg-white p-6 mt-6 h-auto justify-center items-center rounded-xl">
-        <div className="mt-20 p-6">
+        <div className="">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
             Wallet Topup
           </h2>
