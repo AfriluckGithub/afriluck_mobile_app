@@ -31,6 +31,7 @@ import VerifySecurityCode from "./components/Accounts/verifysecuritycode";
 import ProfileScreen from "./components/Auth/profile";
 import ResetPasswordScreenUnAutheenticated from "./components/Auth/resetpasswordUnauthenticated";
 import VerifyCodeScreenUnAutheenticated from "./components/Auth/verifycodeUnauthenticated";
+import TopUpPage from "./components/TopupModal";
 
 export const router = createBrowserRouter([
   {
@@ -162,5 +163,9 @@ export const router = createBrowserRouter([
   {
     path: "/profilescreen",
     element: <ProfileScreen />,
+  },
+  {
+    path: "/topup",
+    element: <TopUpPage />,
   },
 ]);

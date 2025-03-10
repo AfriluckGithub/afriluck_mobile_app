@@ -4,18 +4,20 @@ import { Button } from "@heroui/button";
 import { useNavigate } from "react-router-dom";
 import { useAvatar } from "../../context/AvatarContext";
 import { useSelector } from "react-redux";
-import TopUpModal from "../TopupModal";
 
 const LoggedIn = () => {
   const { avatar } = useAvatar();
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
   const [balance, setBalance] = useState(0.0);
 
   const user = useSelector((state) => state.user?.user);
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
   }, [user]);
+
+  const topup = () => {
+    navigate('/topup');
+  }
 
   const username =
     memoizedUser === null
@@ -24,25 +26,25 @@ const LoggedIn = () => {
   const phoneNumber =
     memoizedUser === null ? "0202020202" : memoizedUser.phone_number;
 
-  const getBanalce = async () => {
-    const response = await fetch(
-      "https://app.afriluck.com/api/V1/app/account/balance",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${memoizedUser.token}`,
-        },
-      }
-    );
-    const json = await response.json();
+  // const getBanalce = async () => {
+  //   const response = await fetch(
+  //     "https://app.afriluck.com/api/V1/app/account/balance",
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${memoizedUser.token}`,
+  //       },
+  //     }
+  //   );
+  //   const json = await response.json();
 
-    if (response.status === 200) {
-      setBalance(json.balance);
-    } else {
-      setBalance(memoizedUser.balance);
-    }
-  };
+  //   if (response.status === 200) {
+  //     setBalance(json.balance);
+  //   } else {
+  //     setBalance(memoizedUser.balance);
+  //   }
+  // };
 
   useEffect(() => {
     const getBanalce = async () => {
@@ -66,10 +68,6 @@ const LoggedIn = () => {
     };
     getBanalce();
   }, [memoizedUser]);
-
-  if (!isOpen) {
-    getBanalce();
-  }
 
   return (
     <div className="flex flex-col w-full space-y-6  py-4">
@@ -109,13 +107,12 @@ const LoggedIn = () => {
           <p className="text-lg font-semibold">GHS {balance}.00</p>
           <Button
             label="Topup"
-            onPress={() => setIsOpen(true)}
+            onPress={ topup }
             className="bg-secondary text-primary w-full font-medium"
             size="lg"
           >
             Topup
           </Button>
-          <TopUpModal isOpen={isOpen} onCancel={() => setIsOpen(false)} />
         </div>
         {/* <div className="flex flex-col w-full items-center  bg-white rounded-xl p-4 space-y-4 border border-border-default">
           <div className="flex  items-center space-x-2">
