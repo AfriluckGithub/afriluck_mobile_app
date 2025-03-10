@@ -5,7 +5,7 @@ import { OrbitProgress } from "react-loading-indicators";
 import Input from "./input";
 import { useNavigate } from "react-router-dom";
 
-const TopUpPage = ({ isOpen, onCancel }) => {
+const TopUpPage = () => {
   const [amount, setAmount] = useState("");
   const [network, setNetwork] = useState("");
   const [message, setMessage] = useState("");
@@ -22,7 +22,7 @@ const TopUpPage = ({ isOpen, onCancel }) => {
 
   const back = () => {
     navigate("/profile");
-  }
+  };
 
   const deposit = async () => {
     console.log(`amount => ${amount} network => ${network}`);
