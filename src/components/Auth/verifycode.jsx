@@ -47,7 +47,7 @@ const VerifyCodeScreen = () => {
       const status = res.status;
       setLoading(false);
       if (status === 200) {
-        navigate("/login");
+        navigate("/complete");
       }
     } catch (error) {
       try {

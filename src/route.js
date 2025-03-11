@@ -32,6 +32,7 @@ import ProfileScreen from "./components/Auth/profile";
 import ResetPasswordScreenUnAutheenticated from "./components/Auth/resetpasswordUnauthenticated";
 import VerifyCodeScreenUnAutheenticated from "./components/Auth/verifycodeUnauthenticated";
 import TopUpPage from "./components/TopupModal";
+import RegistrationComplete from "./components/Auth/registrationComplete";
 
 export const router = createBrowserRouter([
   {
@@ -167,5 +168,9 @@ export const router = createBrowserRouter([
   {
     path: "/topup",
     element: <TopUpPage />,
+  },
+  {
+    path: "/complete",
+    element: <RegistrationComplete />,
   },
 ]);
