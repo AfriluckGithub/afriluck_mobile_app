@@ -12,7 +12,6 @@ const SingleGame = () => {
   const [selectedGame, setSelectedGame] = useState(1);
 
   const [betAmount, setBetAmount] = useState(0);
-  // const [numbers, setNumbers] = useState([]);
   const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
   const [
