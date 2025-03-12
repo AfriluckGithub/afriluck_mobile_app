@@ -21,16 +21,7 @@ const SingleGamePayment = () => {
   const [loading, setLoading] = useState(false);
   const [isValidMobile, setIsValidMobile] = useState(false);
   const { trackEvent } = useAptabase();
-
-  //const numbers = localStorage.getItem("numbers");
-  //const amount = localStorage.getItem("betAmount");
-  //const game = localStorage.getItem("game");
-  //const mobile = localStorage.getItem("mobileNumber");
-  //const token = localStorage.getItem("token");
-  //const game_type = localStorage.getItem("game_type");
-  //const game_picked = localStorage.getItem("game_picked");
-
-  //const user = useSelector((state) => state.user.user);
+  
   const transaction =
     useSelector((state) => state.transaction?.transactions) || {};
 
