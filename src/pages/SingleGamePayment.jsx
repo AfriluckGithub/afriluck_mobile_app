@@ -284,6 +284,8 @@ const SingleGamePayment = () => {
                       className="flex mb-2 w-auto"
                       src={network.image}
                       alt={network.placeholder}
+                      loading="eager"
+                      decoding="async"
                     />
                     <p className="flex w-full justify-center items-center">
                       <p className="flex text-xs w-full justify-center items-center text-black">
