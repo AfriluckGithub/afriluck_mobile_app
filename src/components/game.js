@@ -20,6 +20,8 @@ const Game = ({ title, image, subtitle, type, disabled }) => {
       <div className="w-full h-[60%]  md:h-[60%] xl:h-[70%]">
         <img
           alt="logo"
+          loading="eager"
+          decoding="async"
           className="w-full h-full object-fill rounded-t-xl"
           src={image}
         />
