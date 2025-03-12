@@ -5,13 +5,9 @@ import "./../output.css";
 import Button from "../components/button";
 import { useSelector } from "react-redux";
 import { useMemo, useState } from "react";
-//import { clearTransactionData } from "../store/transactionSlice";
 
 const SingleGamePaymentCheckStatus = () => {
   const navigate = useNavigate();
-  //const dispatch = useDispatch();
-  //const user = useSelector((state) => state.user.user);
-  //const user = useSelector((state) => state.user?.user) || {};
   const [statusText, setStatusText] = useState("Check Status");
   const [statusImage, setStatusImage] = useState("payment-status.svg");
   const [statusInfoText, setStatusInfoText] = useState(
