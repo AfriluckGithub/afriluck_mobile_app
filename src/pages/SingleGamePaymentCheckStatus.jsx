@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import "./../output.css";
 import Button from "../components/button";
 import { useSelector } from "react-redux";
 import { useMemo, useState } from "react";

@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { BsXCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import "./../output.css";
 import { useEffect, useState } from "react";
 
 import { Button } from "@heroui/button";

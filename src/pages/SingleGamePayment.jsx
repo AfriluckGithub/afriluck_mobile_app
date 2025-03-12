@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
-import "./../output.css";
 import { OrbitProgress } from "react-loading-indicators";
 import Input from "../components/input";
 import { ToastContainer, toast } from "react-toastify";
@@ -21,7 +20,7 @@ const SingleGamePayment = () => {
   const [loading, setLoading] = useState(false);
   const [isValidMobile, setIsValidMobile] = useState(false);
   const { trackEvent } = useAptabase();
-  
+
   const transaction =
     useSelector((state) => state.transaction?.transactions) || {};
 
