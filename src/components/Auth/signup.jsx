@@ -22,9 +22,6 @@ const SignupScreen = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const ref = searchParams.get("ref");
-  // const openModal = () => {
-  //   setOpen(true);
-  // };
 
   const validatePassword = (password) => {
     const errors = [];
@@ -94,10 +91,6 @@ const SignupScreen = () => {
       console.log(e.response.data.error);
     }
   };
-
-  // const handleSuccess = async (phoneNumber, source = "signup") => {
-  //   // navigate("/verifycode", { state: { phoneNumber, source } });
-  // };
 
   const handlePhoneNumberChange = (e) => {
     const value = e.target.value;

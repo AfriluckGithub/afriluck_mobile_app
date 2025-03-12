@@ -16,14 +16,6 @@ export default function Content({ subGames, subGames1, query }) {
 }
 
 const Body = ({ subGames, subGames1, query }) => {
-  // const [
-  //   //drawTimes,
-  //   //setDrawTimes
-  // ] = useState({
-  //   Anopa: new Date().setHours(10, 0, 0, 0),
-  //   Midday: new Date().setHours(13, 30, 0, 0),
-  //   Afriluck: new Date().setHours(19, 0, 0, 0),
-  // });
 
   function calculateTimeLeft(drawTime) {
     const now = new Date();
@@ -62,11 +54,6 @@ const Body = ({ subGames, subGames1, query }) => {
     const currentMinutes = now.getMinutes();
     const dayOfWeek = now.getDay();
 
-    // const startHour = 19;
-    // const startMinute = 45;
-    // const endHour = 19;
-    // const endMinute = 0;
-
     if (dayOfWeek === 0) {
       endHour = 17;
       endMinute = 30;
@@ -83,44 +70,11 @@ const Body = ({ subGames, subGames1, query }) => {
     return true;
   }
 
-  // function isBetweenGameTime(drawTime) {
-  //   const now = new Date();
-  //   const dayOfWeek = now.getDay();
-
-  //   let startHour = drawTime.startHour;
-  //   let startMinute = drawTime.startMinute;
-  //   let endHour = drawTime.endHour;
-  //   let endMinute = drawTime.endMinute;
-
-  //   if (dayOfWeek === 0) {
-  //     endHour = 17;
-  //     endMinute = 30;
-  //   }
-
-  //   let startTime = new Date();
-  //   startTime.setHours(startHour, startMinute, 0, 0);
-
-  //   let endTime = new Date();
-  //   endTime.setHours(endHour, endMinute, 0, 0);
-
-  //   if (dayOfWeek !== 0) {
-  //     endTime.setDate(endTime.getDate() + 1);
-  //   }
-
-  //   return now >= startTime || now < endTime;
-  // }
-
   const drawTimes = {
     Anopa: { startHour: 10, startMinute: 0, endHour: 19, endMinute: 45 },
     Midday: { startHour: 13, startMinute: 30, endHour: 19, endMinute: 45 },
     Afriluck: { startHour: 19, startMinute: 45, endHour: 19, endMinute: 45 },
   };
-
-  // const timeLeft = {
-  //   Anopa: calculateTimeLeft(drawTimes.Anopa),
-  //   Midday: calculateTimeLeft(drawTimes.Midday),
-  //   Afriluck: calculateTimeLeft(drawTimes.Afriluck),
-  //   };
 
   const [timeLeft, setTimeLeft] = useState({
     Anopa: calculateTimeLeft(drawTimes.Anopa),
@@ -140,11 +94,6 @@ const Body = ({ subGames, subGames1, query }) => {
     return () => clearInterval(timer);
   }, [drawTimes.Afriluck, drawTimes.Anopa, drawTimes.Midday]);
 
-  // const isDrawStarted = {
-  //   Anopa: isBetweenGameTime(19, 45, 10, 0),
-  //   Midday: isBetweenGameTime(19, 45, 13, 30),
-  //   Afriluck: isBetweenGameTime(19, 45, 19, 0),
-  // };
 
   let gameSections = [
     {

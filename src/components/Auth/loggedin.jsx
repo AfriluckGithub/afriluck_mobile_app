@@ -26,26 +26,6 @@ const LoggedIn = () => {
   const phoneNumber =
     memoizedUser === null ? "0202020202" : memoizedUser.phone_number;
 
-  // const getBanalce = async () => {
-  //   const response = await fetch(
-  //     "https://app.afriluck.com/api/V1/app/account/balance",
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${memoizedUser.token}`,
-  //       },
-  //     }
-  //   );
-  //   const json = await response.json();
-
-  //   if (response.status === 200) {
-  //     setBalance(json.balance);
-  //   } else {
-  //     setBalance(memoizedUser.balance);
-  //   }
-  // };
-
   useEffect(() => {
     const getBanalce = async () => {
       const response = await fetch(

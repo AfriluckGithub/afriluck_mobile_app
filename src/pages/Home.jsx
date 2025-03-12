@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-//import SearchBar from "../components/searchbar";
 import Banner from "../components/banner";
 import Content from "../components/content";
 
