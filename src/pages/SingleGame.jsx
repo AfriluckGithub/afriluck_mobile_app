@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Input } from "@heroui/input";
 import { useNavigate } from "react-router-dom";
 import "./../output.css";
-// import Button from "../components/button";
 import { useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
 import { BsArrowLeft } from "react-icons/bs";
@@ -24,9 +23,6 @@ const SingleGame = () => {
     valuesArray,
     //setValuesArray
   ] = useState([]);
-  // const [val, setVal] = useState([]);
-
-  //const [total, setTotal] = useState(0);
 
   console.log(disabled);
   console.log(valuesArray);
@@ -378,11 +374,6 @@ const SingleGame = () => {
                 {type}
               </p>
             </div>
-            {/* <div className="flex flex-wrap justify-center items-center w-screen font-Poppins text-xl">
-              <p className="flex justify-start items-start text-black">
-                {type}
-              </p>
-            </div> */}
           </div>
         </div>
         <div className="flex flex-col mx-4 md:mx-12 lg:mx-48">
