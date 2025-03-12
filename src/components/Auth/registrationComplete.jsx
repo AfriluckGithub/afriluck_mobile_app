@@ -31,7 +31,7 @@ export default function RegistrationComplete() {
           Thank you for signing up. You can now access your account.
         </p>
         <button
-          className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition"
+          className="mt-6 px-6 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-primary-600 transition"
           onClick={loginPage}
         >
           Go to Login Page

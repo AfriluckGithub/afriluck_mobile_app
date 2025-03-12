@@ -4,7 +4,7 @@ const Banner = ({ image }) => {
       <img
         src={image}
         alt="Afriluck Lotto"
-        className="w-full h-auto object-fill rounded-xl"
+        className="w-full h-full object-fill rounded-xl"
       />
     </div>
   );
