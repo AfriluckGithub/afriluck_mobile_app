@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Input } from "@heroui/input";
 import { useNavigate } from "react-router-dom";
-import "./../output.css";
 import { useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
 import { BsArrowLeft } from "react-icons/bs";
