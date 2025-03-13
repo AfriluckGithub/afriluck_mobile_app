@@ -6,7 +6,7 @@ const Banner = ({ image }) => {
         alt="Afriluck Lotto"
         loading="eager"
         decoding="async"
-        className="w-full h-full object-fill rounded-xl"
+        className="lg:w-screen md:w-auto sm:w-96 h-full object-fill rounded-xl"
       />
     </div>
   );
