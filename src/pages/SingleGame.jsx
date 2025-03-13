@@ -412,6 +412,8 @@ const SingleGame = () => {
                         <img
                           alt="logo"
                           src={game.imageUrl}
+                          loading="eager"
+                          decoding="async"
                           className="h-10 w-16"
                         />
                         {/* {game.game} */}
