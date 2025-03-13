@@ -95,6 +95,7 @@ const Header = () => {
           </Link>
           {/* Mobile Menu Icon (Only Visible on Small Screens) */}
           <button
+            aria-labelledby="menu"
             className="sm:block md:hidden  items-center text-gray-700"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
