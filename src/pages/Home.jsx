@@ -1,9 +1,13 @@
-import React, { useState } from "react";
-import Banner from "../components/banner";
-import Content from "../components/content";
+import React, { useState, Suspense, lazy } from "react";
+//import Banner from "../components/banner";
+//import Content from "../components/content";
+
+const Banner = lazy(() => import("../components/banner"));
+const Content = lazy(() => import("../components/content"));
 
 const Home = () => {
-  const [query, 
+  const [
+    query,
     //setQuery
   ] = useState("");
 
@@ -23,18 +27,22 @@ const Home = () => {
   return (
     <div className="min-h-screen flex flex-col mb-24">
       {/* <SearchBar query={query} setQuery={setQuery} /> */}
-      <div className="mt-28 mx-4 md:mx-12 xl:mx-48">
-        <Banner image={"banner.webp"} />
+      <div className="flex items-center justify-center mt-28 mx-4 md:mx-12 xl:mx-48">
+        <Suspense fallback={<div>Loading...</div>}>
+          <Banner image={"banner.webp"} />
+        </Suspense>
       </div>
       <div className="mx-4 md:mx-12 xl:mx-48">
-        <Content
-          query={query}
-          subGames={subGames}
-          subGames1={subGames1}
-          image={"game.png"}
-          title={"Morning Draw"}
-          subtitle={"Super Monday"}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Content
+            query={query}
+            subGames={subGames}
+            subGames1={subGames1}
+            image={"game.png"}
+            title={"Morning Draw"}
+            subtitle={"Super Monday"}
+          />
+        </Suspense>
       </div>
     </div>
   );
