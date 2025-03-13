@@ -80,6 +80,7 @@ const Header = () => {
             <div className="w-12 h-12 flex items-center justify-center bg-[#14B1B9] text-white rounded-full border-4 border-border-primary">
               <FaRegUser size={18} />
             </div>
+            View Profile
           </Link>
         )}
         <div className="w-12 h-12 flex items-center justify-center border border-border-default rounded-xl bg-bg-tertiary">
