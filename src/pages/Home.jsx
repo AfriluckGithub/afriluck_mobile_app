@@ -32,7 +32,7 @@ const Home = () => {
           <Banner image={"banner.webp"} />
         </Suspense>
       </div>
-      <div className="mx-4 md:mx-12 xl:mx-48">
+      <div className="flex items-center justify-center mx-4 md:mx-12 xl:mx-48">
         <Suspense fallback={<div>Loading...</div>}>
           <Content
             query={query}
