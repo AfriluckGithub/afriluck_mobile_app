@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
 import { BsArrowLeft } from "react-icons/bs";
 import { Button } from "@heroui/button";
+
 const SingleGame = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

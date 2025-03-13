@@ -8,6 +8,7 @@ module.exports = {
     "./node_modules/@heroui/theme/dist/components/(button|input|ripple|spinner|form).js"
   ],
   darkMode: "class",
+  purge: ['./src/pages/**/*.js', './src/components/**/*.js'],
   theme: {
     extend: {
       fontFamily: {

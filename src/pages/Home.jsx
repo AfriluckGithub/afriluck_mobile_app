@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <div className="min-h-screen flex flex-col mb-24">
       {/* <SearchBar query={query} setQuery={setQuery} /> */}
-      <div className="mt-24 mx-4 md:mx-12 xl:mx-48">
+      <div className="mt-28 mx-4 md:mx-12 xl:mx-48">
         <Banner image={"banner.svg"} />
       </div>
       <div className="mx-4 md:mx-12 xl:mx-48">
