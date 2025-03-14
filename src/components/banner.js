@@ -6,8 +6,8 @@ const Banner = ({ image }) => {
         alt="Afriluck Lotto"
         loading="lazy"
         decoding="async"
-        width={1920}
-        height={600}
+        width="1500" 
+        height="644"
         className="lg:w-screen md:w-auto sm:w-96 h-full object-fill rounded-xl"
       />
     </div>
