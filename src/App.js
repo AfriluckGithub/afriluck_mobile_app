@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { Suspense, lazy } from "react";
 import TagManager from "react-gtm-module";
 const tagManagerArgs = {
-  gtmId: process.env.GTM_ID
+  gtmId: "GTM-5Q9QP597"
 };
 
 const Header = lazy(() => import("./components/header"));
