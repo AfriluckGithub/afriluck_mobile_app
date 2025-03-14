@@ -27,7 +27,7 @@ const Home = () => {
       {/* <SearchBar query={query} setQuery={setQuery} /> */}
       <div className="flex items-center justify-center mt-28 mx-4 md:mx-12 xl:mx-48">
         <Suspense fallback={<div>Loading...</div>}>
-          <Banner image={"banner-new.webp"} />
+          <Banner image={"banner-compressed.webp"} />
         </Suspense>
       </div>
       <div className="flex items-center justify-center mx-4 md:mx-12 xl:mx-48">
