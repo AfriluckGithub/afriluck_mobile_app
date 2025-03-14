@@ -4,7 +4,7 @@ const Banner = ({ image }) => {
       <img
         src={image}
         alt="Afriluck Lotto"
-        loading="eager"
+        loading="lazy"
         decoding="async"
         width={1920}
         height={600}
