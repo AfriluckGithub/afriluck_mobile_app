@@ -71,9 +71,9 @@ const Body = ({ subGames, subGames1, query }) => {
   }
 
   const drawTimes = {
-    Anopa: { startHour: 10, startMinute: 0, endHour: 19, endMinute: 45 },
-    Midday: { startHour: 13, startMinute: 30, endHour: 19, endMinute: 45 },
-    Afriluck: { startHour: 19, startMinute: 45, endHour: 19, endMinute: 45 },
+    Anopa: { startHour: 10, startMinute: 0, endHour: 19, endMinute: 0 },
+    Midday: { startHour: 13, startMinute: 30, endHour: 19, endMinute: 0 },
+    Afriluck: { startHour: 19, startMinute: 45, endHour: 19, endMinute: 0 },
   };
 
   const [timeLeft, setTimeLeft] = useState({
