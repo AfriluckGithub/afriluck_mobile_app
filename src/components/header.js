@@ -52,7 +52,7 @@ const Header = () => {
   return (
     <div className="flex px-4 md:px-6 xl:flex flex-row justify-between items-center w-full h-auto bg-white xl:px-48 fixed py-6 top-0 left-0 right-0 z-50 border-b border-border-primary">
       {/* Logo */}
-      <img src="afriluck.svg" alt="Logo" className="w-24 h-auto ml-6" width={25} height={14}/>
+      <img src="afriluck.svg" alt="Logo" className="w-24 h-auto ml-6" width="24" height="14"/>
       <div>
         {memoizedUser ? (
           <p className="text-lg font-semibold text-primary">
