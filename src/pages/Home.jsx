@@ -1,6 +1,4 @@
 import React, { useState, Suspense, lazy } from "react";
-//import Banner from "../components/banner";
-//import Content from "../components/content";
 
 const Banner = lazy(() => import("../components/banner"));
 const Content = lazy(() => import("../components/content"));
