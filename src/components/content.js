@@ -41,7 +41,7 @@ const Body = ({ subGames, subGames1, query }) => {
 
     const difference = targetTime - now;
     return {
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24 - 1),
         minutes: Math.floor((difference / 1000 / 60) % 60),
         seconds: Math.floor((difference / 1000) % 60),
     };
