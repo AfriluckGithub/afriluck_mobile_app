@@ -22,7 +22,7 @@ const Body = ({ subGames, subGames1 }) => {
     Afriluck: { startHour: 19, startMinute: 45, endHour: 19, endMinute: 0 },
   };
 
-  const calculateTimeLeft = (drawTime) => {
+  const calculateTimeLeft = (drawTime, isAfriluck = false) => {
     const now = new Date();
     let targetTime = new Date(now);
 
@@ -35,6 +35,10 @@ const Body = ({ subGames, subGames1 }) => {
     }
 
     targetTime.setHours(drawTime.startHour, drawTime.startMinute, 0, 0);
+
+    if (isAfriluck) {
+      targetTime.setMinutes(targetTime.getMinutes() - 45); // Deduct 45 minutes
+    }
     const difference = targetTime - now;
 
     return {
@@ -60,12 +64,9 @@ const Body = ({ subGames, subGames1 }) => {
       }
     }
 
-    if (
-      gameName === "Afriluck 6/57" &&
-      dayOfWeek === 0 &&
-      (currentHours > 17 || (currentHours === 17 && currentMinutes >= 30))
-    ) {
-      return false;
+    // Afriluck should end at 5:30 PM on Sundays
+    if (gameName === "Afriluck 6/57" && dayOfWeek === 0) {
+      if (currentHours >= 17 && currentMinutes === 30) return false;
     }
 
     return !(
@@ -79,7 +80,7 @@ const Body = ({ subGames, subGames1 }) => {
   const [timeLeft, setTimeLeft] = useState({
     Anopa: calculateTimeLeft(drawTimes.Anopa),
     Midday: calculateTimeLeft(drawTimes.Midday),
-    Afriluck: calculateTimeLeft(drawTimes.Afriluck),
+    Afriluck: calculateTimeLeft(drawTimes.Afriluck, true),
   });
 
   useEffect(() => {
@@ -87,12 +88,12 @@ const Body = ({ subGames, subGames1 }) => {
       setTimeLeft({
         Anopa: calculateTimeLeft(drawTimes.Anopa),
         Midday: calculateTimeLeft(drawTimes.Midday),
-        Afriluck: calculateTimeLeft(drawTimes.Afriluck),
+        Afriluck: calculateTimeLeft(drawTimes.Afriluck, true),
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [drawTimes.Afriluck, drawTimes.Anopa, drawTimes.Midday]);
+  }, [drawTimes.Afriluck, drawTimes.Midday, drawTimes.Anopa]);
 
   let gameSections = [
     {
