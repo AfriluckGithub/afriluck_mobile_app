@@ -60,7 +60,7 @@ const Body = ({ subGames, subGames1 }) => {
       (dayOfWeek === 0 && currentHours < 19 && currentMinutes < 45)
     ) {
       if (gameName === "Anopa" || gameName === "Midday") {
-        return false;
+        return true;
       }
     }
 
@@ -99,15 +99,15 @@ const Body = ({ subGames, subGames1 }) => {
     {
       name: "Anopa",
       timeLeft: timeLeft.Anopa,
-      //started: isGameActive(19, 45, 10, 0, "Anopa"),
-      started: false,
+      started: isGameActive(19, 45, 10, 0, "Anopa"),
+      //started: true,
       games: subGames1,
     },
     {
       name: "Midday",
       timeLeft: timeLeft.Midday,
-      //started: isGameActive(19, 45, 13, 30, "Midday"),
-      started: false,
+      started: isGameActive(19, 45, 13, 30, "Midday"),
+      //started: true,
       games: subGames1,
     },
     {
