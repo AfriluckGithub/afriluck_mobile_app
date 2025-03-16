@@ -66,7 +66,7 @@ const Body = ({ subGames, subGames1 }) => {
 
     // Afriluck should end at 5:30 PM on Sundays
     if (gameName === "Afriluck 6/57" && dayOfWeek === 0) {
-      if (currentHours >= 17 && currentMinutes === 30) return false;
+      if (currentHours >= 17 && currentMinutes === 30) return true;
     }
 
     return !(
