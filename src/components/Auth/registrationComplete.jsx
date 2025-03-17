@@ -1,8 +1,8 @@
-import { useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function RegistrationComplete() {
 
-  const navigate = useNavigation();
+  const navigate = useNavigate();
 
   const loginPage = () => {
     navigate("/login");
