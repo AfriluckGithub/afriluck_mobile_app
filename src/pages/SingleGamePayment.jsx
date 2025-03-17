@@ -310,6 +310,7 @@ const SingleGamePayment = () => {
                   icon={"ghana.svg"}
                   className="bg-[#F5F5F7] w-full input-md focus:outline-none text-black"
                   value={mobileNumber}
+                  disabled={memoizedUser}
                   onChange={handleInputChange}
                 />
               ) : (

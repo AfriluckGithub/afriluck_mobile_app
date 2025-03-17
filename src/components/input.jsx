@@ -10,6 +10,7 @@ const Input = ({
   onRightIconClick,
   value,
   onChange,
+  disabled
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -43,6 +44,7 @@ const Input = ({
         className={` grow-0`}
         value={value}
         onChange={onChange}
+        disabled={disabled}
       />
       {/* {rightIcon &&
         type === "date" && ( // Check if type is "date"
