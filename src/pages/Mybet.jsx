@@ -13,7 +13,6 @@ const Mybet = () => {
   }, [user]);
 
   useEffect(() => {
-    
     const getMyBets = async () => {
       setLoading(true);
       try {
@@ -30,8 +29,7 @@ const Mybet = () => {
         setLoading(false);
 
         console.log(res.data);
-        
-        
+
         if (res.status === 200) {
           setResults(res.data.success);
         } else if (res.status === 401) {
@@ -41,15 +39,19 @@ const Mybet = () => {
         setLoading(false);
       }
     };
-    
+
     if (memoizedUser) {
       getMyBets();
     }
   }, [memoizedUser]);
-  
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+    return date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
   };
 
   const groupedResults = results.reduce((acc, result) => {
@@ -61,30 +63,30 @@ const Mybet = () => {
     return acc;
   }, {});
 
-  
-
   return (
     <div className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48">
       {!memoizedUser && (
-        <p className="flex justify-center items-center h-screen text-wrap text-center text-black">
-          {"Please log in to see your ticket info"}
+        <div className="flex flex-col justify-center items-center h-screen w-auto text-wrap text-center text-black">
+          <p className="">{"Please log in to see your ticket info"}</p>
           <p>
-          <a className="text-blue-500 ml-5" href="/login">
-            Login
-          </a>
-            </p>
-            
-        </p>
+            <button className="bg-primary text-white px-4 py-2 rounded-md mt-5">
+              Login
+            </button>
+          </p>
+        </div>
       )}
-      
+
       <div className="flex flex-col w-full my-32">
         {Object.keys(groupedResults).map((date) => (
           <div key={date}>
             <div className="font-Poppins text-lg font-normal text-white px-6 py-2 bg-[#156064] rounded-md">
-            {date}
+              {date}
             </div>
             {groupedResults[date].map((result, index) => (
-              <div key={index} className="bg-white rounded-xl h-auto w-full p-6 my-6 border border-border-default">
+              <div
+                key={index}
+                className="bg-white rounded-xl h-auto w-full p-6 my-6 border border-border-default"
+              >
                 <div className="flex flex-row w-auto space-x-4 pb-4">
                   <span>
                     <img alt="afriluck" src="afriluck_lg.png" />
@@ -120,7 +122,12 @@ const Mybet = () => {
 
         {loading && (
           <div className="flex justify-center items-center h-screen">
-            <OrbitProgress color="#000" size="small" text="loading" textColor="" />
+            <OrbitProgress
+              color="#000"
+              size="small"
+              text="loading"
+              textColor=""
+            />
           </div>
         )}
       </div>
