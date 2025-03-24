@@ -12,6 +12,7 @@ const ResetPasswordScreenUnAutheenticated = () => {
   //const [open, setOpen] = useState(false);
   const [typingTimeout, setTypingTimeout] = useState(null);
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
   // const openModal = () => {
   //   setOpen(true);
   // };
@@ -32,12 +33,14 @@ const ResetPasswordScreenUnAutheenticated = () => {
         }),
       }
     );
-    // const json = await response.json();
+    const json = await response.json();
 
     console.log("JSON => ", response);
 
     if (response.status === 200) {
       navigate("/login");
+    }else{
+      setMessage(json);
     }
   };
 
@@ -114,6 +117,7 @@ const ResetPasswordScreenUnAutheenticated = () => {
               onClick={handleSuccess}
             />
           </div>
+          {error && <p className="text-red-500 text-sm">{message}</p>}
         </div>
       </div>
       {/* <Modal
