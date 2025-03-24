@@ -33,6 +33,7 @@ import ResetPasswordScreenUnAutheenticated from "./components/Auth/resetpassword
 import VerifyCodeScreenUnAutheenticated from "./components/Auth/verifycodeUnauthenticated";
 import TopUpPage from "./components/TopupModal";
 import RegistrationComplete from "./components/Auth/registrationComplete";
+import ShareScreenLoggedOut from "./components/Share/shareLoggedOut";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ export const router = createBrowserRouter([
   {
     path: "/share",
     element: <ShareScreen />,
+  },
+  {
+    path: "/share-user",
+    element: <ShareScreenLoggedOut />,
   },
   {
     path: "/subscription",

@@ -1,18 +1,20 @@
 import React, { useMemo } from "react";
 import { ShareData } from "../../data/share";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Share = () => {
   const user = useSelector((state) => state.user?.user);
+  const navigate = useNavigate();
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
   }, [user]);
 
   const handleClick = (e) => {
-    if (memoizedUser === null) {
-      alert("Log in to view your commission or share feature");
-    }
+    // if (memoizedUser === null) {
+    //   alert("Log in to view your commission or share feature");
+    // }
+    navigate("/share-user");
   };
 
   const disabled = memoizedUser === null ? true : false;
