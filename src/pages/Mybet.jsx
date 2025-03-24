@@ -68,6 +68,12 @@ const Mybet = () => {
       {!memoizedUser && (
         <p className="flex justify-center items-center h-screen text-wrap text-center text-black">
           {"Please log in to see your ticket info"}
+          <p>
+          <a className="text-blue-500 ml-5" href="/login">
+            Login
+          </a>
+            </p>
+            
         </p>
       )}
       
