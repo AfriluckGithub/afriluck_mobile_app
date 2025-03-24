@@ -15,7 +15,7 @@ const Profile = () => {
   }, [user]);
   window.scrollTo(0, 0);
   return (
-    <div className="flex flex-col h-[800px]  my-32 space-y-6 mx-4 md:mx-12 lg:mx-48">
+    <div className="flex flex-col h-[900px]  my-32 space-y-6 mx-4 md:mx-12 lg:mx-48">
       <div className="space-y-6">
         <div className="space-y-4 ">
           <Auth />
