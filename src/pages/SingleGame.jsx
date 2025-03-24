@@ -11,7 +11,7 @@ const SingleGame = () => {
   const dispatch = useDispatch();
   const [selectedGame, setSelectedGame] = useState(1);
 
-  const [betAmount, setBetAmount] = useState(0);
+  const [betAmount, setBetAmount] = useState("");
   const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
   const [
@@ -32,37 +32,37 @@ const SingleGame = () => {
   const increment = () => {
     setBetAmount((prev) => {
       if (type_picked === "Mega") {
-        const newAmount = prev + 5 > 20 ? 20 : prev + 5;
+        const newAmount = Number(prev) + 5 > 20 ? 20 : Number(prev) + 5;
         return newAmount === 15 ? newAmount + 5 : newAmount;
       } else if (type_picked === "Direct") {
-        return prev + 1 > 20 ? 20 : prev + 1;
+        return Number(prev) + 1 > 20 ? 20 : Number(prev) + 1;
       } else if (type_picked === "Banker") {
-        return prev + 56 > 200000000 ? 200000000 : prev + 56;
+        return Number(prev) + 56 > 200000000 ? 200000000 : Number(prev) + 56;
       } else if (type_picked === "Perm") {
-        const amt = prev + 1 > 20 ? 20 : prev + 1;
+        const amt = Number(prev) + 1 > 20 ? 20 : Number(prev) + 1;
         return amt;
       }
-      return prev;
+      return Number(prev);
     });
   };
 
   const decrement = async (type) => {
     setBetAmount((prev) => {
       if (type_picked === "Mega") {
-        const newAmount = prev - 5 > 20 ? 20 : prev - 5;
+        const newAmount = Number(prev) - 5 > 20 ? 20 : Number(prev) - 5;
         return newAmount === 15
           ? Math.max(newAmount - 5, 0)
           : Math.max(newAmount, 0);
       } else if (type_picked === "Direct") {
-        const newAmount = prev - 1 < 1 ? 1 : prev - 1;
+        const newAmount = Number(prev) - 1 < 1 ? 1 : Number(prev) - 1;
         return newAmount;
       } else if (type_picked === "Banker") {
-        return prev - 56 > 200000000 ? 200000000 : prev - 56;
+        return Number(prev) - 56 > 200000000 ? 200000000 : Number(prev) - 56;
       } else if (type_picked === "Perm") {
-        const newAmount = prev - 1 < 1 ? 1 : prev - 1;
+        const newAmount = Number(prev) - 1 < 1 ? 1 : Number(prev) - 1;
         return newAmount;
       }
-      return prev;
+      return Number(prev);
     });
   };
 
@@ -159,7 +159,7 @@ const SingleGame = () => {
       }
     } else {
       const value = e.target.value.replace(/[^0-9]/g, "");
-      setBetAmount(value === "" ? 0 : parseInt(value, 10));
+      setBetAmount(value === "" ? "" : parseInt(value, 10));
     }
   };
 

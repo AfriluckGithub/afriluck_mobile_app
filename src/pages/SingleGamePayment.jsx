@@ -236,7 +236,7 @@ const SingleGamePayment = () => {
             <div className="flex flex-row justify-center items-center  w-full p-6 rounded-t-2xl">
               <span className="font-xs text-lg  text-black">
                 <p>{game_type}</p>
-                <p className="text-xs text-black">Draw 148</p>
+                <p className="text-xs text-black"></p>
               </span>
               <span className="font-medium text-md font-Poppins ml-auto text-black">
                 {getFormattedDate()}

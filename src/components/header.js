@@ -59,7 +59,7 @@ const Header = () => {
             {location.pathname === "/profile" ? (
               <p></p>
             ) : (
-              <p> GHS {balance}.00</p>
+              <a href="/topup"><p> GHS {balance}.00</p></a>
             )}
           </p>
         ) : (
