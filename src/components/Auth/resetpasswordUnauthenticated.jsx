@@ -117,7 +117,7 @@ const ResetPasswordScreenUnAutheenticated = () => {
               onClick={handleSuccess}
             />
           </div>
-          {error && <p className="text-red-500 text-sm">{message}</p>}
+          {message && <p className="text-red-500 text-sm">{message}</p>}
         </div>
       </div>
       {/* <Modal
