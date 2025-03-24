@@ -72,7 +72,7 @@ const ForgotPassword = () => {
           <div className="flex flex-col space-y-2">
             <Button
               label={"Send Code"}
-              className="bg-secondary text-primary"
+              className="bg-primary text-white"
               disabled={!phoneNumber}
               onClick={openModal}
             />

@@ -56,7 +56,7 @@ const DeleteAccount = () => {
           <div className="flex flex-col space-y-2">
             <Button
               label={"Send Code"}
-              className="bg-secondary text-primary"
+              className="bg-primary text-white"
               onClick={openModal}
             />
           </div>
