@@ -69,9 +69,11 @@ const Mybet = () => {
         <div className="flex flex-col justify-center items-center h-screen w-auto text-wrap text-center text-black">
           <p className="">{"Please log in to see your ticket info"}</p>
           <p>
-            <button className="bg-primary text-white px-4 py-2 rounded-md mt-5">
-              Login
-            </button>
+            <a href="/login">
+              <button className="bg-primary text-white px-4 py-2 rounded-md mt-5">
+                Login
+              </button>
+            </a>
           </p>
         </div>
       )}

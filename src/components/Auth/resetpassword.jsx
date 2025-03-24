@@ -61,26 +61,26 @@ const ResetPassword = () => {
             className="bg-[#F5F5F7] input-md"
             rightIcon
             value={confirmPassword}
-            onChange={(e) => {
-              setConfirmPassword(e.target.value);
+            // onChange={(e) => {
+            //   setConfirmPassword(e.target.value);
 
-              if (typingTimeout) {
-                clearTimeout(typingTimeout);
-              }
+            //   if (typingTimeout) {
+            //     clearTimeout(typingTimeout);
+            //   }
 
-              setTypingTimeout(
-                setTimeout(() => {
-                  handleVerification();
-                }, 2300)
-              );
-            }}
+            //   setTypingTimeout(
+            //     setTimeout(() => {
+            //       handleVerification();
+            //     }, 2300)
+            //   );
+            // }}
           />
           <div className="flex flex-col space-y-2">
             <Button
               label={"Reset Password"}
               className="bg-secondary text-primary"
               disabled={!password || !confirmPassword}
-              onClick={openModal}
+              onClick={handleVerification}
             />
           </div>
         </div>
