@@ -10,7 +10,7 @@ const Input = ({
   onRightIconClick,
   value,
   onChange,
-  disabled
+  disabled,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -24,29 +24,30 @@ const Input = ({
   };
 
   return (
-    <label
-      className={`input input-bordered flex  items-center gap-2 ${className}`}
-    >
-      <div className="label">
-        <span className="label-text">{label}</span>
-      </div>
-      {icon && (
-        <img
-          src={icon}
-          alt="icon"
-          className="flex justify-start items-start w-6 h-6"
+    <div className="flex flex-col w-full h-auto">
+      <label
+        className={`input input-bordered flex  items-center gap-2 ${className}`}
+      >
+        <div className="label">
+          <span className="label-text">{label}</span>
+        </div>
+        {icon && (
+          <img
+            src={icon}
+            alt="icon"
+            className="flex justify-start items-start w-6 h-6"
+          />
+        )}
+        <input
+          tabIndex="-1"
+          type={type === "password" && isPasswordVisible ? "text" : type}
+          placeholder={placeholder}
+          className={`w-full`}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
         />
-      )}
-      <input
-        tabIndex="-1"
-        type={type === "password" && isPasswordVisible ? "text" : type}
-        placeholder={placeholder}
-        className={` grow-0`}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-      />
-      {/* {rightIcon &&
+        {/* {rightIcon &&
         type === "date" && ( // Check if type is "date"
           <img
             src="calendar.svg" // Use a calendar icon
@@ -55,15 +56,16 @@ const Input = ({
             onClick={() => document.querySelector('input[type="date"]').focus()} // Focus on the date input
           />
         )} */}
-      {rightIcon && type === "password" && (
-        <img
-          src="eyeclose.svg"
-          alt="Toggle password visibility"
-          className="cursor-pointer"
-          onClick={handleTogglePasswordVisibility}
-        />
-      )}
-    </label>
+        {rightIcon && type === "password" && (
+          <img
+            src="eyeclose.svg"
+            alt="Toggle password visibility"
+            className="flex cursor-pointer justify-end items-end w-6 h-6"
+            onClick={handleTogglePasswordVisibility}
+          />
+        )}
+      </label>
+    </div>
   );
 };
 
