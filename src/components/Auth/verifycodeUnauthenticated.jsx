@@ -104,7 +104,7 @@ const VerifyCodeScreenUnAutheenticated = () => {
           <div className="flex flex-col space-y-2">
             <Button
               label={"Verify Code"}
-              className="bg-secondary text-primary"
+              className="bg-primary text-white"
               disabled={!code}
               onClick={verifyOtp}
             />
