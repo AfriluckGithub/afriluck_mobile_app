@@ -8,8 +8,8 @@ export default function RegistrationComplete() {
     navigate("/login");
   };
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-2xl shadow-lg text-center">
+    <div className="flex items-center justify-center h- w-full bg-white">
+      <div className="flex flex-col bg-white p-8 text-center h-full w-full">
         <svg
           className="w-16 h-16 text-green-500 mx-auto"
           fill="none"
