@@ -66,15 +66,15 @@ const Draw = () => {
                     <span className="flex flex-col items-start font-semibold text-gray-600 space-y-1 font-sans text-wrap w-full">
                       <div className="flex flex-row text-base">
                         <div className="mr-2 font-medium font-Poppins">{result.draw},</div>
-                        {/* <div className="font-Poppins">{result.date}</div> */}
+                        <div className="font-Poppins">{result.date}</div>
                       </div>
                       <div className="text-gray-400 font-Poppins">{result.result}</div>
                     </span>
                   </div>
-                  <hr />
+                  {/* <hr />
                   <div className="mt-4 flex justify-start w-full">
                     <span>{result.date}</span>
-                  </div>
+                  </div> */}
                 </div>
               ))}
             </div>
