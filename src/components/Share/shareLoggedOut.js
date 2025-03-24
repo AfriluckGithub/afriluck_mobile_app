@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 import SocialShare from "../SocialShare";
 
 const ShareScreenLoggedOut = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, 
+    //setOpenModal
+  ] = useState(false);
   const user = useSelector((state) => state.user?.user);
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
@@ -16,28 +18,6 @@ const ShareScreenLoggedOut = () => {
   
 
   console.log("link to copy => ",linkToCopy);
-  
-
-  const handleCopy = () => {
-    console.log("Copy button clicked"); // Debugging: Check if the function is called
-    // Check if the clipboard API is available
-    if (navigator.clipboard) {
-      navigator.clipboard
-        .writeText(linkToCopy)
-        .then(() => {
-          console.log("Link copied to clipboard:", linkToCopy); // Debugging
-          setOpenModal(true); // Show the modal
-          setTimeout(() => {
-            setOpenModal(false); // Hide the modal after 2 seconds
-          }, 2000);
-        })
-        .catch((err) => {
-          console.error("Failed to copy: ", err); // Debugging
-        });
-    } else {
-      console.error("Clipboard API not available"); // Debugging
-    }
-  };
 
   const Modal = ({ isOpen }) => {
     if (!isOpen) return null; // Don't render if not open
