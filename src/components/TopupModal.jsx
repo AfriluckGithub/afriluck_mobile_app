@@ -22,7 +22,7 @@ const TopUpPage = () => {
   };
 
   const back = () => {
-    navigate("/profile");
+    navigate(-1);
   };
 
   const deposit = async () => {

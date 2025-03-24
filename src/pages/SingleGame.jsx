@@ -164,7 +164,7 @@ const SingleGame = () => {
   };
 
   const back = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   const determineGame = (selectedGame, type) => {

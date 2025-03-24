@@ -68,7 +68,7 @@ const SingleGameSelection = () => {
   }, [amount, numbers, total, typePicked, movedPastPayment, game]);
 
   const back = () => {
-    navigate("/single_game");
+    navigate(-1);
   };
 
   const handlePaymentScreen = () => {

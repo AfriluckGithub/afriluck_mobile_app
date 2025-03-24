@@ -20,7 +20,7 @@ const SingleGamePaymentCheckStatus = () => {
   }, [transaction]);
 
   const back = () => {
-    navigate("/single_game_payment");
+    navigate(-1);
   };
 
   const checkPaymentStatus = async () => {

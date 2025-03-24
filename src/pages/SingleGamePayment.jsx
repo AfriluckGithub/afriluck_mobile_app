@@ -172,7 +172,7 @@ const SingleGamePayment = () => {
   };
 
   const back = () => {
-    navigate("/single_game_selection");
+    navigate(-1);
   };
 
   const moveToCheckPaymentStatuds = () => {
