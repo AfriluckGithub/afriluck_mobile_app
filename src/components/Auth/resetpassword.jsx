@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
-import { useNavigate } from "react-router-dom";
-import Modal from "../modal";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [open, setOpen] = useState(false);
-  const [typingTimeout, setTypingTimeout] = useState(null);
-  const navigate = useNavigate();
-  const openModal = () => {
-    setOpen(true);
-  };
+  const [confirmPassword, 
+    //setConfirmPassword
+  ] = useState("");
+  //const [open, setOpen] = useState(false);
+  //const [typingTimeout, setTypingTimeout] = useState(null);
+  //const navigate = useNavigate();
+  // const openModal = () => {
+  //   setOpen(true);
+  // };
 
-  const handleSuccess = () => {
-    navigate("/login");
-  };
+  // const handleSuccess = () => {
+  //   navigate("/login");
+  // };
 
   const handleVerification = () => {
     if (password !== confirmPassword) {
@@ -28,13 +28,13 @@ const ResetPassword = () => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      if (typingTimeout) {
-        clearTimeout(typingTimeout);
-      }
-    };
-  }, [typingTimeout]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (typingTimeout) {
+  //       clearTimeout(typingTimeout);
+  //     }
+  //   };
+  // }, [typingTimeout]);
 
   return (
     <div className="flex flex-col items-center h-screen bg-[#F7F7F7] p-6">
@@ -85,7 +85,7 @@ const ResetPassword = () => {
           </div>
         </div>
       </div>
-      <Modal
+      {/* <Modal
         isOpen={open}
         onSuccess={handleSuccess}
         type={"success"}
@@ -94,7 +94,7 @@ const ResetPassword = () => {
         buttonText="Login"
         imageSrc="check.svg"
         imgBg={"#F6F6F6"}
-      />
+      /> */}
     </div>
   );
 };
