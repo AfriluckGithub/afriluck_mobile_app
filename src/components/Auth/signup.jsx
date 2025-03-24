@@ -45,6 +45,9 @@ const SignupScreen = () => {
     if (/\s/.test(password)) {
       errors.push("Password must not contain spaces.");
     }
+    if (/^\d+$/.test(password)) {
+      errors.push("Password must not be only numbers.");
+    }
 
     return errors;
   };
