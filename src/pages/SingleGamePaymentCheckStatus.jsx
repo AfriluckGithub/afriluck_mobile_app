@@ -50,7 +50,7 @@ const SingleGamePaymentCheckStatus = () => {
       if (status === "Unpaid") {
         setStatusText("Check Again");
         setStatusInfoText(
-          "Your payment is being processed. Tap on the check again button to confirm final payment status."
+          "Your payment is unpaid at the moment & is being processed. Tap on the check again button to confirm final payment status."
         );
         setStatusImage("pending-status.svg");
       } else if (status === "Paid") {
@@ -58,6 +58,12 @@ const SingleGamePaymentCheckStatus = () => {
         setStatusImage("success-status.svg");
         setStatusInfoText(
           `Remember, matching all six numbers for Ghc20 is the key to claiming a life-changing jackpot prize of 70 million! Good Luck!!`
+        );
+      } else if (status === "Failed") {
+        setStatusText("Back");
+        setStatusImage("failed.png");
+        setStatusInfoText(
+          `Your payment was not successful. Please try again or contact support for assistance.`
         );
       }
     } catch (e) {
