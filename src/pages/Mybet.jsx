@@ -109,10 +109,10 @@ const Mybet = () => {
                 <div className="mt-2">
                   <div className="flex justify-between w-full">
                     <div className="flex flex-row">
-                      <div className="mr-2">
+                      {/* <div className="mr-2">
                         <img alt="share" src={"share.svg"} />
                       </div>
-                      <div>Share</div>
+                      <div>Share</div> */}
                     </div>
                     <span>{result.time}</span>
                   </div>
