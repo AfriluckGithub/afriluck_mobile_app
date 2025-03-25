@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Subheader from "../subheader";
-import DATA from "../../data/commission";
 import { useSelector } from "react-redux";
 
 const Sharecommission = () => {
@@ -34,7 +33,7 @@ const Sharecommission = () => {
     <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
       <Subheader title="Share Commission" />
       <div className="flex flex-col items-center w-full h-screen space-y-6  rounded-xl  mt-20 ">
-        <div className="flex items-center justify-between w-full p-4 md:p-6 rounded-xl bg-white space-x-2 md:space-x-4">
+        {/* <div className="flex items-center justify-between w-full p-4 md:p-6 rounded-xl bg-white space-x-2 md:space-x-4">
           {DATA.Users.map((index) => (
             <div
               key={index}
@@ -46,7 +45,7 @@ const Sharecommission = () => {
               <p>{index.value}</p>
             </div>
           ))}
-        </div>
+        </div> */}
         <div className="flex flex-col items-center justify-center  w-full p-4 md:p-6 rounded-xl bg-white space-x-3 md:space-x-5">
           <div className="flex items-center justify-between w-full">
             <p className="text-[#7C7C7C] text-sm">For</p>
