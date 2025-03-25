@@ -4,12 +4,17 @@ import { useSelector } from "react-redux";
 import SocialShare from "../SocialShare";
 
 const ShareScreen = () => {
+  let linkToCopy = null;
   const [openModal, setOpenModal] = useState(false);
   const user = useSelector((state) => state.user?.user);
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
   }, [user]);
-  const linkToCopy = `${window.location.origin}/signup?ref=${memoizedUser.share_code}`; // Link to copy
+  try{
+    linkToCopy = `${window.location.origin}/signup?ref=${memoizedUser.share_code}`; // Link to copy
+  }catch(e){
+    console.log(e)
+  }
 
   console.log("user => ", memoizedUser);
   
