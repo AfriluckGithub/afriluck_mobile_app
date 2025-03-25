@@ -80,7 +80,7 @@ const Modal = ({
                 ) : (
                   <button
                     type="button"
-                    className={`w-full py-4 px-4 text-lg font-semibold bg-secondary text-primary rounded-lg hover:bg-primary hover:text-white`}
+                    className={`w-full py-4 px-4 text-lg font-semibold bg-primary text-white rounded-lg hover:bg-primary hover:text-white`}
                     onClick={onSuccess}
                   >
                     {buttonText}

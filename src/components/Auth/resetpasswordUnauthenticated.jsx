@@ -112,7 +112,7 @@ const ResetPasswordScreenUnAutheenticated = () => {
           <div className="flex flex-col space-y-2">
             <Button
               label={"Reset Password"}
-              className="bg-secondary text-primary"
+              className="bg-primary text-white"
               disabled={!password || !confirmPassword}
               onClick={handleSuccess}
             />

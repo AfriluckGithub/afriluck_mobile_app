@@ -91,7 +91,7 @@ const LoggedIn = () => {
           <Button
             label="Topup"
             onPress={topup}
-            className="bg-secondary text-primary w-full font-medium"
+            className="bg-primary text-white w-full font-medium"
             size="lg"
           >
             Topup
