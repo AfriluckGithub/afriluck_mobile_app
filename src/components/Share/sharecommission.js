@@ -48,11 +48,11 @@ const Sharecommission = () => {
         </div> */}
         <div className="flex flex-col items-center justify-center  w-full p-4 md:p-6 rounded-xl bg-white space-x-3 md:space-x-5">
           <div className="flex items-center justify-between w-full">
-            <p className="text-[#7C7C7C] text-sm">For</p>
+            <p className="text-[#7C7C7C] text-sm"></p>
             <p className="text-[#7C7C7C] text-sm">Total Commission</p>
           </div>
           <div className="flex w-full items-center justify-between">
-            <p className="font-semibold">Yesterday</p>
+            <p className="font-semibold"></p>
             <p className=" font-semibold">GHS {commission.totalCommission}</p>
           </div>
         </div>
@@ -67,11 +67,11 @@ const Sharecommission = () => {
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
               >
                 <span className="text-wrap text-xs md:text-base font-medium">
-                  <p>Top-up Count</p>
+                  <p>Level 1 Count</p>
                 </span>
                 <p className="text-sm">{commission.level1Count}</p>
               </div>
-              <div
+              {/* <div
                 // key={index}
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
               >
@@ -79,7 +79,7 @@ const Sharecommission = () => {
                   <p>Amount(GHS)</p>
                 </span>
                 <p className="text-sm">{0}</p>
-              </div>
+              </div> */}
               <div
                 // key={index}
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
@@ -94,7 +94,7 @@ const Sharecommission = () => {
         </div>
         <div className="flex flex-col w-full rounded-xl bg-white">
           <div className="flex w-full p-2 bg-[#156064] text-white items-center rounded-t-xl">
-            <p className="pl-2">Level 2 Users</p>
+            <p className="pl-2">Level 2 Count</p>
           </div>
           <div className="flex items-center justify-between w-full p-4 md:p-6 rounded-xl bg-white space-x-2 md:space-x-4">
             {/* {DATA.Level2.map((index) => ( */}
@@ -107,7 +107,7 @@ const Sharecommission = () => {
                 </span>
                 <p className="text-sm">{commission.level2Count}</p>
               </div>
-              <div
+              {/* <div
                 // key={index}
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
               >
@@ -115,7 +115,7 @@ const Sharecommission = () => {
                   <p>Amount(GHS)</p>
                 </span>
                 <p className="text-sm">{0}</p>
-              </div>
+              </div> */}
               <div
                 // key={index}
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
@@ -130,7 +130,7 @@ const Sharecommission = () => {
         </div>
         <div className="flex flex-col w-full rounded-xl bg-white">
           <div className="flex w-full p-2 bg-[#156064] text-white items-center rounded-t-xl">
-            <p className="pl-2">Level 3 Users</p>
+            <p className="pl-2">Level 3 Count</p>
           </div>
           <div className="flex items-center justify-between w-full p-4 md:p-6 rounded-xl bg-white space-x-2 md:space-x-4">
           <div
@@ -142,7 +142,7 @@ const Sharecommission = () => {
                 </span>
                 <p className="text-sm">{commission.level3Count}</p>
               </div>
-              <div
+              {/* <div
                 // key={index}
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
               >
@@ -150,7 +150,7 @@ const Sharecommission = () => {
                   <p>Amount(GHS)</p>
                 </span>
                 <p className="text-sm">{0}</p>
-              </div>
+              </div> */}
               <div
                 // key={index}
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"

@@ -23,6 +23,7 @@ const Draw = () => {
         
         if (res.status === 200) {
           setResults(res.data.success);
+          console.dir(res.data.success);
         }
       } catch (e) {
         setError("Oops, nothing to display here. Kindly log-in");
