@@ -2,10 +2,13 @@ import React, { useEffect, useMemo, useState } from "react";
 
 import { Button } from "@heroui/button";
 import { useNavigate } from "react-router-dom";
-import { useAvatar } from "../../context/AvatarContext";
+// import { useAvatar } from "../../context/AvatarContext";
 import { useSelector } from "react-redux";
 
 const LoggedIn = () => {
+  const useAvatar = () => {
+    return { avatar: "black.jpg" };
+  };
   const { avatar } = useAvatar();
   const navigate = useNavigate();
   const [balance, setBalance] = useState(0.0);
@@ -16,8 +19,8 @@ const LoggedIn = () => {
   }, [user]);
 
   const topup = () => {
-    navigate('/topup');
-  }
+    navigate("/topup");
+  };
 
   const username =
     memoizedUser === null
@@ -54,7 +57,7 @@ const LoggedIn = () => {
       <div className="flex flex-row space-x-4 p-4 w-full  items-center bg-white rounded-xl border border-border-default">
         <div
           style={{ backgroundColor: "#156064" }}
-          className="avatar flex h-12 w-12 text-center text-white rounded-full font-semibold justify-center items-center"
+          className="avatar flex h-14 w-14 text-center text-white rounded-full font-semibold justify-center items-center"
         >
           {avatar ? (
             <img
@@ -87,7 +90,7 @@ const LoggedIn = () => {
           <p className="text-lg font-semibold">GHS {balance}.00</p>
           <Button
             label="Topup"
-            onPress={ topup }
+            onPress={topup}
             className="bg-secondary text-primary w-full font-medium"
             size="lg"
           >
