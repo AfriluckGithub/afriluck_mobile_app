@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaRegUser, FaBars, FaTimes } from "react-icons/fa";
 import SearchBar from "./searchbar";
 import "../output.css";
@@ -11,6 +11,7 @@ const Header = () => {
   const [balance, setBalance] = useState(0.0);
   const location = useLocation();
   const user = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
 
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
@@ -41,6 +42,10 @@ const Header = () => {
     }
   }, [memoizedUser]);
 
+  const topup = () => {
+      navigate("/topup");
+  }
+
   const getIcon = () => {
     return location.pathname === "/bet" ? (
       <img src="filter.svg" alt="Filter" className="w-6 h-6" />
@@ -59,7 +64,7 @@ const Header = () => {
             {location.pathname === "/profile" ? (
               <p></p>
             ) : (
-              <a href="/topup"><p> GHS {balance}.00</p></a>
+              <p onClick={topup}>GHS {balance}.00</p>
             )}
           </p>
         ) : (
