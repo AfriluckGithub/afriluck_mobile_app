@@ -37,7 +37,7 @@ const SingleGame = () => {
       } else if (type_picked === "Direct") {
         return Number(prev) + 1 > 20 ? 20 : Number(prev) + 1;
       } else if (type_picked === "Banker") {
-        return Number(prev) + 56 > 200000000 ? 200000000 : Number(prev) + 56;
+        return Number(prev) + 1 > 200000000 ? 200000000 : Number(prev) + 1;
       } else if (type_picked === "Perm") {
         const amt = Number(prev) + 1 > 20 ? 20 : Number(prev) + 1;
         return amt;
@@ -57,7 +57,7 @@ const SingleGame = () => {
         const newAmount = Number(prev) - 1 < 1 ? 1 : Number(prev) - 1;
         return newAmount;
       } else if (type_picked === "Banker") {
-        return Number(prev) - 56 > 200000000 ? 200000000 : Number(prev) - 56;
+        return Number(prev) - 1 < 0 ? 0 : Number(prev) - 1;
       } else if (type_picked === "Perm") {
         const newAmount = Number(prev) - 1 < 1 ? 1 : Number(prev) - 1;
         return newAmount;

@@ -135,7 +135,7 @@ const SingleGameSelection = () => {
                 <div className="flex flex-col w-full">
                   <p className="w-full font-medium text-xl">{numbers}</p>
                   <p className="text-gray-400">{`${typePicked} | GHS ${
-                    typePicked === "Perm" ? total : amount
+                    typePicked === "Perm" || typePicked === "Banker" ? total : amount
                   }.00`}</p>
                 </div>
                 <div onClick={handleDeleteSingle} className="cursor-pointer">
