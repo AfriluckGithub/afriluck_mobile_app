@@ -108,11 +108,16 @@ const Mybet = () => {
                 <hr />
                 <div className="mt-2">
                   <div className="flex justify-between w-full">
-                    <div className="flex flex-row">
-                      {/* <div className="mr-2">
-                        <img alt="share" src={"share.svg"} />
-                      </div>
-                      <div>Share</div> */}
+                    <div
+                      className={`font-semibold ${
+                        result.status === "won"
+                          ? "bg-green-500 rounded-lg text-white p-1 font-Poppins text-sm"
+                          : result.status === "pending"
+                          ? "bg-yellow-500 rounded-lg text-white p-1 font-Poppins text-sm"
+                          : result.status === "lost"? "bg-red rounded-lg text-white p-1 font-Poppins text-sm": "bg-gray-500 rounded-lg text-white p-1 font-Poppins text-sm"
+                      }`}
+                    >
+                      {result.status.toUpperCase()}
                     </div>
                     <span>{result.time}</span>
                   </div>
