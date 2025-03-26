@@ -3,53 +3,56 @@ import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
 import { useNavigate } from "react-router-dom";
-
+import { OrbitProgress } from "react-loading-indicators";
+// import Modal from "../modal";
 
 const ResetPasswordScreenUnAutheenticated = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  //const [open, setOpen] = useState(false);
-  const [typingTimeout, setTypingTimeout] = useState(null);
+  const [loading, setLoading] = useState(false);
+  //const [typingTimeout, setTypingTimeout] = useState(null);
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const phoneNumber = localStorage.getItem("phoneNumberTemp");
+
   // const openModal = () => {
   //   setOpen(true);
   // };
 
+  console.log("Phone => ", phoneNumber);
+
   const handleSuccess = async () => {
-    const response = await fetch(
-      "https://app.afriluck.com/api/V1/app/reset-password",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          phone_number: phone,
-          password: password,
-          password_confirmation: confirmPassword,
-        }),
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "https://app.afriluck.com/api/V1/app/reset-password",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            phone_number: phoneNumber,
+            password: password,
+            password_confirmation: confirmPassword,
+          }),
+        }
+      );
+
+      const json = await response.json();
+
+      console.log("JSON => ", json);
+      setLoading(false);
+      if (response.status === 200) {
+        navigate("/login");
+      } else {
+        const errorMessage = json.error.password[0];
+        setMessage(errorMessage);
       }
-    );
-    const json = await response.json();
-
-    console.log("JSON => ", response);
-
-    if (response.status === 200) {
-      navigate("/login");
-    }else{
-      setMessage(json);
-    }
-  };
-
-  const handleVerification = () => {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-    } else {
-      // Proceed with verification logic if needed
-      console.log("Passwords match, proceed with verification.");
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -66,7 +69,7 @@ const ResetPasswordScreenUnAutheenticated = () => {
       <Subheader title="Reset Password" />
       <div className="flex flex-col w-full lg:w-[40%] items-center justify-center  bg-white rounded-xl p-6 my-20 space-y-4">
         <img src="afriluck.svg" alt="afriluck" className="mb-6" />
-        <p className="text-center text-base text-text-black mb-4">
+        <p className="text-center text-base text-black mb-4">
           Please provide a password
         </p>
         <div className="flex flex-col w-full max-w-md space-y-6">
@@ -76,8 +79,8 @@ const ResetPasswordScreenUnAutheenticated = () => {
             icon={"ghana.svg"}
             className="bg-[#F5F5F7] input-md"
             rightIcon
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            value={phoneNumber}
+            disabled={true}
           />
           <Input
             type={"password"}
@@ -98,15 +101,15 @@ const ResetPasswordScreenUnAutheenticated = () => {
             onChange={(e) => {
               setConfirmPassword(e.target.value);
 
-              if (typingTimeout) {
-                clearTimeout(typingTimeout);
-              }
+              // if (typingTimeout) {
+              //   clearTimeout(typingTimeout);
+              // }
 
-              setTypingTimeout(
-                setTimeout(() => {
-                  handleVerification();
-                }, 2300)
-              );
+              // setTypingTimeout(
+              //   setTimeout(() => {
+              //     handleVerification();
+              //   }, 1000)
+              // );
             }}
           />
           <div className="flex flex-col space-y-2">
@@ -117,7 +120,21 @@ const ResetPasswordScreenUnAutheenticated = () => {
               onClick={handleSuccess}
             />
           </div>
-          {message && <p className="text-red-500 text-sm">{message}</p>}
+          {loading && (
+            <div className="flex justify-center items-center">
+              <OrbitProgress
+                color="#000"
+                size="small"
+                text="loading"
+                textColor=""
+              />
+            </div>
+          )}
+          {message && (
+            <div className="flex justify-center items-center text-red text-wrap text-center text-sm">
+              {message}
+            </div>
+          )}
         </div>
       </div>
       {/* <Modal

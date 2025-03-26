@@ -40,7 +40,7 @@ const ForgotPassword = () => {
         state: { phoneNumber, source },
       });
     } else {
-      console.error(`An error occurred ${json.error}`);
+      console.log(`An error occurred ${json}`);
     }
   };
 

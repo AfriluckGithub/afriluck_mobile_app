@@ -17,6 +17,7 @@ const VerifyCodeScreenUnAutheenticated = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { phoneNumber, source } = location.state || {};
+  localStorage.setItem("phoneNumberTemp", phoneNumber);
   // const openModal = () => {
   //   setOpen(true);
   // };
@@ -47,7 +48,9 @@ const VerifyCodeScreenUnAutheenticated = () => {
       const status = res.status;
       setLoading(false);
       if (status === 200) {
-        navigate("/reset-password-unauthenticated");
+        navigate("/reset-password-unauthenticated", {
+          state: { phoneNumber, source },
+        });
       }
     } catch (error) {
       try {
@@ -63,9 +66,9 @@ const VerifyCodeScreenUnAutheenticated = () => {
   const handleVerificationSuccess = () => {
     console.log("Source:", source);
     if (source === "forgotpassword") {
-      navigate("/resetpassword");
+      navigate("/resetpassword", { state: { phoneNumber , source} });
     } else if (source === "signup") {
-      navigate("/createpassword");
+      navigate("/createpassword", { state: { phoneNumber, source } });
     } else {
       console.warn("Unexpected source:", source);
     }
