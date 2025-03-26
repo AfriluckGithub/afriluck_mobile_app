@@ -117,7 +117,7 @@ const TopUpPage = () => {
             <Button
               label={"Top Up"}
               onClick={deposit}
-              className="bg-secondary text-primary w-full font-medium h-16"
+              className="bg-primary text-white w-full font-medium h-16 rounded-xl"
               size="sm"
             >
               Top Up
