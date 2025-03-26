@@ -67,7 +67,7 @@ const ShareScreen = () => {
           We want our customers to have fun when they play our games, and we
           strive to create a lighthearted and enjoyable experience.
         </p>
-        <div className="flex flex-col justify-center items-center bg-white w-full border rounded-xl p-6 xl:w-[50%]">
+        <div className="flex flex-col justify-center items-center bg-white w-full border rounded-xl p-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Share your link:
           </label>
@@ -79,7 +79,7 @@ const ShareScreen = () => {
               className="border border-gray-300 rounded-md p-2 w-full mb-4"
             />
             <div
-              className="flex w-auto items-center space-x-2 bg-[#156064] rounded-lg p-2 mb-4 cursor-pointer"
+              className="flex w-auto space-x-2 bg-[#156064] rounded-lg p-2 mb-4 cursor-pointer"
               onClick={handleCopy} // Attach handleCopy to the click event
             >
               <img src="copy.svg" alt="Copy" />
