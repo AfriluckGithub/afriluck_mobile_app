@@ -9,6 +9,7 @@ const SingleGamePaymentCheckStatus = () => {
   const navigate = useNavigate();
   const [statusText, setStatusText] = useState("Check Status");
   const [statusImage, setStatusImage] = useState("payment-status.svg");
+  const [status, setStatus] = useState("");
   const [statusInfoText, setStatusInfoText] = useState(
     "Your payment is being processed. Tap the button below to check payment status."
   );
@@ -48,18 +49,21 @@ const SingleGamePaymentCheckStatus = () => {
       console.log(json);
 
       if (status === "Unpaid") {
+        setStatus(status)
         setStatusText("Check Again");
         setStatusInfoText(
           "Your payment is unpaid at the moment & is being processed. Tap on the check again button to confirm final payment status."
         );
         setStatusImage("pending-status.svg");
       } else if (status === "Paid") {
+        setStatus(status)
         setStatusText("Okay");
         setStatusImage("success-status.svg");
         setStatusInfoText(
           `Remember, matching all six numbers for Ghc20 is the key to claiming a life-changing jackpot prize of 70 million! Good Luck!!`
         );
       } else if (status === "Failed") {
+        setStatus(status)
         setStatusText("Back");
         setStatusImage("failed.png");
         setStatusInfoText(
@@ -86,6 +90,7 @@ const SingleGamePaymentCheckStatus = () => {
         </div>
         <div className="flex flex-col justify-center items-center h-full w-full p-5 rounded-lg bg-[#F7F7F7]">
           <img className="h-30 w-30" src={statusImage} alt="check" />
+          <div className="font-bold font-Poppins text-black mt-5 mb-5">{status}</div>
           <p className="font-Poppins font-semibold mb-2">
             {statusText === "Okay" ? "Success" : ""}
           </p>
