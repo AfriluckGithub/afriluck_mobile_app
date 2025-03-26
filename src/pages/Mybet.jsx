@@ -109,12 +109,12 @@ const Mybet = () => {
                 <div className="mt-2">
                   <div className="flex justify-between w-full">
                     <div
-                      className={`font-semibold ${
+                      className={`font-Poppins ${
                         result.status === "won"
                           ? "bg-green-500 rounded-lg text-white p-1 font-Poppins text-sm"
                           : result.status === "pending"
                           ? "bg-yellow-500 rounded-lg text-white p-1 font-Poppins text-sm"
-                          : result.status === "lost"? "bg-red rounded-lg text-white p-1 font-Poppins text-sm": "bg-gray-500 rounded-lg text-white p-1 font-Poppins text-sm"
+                          : result.status === "lost"? "bg-rose-500 rounded-lg text-white p-1 font-Poppins text-sm": "bg-gray-500 rounded-lg text-white p-1 font-Poppins text-sm"
                       }`}
                     >
                       {result.status.toUpperCase()}
