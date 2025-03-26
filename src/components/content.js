@@ -146,7 +146,18 @@ const Body = ({ subGames, subGames1 }) => {
               </div>
             )}
           </div>
-          <div className="w-full grid grid-cols-2 gap-4 space-y-0 md:gap-6 lg:flex lg:space-x-8 justify-between items-center px-6 py-4 border-t border-border-default">
+          {/* <div className="w-full grid grid-cols-2 gap-4 space-y-0 md:gap-6 lg:flex lg:space-x-8 justify-between items-center px-6 py-4 border-t border-border-default">
+            {section.games.map((game, idx) => (
+              <Game
+                key={idx}
+                image={game.imageUrl}
+                subtitle={game.name}
+                type={section.name}
+                disabled={section.started}
+              />
+            ))}
+          </div> */}
+          <div className="w-full grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-16 justify-between items-center px-6 py-4 border-t border-border-default">
             {section.games.map((game, idx) => (
               <Game
                 key={idx}

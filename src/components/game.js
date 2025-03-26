@@ -15,14 +15,23 @@ const Game = ({ title, image, subtitle, type, disabled }) => {
   return (
     <div
       onClick={handleCurrentGame}
-      className="flex flex-col cursor-pointer bg-white border-border-default border rounded-xl"
+      className="flex flex-col lg:h-52 lg-w-28 cursor-pointer bg-white border-border-default border rounded-xl"
     >
+      {/* <div className="w-full h-[60%]  md:h-[60%] xl:h-[70%]">
+        <img
+          alt="logo"
+          loading="eager"
+          decoding="async"
+          className="w-full lg:h-28 sm:h-full object-fill rounded-t-xl"
+          src={image}
+        />
+      </div> */}
       <div className="w-full h-[60%]  md:h-[60%] xl:h-[70%]">
         <img
           alt="logo"
           loading="eager"
           decoding="async"
-          className="w-full h-full object-fill rounded-t-xl"
+          className="w-full lg:h-28 sm:h-full object-fill rounded-t-xl"
           src={image}
         />
       </div>
