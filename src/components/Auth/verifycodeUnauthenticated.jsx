@@ -99,7 +99,7 @@ const VerifyCodeScreenUnAutheenticated = () => {
             onChange={handleCodeChange}
           />
           <NavLink
-            to="/signup"
+            to="/forgotpassword"
             className="text-base text-primary mb-4 text-center font-semibold"
           >
             Resend Code
