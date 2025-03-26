@@ -7,7 +7,7 @@ import { OrbitProgress } from "react-loading-indicators";
 // import Modal from "../modal";
 
 const ResetPasswordScreenUnAutheenticated = () => {
-  const [phone, setPhone] = useState("");
+  //const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
