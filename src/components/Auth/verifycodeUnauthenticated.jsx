@@ -22,6 +22,32 @@ const VerifyCodeScreenUnAutheenticated = () => {
   //   setOpen(true);
   // };
 
+  console.log("Phone => ", phoneNumber);
+  
+  const resendCode = async () => {
+    setLoading(true);
+    const requestBody = {
+      phone_number: phoneNumber,
+    };
+    console.log(requestBody);
+
+    const response = await fetch(
+      "https://app.afriluck.com/api/V1/app/request-password-reset-otp",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      }
+    );
+    const json = await response.json();
+    const status = response.status;
+
+    console.log(json);
+    setLoading(false);
+  };
+
   const verifyOtp = async () => {
     setLoading(true);
     const requestBody = {
@@ -98,12 +124,13 @@ const VerifyCodeScreenUnAutheenticated = () => {
             value={code}
             onChange={handleCodeChange}
           />
-          <NavLink
+          <p
+            onClick={resendCode}
             to="/forgotpassword"
             className="text-base text-primary m-4 text-center font-semibold"
           >
             Resend Code
-          </NavLink>
+          </p>
           <div className="flex flex-col space-y-2">
             <Button
               label={"Verify Code"}

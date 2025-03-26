@@ -20,8 +20,6 @@ const ResetPasswordScreenUnAutheenticated = () => {
   //   setOpen(true);
   // };
 
-  console.log("Phone => ", phoneNumber);
-
   const handleSuccess = async () => {
     try {
       setLoading(true);
