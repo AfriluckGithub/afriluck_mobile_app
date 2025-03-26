@@ -100,7 +100,7 @@ const VerifyCodeScreenUnAutheenticated = () => {
           />
           <NavLink
             to="/forgotpassword"
-            className="text-base text-primary mb-4 text-center font-semibold"
+            className="text-base text-primary m-4 text-center font-semibold"
           >
             Resend Code
           </NavLink>
