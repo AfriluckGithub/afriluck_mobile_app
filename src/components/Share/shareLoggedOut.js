@@ -43,7 +43,7 @@ const ShareScreenLoggedOut = () => {
           We want our customers to have fun when they play our games, and we
           strive to create a lighthearted and enjoyable experience.
         </p>
-        <div className="flex flex-col justify-center items-center bg-white w-full border rounded-xl p-6 xl:w-[50%]">
+        <div className="flex flex-col justify-center items-center bg-white w-full border rounded-xl p-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Share your link:
           </label>
