@@ -57,7 +57,7 @@ const LoginScreen = () => {
       setLoading(false);
       try {
         if (error.status === 401) {
-          setError(error.response.data.error || error.response.data.error.message);
+          setError(error.response.data.error.message);
         }
       } catch (error) {
         console.log(error);
