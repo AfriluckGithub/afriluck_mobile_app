@@ -11,7 +11,7 @@ const Notlogged = () => {
         className=" w-full py-4 px-4 bg-[#156064] font-semibold text-white rounded-lg hover:bg-[#156064]"
         onClick={() => navigate("/login")}
       >
-        Login
+        Login / Register
       </button>
     </div>
   );

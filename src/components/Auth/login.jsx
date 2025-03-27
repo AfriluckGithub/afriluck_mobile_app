@@ -142,7 +142,7 @@ const LoginScreen = () => {
             </div>
             <div>
               {error ? (
-                <p className="flex justify-center items-center text-rose-500 text-sm">
+                <p className="flex justify-center items-center text-rose-500 text-sm text-wrap text-center">
                   {error}
                 </p>
               ) : (
