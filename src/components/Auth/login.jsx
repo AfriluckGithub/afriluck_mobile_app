@@ -40,19 +40,24 @@ const LoginScreen = () => {
         }
       );
       setLoading(false);
+      console.log("RES => ", res);
+      
       if (res.status === 200) {
         console.log("success => ", res.data.success);
         
         dispatch(login(res.data.success));
         handleSuccess();
       } else if (res.status === 401) {
-        setError(res.response.data.error.message);
+        setError(res.response.data.error.message || res.response.data.error);
+      }else{
+        setError("An error occured, please try again");
       }
     } catch (error) {
+      console.log("RES => ", error);
       setLoading(false);
       try {
         if (error.status === 401) {
-          setError(error.response.data.error.message);
+          setError(error.response.data.error || error.response.data.error.message);
         }
       } catch (error) {
         console.log(error);
