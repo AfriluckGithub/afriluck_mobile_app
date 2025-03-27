@@ -3,7 +3,7 @@ import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
-import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
 
@@ -42,7 +42,7 @@ const VerifyCodeScreenUnAutheenticated = () => {
       }
     );
     const json = await response.json();
-    const status = response.status;
+    //const status = response.status;
 
     console.log(json);
     setLoading(false);
