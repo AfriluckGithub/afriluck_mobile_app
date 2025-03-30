@@ -48,34 +48,34 @@ const Body = ({ subGames, subGames1 }) => {
     };
   };
 
-  function isGameActive(startHour, startMinute, endHour, endMinute, gameName) {
-    const now = new Date();
-    const currentHours = now.getHours();
-    const currentMinutes = now.getMinutes();
-    const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
+  // function isGameActive(startHour, startMinute, endHour, endMinute, gameName) {
+  //   const now = new Date();
+  //   const currentHours = now.getHours();
+  //   const currentMinutes = now.getMinutes();
+  //   const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
 
-    // Disable Anopa and Midday from Saturday 7:45 PM to Sunday 7:45 PM
-    if (
-      (dayOfWeek === 6 && currentHours >= 19 && currentMinutes >= 45) ||
-      (dayOfWeek === 0 && currentHours < 19 && currentMinutes < 45)
-    ) {
-      if (gameName === "Anopa" || gameName === "Midday") {
-        return true;
-      }
-    }
+  //   // Disable Anopa and Midday from Saturday 7:45 PM to Sunday 7:45 PM
+  //   if (
+  //     (dayOfWeek === 6 && currentHours >= 19 && currentMinutes >= 45) ||
+  //     (dayOfWeek === 0 && currentHours < 19 && currentMinutes < 45)
+  //   ) {
+  //     if (gameName === "Anopa" || gameName === "Midday") {
+  //       return true;
+  //     }
+  //   }
 
-    // Afriluck should end at 5:30 PM on Sundays
-    if (gameName === "Afriluck 6/57" && dayOfWeek === 0) {
-      if (currentHours >= 17 && currentMinutes === 30) return true;
-    }
+  //   // Afriluck should end at 5:30 PM on Sundays
+  //   if (gameName === "Afriluck 6/57" && dayOfWeek === 0) {
+  //     if (currentHours >= 17 && currentMinutes === 33) return true;
+  //   }
 
-    return !(
-      currentHours > startHour ||
-      (currentHours === startHour && currentMinutes >= startMinute) ||
-      currentHours < endHour ||
-      (currentHours === endHour && currentMinutes < endMinute)
-    );
-  }
+  //   return !(
+  //     currentHours > startHour ||
+  //     (currentHours === startHour && currentMinutes >= startMinute) ||
+  //     currentHours < endHour ||
+  //     (currentHours === endHour && currentMinutes < endMinute)
+  //   );
+  // }
 
   const [timeLeft, setTimeLeft] = useState({
     Anopa: calculateTimeLeft(drawTimes.Anopa),
@@ -113,8 +113,9 @@ const Body = ({ subGames, subGames1 }) => {
     {
       name: "Afriluck 6/57",
       timeLeft: timeLeft.Afriluck,
-      started: isGameActive(19, 45, 19, 0, "Afriluck"),
+      //started: isGameActive(19, 45, 19, 0, "Afriluck"),
       games: subGames,
+      started: true,
     },
   ];
 
