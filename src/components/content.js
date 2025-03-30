@@ -113,7 +113,8 @@ const Body = ({ subGames, subGames1 }) => {
     {
       name: "Afriluck 6/57",
       timeLeft: timeLeft.Afriluck,
-      started: isGameActive(19, 45, 19, 0, "Afriluck"),
+      //started: isGameActive(19, 45, 19, 0, "Afriluck"),
+      started: true,
       games: subGames,
     },
   ];
