@@ -25,17 +25,21 @@ const VerifyCodeScreen = () => {
   const resendOtp = async () => {
     const tempToken = localStorage.getItem("register_token");
     try {
-      const res = await axios.post(
-        "https://app.afriluck.com/api/V1/app/resend-otp",
-        {
-          headers: {
-            Authorization: `Bearer ${tempToken}`,
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
+      const data = await fetch('https://app.afriluck.com/api/V1/app/resend-otp', {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${tempToken}`,
+          "Content-Type": "application/json",
         }
-      );
-      console.log(res);
+      })
+
+      if(data.status === 200) {
+        const json = await data.json();
+        console.log(json);
+      }else{
+        console.log("An error occurred");
+        
+      }
     } catch (e) {
       console.log(e);
     }

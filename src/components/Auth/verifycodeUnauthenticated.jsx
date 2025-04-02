@@ -32,7 +32,7 @@ const VerifyCodeScreenUnAutheenticated = () => {
     console.log(requestBody);
     const token = localStorage.getItem("tempToken");
     const response = await fetch(
-      "https://app.afriluck.com/api/V1/app//resend-otp",
+      "https://app.afriluck.com/api/V1/app/resend-otp",
       {
         method: "POST",
         headers: {
