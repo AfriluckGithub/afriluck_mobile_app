@@ -3,7 +3,7 @@ import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
-import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
 
@@ -21,6 +21,25 @@ const VerifyCodeScreen = () => {
   // const openModal = () => {
   //   setOpen(true);
   // };
+
+  const resendOtp = async () => {
+    const tempToken = localStorage.getItem("register_token");
+    try {
+      const res = await axios.post(
+        "https://app.afriluck.com/api/V1/app/resend-otp",
+        {
+          headers: {
+            Authorization: `Bearer ${tempToken}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const verifyOtp = async () => {
     setLoading(true);
@@ -95,12 +114,12 @@ const VerifyCodeScreen = () => {
             value={code}
             onChange={handleCodeChange}
           />
-          <NavLink
-            to="/signup"
+          <p
+            onClick={resendOtp}
             className="text-base text-primary mb-4 text-center font-semibold"
           >
             Resend Code
-          </NavLink>
+          </p>
           <div className="flex flex-col space-y-2">
             <Button
               label={"Verify Code"}

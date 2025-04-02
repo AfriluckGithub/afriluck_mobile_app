@@ -1,5 +1,5 @@
 {
-    "editor.fontFamily": "'Jetbrains Mono','Ubuntu mono', Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "'PT Mono','Jetbrains Mono','Ubuntu mono', Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 16,
     "editor.fontWeight": "normal",
     "terminal.integrated.fontWeight": "normal",

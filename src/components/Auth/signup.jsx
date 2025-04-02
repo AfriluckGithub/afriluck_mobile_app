@@ -6,6 +6,8 @@ import Modal from "../modal";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/userSlice";
 
 const SignupScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -22,6 +24,7 @@ const SignupScreen = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const ref = searchParams.get("ref");
+  const dispatch = useDispatch();
 
   const validatePassword = (password) => {
     const errors = [];
@@ -84,8 +87,10 @@ const SignupScreen = () => {
       console.log("Login Response => ", res);
 
       if (res.status === 200) {
+        dispatch(login(res.data.success));
         localStorage.setItem("register_token", res.data.success.token);
         console.log("Reg Token => ", localStorage.getItem("register_token"));
+        localStorage.setItem("tempPhone", res.data.success.phone_number);
         navigate("/verifycode");
       }
     } catch (e) {

@@ -30,12 +30,13 @@ const VerifyCodeScreenUnAutheenticated = () => {
       phone_number: phoneNumber,
     };
     console.log(requestBody);
-
+    const token = localStorage.getItem("tempToken");
     const response = await fetch(
-      "https://app.afriluck.com/api/V1/app/request-password-reset-otp",
+      "https://app.afriluck.com/api/V1/app//resend-otp",
       {
         method: "POST",
         headers: {
+          "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),

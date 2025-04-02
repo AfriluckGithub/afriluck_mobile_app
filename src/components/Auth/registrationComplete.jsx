@@ -5,7 +5,7 @@ export default function RegistrationComplete() {
   const navigate = useNavigate();
 
   const loginPage = () => {
-    navigate("/login");
+    navigate("/");
   };
   return (
     <div className="flex items-center justify-center h- w-full bg-white">
