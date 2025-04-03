@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
@@ -17,10 +17,18 @@ const VerifyCodeScreen = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const { phoneNumber, source } = location.state || {};
+  const { phoneNumber, source, errMessage } = location.state || {};
   // const openModal = () => {
   //   setOpen(true);
   // };
+
+  console.log("errMessage => ", errMessage);
+
+
+  useEffect(() => {
+    setError(errMessage);
+  }, []);
+  
 
   const resendOtp = async () => {
     const tempToken = localStorage.getItem("register_token");

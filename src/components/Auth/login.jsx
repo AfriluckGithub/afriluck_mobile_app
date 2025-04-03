@@ -41,23 +41,31 @@ const LoginScreen = () => {
       );
       setLoading(false);
       console.log("RES => ", response.status);
-      
+
       if (response.status === 200) {
         console.log("success => ", response.data.success);
-        
+
         dispatch(login(response.data.success));
         handleSuccess();
       } else if (response.status === 401) {
-        setError(response.response.data.error.message || response.response.data.error);
-      }else{
+        setError(
+          response.response.data.error.message || response.response.data.error
+        );
+      } else {
         setError("An error occured, please try again");
       }
     } catch (error) {
-      console.log("RES ERROR => ", error.status);
+      console.log("RES ERROR => ", error);
       setLoading(false);
       try {
         //if (error.status === 401) {
-          setError(error.response.data.error.message || error.response.data.error);
+        const status = error.response.data.error.status;
+        if (status === false) {
+          navigate("/verifycode", {state: {errMessage: error.response.data.error.message}});
+        }
+        setError(
+          error.response.data.error.message || error.response.data.error
+        );
         //}
       } catch (error) {
         console.log(error);
