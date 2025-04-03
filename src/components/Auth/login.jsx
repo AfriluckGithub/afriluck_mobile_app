@@ -30,7 +30,7 @@ const LoginScreen = () => {
       password: password,
     };
     try {
-      const res = await axios.post(
+      const response = await axios.post(
         "https://app.afriluck.com/api/V1/app/login",
         requestBody,
         {
@@ -40,25 +40,25 @@ const LoginScreen = () => {
         }
       );
       setLoading(false);
-      console.log("RES => ", res);
+      console.log("RES => ", response.status);
       
-      if (res.status === 200) {
-        console.log("success => ", res.data.success);
+      if (response.status === 200) {
+        console.log("success => ", response.data.success);
         
-        dispatch(login(res.data.success));
+        dispatch(login(response.data.success));
         handleSuccess();
-      } else if (res.status === 401) {
-        setError(res.response.data.error.message || res.response.data.error);
+      } else if (response.status === 401) {
+        setError(response.response.data.error.message || response.response.data.error);
       }else{
         setError("An error occured, please try again");
       }
     } catch (error) {
-      console.log("RES => ", error);
+      console.log("RES ERROR => ", error.status);
       setLoading(false);
       try {
-        if (error.status === 401) {
-          setError(error.response.data.error.message);
-        }
+        //if (error.status === 401) {
+          setError(error.response.data.error.message || error.response.data.error);
+        //}
       } catch (error) {
         console.log(error);
       }
