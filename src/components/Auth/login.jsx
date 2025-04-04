@@ -45,8 +45,21 @@ const LoginScreen = () => {
       if (response.status === 200) {
         console.log("success => ", response.data.success);
 
-        dispatch(login(response.data.success));
-        handleSuccess();
+        if (response.data.success.verifiedUser === false) {
+          dispatch(login(response.data.success));
+          navigate("/verifycode", {
+            state: {
+              errMessage: "Please verify your phone number",
+              phoneNumber: phoneNumber,
+              grantedToken: response.data.success.token,
+              source: "login",
+              tag: "verification",
+            },
+          });
+        } else {
+          dispatch(login(response.data.success));
+          handleSuccess();
+        }
       } else if (response.status === 401) {
         setError(
           response.response.data.error.message || response.response.data.error
@@ -59,9 +72,17 @@ const LoginScreen = () => {
       setLoading(false);
       try {
         //if (error.status === 401) {
+        console.log("Error => ", error);
+
         const status = error.response.data.error.status;
         if (status === false) {
-          navigate("/verifycode", {state: {errMessage: error.response.data.error.message}});
+          navigate("/verifycode", {
+            state: {
+              errMessage: error.response.data.error.message,
+              phoneNumber: phoneNumber,
+              source: "login",
+            },
+          });
         }
         setError(
           error.response.data.error.message || error.response.data.error

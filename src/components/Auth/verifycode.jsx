@@ -17,7 +17,7 @@ const VerifyCodeScreen = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const { phoneNumber, source, errMessage } = location.state || {};
+  const { phoneNumber, source, errMessage, grantedToken, tag } = location.state || {};
   // const openModal = () => {
   //   setOpen(true);
   // };
@@ -27,18 +27,22 @@ const VerifyCodeScreen = () => {
 
   useEffect(() => {
     setError(errMessage);
-  }, []);
+  }, [errMessage]);
   
 
   const resendOtp = async () => {
-    const tempToken = localStorage.getItem("register_token");
+    console.log("Sending otp to => ", phoneNumber);
+    
     try {
       const data = await fetch('https://app.afriluck.com/api/V1/app/resend-otp', {
         method: 'POST',
         headers: {
-          "Authorization": `Bearer ${tempToken}`,
+          "Authorization": `Bearer ${grantedToken}`,
           "Content-Type": "application/json",
-        }
+        },
+        body: JSON.stringify({
+          "phoneNumber": phoneNumber
+        })
       })
 
       if(data.status === 200) {
@@ -59,14 +63,13 @@ const VerifyCodeScreen = () => {
       otp: code,
     };
     try {
-      const tempToken = localStorage.getItem("register_token");
 
       const res = await axios.post(
         "https://app.afriluck.com/api/V1/app/verify-otp",
         requestBody,
         {
           headers: {
-            Authorization: `Bearer ${tempToken}`,
+            Authorization: `Bearer ${grantedToken}`,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -78,7 +81,11 @@ const VerifyCodeScreen = () => {
       const status = res.status;
       setLoading(false);
       if (status === 200) {
-        navigate("/complete");
+        navigate("/complete", {
+          state: { 
+            tag: tag,
+          },
+        });
       }
     } catch (error) {
       try {
