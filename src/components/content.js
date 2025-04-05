@@ -47,27 +47,44 @@ const Body = ({ subGames, subGames1 }) => {
     };
   };
 
+  const isBlockedGame = () => {
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const totalMinutes = now.getHours() * 60 + now.getMinutes();
+    const blockStart = 6 * 1440 + 19 * 60 + 45;
+    const blockEnd = 0 * 1440 + 19 * 60 + 45;
+
+    const currentTimeInWeek = dayOfWeek * 1440 + totalMinutes;
+
+    const inBlockWindow =
+      currentTimeInWeek >= blockStart || currentTimeInWeek < blockEnd;
+
+    return inBlockWindow;
+  };
+
   function isGameActive(startHour, startMinute, endHour, endMinute, gameName) {
     const now = new Date();
     const currentHours = now.getHours();
     const currentMinutes = now.getMinutes();
-    const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
+    const dayOfWeek = now.getDay();
 
     // Disable Anopa and Midday from Saturday 7:45 PM to Sunday 7:45 PM
-    console.log("Current Hours => ", currentHours);
-    
-    if (
-      (dayOfWeek === 6 && currentHours >= 19 && currentMinutes >= 45) ||
-      (dayOfWeek === 0 && currentHours < 19 && currentMinutes < 45)
-    ) {
-      if (gameName === "Anopa" || gameName === "Midday") {
-          return true;
-      }
+    if (isBlockedGame && (gameName === "Anopa" || gameName === "Midday")) {
+      return true;
     }
 
-    // Afriluck should end at 5:30 PM on Sundays
-    if (gameName === "Afriluck 6/57" && dayOfWeek === 0) {
-      if (currentHours >= 17 && currentMinutes === 33) return true;
+    const minutesSinceMidnight = now.getHours() * 60 + now.getMinutes();
+    const start = 17 * 60 + 33; // 5:33 PM
+    const end = 19 * 60 + 45; // 7:45 PM
+
+    if (
+      dayOfWeek === 0 &&
+      minutesSinceMidnight >= start &&
+      minutesSinceMidnight < end
+    ) {
+      if (gameName === "Afriluck") {
+        return true;
+      }
     }
 
     return !(
