@@ -15,6 +15,7 @@ const VerifyCodeScreen = () => {
   ] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { phoneNumber, source, errMessage, grantedToken, tag } = location.state || {};
@@ -31,6 +32,8 @@ const VerifyCodeScreen = () => {
   
 
   const resendOtp = async () => {
+    setMessage("Resending verification code...");
+    setLoading(true);
     console.log("Sending otp to => ", phoneNumber);
     
     try {
@@ -46,13 +49,15 @@ const VerifyCodeScreen = () => {
       })
 
       if(data.status === 200) {
+        setLoading(false);
+        setMessage("Verification code resent successfully");
         const json = await data.json();
         console.log(json);
       }else{
+        setLoading(false);
+        setMessage("An error occurred");
         console.log("An error occurred");
         console.log(data);
-        
-        
       }
     } catch (e) {
       console.log(e);
@@ -154,6 +159,13 @@ const VerifyCodeScreen = () => {
           {error ? (
             <p className="flex justify-center items-center w-full text-rose-500 text-sm text-wrap text-center">
               {error}
+            </p>
+          ) : (
+            ""
+          )}
+          {message ? (
+            <p className="flex justify-center items-center w-full text-green-500 text-sm text-wrap text-center">
+              {message}
             </p>
           ) : (
             ""
