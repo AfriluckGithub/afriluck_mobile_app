@@ -31,6 +31,7 @@ const LoggedIn = () => {
 
   useEffect(() => {
     const getBanalce = async () => {
+      console.log("Token => ", memoizedUser.token);
       try{
         const response = await fetch(
           "https://app.afriluck.com/api/V1/app/account/balance",
@@ -43,11 +44,11 @@ const LoggedIn = () => {
           }
         );
         const json = await response.json();
-  
+        console.log("Response => ", json);
         if (response.status === 200) {
           setBalance(json.balance);
         } else {
-          setBalance(memoizedUser.balance);
+          setBalance(memoizedUser?.balance === null ? 0.0 : memoizedUser?.balance);
         }
       }catch(e){
         console.log("Error => ", e);

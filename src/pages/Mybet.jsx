@@ -1,4 +1,5 @@
 import axios from "axios";
+import { m } from "framer-motion";
 import React, { useEffect, useMemo, useState } from "react";
 import { OrbitProgress } from "react-loading-indicators";
 import { useSelector } from "react-redux";
@@ -16,12 +17,14 @@ const Mybet = () => {
     const getMyBets = async () => {
       setLoading(true);
       try {
-        const token = memoizedUser?.token || null;
+        //const token = memoizedUser?.token || null;
+        console.log("Token => ", memoizedUser?.token);
+        
         const res = await axios.get(
           "https://app.afriluck.com/api/V1/app/my-bets",
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${memoizedUser?.token}`,
               "Content-Type": "application/json",
             },
           }
