@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Button from "../button";
 
 export default function RegistrationComplete() {
 
@@ -30,12 +31,12 @@ export default function RegistrationComplete() {
         <p className="text-gray-600 mt-2">
           Thank you for signing up. You can now access your account.
         </p>
-        <button
+        <Button
           className="mt-6 px-6 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-primary-600 transition"
           onClick={loginPage}
         >
-          Go to Login Page
-        </button>
+          Go to Home Page
+        </Button>
       </div>
     </div>
   );
