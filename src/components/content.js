@@ -25,7 +25,6 @@ const Body = ({ subGames, subGames1 }) => {
   const calculateTimeLeft = (drawTime, isAfriluck = false) => {
     const now = new Date();
     let targetTime = new Date(now);
-
     if (
       now.getHours() > drawTime.startHour ||
       (now.getHours() === drawTime.startHour &&
@@ -55,12 +54,14 @@ const Body = ({ subGames, subGames1 }) => {
     const dayOfWeek = now.getDay(); // 0 = Sunday, 6 = Saturday
 
     // Disable Anopa and Midday from Saturday 7:45 PM to Sunday 7:45 PM
+    console.log("Current Hours => ", currentHours);
+    
     if (
       (dayOfWeek === 6 && currentHours >= 19 && currentMinutes >= 45) ||
       (dayOfWeek === 0 && currentHours < 19 && currentMinutes < 45)
     ) {
       if (gameName === "Anopa" || gameName === "Midday") {
-        return true;
+          return true;
       }
     }
 
