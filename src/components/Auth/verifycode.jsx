@@ -48,7 +48,7 @@ const VerifyCodeScreen = () => {
   
         if(data.status === 200) {
           setLoading(false);
-          setError("Verification code resent successfully");
+          setError("Verification OTP sent successfully");
           const json = await data.json();
           console.log(json);
         }else{
