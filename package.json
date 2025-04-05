@@ -74,7 +74,6 @@
     ]
   },
   "devDependencies": {
-    "ajv": "^7.2.4",
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.14",
     "postcss": "^8.4.47",
