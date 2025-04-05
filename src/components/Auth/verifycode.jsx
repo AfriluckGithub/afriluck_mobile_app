@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
@@ -24,14 +24,9 @@ const VerifyCodeScreen = () => {
   // };
 
   console.log("errMessage => ", errMessage);
-
-
-  useEffect(() => {
-    setError(errMessage);
-  }, [errMessage]);
   
 
-  const resendOtp = async () => {
+  const resendOtp = useCallback(async () => {
     setMessage("Resending verification code...");
     setLoading(true);
     console.log("Sending otp to => ", phoneNumber);
@@ -62,7 +57,7 @@ const VerifyCodeScreen = () => {
     } catch (e) {
       console.log(e);
     }
-  };
+  }, [phoneNumber, grantedToken]);
 
   const verifyOtp = async () => {
     setLoading(true);
@@ -122,6 +117,11 @@ const VerifyCodeScreen = () => {
       setCode(value);
     }
   };
+
+  useEffect(() => {
+    setError(errMessage);
+    resendOtp();
+  }, [errMessage, resendOtp]);
 
   return (
     <div className="flex flex-col items-center h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
