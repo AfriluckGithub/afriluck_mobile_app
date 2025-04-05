@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useEffect, useMemo, useState } from "react";
 import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
@@ -6,7 +6,8 @@ import Modal from "../modal";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
-import { resendOtpUtils } from "../../utils/appUtils";
+import { useSelector } from "react-redux";
+
 
 const VerifyCodeScreen = () => {
   const [code, setCode] = useState("");
@@ -19,27 +20,65 @@ const VerifyCodeScreen = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { phoneNumber, source, errMessage, grantedToken, tag } = location.state || {};
+
+  const user = useSelector((state) => state.user?.user);
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
   // const openModal = () => {
   //   setOpen(true);
   // };
-
-  console.log("errMessage => ", errMessage);
+  const authorization = location.state?.tag === "verification"? grantedToken : memoizedUser?.token;
+  const phone = location.state?.tag === "verification"? phoneNumber : memoizedUser?.phoneNumber;
+  console.log("State => ", location.state);
+  useEffect(() => {
+    setError(errMessage);
+    const resend = async () => {
+      try {
+        const data = await fetch('https://app.afriluck.com/api/V1/app/resend-otp', {
+          method: 'POST',
+          headers: {
+            "Authorization": `Bearer ${authorization}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            "phoneNumber": phone
+          })
+        })
   
+        if(data.status === 200) {
+          setLoading(false);
+          setError("Verification code resent successfully");
+          const json = await data.json();
+          console.log(json);
+        }else{
+          setLoading(false);
+          setError("An error occurred");
+          console.log("An error occurred");
+          console.log(data);
+        }
+      } catch (e) {
+        setLoading(false);
+        console.log(e);
+      }
+    }
+    resend();
+  }, [errMessage, memoizedUser?.phoneNumber, memoizedUser?.token, authorization, phone]);
 
-  const resendOtp = useCallback(async () => {
+  const resendOtp = async () => {
     setError("Resending verification code...");
     setLoading(true);
-    console.log("Sending otp to => ", phoneNumber);
+    console.log("Sending otp to => ", memoizedUser?.phoneNumber);
     
     try {
       const data = await fetch('https://app.afriluck.com/api/V1/app/resend-otp', {
         method: 'POST',
         headers: {
-          "Authorization": `Bearer ${grantedToken}`,
+          "Authorization": `Bearer ${memoizedUser?.token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          "phoneNumber": phoneNumber
+          "phoneNumber": memoizedUser?.phoneNumber
         })
       })
 
@@ -55,9 +94,10 @@ const VerifyCodeScreen = () => {
         console.log(data);
       }
     } catch (e) {
+      setLoading(false);
       console.log(e);
     }
-  }, [phoneNumber, grantedToken]);
+  }
 
   const verifyOtp = async () => {
     setLoading(true);
@@ -71,7 +111,7 @@ const VerifyCodeScreen = () => {
         requestBody,
         {
           headers: {
-            Authorization: `Bearer ${grantedToken}`,
+            Authorization: `Bearer ${memoizedUser?.token}`,
             "Content-Type": "application/json",
             Accept: "application/json",
           },
@@ -95,6 +135,7 @@ const VerifyCodeScreen = () => {
         setError(error.response.data.message);
         console.log(error);
       } catch (e) {
+        setLoading(false);
         console.log(e);
       }
     }
@@ -117,11 +158,6 @@ const VerifyCodeScreen = () => {
       setCode(value);
     }
   };
-
-  useEffect(() => {
-    setError(errMessage);
-    resendOtpUtils(setError, setLoading, phoneNumber, grantedToken);
-  }, [errMessage, resendOtp, grantedToken, phoneNumber]);
 
   return (
     <div className="flex flex-col items-center h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">

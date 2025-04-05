@@ -1,11 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../button";
+import { login } from "../../store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useMemo } from "react";
 
 export default function RegistrationComplete() {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user?.user);
+    const memoizedUser = useMemo(() => {
+      return user ? { ...user } : null;
+    }, [user]);
 
   const loginPage = () => {
+    memoizedUser.verifiedUser = true;
+    dispatch(login(memoizedUser));
     navigate("/");
   };
   return (

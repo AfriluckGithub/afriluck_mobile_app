@@ -31,23 +31,28 @@ const LoggedIn = () => {
 
   useEffect(() => {
     const getBanalce = async () => {
-      const response = await fetch(
-        "https://app.afriluck.com/api/V1/app/account/balance",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${memoizedUser.token}`,
-          },
+      try{
+        const response = await fetch(
+          "https://app.afriluck.com/api/V1/app/account/balance",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${memoizedUser.token}`,
+            },
+          }
+        );
+        const json = await response.json();
+  
+        if (response.status === 200) {
+          setBalance(json.balance);
+        } else {
+          setBalance(memoizedUser.balance);
         }
-      );
-      const json = await response.json();
-
-      if (response.status === 200) {
-        setBalance(json.balance);
-      } else {
-        setBalance(memoizedUser.balance);
+      }catch(e){
+        console.log("Error => ", e);
       }
+      
     };
     getBanalce();
   }, [memoizedUser]);

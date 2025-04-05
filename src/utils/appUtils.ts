@@ -28,5 +28,6 @@ export const resendOtpUtils = async (setError: any, setLoading: any, phoneNumber
       }
     } catch (e) {
       console.log(e);
+      setLoading(false);
     }
   }

@@ -11,8 +11,6 @@ const Auth = () => {
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
   }, [user]);
-
-  console.log("Mem => ", memoizedUser);
   
 
   return (
