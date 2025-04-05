@@ -32,10 +32,10 @@ export default function RegistrationComplete() {
           Thank you for signing up. You can now access your account.
         </p>
         <Button
+          label={"Go to Home Page"}
           className="mt-6 px-6 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-primary-600 transition"
           onClick={loginPage}
         >
-          Go to Home Page
         </Button>
       </div>
     </div>
