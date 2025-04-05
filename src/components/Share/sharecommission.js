@@ -94,7 +94,7 @@ const Sharecommission = () => {
         </div>
         <div className="flex flex-col w-full rounded-xl bg-white">
           <div className="flex w-full p-2 bg-[#156064] text-white items-center rounded-t-xl">
-            <p className="pl-2">Level 2 Count</p>
+            <p className="pl-2">Level 2 Users</p>
           </div>
           <div className="flex items-center justify-between w-full p-4 md:p-6 rounded-xl bg-white space-x-2 md:space-x-4">
             {/* {DATA.Level2.map((index) => ( */}
@@ -130,7 +130,7 @@ const Sharecommission = () => {
         </div>
         <div className="flex flex-col w-full rounded-xl bg-white">
           <div className="flex w-full p-2 bg-[#156064] text-white items-center rounded-t-xl">
-            <p className="pl-2">Level 3 Count</p>
+            <p className="pl-2">Level 3 Users</p>
           </div>
           <div className="flex items-center justify-between w-full p-4 md:p-6 rounded-xl bg-white space-x-2 md:space-x-4">
           <div
