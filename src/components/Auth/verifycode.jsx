@@ -50,6 +50,8 @@ const VerifyCodeScreen = () => {
         console.log(json);
       }else{
         console.log("An error occurred");
+        console.log(data);
+        
         
       }
     } catch (e) {
