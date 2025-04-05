@@ -15,6 +15,8 @@ export default function RegistrationComplete() {
 
   const loginPage = () => {
     memoizedUser.verifiedUser = true;
+    console.log("Login => ", memoizedUser);
+    
     dispatch(login(memoizedUser));
     navigate("/");
   };

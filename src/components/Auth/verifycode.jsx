@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Subheader from "../subheader";
 import Input from "../input";
 import Button from "../button";
@@ -7,7 +7,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
 import { useSelector } from "react-redux";
-
 
 const VerifyCodeScreen = () => {
   const [code, setCode] = useState("");
@@ -19,7 +18,8 @@ const VerifyCodeScreen = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  const { phoneNumber, source, errMessage, grantedToken, tag } = location.state || {};
+  const { phoneNumber, source, errMessage, grantedToken, tag } =
+    location.state || {};
 
   const user = useSelector((state) => state.user?.user);
   const memoizedUser = useMemo(() => {
@@ -28,66 +28,88 @@ const VerifyCodeScreen = () => {
   // const openModal = () => {
   //   setOpen(true);
   // };
-  const authorization = location.state?.tag === "verification"? grantedToken : memoizedUser?.token;
-  const phone = location.state?.tag === "verification"? phoneNumber : memoizedUser?.phoneNumber;
+  //setError(errMessage);
+  const authorization =
+    location.state?.tag === "verification" ? grantedToken : memoizedUser?.token;
+  const phone =
+    location.state?.tag === "verification"
+      ? phoneNumber
+      : memoizedUser?.phoneNumber;
+
+  const phoneRef = useRef(phone);
+  const tokenRef = useRef(authorization);
+  const errRef = useRef(errMessage);
+  const tagRef = useRef(tag);
+
   console.log("State => ", location.state);
   useEffect(() => {
-    setError(errMessage);
+    if (errRef.current) {
+      setError(errRef.current);
+    }
+
     const resend = async () => {
       try {
-        const data = await fetch('https://app.afriluck.com/api/V1/app/resend-otp', {
-          method: 'POST',
-          headers: {
-            "Authorization": `Bearer ${authorization}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            "phoneNumber": phone
-          })
-        })
-  
-        if(data.status === 200) {
+        const data = await fetch(
+          "https://app.afriluck.com/api/V1/app/resend-otp",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${tokenRef.current}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              phoneNumber: phoneRef.current,
+            }),
+          }
+        );
+
+        if (data.status === 200) {
           setLoading(false);
-          setError("Verification OTP sent successfully");
+          setError("Verification code resent successfully");
           const json = await data.json();
           console.log(json);
-        }else{
+        } else {
           setLoading(false);
           setError("An error occurred");
           console.log("An error occurred");
-          console.log(data);
         }
       } catch (e) {
         setLoading(false);
         console.log(e);
       }
+    };
+
+    if (tagRef.current === "verification") {
+      resend();
     }
-    resend();
-  }, [errMessage, memoizedUser?.phoneNumber, memoizedUser?.token, authorization, phone]);
+  }, []);
 
   const resendOtp = async () => {
     setError("Resending verification code...");
     setLoading(true);
     console.log("Sending otp to => ", memoizedUser?.phoneNumber);
-    
-    try {
-      const data = await fetch('https://app.afriluck.com/api/V1/app/resend-otp', {
-        method: 'POST',
-        headers: {
-          "Authorization": `Bearer ${memoizedUser?.token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          "phoneNumber": memoizedUser?.phoneNumber
-        })
-      })
 
-      if(data.status === 200) {
+    try {
+      const data = await fetch(
+        "https://app.afriluck.com/api/V1/app/resend-otp",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${memoizedUser?.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            phoneNumber: memoizedUser?.phoneNumber,
+          }),
+        }
+      );
+
+      if (data.status === 200) {
         setLoading(false);
         setError("Verification code resent successfully");
         const json = await data.json();
         console.log(json);
-      }else{
+      } else {
         setLoading(false);
         setError("An error occurred");
         console.log("An error occurred");
@@ -97,7 +119,7 @@ const VerifyCodeScreen = () => {
       setLoading(false);
       console.log(e);
     }
-  }
+  };
 
   const verifyOtp = async () => {
     setLoading(true);
@@ -105,7 +127,6 @@ const VerifyCodeScreen = () => {
       otp: code,
     };
     try {
-
       const res = await axios.post(
         "https://app.afriluck.com/api/V1/app/verify-otp",
         requestBody,
@@ -124,7 +145,7 @@ const VerifyCodeScreen = () => {
       setLoading(false);
       if (status === 200) {
         navigate("/complete", {
-          state: { 
+          state: {
             tag: tag,
           },
         });
