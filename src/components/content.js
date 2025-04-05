@@ -69,7 +69,9 @@ const Body = ({ subGames, subGames1 }) => {
     const dayOfWeek = now.getDay();
 
     // Disable Anopa and Midday from Saturday 7:45 PM to Sunday 7:45 PM
-    if (isBlockedGame && (gameName === "Anopa" || gameName === "Midday")) {
+    console.log("Is blocked game:", isBlockedGame());
+    
+    if (isBlockedGame() && (gameName === "Anopa" || gameName === "Midday")) {
       return true;
     }
 
