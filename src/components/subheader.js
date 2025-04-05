@@ -9,7 +9,7 @@ const Subheader = ({ title = "Default", image, onIconClick }) => {
       <div className="flex flex-row w-full justify-between items-center mx-6">
         <div
           onClick={() => {
-            navigate("/profile");
+            navigate(-1);
           }}
           className="flex cursor-pointer  items-center ml-2 space-x-2 p-3 border-border-default border rounded-xl bg-bg-tertiary"
         >

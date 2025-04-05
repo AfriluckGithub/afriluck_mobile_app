@@ -44,7 +44,7 @@ const LoginScreen = () => {
 
       if (response.status === 200) {
         console.log("success => ", response.data.success);
-
+        response.data.success.verifiedUser = false;
         if (response.data.success.verifiedUser === false) {
           dispatch(login(response.data.success));
           navigate("/verifycode", {

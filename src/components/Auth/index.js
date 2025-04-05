@@ -12,9 +12,12 @@ const Auth = () => {
     return user ? { ...user } : null;
   }, [user]);
 
+  console.log("Mem => ", memoizedUser);
+  
+
   return (
     <div>
-      {memoizedUser != null ? (
+      {memoizedUser?.verifiedUser === true && memoizedUser? (
         <Suspense fallback={<div className="flex justify-center items-center">Loading...</div>}>
           <LoggedIn />
         </Suspense>

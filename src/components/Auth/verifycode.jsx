@@ -6,6 +6,7 @@ import Modal from "../modal";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
+import { resendOtpUtils } from "../../utils/appUtils";
 
 const VerifyCodeScreen = () => {
   const [code, setCode] = useState("");
@@ -15,7 +16,6 @@ const VerifyCodeScreen = () => {
   ] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { phoneNumber, source, errMessage, grantedToken, tag } = location.state || {};
@@ -27,7 +27,7 @@ const VerifyCodeScreen = () => {
   
 
   const resendOtp = useCallback(async () => {
-    setMessage("Resending verification code...");
+    setError("Resending verification code...");
     setLoading(true);
     console.log("Sending otp to => ", phoneNumber);
     
@@ -45,12 +45,12 @@ const VerifyCodeScreen = () => {
 
       if(data.status === 200) {
         setLoading(false);
-        setMessage("Verification code resent successfully");
+        setError("Verification code resent successfully");
         const json = await data.json();
         console.log(json);
       }else{
         setLoading(false);
-        setMessage("An error occurred");
+        setError("An error occurred");
         console.log("An error occurred");
         console.log(data);
       }
@@ -120,8 +120,8 @@ const VerifyCodeScreen = () => {
 
   useEffect(() => {
     setError(errMessage);
-    resendOtp();
-  }, [errMessage, resendOtp]);
+    resendOtpUtils(setError, setLoading, phoneNumber, grantedToken);
+  }, [errMessage, resendOtp, grantedToken, phoneNumber]);
 
   return (
     <div className="flex flex-col items-center h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
@@ -159,13 +159,6 @@ const VerifyCodeScreen = () => {
           {error ? (
             <p className="flex justify-center items-center w-full text-rose-500 text-sm text-wrap text-center">
               {error}
-            </p>
-          ) : (
-            ""
-          )}
-          {message ? (
-            <p className="flex justify-center items-center w-full text-green-500 text-sm text-wrap text-center">
-              {message}
             </p>
           ) : (
             ""
