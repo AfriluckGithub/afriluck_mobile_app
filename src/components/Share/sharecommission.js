@@ -67,7 +67,7 @@ const Sharecommission = () => {
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
               >
                 <span className="text-wrap text-xs md:text-base font-medium">
-                  <p>Level 1 Count</p>
+                  <p>Total Referred</p>
                 </span>
                 <p className="text-sm">{commission.level1Count}</p>
               </div>
@@ -103,7 +103,7 @@ const Sharecommission = () => {
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
               >
                 <span className="text-wrap text-xs md:text-base font-medium">
-                  <p>Top-up Count</p>
+                  <p>Total Referred</p>
                 </span>
                 <p className="text-sm">{commission.level2Count}</p>
               </div>
@@ -138,7 +138,7 @@ const Sharecommission = () => {
                 className="bg-[#F5F5F5] flex flex-col w-full items-center space-y-1 p-2 md:p-4 rounded-lg md:rounded-xl"
               >
                 <span className="text-wrap text-xs md:text-base font-medium">
-                  <p>Top-up Count</p>
+                  <p>Total Referred</p>
                 </span>
                 <p className="text-sm">{commission.level3Count}</p>
               </div>
