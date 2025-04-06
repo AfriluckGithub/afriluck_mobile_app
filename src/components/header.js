@@ -18,33 +18,43 @@ const Header = () => {
   }, [user]);
 
   useEffect(() => {
-    if (memoizedUser) {
-      const getBanalce = async () => {
-        const response = await fetch(
-          "https://app.afriluck.com/api/V1/app/account/balance",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${memoizedUser.token}`,
-            },
-          }
-        );
-        const json = await response.json();
+    try {
+      if (memoizedUser) {
+        const getBanalce = async () => {
+          const response = await fetch(
+            "https://app.afriluck.com/api/V1/app/account/balance",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${memoizedUser.token}`,
+              },
+            }
+          );
+          const json = await response.json();
 
-        if (response.status === 200) {
-          setBalance(json.balance? json.balance : memoizedUser.balance);
-        } else {
-          setBalance(memoizedUser.balance);
-        }
-      };
-      getBanalce();
+          if (response.status === 200) {
+            setBalance(json.balance ? json.balance : memoizedUser.balance);
+          } else if (response.status === 401) {
+            navigate("/login", {
+              state: {
+                message: "Session expired, please login again",
+              },
+            });
+          } else {
+            setBalance(memoizedUser.balance);
+          }
+        };
+        getBanalce();
+      }
+    } catch (e) {
+      console.log("Error => ", e);
     }
   }, [memoizedUser]);
 
   const topup = () => {
-      navigate("/topup");
-  }
+    navigate("/topup");
+  };
 
   const getIcon = () => {
     return location.pathname === "/bet" ? (
@@ -57,7 +67,13 @@ const Header = () => {
   return (
     <div className="flex px-4 md:px-6 xl:flex flex-row justify-between items-center w-full h-auto bg-white xl:px-48 fixed py-6 top-0 left-0 right-0 z-50 border-b border-border-primary">
       {/* Logo */}
-      <img src="afriluck.svg" alt="Logo" className="w-24 h-auto ml-6" width="24" height="14"/>
+      <img
+        src="afriluck.svg"
+        alt="Logo"
+        className="w-24 h-auto ml-6"
+        width="24"
+        height="14"
+      />
       <div>
         {memoizedUser ? (
           <p className="text-lg font-semibold text-primary">

@@ -32,7 +32,7 @@ const LoggedIn = () => {
   useEffect(() => {
     const getBanalce = async () => {
       console.log("Token => ", memoizedUser.token);
-      try{
+      try {
         const response = await fetch(
           "https://app.afriluck.com/api/V1/app/account/balance",
           {
@@ -47,13 +47,20 @@ const LoggedIn = () => {
         console.log("Response => ", json);
         if (response.status === 200) {
           setBalance(json.balance);
+        } else if (response.status === 401) {
+          navigate("/login", {
+            state: {
+              message: "Session expired, please login again",
+            },
+          });
         } else {
-          setBalance(memoizedUser?.balance === null ? 0.0 : memoizedUser?.balance);
+          setBalance(
+            memoizedUser?.balance === null ? 0.0 : memoizedUser?.balance
+          );
         }
-      }catch(e){
+      } catch (e) {
         console.log("Error => ", e);
       }
-      
     };
     getBanalce();
   }, [memoizedUser]);
