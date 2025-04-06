@@ -33,7 +33,7 @@ const Header = () => {
         const json = await response.json();
 
         if (response.status === 200) {
-          setBalance(json.balance);
+          setBalance(json.balance? json.balance : memoizedUser.balance);
         } else {
           setBalance(memoizedUser.balance);
         }
