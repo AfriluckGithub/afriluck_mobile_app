@@ -45,7 +45,7 @@ export default function RegistrationComplete() {
         </p>
         <Button
           label={"Go to Home Page"}
-          className="mt-6 px-6 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-primary-600 transition"
+          className="mt-6 px-6 py-2 bg-primary text-white shadow-md hover:bg-primary rounded-2xl"
           onClick={loginPage}
         >
         </Button>

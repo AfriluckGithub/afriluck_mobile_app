@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Subheader from "../subheader";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Input from "../input";
 import Button from "../button";
 import Modal from "../modal";
@@ -19,9 +19,13 @@ const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const {message} = location.state || {};
 
   const { toggleLogin } = useAuth();
-  const dispatch = useDispatch();
+  
+  
 
   const openModal = async () => {
     setLoading(true);
@@ -109,6 +113,12 @@ const LoginScreen = () => {
       setPhoneNumber(value);
     }
   };
+
+  useEffect(() => { 
+    if (message) {
+      setError(message);
+    }
+  }, [message]);
 
   // const back = () => {
   //   navigate("/single_game");

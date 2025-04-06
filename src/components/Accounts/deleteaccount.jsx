@@ -1,18 +1,56 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Subheader from "../subheader";
 import Button from "../button";
 import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { OrbitProgress } from "react-loading-indicators";
 
 const DeleteAccount = () => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const openModal = () => {
     setOpen(true);
   };
 
+  const user = useSelector((state) => state.user?.user);
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
+
+  const deleteAccount = async () => {
+    setLoading(true);
+    console.log("Token => ", memoizedUser.token);
+    try {
+      const response = await fetch(
+        "https://app.afriluck.com/api/V1/app/delete-user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${memoizedUser.token}`,
+          },
+        }
+      );
+      const json = await response.json();
+      console.log("Response => ", json);
+      if (response.status === 200) {
+        setLoading(false);
+        openModal();
+      } else {
+        setLoading(false);
+        console.log("Error => ", json.error);
+        setError(json.error);
+      }
+    } catch (e) {
+      console.log("Error => ", e);
+    }
+  };
+
   const handleSuccess = () => {
-    navigate("/verifysecuritycode");
+    navigate("/login", { state: { message: "Account deleted successfully" } });
   };
 
   return (
@@ -50,14 +88,31 @@ const DeleteAccount = () => {
           <p className="text-base text-text-muted mb-4">
             This operation requires sending a confirmation message to the
             registered mobile phone number{" "}
-            <span className="font-semibold text-text-black">0554588483</span> of
-            the account
+            <span className="font-semibold text-text-black">
+              {memoizedUser?.phone_number.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")}
+            </span>{" "}
+            of the account
           </p>
+          <div className="flex justify-center items-center w-full h-auto">
+            {loading ? (
+              <OrbitProgress
+                color="#000"
+                size="small"
+                text="loading"
+                textColor=""
+              />
+            ) : (
+              <p></p>
+            )}
+          </div>
+          {error && (
+            <p className="text-red-500 text-sm font-semibold">{error}</p>
+          )}
           <div className="flex flex-col space-y-2">
             <Button
               label={"Send Code"}
               className="bg-primary text-white"
-              onClick={openModal}
+              onClick={deleteAccount}
             />
           </div>
         </div>
@@ -67,7 +122,7 @@ const DeleteAccount = () => {
         onSuccess={handleSuccess}
         type={"success"}
         title="Success"
-        subtitle="Verification code sent successfully"
+        subtitle="Account deleted successfully"
         buttonText="Okay"
         imageSrc="check.svg"
         imgBg={"#F6F6F6"}
