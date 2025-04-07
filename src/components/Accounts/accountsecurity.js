@@ -1,6 +1,6 @@
 import React from "react";
-import { AccountSecurityData } from "../../data/accountsecurity";
-import { NavLink } from "react-router-dom";
+// import { AccountSecurityData } from "../../data/accountsecurity";
+// import { NavLink } from "react-router-dom";
 import Subheader from "../subheader";
 import { useNavigate } from "react-router-dom";
 
