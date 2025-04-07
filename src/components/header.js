@@ -17,6 +17,8 @@ const Header = () => {
     return user ? { ...user } : null;
   }, [user]);
 
+  console.log(memoizedUser);
+  
   useEffect(() => {
     try {
       if (memoizedUser) {
@@ -41,7 +43,7 @@ const Header = () => {
           //       message: "Session expired, please login again",
           //     },
           //   });
-          } else {
+          // } else {
             setBalance(memoizedUser.balance);
           }
         };
@@ -75,7 +77,7 @@ const Header = () => {
         height="14"
       />
       <div>
-        {memoizedUser ? (
+        {memoizedUser && memoizedUser.verifiedUser ? (
           <div className="text-lg font-semibold text-primary">
             {location.pathname === "/profile" ? (
               <p></p>
