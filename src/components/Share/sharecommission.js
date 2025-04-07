@@ -10,21 +10,25 @@ const Sharecommission = () => {
   }, [user]);
 
   useEffect(() => {
-    const getCommission = async () => {
-      const response = await fetch(
-        "https://app.afriluck.com/api/V1/app/commissions",
-        {
-          method: 'get',
-          headers: {
-            'Authorization': `bearer ${memoizedUser.token}`
+    try{
+      const getCommission = async () => {
+        const response = await fetch(
+          "https://app.afriluck.com/api/V1/app/commissions",
+          {
+            method: 'get',
+            headers: {
+              'Authorization': `bearer ${memoizedUser.token}`
+            }
           }
-        }
-      );
-      const json = await response.json();
-      console.log(json);
-      setCommission(json.success);
-    };
-    getCommission();
+        );
+        const json = await response.json();
+        console.log(json);
+        setCommission(json.success);
+      };
+      getCommission();
+    }catch(e){
+      console.log(e);
+    }
   }, [memoizedUser.token]);
 
   console.log(commission);
@@ -53,7 +57,7 @@ const Sharecommission = () => {
           </div>
           <div className="flex w-full items-center justify-between">
             <p className="font-semibold"></p>
-            <p className=" font-semibold">GHS {commission.totalCommission}</p>
+            <p className=" font-semibold">GHS {commission?.totalCommission? 0: commission.totalCommission}</p>
           </div>
         </div>
         <div className="flex flex-col w-full rounded-xl bg-white">
@@ -69,7 +73,7 @@ const Sharecommission = () => {
                 <span className="text-wrap text-xs md:text-base font-medium">
                   <p>Total Referred</p>
                 </span>
-                <p className="text-sm">{commission.level1Count}</p>
+                <p className="text-sm">{commission?.level1Count}</p>
               </div>
               {/* <div
                 // key={index}
@@ -87,7 +91,7 @@ const Sharecommission = () => {
                 <span className="text-wrap text-xs md:text-base font-medium">
                   <p>Comm(GHS)</p>
                 </span>
-                <p className="text-sm">{commission.level1TotalCommission}</p>
+                <p className="text-sm">{commission?.level1TotalCommission}</p>
               </div>
             {/* ))} */}
           </div>
@@ -105,7 +109,7 @@ const Sharecommission = () => {
                 <span className="text-wrap text-xs md:text-base font-medium">
                   <p>Total Referred</p>
                 </span>
-                <p className="text-sm">{commission.level2Count}</p>
+                <p className="text-sm">{commission?.level2Count}</p>
               </div>
               {/* <div
                 // key={index}
@@ -123,7 +127,7 @@ const Sharecommission = () => {
                 <span className="text-wrap text-xs md:text-base font-medium">
                   <p>Comm(GHS)</p>
                 </span>
-                <p className="text-sm">{commission.level2TotalCommission}</p>
+                <p className="text-sm">{commission?.level2TotalCommission}</p>
               </div>
             {/* ))} */}
           </div>
@@ -140,7 +144,7 @@ const Sharecommission = () => {
                 <span className="text-wrap text-xs md:text-base font-medium">
                   <p>Total Referred</p>
                 </span>
-                <p className="text-sm">{commission.level3Count}</p>
+                <p className="text-sm">{commission?.level3Count}</p>
               </div>
               {/* <div
                 // key={index}
@@ -158,7 +162,7 @@ const Sharecommission = () => {
                 <span className="text-wrap text-xs md:text-base font-medium">
                   <p>Comm(GHS)</p>
                 </span>
-                <p className="text-sm">{commission.level3TotalCommission}</p>
+                <p className="text-sm">{commission?.level3TotalCommission}</p>
               </div>
           </div>
         </div>

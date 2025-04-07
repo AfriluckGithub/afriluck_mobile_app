@@ -22,7 +22,7 @@ const Share = () => {
 
   return (
     <div className="flex flex-col w-full space-y-4 justify-between px-4 py-4 bg-white rounded-xl border border-border-default">
-      {!memoizedUser
+      {!memoizedUser || memoizedUser.verifiedUser === false
         ? ShareOnly.map((share, index) => (
             <NavLink
               onClick={handleClick}

@@ -35,12 +35,12 @@ const Header = () => {
 
           if (response.status === 200) {
             setBalance(json.balance ? json.balance : memoizedUser.balance);
-          } else if (response.status === 401) {
-            navigate("/login", {
-              state: {
-                message: "Session expired, please login again",
-              },
-            });
+          // } else if (response.status === 401) {
+          //   navigate("/login", {
+          //     state: {
+          //       message: "Session expired, please login again",
+          //     },
+          //   });
           } else {
             setBalance(memoizedUser.balance);
           }
@@ -50,7 +50,7 @@ const Header = () => {
     } catch (e) {
       console.log("Error => ", e);
     }
-  }, [memoizedUser]);
+  }, [memoizedUser, navigate]);
 
   const topup = () => {
     navigate("/topup");
@@ -76,13 +76,13 @@ const Header = () => {
       />
       <div>
         {memoizedUser ? (
-          <p className="text-lg font-semibold text-primary">
+          <div className="text-lg font-semibold text-primary">
             {location.pathname === "/profile" ? (
               <p></p>
             ) : (
               <p onClick={topup}>GHS {balance}.00</p>
             )}
-          </p>
+          </div>
         ) : (
           <p className="text-lg font-semibold text-primary"></p>
         )}

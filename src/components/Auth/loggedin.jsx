@@ -63,7 +63,7 @@ const LoggedIn = () => {
       }
     };
     getBanalce();
-  }, [memoizedUser]);
+  }, [memoizedUser, navigate]);
 
   return (
     <div className="flex flex-col w-full space-y-6  py-4">
