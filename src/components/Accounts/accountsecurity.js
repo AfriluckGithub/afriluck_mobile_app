@@ -26,7 +26,7 @@ const AccountSecurity = () => {
   return (
     <div className="flex flex-col  h-screen bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48 py-32 space-y-6">
       <Subheader title="Account Security" />
-      <div className="flex flex-col w-full space-y-4 justify-between px-4 py-4 bg-white rounded-xl border border-border-default">
+      {/* <div className="flex flex-col w-full space-y-4 justify-between px-4 py-4 bg-white rounded-xl border border-border-default">
         {AccountSecurityData.map((account, index) => (
           <NavLink
             key={index}
@@ -40,7 +40,7 @@ const AccountSecurity = () => {
             <img src={"chevronr.svg"} alt="" />
           </NavLink>
         ))}
-      </div>
+      </div> */}
       <div
         className="flex items-center justify-between py-6 px-6 bg-white rounded-xl border border-border-default"
         onClick={() => navigate("/deleteaccount")}

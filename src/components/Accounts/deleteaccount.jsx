@@ -75,7 +75,7 @@ const DeleteAccount = () => {
                 <span className="text-wrap text-sm md:text-base font-medium">
                   Credit Account
                 </span>
-                <p className="text-sm font-semibold">GHS 0.00</p>
+                <p className="text-sm font-semibold">GHS {memoizedUser?.balance}</p>
               </div>
               <div className=" items-end flex flex-col w-full  space-y-1  md:p-4 rounded-lg md:rounded-xl">
                 <span className="text-wrap text-sm md:text-base font-medium">
