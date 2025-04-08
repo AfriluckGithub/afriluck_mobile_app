@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "afriluck_lg.png",
+      "src": "ic_launcher-web.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "afriluck_lg.png",
+      "src": "ic_launcher-web.png",
       "type": "image/png",
       "sizes": "512x512"
     }
