@@ -9,9 +9,9 @@ export const AccountData = [
   //   title: "Transactions ",
   //   route: "/transactions",
   // },
-  {
-    img: "subscription.svg",
-    title: "Subscriptions ",
-    route: "/subscription",
-  },
+  // {
+  //   img: "subscription.svg",
+  //   title: "Subscriptions ",
+  //   route: "/subscription",
+  // },
 ];
