@@ -1,5 +1,5 @@
 import React from "react";
-import { PolicyData } from "../../data/policy";
+//import { PolicyData } from "../../data/policy";
 import Subheader from "../subheader";
 
 const Terms = () => {
