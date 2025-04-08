@@ -4,11 +4,11 @@ export const AccountData = [
     title: "Account Security",
     route: "/accountsecurity",
   },
-  {
-    img: "transaction.svg",
-    title: "Transactions ",
-    route: "/transactions",
-  },
+  // {
+  //   img: "transaction.svg",
+  //   title: "Transactions ",
+  //   route: "/transactions",
+  // },
   {
     img: "subscription.svg",
     title: "Subscriptions ",

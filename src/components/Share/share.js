@@ -16,10 +16,10 @@ const ShareScreen = () => {
     console.log(e)
   }
 
-  console.log("user => ", memoizedUser);
+  //console.log("user => ", memoizedUser);
   
 
-  console.log("link to copy => ",linkToCopy);
+  //console.log("link to copy => ",linkToCopy);
   
 
   const handleCopy = () => {
