@@ -4,13 +4,13 @@ import Subheader from "../subheader";
 
 const DATA = [
   {
-    number: "0241234567",
+    number: "0531011912",
   },
   {
-    number: "0554588483",
+    number: "0531011919",
   },
   {
-    number: "0545302875",
+    number: "0531011932",
   },
 ];
 
