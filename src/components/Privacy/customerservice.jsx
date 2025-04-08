@@ -12,6 +12,9 @@ const DATA = [
   {
     number: "0531011932",
   },
+  {
+    number: "0240917266"
+  }
 ];
 
 const Customerservice = () => {
