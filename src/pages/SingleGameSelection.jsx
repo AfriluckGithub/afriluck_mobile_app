@@ -72,7 +72,7 @@ const SingleGameSelection = () => {
   };
 
   const handlePaymentScreen = () => {
-    if (typePicked === "Perm") {
+    if (typePicked === "Perm" || typePicked === "Banker") {
       dispatch(
         addTransactionData({
           numbers: transaction.numbers,
