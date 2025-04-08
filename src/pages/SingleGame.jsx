@@ -215,7 +215,7 @@ const SingleGame = () => {
     for (let num of arr) {
       if (seen.has(num)) {
         console.log("Has repeated numbers");
-        
+
         return true;
       }
       seen.add(num);
@@ -233,6 +233,11 @@ const SingleGame = () => {
     }
     if (repeatedNumbers) {
       setError(`Repeated numbers are not allowed`);
+      return;
+    }
+
+    if (type_picked === "Mega" && inputValue.length < 6) {
+      setError("Kindly select 6 numbers between 1 & 57");
       return;
     }
 
@@ -279,7 +284,7 @@ const SingleGame = () => {
         setError(
           `Selected Perm numbers has to be between ${range[0].min} and ${range[0].max}`
         );
-      } else if(repeatedNumbers) {
+      } else if (repeatedNumbers) {
         setError(`Repeated numbers are not allowed`);
       } else {
         setError(
@@ -303,7 +308,7 @@ const SingleGame = () => {
         inputNum = 10;
         break;
       case 4:
-        inputNum =  8;
+        inputNum = 8;
         break;
       case 6:
         inputNum = 8;
@@ -311,7 +316,6 @@ const SingleGame = () => {
       default:
         inputNum = 0;
         console.log("Nothing");
-        
     }
 
     const numInputs = type_picked === "Perm" ? inputNum : selectedGame || 1;
@@ -356,6 +360,7 @@ const SingleGame = () => {
       new Array(selectedGame || (type_picked === "Mega" ? 6 : 1)).fill("")
     );
   }, [selectedGame, type_picked]);
+  
   // const handlePaymentScreen = () => {
   //   navigate("/single_game_payment");
   // };
@@ -480,12 +485,34 @@ const SingleGame = () => {
             <div className="px-6 py-4 border-b border-border-default">
               <p className="text-black">Selections</p>
             </div>
-            
+
             <div className="block md:flex items-center px-6 py-6 w-full">
               <p className="w-full">
                 {selectedGame === ""
                   ? `Please select a number`
-                  : type_picked === "Perm"? `Please choose ${Number(selectedGame)+1===2? 3: Number(selectedGame)+1===3? 4: Number(selectedGame)+1===4? 5:Number(selectedGame)+1===6? 7: selectedGame} or not more than ${Number(selectedGame)+1===2? 15: Number(selectedGame)+1===3? 10: Number(selectedGame)+1===4? 8: Number(selectedGame)+1===6? 8: selectedGame} numbers`: `Please pick ${selectedGame} numbers between 1 to 57`}
+                  : type_picked === "Perm"
+                  ? `Please choose ${
+                      Number(selectedGame) + 1 === 2
+                        ? 3
+                        : Number(selectedGame) + 1 === 3
+                        ? 4
+                        : Number(selectedGame) + 1 === 4
+                        ? 5
+                        : Number(selectedGame) + 1 === 6
+                        ? 7
+                        : selectedGame
+                    } or not more than ${
+                      Number(selectedGame) + 1 === 2
+                        ? 15
+                        : Number(selectedGame) + 1 === 3
+                        ? 10
+                        : Number(selectedGame) + 1 === 4
+                        ? 8
+                        : Number(selectedGame) + 1 === 6
+                        ? 8
+                        : selectedGame
+                    } numbers`
+                  : `Please pick ${selectedGame} numbers between 1 to 57`}
               </p>
               <div className="flex flex-col flex-wrap w-full items-start">
                 <div className="grid grid-cols-3 md:flex gap-4 justify-start mt-4 w-full">
