@@ -9,9 +9,9 @@ export const PrivacyData = [
     title: "Terms and Conditions ",
     route: "/terms",
   },
-  {
-    img: "privacy.svg",
-    title: "Privacy Policy ",
-    route: "/privacypolicy",
-  },
+  // {
+  //   img: "privacy.svg",
+  //   title: "Privacy Policy ",
+  //   route: "/privacypolicy",
+  // },
 ];
