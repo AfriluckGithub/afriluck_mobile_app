@@ -8,8 +8,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { Button } from "@heroui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
-import { BsArrowLeft } from "react-icons/bs";
 import { useAptabase } from '@aptabase/react';
+import Subheader from "../components/subheader";
 
 const SingleGamePayment = () => {
   const navigate = useNavigate();
@@ -171,9 +171,9 @@ const SingleGamePayment = () => {
     }
   };
 
-  const back = () => {
-    navigate(-1);
-  };
+  // const back = () => {
+  //   navigate(-1);
+  // };
 
   const moveToCheckPaymentStatuds = () => {
     navigate("/single_game_status");
@@ -212,26 +212,11 @@ const SingleGamePayment = () => {
 
   return (
     <>
-      <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen  ">
+      <div className="h-[800px] flex flex-col bg-[#F7F7F7] w-screen  ">
         <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
-          <div className="flex cursor-pointer  items-center ml-2">
-            <div
-              onClick={back}
-              className="flex items-center space-x-4 p-3 w-auto border-border-default border rounded-xl bg-bg-tertiary"
-            >
-              <BsArrowLeft />
-              <p className="flex justify-center items-center text-black">
-                Payment
-              </p>
-            </div>
-            {/* <div className="font-normal w-full text-xl font-Poppins justify-center items-center">
-              <p className="flex justify-center items-center text-black">
-                Payment
-              </p>
-            </div> */}
-          </div>
+        <Subheader title="Payment" />
         </div>
-        <div className="mx-4 md:mx-12 lg:mx-48 py-6">
+        <div className="mx-4 md:mx-12 lg:mx-48 py-6 mt-10">
           <div className=" bg-white border border-border-default rounded-2xl">
             <div className="flex flex-row justify-center items-center  w-full p-6 rounded-t-2xl">
               <span className="font-xs text-lg  text-black">

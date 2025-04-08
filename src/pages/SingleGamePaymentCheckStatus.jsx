@@ -96,8 +96,8 @@ const SingleGamePaymentCheckStatus = () => {
           </p>
           <p className="text-center text-md">{statusInfoText}</p>
         </div>
-        <footer className="flex flex-col h-28 m-5">
-          <div className="flex flex-row w-auto mt-10">
+        <footer className="flex flex-col h-28 m-5 mb-20">
+          <div className="flex flex-row w-auto mt-5">
             <Button
               label={statusText}
               onClick={checkPaymentStatus}

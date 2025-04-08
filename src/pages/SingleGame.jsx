@@ -3,8 +3,8 @@ import { Input } from "@heroui/input";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
-import { BsArrowLeft } from "react-icons/bs";
 import { Button } from "@heroui/button";
+import Subheader from "../components/subheader";
 
 const SingleGame = () => {
   const navigate = useNavigate();
@@ -163,9 +163,9 @@ const SingleGame = () => {
     }
   };
 
-  const back = () => {
-    navigate(-1);
-  };
+  // const back = () => {
+  //   navigate(-1);
+  // };
 
   const determineGame = (selectedGame, type) => {
     if (type === "Direct") {
@@ -366,21 +366,11 @@ const SingleGame = () => {
   // };
   return (
     <>
-      <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen  ">
+      <div className="h-[1200px] flex flex-col bg-[#F7F7F7] w-screen scroll-smooth">
         <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
-          <div className="flex cursor-pointer  items-center ml-2">
-            <div
-              onClick={back}
-              className="flex items-center space-x-4 p-3 w-auto border-border-default border rounded-xl bg-bg-tertiary"
-            >
-              <BsArrowLeft />
-              <p className="flex justify-start items-start text-black">
-                {type}
-              </p>
-            </div>
-          </div>
+        <Subheader title="Select Numbers" />
         </div>
-        <div className="flex flex-col mx-4 md:mx-12 lg:mx-48">
+        <div className="flex flex-col mx-4 md:mx-12 lg:mx-48 mt-6">
           <div className="bg-white h-auto  border border-border-default rounded-2xl flex flex-col justify-center items-center mt-6">
             <div className="flex items-start w-full px-6 py-4 bg-[#DEF5EE] rounded-t-2xl ">
               <p className="text-primary font-medium text-lg">
@@ -527,7 +517,7 @@ const SingleGame = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-full justify-center items-center  ">
+        <div className="flex w-full justify-center items-center">
           <div className="block  space-y-4 md:flex flex-row w-full h-auto items-end bg-white border border-border-default rounded-xl p-6 mx-4 md:mx-12 lg:mx-48 my-6">
             <div className="flex justify-start items-start  flex-col flex-wrap  w-full  space-y-2">
               <p className="font-normal text-base font-Poppins text-black">
@@ -555,7 +545,7 @@ const SingleGame = () => {
                 </button>
               </p>
             </div>
-            <div className="flex items-end space-x-2 md:space-x-5 ">
+            <div className="flex items-end space-x-2 md:space-x-5">
               <div className="flex flex-wrap flex-col justify-end items-start w-full md:items-start space-y-4">
                 <p className="font-normal h-auto w-auto text-base text-black">
                   Total Amount

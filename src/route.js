@@ -56,6 +56,22 @@ export const router = createBrowserRouter([
         path: "/profile",
         element: <Profile />,
       },
+      {
+        path: "single_game",
+        element: <SingleGame />,
+      },
+      {
+        path: "single_game_selection",
+        element: <SingleGameSelection />,
+      },
+      {
+        path: "single_game_payment",
+        element: <SingleGamePayment />,
+      },
+      {
+        path: "single_game_status",
+        element: <SingleGamePaymentCheckStatus />,
+      },
     ],
   },
   {
@@ -69,22 +85,6 @@ export const router = createBrowserRouter([
   {
     path: "/customerservice",
     element: <Customerservice />,
-  },
-  {
-    path: "single_game",
-    element: <SingleGame />,
-  },
-  {
-    path: "single_game_selection",
-    element: <SingleGameSelection />,
-  },
-  {
-    path: "single_game_payment",
-    element: <SingleGamePayment />,
-  },
-  {
-    path: "single_game_status",
-    element: <SingleGamePaymentCheckStatus />,
   },
   {
     path: "/share_commission",

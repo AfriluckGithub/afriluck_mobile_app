@@ -10,7 +10,7 @@ import {
   addTransactionData,
   clearTransactionData,
 } from "../store/transactionSlice";
-import { BsArrowLeft } from "react-icons/bs";
+import Subheader from "../components/subheader";
 
 const SingleGameSelection = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const SingleGameSelection = () => {
   const numbers = String(transaction.numbers).length > 1? String(transaction.numbers).split(/( )/): transaction.numbers;
   const amount = transaction.betAmount;
   const game = transaction.game;
-  const type = transaction.type;
+  //const type = transaction.type;
   const typePicked = transaction.typePicked;
   const movedPastPayment = transaction.movedPastPayment;
 
@@ -106,22 +106,9 @@ const SingleGameSelection = () => {
   return (
     <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen  ">
       <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
-        <div className="flex cursor-pointer  items-center ml-2">
-          <div
-            onClick={back}
-            className="flex items-center space-x-4 p-3 w-auto border-border-default border rounded-xl bg-bg-tertiary"
-          >
-            <BsArrowLeft />
-            <p className="flex justify-start items-start text-black">{type}</p>
-          </div>
-          {/* <div className="text-xl font-Poppins w-full justify-center items-center">
-            <p className="flex justify-center items-center text-black">
-              {type}
-            </p>
-          </div> */}
-        </div>
+      <Subheader title="Selections" />
       </div>
-      <div className="flex h-screen flex-col mx-4 md:mx-12 lg:mx-48 my-12 ">
+      <div className="flex h-screen flex-col mx-4 md:mx-12 lg:mx-48 my-12 mt-16">
         <div className="flex flex-col bg-white rounded-2xl border border-border-default">
           <div className=" flex   items-center px-6 py-4  border-b border-border-default">
             <p className="text-black text-xl font-normal ">Selections</p>
