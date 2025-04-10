@@ -69,7 +69,7 @@ const Draw = () => {
                         <div className="mr-2 font-medium font-Poppins">{result.draw},</div>
                         <div className="font-Poppins font-normal">{result.draw_time}</div>
                       </div>
-                      <div className="text-gray-400 font-Poppins">{result.result}</div>
+                      <div className="text-gray-400 font-normal font-Poppins text-lg">{result.result}</div>
                     </span>
                   </div>
                   {/* <hr />

@@ -102,7 +102,7 @@ const Mybet = () => {
                       </div>
                       <div className="font-Poppins">{result.date}</div>
                     </div>
-                    <div className="text-gray-400 font-Poppins">
+                    <div className="text-gray-400 font-normal font-Poppins text-lg">
                       {result.selected_numbers}
                     </div>
                   </div>
