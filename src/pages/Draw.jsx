@@ -22,10 +22,12 @@ const Draw = () => {
         });
         
         if (res.status === 200) {
+          setLoading(false);
+          setError("");
           setResults(res.data.success);
-          console.dir(res.data.success);
         }
       } catch (e) {
+        setLoading(false);
         setError("Oops, nothing to display here. Kindly log-in");
       } finally {
         setLoading(false);
