@@ -56,13 +56,14 @@ const SingleGamePayment = () => {
           ? "Kindly provide a valid mobile number"
           : "Kindly provide a channel",
         {
-          position: "top",
+          position: "top-center",
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: false,
           progress: undefined,
           theme: "colored",
+          autoClose: 2000,
         }
       );
       setLoading(false);
@@ -116,10 +117,11 @@ const SingleGamePayment = () => {
             type: transaction.type,
             typePicked: transaction.typePicked,
             movedPastPayment: true,
-            mobileNumber: mobileNumber,
+            mobileNumber: mobileNumber
           })
         );
-        moveToCheckPaymentStatuds();
+        const isWalletPayment = selectedNetwork === 4 ? true : false;
+        moveToCheckPaymentStatuds(isWalletPayment);
       }
       console.error("Error:", res);
     } catch (error) {
@@ -129,13 +131,14 @@ const SingleGamePayment = () => {
         console.error("Error:", errorMessage);
 
         toast.error(errorMessage, {
-          position: "top",
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
-          draggable: false,
+          draggable: true,
           progress: undefined,
           theme: "colored",
+          autoClose: 2000,
+          position: "top-center",
         });
       } catch (error) {
         console.log(error);
@@ -175,8 +178,12 @@ const SingleGamePayment = () => {
   //   navigate(-1);
   // };
 
-  const moveToCheckPaymentStatuds = () => {
-    navigate("/single_game_status");
+  const moveToCheckPaymentStatuds = (isWalletPayment) => {
+    if(isWalletPayment) {
+      navigate("/");
+    }else{
+      navigate("/single_game_status");
+    }
   };
 
   const networks = [
