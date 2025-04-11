@@ -219,8 +219,8 @@ const SingleGamePayment = () => {
 
   return (
     <>
-      <div className="h-[800px] flex flex-col bg-[#F7F7F7] w-screen  ">
-        <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
+      <div className="h-[800px] flex flex-col bg-[#F7F7F7] w-screen">
+        <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default md:mb-5 lg:mb-5">
         <Subheader title="Payment" />
         </div>
         <div className="mx-4 md:mx-12 lg:mx-48 py-6 mt-10">
@@ -288,7 +288,7 @@ const SingleGamePayment = () => {
                 ))}
             </div>
           </div>
-          <div className="block space-y-4 md:flex w-full items-end justify-between bg-white p-6 my-6 rounded-2xl border border-border-default">
+          <div className="block space-y-4 w-full items-end justify-between bg-white p-6 my-6 rounded-2xl border border-border-default md:w-full md:justify-between lg:w-full lg:justify-between">
             <div>
               {selectedNetwork !== 4 ? (
                 <p className="mb-1 text-sm">Enter phone number</p>
@@ -300,7 +300,7 @@ const SingleGamePayment = () => {
                   type={"number"}
                   placeholder={"020 000 0000"}
                   icon={"ghana.svg"}
-                  className="bg-[#F5F5F7] w-full input-md focus:outline-none text-black"
+                  className="flex bg-[#F5F5F7] input-md focus:outline-none text-black md:w-full lg:w-full"
                   value={mobileNumber}
                   disabled={memoizedUser}
                   onChange={handleInputChange}
@@ -317,7 +317,7 @@ const SingleGamePayment = () => {
                 (!mobileNumber && selectedNetwork !== 4)
               }
               onPress={placeBet}
-              className=" font-bold w-full md:w-auto bg-primary text-white text-base"
+              className="flex font-bold w-full md:full lg:full bg-primary text-white text-base md:justify-center md:items-center rounded-lg lg:justify-center lg:items-center"
               size="lg"
             >
               Pay GHS {amount}.00
