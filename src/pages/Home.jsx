@@ -1,4 +1,7 @@
-import React, { useState, Suspense, lazy } from "react";
+import React, { useState, Suspense, lazy, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { update } from "../store/userSlice";
 
 const Banner = lazy(() => import("../components/banner"));
 const Content = lazy(() => import("../components/content"));
@@ -8,6 +11,44 @@ const Home = () => {
     query,
     //setQuery
   ] = useState("");
+  const location = useLocation();
+  const { checkBalance } = location.state || {};
+  const user = useSelector((state) => state.user?.user);
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
+  const dispatch = useDispatch();
+
+  console.log("User => ", memoizedUser);
+
+  useEffect(() => {
+      const getBalance = async () => {
+        try {
+          const response = await fetch(
+            "https://app.afriluck.com/api/V1/app/account/balance",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${memoizedUser?.token}`,
+              },
+            }
+          );
+          const json = await response.json();
+          if (response.status === 200) {
+            console.log("Balance => ", json.balance);
+            dispatch(update({ balance: json.balance }));
+          } else if (response.status === 401) {
+            console.log("Session expired, please login again");
+          } else {
+            console.log("Error fetching balance");
+          }
+        } catch (error) {
+          console.error("Error fetching balance:", error);
+        }
+      };
+      getBalance();
+  }, [checkBalance, dispatch, memoizedUser]);
 
   const subGames = [
     { id: 1, name: "Mega", imageUrl: "mega-logo.png" },

@@ -28,7 +28,13 @@ const SingleGamePaymentCheckStatus = () => {
       setStatus(locationStatus);
       setStatusInfoText(locationStatusInfoText);
     }
-  }, [location.state, locationStatusText, locationStatusImage, locationStatus, locationStatusInfoText]);
+  }, [
+    location.state,
+    locationStatusText,
+    locationStatusImage,
+    locationStatus,
+    locationStatusInfoText,
+  ]);
 
   const transaction = useSelector((state) => state.transaction?.transactions);
 
@@ -43,7 +49,11 @@ const SingleGamePaymentCheckStatus = () => {
   const checkPaymentStatus = async () => {
     try {
       if (statusText === "Okay") {
-        navigate("/");
+        navigate("/", {
+          state: {
+            checkBalance: true,
+          },
+        });
       }
       const requestBody = {
         phone_number: `233${Number(memoizedTransaction.mobileNumber)}`,
