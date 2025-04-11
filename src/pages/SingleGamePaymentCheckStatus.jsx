@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import { useSelector } from "react-redux";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const SingleGamePaymentCheckStatus = () => {
   const navigate = useNavigate();
@@ -13,6 +13,22 @@ const SingleGamePaymentCheckStatus = () => {
   const [statusInfoText, setStatusInfoText] = useState(
     "Your payment is being processed. Tap the button below to check payment status."
   );
+  const location = useLocation();
+  const {
+    locationStatusText,
+    locationStatusImage,
+    locationStatus,
+    locationStatusInfoText,
+  } = location.state || {};
+
+  useEffect(() => {
+    if (location.state) {
+      setStatusText(locationStatusText);
+      setStatusImage(locationStatusImage);
+      setStatus(locationStatus);
+      setStatusInfoText(locationStatusInfoText);
+    }
+  }, [location.state, locationStatusText, locationStatusImage, locationStatus, locationStatusInfoText]);
 
   const transaction = useSelector((state) => state.transaction?.transactions);
 
@@ -49,21 +65,21 @@ const SingleGamePaymentCheckStatus = () => {
       console.log(json);
 
       if (status === "Unpaid") {
-        setStatus(status)
+        setStatus(status);
         setStatusText("Check Again");
         setStatusInfoText(
           "Your payment is unpaid at the moment & is being processed. Tap on the check again button to confirm final payment status."
         );
         setStatusImage("pending-status.svg");
       } else if (status === "Paid") {
-        setStatus(status)
+        setStatus(status);
         setStatusText("Okay");
         setStatusImage("success-status.svg");
         setStatusInfoText(
           `Remember, matching all six numbers for Ghc20 is the key to claiming a life-changing jackpot prize of 70 million! Good Luck!!`
         );
       } else if (status === "Failed") {
-        setStatus(status)
+        setStatus(status);
         setStatusText("Back");
         setStatusImage("failed.png");
         setStatusInfoText(
@@ -90,7 +106,9 @@ const SingleGamePaymentCheckStatus = () => {
         </div>
         <div className="flex flex-col justify-center items-center h-full w-full p-5 rounded-lg bg-[#F7F7F7]">
           <img className="h-30 w-30" src={statusImage} alt="check" />
-          <div className="font-bold font-Poppins text-black mt-5 mb-5">{status}</div>
+          <div className="font-bold font-Poppins text-black mt-5 mb-5">
+            {status}
+          </div>
           <p className="font-Poppins font-semibold mb-2">
             {statusText === "Okay" ? "Success" : ""}
           </p>

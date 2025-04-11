@@ -525,7 +525,7 @@ const SingleGame = () => {
           </div>
         </div>
         <div className="flex w-full justify-center items-center">
-          <div className="block  space-y-4 md:flex flex-row w-full h-auto items-end bg-white border border-border-default rounded-xl p-6 mx-4 md:mx-12 lg:mx-48 my-6">
+          <div className="block space-y-4 md:flex flex-row w-full h-auto items-end bg-white border border-border-default rounded-xl p-6 mx-4 md:mx-12 lg:mx-48 my-6">
             <div className="flex justify-start items-start  flex-col flex-wrap  w-full  space-y-2">
               <p className="font-normal text-base font-Poppins text-black">
                 Bet Amount

@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { Button } from "@heroui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
-import { useAptabase } from '@aptabase/react';
+import { useAptabase } from "@aptabase/react";
 import Subheader from "../components/subheader";
 
 const SingleGamePayment = () => {
@@ -72,7 +72,6 @@ const SingleGamePayment = () => {
 
     const formattedNumber = `233${Number(mobileNumber)}`;
 
-
     if (game_type === "6/57") {
       game_type = "657";
     } else if (game_type === "Midday") {
@@ -107,7 +106,7 @@ const SingleGamePayment = () => {
       console.log(res.data);
       if (res.status === 200) {
         setLoading(false);
-        trackEvent('payment_request', requestBody);
+        trackEvent("payment_request", requestBody);
 
         dispatch(
           addTransactionData({
@@ -117,7 +116,7 @@ const SingleGamePayment = () => {
             type: transaction.type,
             typePicked: transaction.typePicked,
             movedPastPayment: true,
-            mobileNumber: mobileNumber
+            mobileNumber: mobileNumber,
           })
         );
         const isWalletPayment = selectedNetwork === 4 ? true : false;
@@ -179,9 +178,18 @@ const SingleGamePayment = () => {
   // };
 
   const moveToCheckPaymentStatuds = (isWalletPayment) => {
-    if(isWalletPayment) {
-      navigate("/");
-    }else{
+    if (isWalletPayment) {
+      navigate("/single_game_status", {
+        state: {
+          locationStatusText: "Okay",
+          locationStatusImage: "success-status.svg",
+          locationStatusInfoText:
+            "Your payment was successful. Kindly check your transaction history for details.",
+          locationStatus: "Paid",
+          mobileNumber: mobileNumber,
+        },
+      });
+    } else {
       navigate("/single_game_status");
     }
   };
@@ -221,7 +229,7 @@ const SingleGamePayment = () => {
     <>
       <div className="h-[800px] flex flex-col bg-[#F7F7F7] w-screen">
         <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default md:mb-5 lg:mb-5">
-        <Subheader title="Payment" />
+          <Subheader title="Payment" />
         </div>
         <div className="mx-4 md:mx-12 lg:mx-48 py-6 mt-10">
           <div className=" bg-white border border-border-default rounded-2xl">
