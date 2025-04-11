@@ -104,8 +104,8 @@ const SingleGameSelection = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen  ">
-      <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
+    <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen">
+      <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default md:mb-5 lg:mb-5">
       <Subheader title="Selections" />
       </div>
       <div className="flex h-screen flex-col mx-4 md:mx-12 lg:mx-48 my-12 mt-16">

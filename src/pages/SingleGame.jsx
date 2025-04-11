@@ -225,8 +225,8 @@ const SingleGame = () => {
 
   const placeBet = () => {
     let val = inputValue;
-    console.log("Val", val);
-    console.log(val.length);
+    //console.log("Val", val);
+    //console.log(val.length);
     const repeatedNumbers = hasRepeatedNumbers(val);
     if (error !== "") {
       return;
@@ -241,6 +241,9 @@ const SingleGame = () => {
       return;
     }
 
+    console.log("Input Length => ", inputValue.length);
+    
+
     const permValidation = isValidValue(val);
     const range = getRange(val.length);
 
@@ -252,6 +255,7 @@ const SingleGame = () => {
     const directValidation =
       val.length === selectedGame &&
       type_picked === "Direct" &&
+      //inputValue.length > 0 &&
       Number(betAmount) > 0 &&
       !val.some((item) => Number(item) > 57);
 
@@ -261,7 +265,7 @@ const SingleGame = () => {
       Number(betAmount) > 0 &&
       !val.some((item) => Number(item) > 57);
 
-    console.log("repeated => ", repeatedNumbers);
+    console.log("repeated => ", inputValue);
 
     if (
       megaValidation ||
@@ -277,6 +281,9 @@ const SingleGame = () => {
         typePicked: type_picked,
         movedPastPayment: false,
       };
+
+      //console.log("Transaction => ", transaction);
+      
       dispatch(addTransactionData(transaction));
       navigate("/single_game_selection");
     } else {
@@ -367,10 +374,10 @@ const SingleGame = () => {
   return (
     <>
       <div className="h-[1200px] flex flex-col bg-[#F7F7F7] w-screen scroll-smooth">
-        <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default ">
+        <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default">
         <Subheader title="Select Numbers" />
         </div>
-        <div className="flex flex-col mx-4 md:mx-12 lg:mx-48 mt-6">
+        <div className="flex flex-col mx-4 md:mx-12 lg:mx-48 md:mt-16 lg:mt-16 mt-10">
           <div className="bg-white h-auto  border border-border-default rounded-2xl flex flex-col justify-center items-center mt-6">
             <div className="flex items-start w-full px-6 py-4 bg-[#DEF5EE] rounded-t-2xl ">
               <p className="text-primary font-medium text-lg">
@@ -557,9 +564,9 @@ const SingleGame = () => {
                     value={betAmount}
                     type="number"
                     inputMode="numeric"
-                    variant="bordered"
                     size=""
-                    className="w-24"
+                    className="w-24 font-bold text-xl text-black border-medium border-black border-solid"
+                    placeholder="0"
                   />
                 </div>
               </div>
