@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import Subheader from "../subheader";
 
 const DATA = [
-  {
-    number: "0531011912",
-  },
+  // {
+  //   number: "0531011912",
+  // },
   {
     number: "0531011919",
   },
