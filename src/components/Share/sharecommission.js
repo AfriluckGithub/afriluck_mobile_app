@@ -13,7 +13,7 @@ const Sharecommission = () => {
     try{
       const getCommission = async () => {
         const response = await fetch(
-          "https://app.afriluck.com/api/V1/app/commissions",
+          "http://api.afriluck.com:4040/api/V1/app/commissions",
           {
             method: 'get',
             headers: {

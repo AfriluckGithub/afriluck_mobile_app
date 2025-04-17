@@ -32,7 +32,7 @@ const VerifyCodeScreenUnAutheenticated = () => {
     console.log(requestBody);
     const token = localStorage.getItem("tempToken");
     const response = await fetch(
-      "https://app.afriluck.com/api/V1/app/resend-otp",
+      "http://api.afriluck.com:4040/api/V1/app/resend-otp",
       {
         method: "POST",
         headers: {
@@ -59,7 +59,7 @@ const VerifyCodeScreenUnAutheenticated = () => {
     
     try {
       const res = await axios.post(
-        "https://app.afriluck.com/api/V1/app/verify-password-reset-otp",
+        "http://api.afriluck.com:4040/api/V1/app/verify-password-reset-otp",
         requestBody,
         {
           headers: {

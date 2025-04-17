@@ -50,7 +50,7 @@ const VerifyCodeScreen = () => {
     const resend = async () => {
       try {
         const data = await fetch(
-          "https://app.afriluck.com/api/V1/app/resend-otp",
+          "http://api.afriluck.com:4040/api/V1/app/resend-otp",
           {
             method: "POST",
             headers: {
@@ -91,7 +91,7 @@ const VerifyCodeScreen = () => {
 
     try {
       const data = await fetch(
-        "https://app.afriluck.com/api/V1/app/resend-otp",
+        "http://api.afriluck.com:4040/api/V1/app/resend-otp",
         {
           method: "POST",
           headers: {
@@ -128,7 +128,7 @@ const VerifyCodeScreen = () => {
     };
     try {
       const res = await axios.post(
-        "https://app.afriluck.com/api/V1/app/verify-otp",
+        "http://api.afriluck.com:4040/api/V1/app/verify-otp",
         requestBody,
         {
           headers: {

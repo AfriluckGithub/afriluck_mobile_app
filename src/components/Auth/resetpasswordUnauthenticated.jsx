@@ -24,7 +24,7 @@ const ResetPasswordScreenUnAutheenticated = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://app.afriluck.com/api/V1/app/reset-password",
+        "http://api.afriluck.com:4040/api/V1/app/reset-password",
         {
           method: "POST",
           headers: {

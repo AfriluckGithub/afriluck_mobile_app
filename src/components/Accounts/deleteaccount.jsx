@@ -25,7 +25,7 @@ const DeleteAccount = () => {
     console.log("Token => ", memoizedUser.token);
     try {
       const response = await fetch(
-        "https://app.afriluck.com/api/V1/app/delete-user",
+        "http://api.afriluck.com:4040/api/V1/app/delete-user",
         {
           method: "POST",
           headers: {
