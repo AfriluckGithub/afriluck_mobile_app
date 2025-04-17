@@ -16,7 +16,7 @@ const Draw = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          "http://api.afriluck.com:4040/api/V1/app/draw-results",
+          "https://app-api.afriluck.com/api/V1/app/draw-results",
           {
             headers: {
               "Content-Type": "application/json",

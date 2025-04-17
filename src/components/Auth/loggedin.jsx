@@ -34,7 +34,7 @@ const LoggedIn = () => {
       console.log("Token => ", memoizedUser.token);
       try {
         const response = await fetch(
-          "http://api.afriluck.com:4040/api/V1/app/account/balance",
+          "https://app-api.afriluck.com/api/V1/app/account/balance",
           {
             method: "GET",
             headers: {
