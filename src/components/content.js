@@ -47,55 +47,55 @@ const Body = ({ subGames, subGames1 }) => {
     };
   };
 
-  // const isBlockedGame = () => {
-  //   const now = new Date();
-  //   const dayOfWeek = now.getDay();
-  //   const totalMinutes = now.getHours() * 60 + now.getMinutes();
-  //   const blockStart = 6 * 1440 + 19 * 60 + 45;
-  //   const blockEnd = 0 * 1440 + 19 * 60 + 45;
+  const isBlockedGame = () => {
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const totalMinutes = now.getHours() * 60 + now.getMinutes();
+    const blockStart = 6 * 1440 + 19 * 60 + 45;
+    const blockEnd = 0 * 1440 + 19 * 60 + 45;
 
-  //   const currentTimeInWeek = dayOfWeek * 1440 + totalMinutes;
+    const currentTimeInWeek = dayOfWeek * 1440 + totalMinutes;
 
-  //   const inBlockWindow =
-  //     currentTimeInWeek >= blockStart || currentTimeInWeek < blockEnd;
+    const inBlockWindow =
+      currentTimeInWeek >= blockStart || currentTimeInWeek < blockEnd;
 
-  //   return inBlockWindow;
-  // };
+    return inBlockWindow;
+  };
 
-  // function isGameActive(startHour, startMinute, endHour, endMinute, gameName) {
-  //   const now = new Date();
-  //   const currentHours = now.getHours();
-  //   const currentMinutes = now.getMinutes();
-  //   const dayOfWeek = now.getDay();
+  function isGameActive(startHour, startMinute, endHour, endMinute, gameName) {
+    const now = new Date();
+    const currentHours = now.getHours();
+    const currentMinutes = now.getMinutes();
+    const dayOfWeek = now.getDay();
 
-  //   // Disable Anopa and Midday from Saturday 7:45 PM to Sunday 7:45 PM
-  //   //console.log("Is blocked game:", isBlockedGame());
+    // Disable Anopa and Midday from Saturday 7:45 PM to Sunday 7:45 PM
+    //console.log("Is blocked game:", isBlockedGame());
     
-  //   if (isBlockedGame() && (gameName === "Anopa" || gameName === "Midday")) {
-  //     return true;
-  //   }
+    if (isBlockedGame() && (gameName === "Anopa" || gameName === "Midday")) {
+      return true;
+    }
 
-  //   const minutesSinceMidnight = now.getHours() * 60 + now.getMinutes();
-  //   const start = 17 * 60 + 33; // 5:33 PM
-  //   const end = 19 * 60 + 45; // 7:45 PM
+    const minutesSinceMidnight = now.getHours() * 60 + now.getMinutes();
+    const start = 17 * 60 + 33; // 5:33 PM
+    const end = 19 * 60 + 45; // 7:45 PM
 
-  //   if (
-  //     dayOfWeek === 0 &&
-  //     minutesSinceMidnight >= start &&
-  //     minutesSinceMidnight < end
-  //   ) {
-  //     if (gameName === "Afriluck") {
-  //       return true;
-  //     }
-  //   }
+    if (
+      dayOfWeek === 0 &&
+      minutesSinceMidnight >= start &&
+      minutesSinceMidnight < end
+    ) {
+      if (gameName === "Afriluck") {
+        return true;
+      }
+    }
 
-  //   return !(
-  //     currentHours > startHour ||
-  //     (currentHours === startHour && currentMinutes >= startMinute) ||
-  //     currentHours < endHour ||
-  //     (currentHours === endHour && currentMinutes < endMinute)
-  //   );
-  // }
+    return !(
+      currentHours > startHour ||
+      (currentHours === startHour && currentMinutes >= startMinute) ||
+      currentHours < endHour ||
+      (currentHours === endHour && currentMinutes < endMinute)
+    );
+  }
 
   const [timeLeft, setTimeLeft] = useState({
     Anopa: calculateTimeLeft(drawTimes.Anopa),
@@ -119,22 +119,22 @@ const Body = ({ subGames, subGames1 }) => {
     {
       name: "Anopa",
       timeLeft: timeLeft.Anopa,
-      //started: isGameActive(19, 45, 10, 0, "Anopa"),
-      started: true,
+      started: isGameActive(19, 45, 10, 0, "Anopa"),
+      //started: true,
       games: subGames1,
     },
     {
       name: "Midday",
       timeLeft: timeLeft.Midday,
-      //started: isGameActive(19, 45, 13, 30, "Midday"),
-      started: true,
+      started: isGameActive(19, 45, 13, 30, "Midday"),
+      //started: true,
       games: subGames1,
     },
     {
       name: "Afriluck 6/57",
       timeLeft: timeLeft.Afriluck,
-      //started: isGameActive(19, 45, 19, 0, "Afriluck"),
-      started: true,
+      started: isGameActive(19, 45, 19, 0, "Afriluck"),
+      //started: true,
       games: subGames,
     },
   ];
