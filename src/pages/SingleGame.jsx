@@ -225,8 +225,8 @@ const SingleGame = () => {
 
   const placeBet = () => {
     let val = inputValue;
-    //console.log("Val", val);
-    //console.log(val.length);
+    console.log("Val", val);
+    console.log(" Val Length => ", val.length);
     const repeatedNumbers = hasRepeatedNumbers(val);
     if (error !== "") {
       return;
@@ -241,8 +241,17 @@ const SingleGame = () => {
       return;
     }
 
+    if (type_picked === "Direct" && val.every((item) => item === "")) {
+      setError("Kindly select a number between 1 & 57");
+      return;
+    }
+
+    if (type_picked === "Banker" && val.every((item) => item === "")) {
+      setError("Kindly select a number between 1 & 57");
+      return;
+    }
+
     console.log("Input Length => ", inputValue.length);
-    
 
     const permValidation = isValidValue(val);
     const range = getRange(val.length);
@@ -255,13 +264,14 @@ const SingleGame = () => {
     const directValidation =
       val.length === selectedGame &&
       type_picked === "Direct" &&
-      //inputValue.length > 0 &&
+      //val.length > 0 &&
       Number(betAmount) > 0 &&
       !val.some((item) => Number(item) > 57);
 
     const bankerValidation =
       val.length === 1 &&
       type_picked === "Banker" &&
+      //val.length > 0 &&
       Number(betAmount) > 0 &&
       !val.some((item) => Number(item) > 57);
 
@@ -283,7 +293,7 @@ const SingleGame = () => {
       };
 
       //console.log("Transaction => ", transaction);
-      
+
       dispatch(addTransactionData(transaction));
       navigate("/single_game_selection");
     } else {
@@ -326,7 +336,7 @@ const SingleGame = () => {
     }
 
     const numInputs = type_picked === "Perm" ? inputNum : selectedGame || 1;
-    return Array.from({ length: numInputs || 1 }).map((_, index) => (
+    return Array.from({ length: numInputs || 0 }).map((_, index) => (
       <Input
         key={index}
         type="number"
@@ -367,7 +377,7 @@ const SingleGame = () => {
       new Array(selectedGame || (type_picked === "Mega" ? 6 : 1)).fill("")
     );
   }, [selectedGame, type_picked]);
-  
+
   // const handlePaymentScreen = () => {
   //   navigate("/single_game_payment");
   // };
@@ -375,7 +385,7 @@ const SingleGame = () => {
     <>
       <div className="h-[1200px] flex flex-col bg-[#F7F7F7] w-screen scroll-smooth">
         <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default">
-        <Subheader title="Select Numbers" />
+          <Subheader title="Select Numbers" />
         </div>
         <div className="flex flex-col mx-4 md:mx-12 lg:mx-48 md:mt-16 lg:mt-16 mt-10">
           <div className="bg-white h-auto  border border-border-default rounded-2xl flex flex-col justify-center items-center mt-6">
