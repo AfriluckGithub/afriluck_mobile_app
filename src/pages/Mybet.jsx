@@ -18,7 +18,7 @@ const Mybet = () => {
       try {
         //const token = memoizedUser?.token || null;
         console.log("Token => ", memoizedUser?.token);
-        
+
         const res = await axios.get(
           "https://app-api.afriluck.com/api/V1/app/my-bets",
           {
@@ -56,7 +56,20 @@ const Mybet = () => {
     });
   };
 
-  const groupedResults = results.reduce((acc, result) => {
+  const sortedResults = [...results].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
+
+  // const groupedResults = results.reduce((acc, result) => {
+  //   const formattedDate = formatDate(result.date);
+  //   if (!acc[formattedDate]) {
+  //     acc[formattedDate] = [];
+  //   }
+  //   acc[formattedDate].push(result);
+  //   return acc;
+  // }, {});
+
+  const groupedResults = sortedResults.reduce((acc, result) => {
     const formattedDate = formatDate(result.date);
     if (!acc[formattedDate]) {
       acc[formattedDate] = [];
@@ -116,7 +129,9 @@ const Mybet = () => {
                           ? "bg-green-500 rounded-lg text-white p-1 font-Poppins text-sm"
                           : result.status === "pending"
                           ? "bg-yellow-500 rounded-lg text-white p-1 font-Poppins text-sm"
-                          : result.status === "lost"? "bg-rose-500 rounded-lg text-white p-1 font-Poppins text-sm": "bg-gray-500 rounded-lg text-white p-1 font-Poppins text-sm"
+                          : result.status === "lost"
+                          ? "bg-rose-500 rounded-lg text-white p-1 font-Poppins text-sm"
+                          : "bg-gray-500 rounded-lg text-white p-1 font-Poppins text-sm"
                       }`}
                     >
                       {result.status.toUpperCase()}
