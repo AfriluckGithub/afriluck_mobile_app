@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { Suspense, lazy } from "react";
 import TagManager from "react-gtm-module";
 const tagManagerArgs = {
-  gtmId: "GTM-5Q9QP597"
+  gtmId: "GTM-5Q9QP597",
 };
 
 const Header = lazy(() => import("./components/header"));
@@ -29,13 +29,21 @@ function App() {
   return (
     <div className="bg-[#F7F7F7] h-screen flex flex-col">
       <PWAInstallPrompt />
-      <Suspense fallback={<div className="flex justify-center items-center">Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="flex justify-center items-center">Loading...</div>
+        }
+      >
         <Header />
       </Suspense>
       <div className="flex-1 overflow-y-auto">
         <Outlet />
       </div>
-      <Suspense fallback={<div className="flex justify-center items-center">Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="flex justify-center items-center">Loading...</div>
+        }
+      >
         <Footer />
       </Suspense>
     </div>

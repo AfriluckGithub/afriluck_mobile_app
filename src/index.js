@@ -11,6 +11,12 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { register } from "./serviceWorkerRegistration";
 import { AptabaseProvider } from "@aptabase/react";
+import * as Sentry from "@sentry/react";
+
+Sentry.init({
+  dsn: "https://fa4e938b12b71a80048f3e7de397a943@o4504513605664768.ingest.us.sentry.io/4509467668578304",
+  sendDefaultPii: true,
+});
 
 register();
 
