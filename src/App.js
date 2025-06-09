@@ -9,6 +9,7 @@ import { useAptabase } from "@aptabase/react";
 import { useEffect } from "react";
 import { Suspense, lazy } from "react";
 import TagManager from "react-gtm-module";
+
 const tagManagerArgs = {
   gtmId: "GTM-5Q9QP597",
 };
