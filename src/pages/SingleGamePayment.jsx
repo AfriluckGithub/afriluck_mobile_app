@@ -103,10 +103,9 @@ const SingleGamePayment = () => {
         "https://app-api.afriluck.com/api/V1/app/place-bet",
         requestBody
       );
-      console.log(res.data);
       if (res.status === 200) {
         setLoading(false);
-        trackEvent("payment_request", requestBody);
+        //trackEvent("payment_request", requestBody);
 
         dispatch(
           addTransactionData({
@@ -122,12 +121,11 @@ const SingleGamePayment = () => {
         const isWalletPayment = selectedNetwork === 4 ? true : false;
         moveToCheckPaymentStatuds(isWalletPayment);
       }
-      console.error("Error:", res);
     } catch (error) {
       try {
         const errorMessage = error.response.data.error;
         //const channelMessage = errorMessage.channel;
-        console.error("Error:", errorMessage);
+        console.error("Error:", error);
 
         toast.error(errorMessage, {
           hideProgressBar: false,

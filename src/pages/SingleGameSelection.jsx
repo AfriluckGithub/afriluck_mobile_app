@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { BsXCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useMemo } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { Button } from "@heroui/button";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -19,12 +19,21 @@ const SingleGameSelection = () => {
   const transaction =
     useSelector((state) => state.transaction?.transactions) || {};
 
-  const numbers = String(transaction.numbers).length > 1? String(transaction.numbers).split(/( )/): transaction.numbers;
+  const numbers =
+    String(transaction.numbers).length > 1
+      ? String(transaction.numbers).split(/( )/)
+      : transaction.numbers;
   const amount = transaction.betAmount;
   const game = transaction.game;
   //const type = transaction.type;
   const typePicked = transaction.typePicked;
   const movedPastPayment = transaction.movedPastPayment;
+  const user = useSelector((state) => state.user?.user);
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
+
+  console.log("Mem user -> ", memoizedUser);
 
   useEffect(() => {
     const calculatePermAmount = async () => {
@@ -47,25 +56,47 @@ const SingleGameSelection = () => {
           {
             method: "POST",
             headers: {
+              Authorization: `Bearer ${memoizedUser?.token}`,
               "Content-Type": "application/json",
             },
             body: requestBody,
           }
         );
 
-        const json = await response.json();
-        console.log(json);
+        if (response.status !== 200) {
+          toast.error("Kindly login first", {
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            autoClose: 2000,
+            position: "top-center",
+          });
+        } else {
+          const json = await response.json();
+          console.log(json);
 
-        const total = Number(json.total);
-        console.log(`Amount received from API => GHS ${total}`);
+          const total = Number(json.total);
+          console.log(`Amount received from API -> GHS ${total}`);
 
-        setTotal(total);
+          setTotal(total);
+        }
       } catch (error) {
         console.log(error);
       }
     };
     calculatePermAmount();
-  }, [amount, numbers, total, typePicked, movedPastPayment, game]);
+  }, [
+    amount,
+    numbers,
+    total,
+    typePicked,
+    movedPastPayment,
+    game,
+    memoizedUser?.token,
+  ]);
 
   const back = () => {
     navigate(-1);
@@ -106,7 +137,7 @@ const SingleGameSelection = () => {
   return (
     <div className="h-screen flex flex-col bg-[#F7F7F7] w-screen">
       <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default md:mb-5 lg:mb-5">
-      <Subheader title="Selections" />
+        <Subheader title="Selections" />
       </div>
       <div className="flex h-screen flex-col mx-4 md:mx-12 lg:mx-48 my-12 mt-16">
         <div className="flex flex-col bg-white rounded-2xl border border-border-default">
@@ -122,7 +153,9 @@ const SingleGameSelection = () => {
                 <div className="flex flex-col w-full">
                   <p className="w-full font-medium text-xl">{numbers}</p>
                   <p className="text-gray-400">{`${typePicked} | GHS ${
-                    typePicked === "Perm" || typePicked === "Banker" ? total : amount
+                    typePicked === "Perm" || typePicked === "Banker"
+                      ? total
+                      : amount
                   }.00`}</p>
                 </div>
                 <div onClick={handleDeleteSingle} className="cursor-pointer">
@@ -148,6 +181,7 @@ const SingleGameSelection = () => {
                 >
                   Place Bet
                 </Button>
+                <ToastContainer />
               </div>
             </div>
           </div>
