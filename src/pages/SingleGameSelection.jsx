@@ -64,7 +64,7 @@ const SingleGameSelection = () => {
         );
 
         if (response.status !== 200) {
-          toast.error("Kindly login first", {
+          toast.error("Bet amount error. Kindly login first.", {
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: false,
