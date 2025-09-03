@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 import { Button } from "@heroui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
-import { useAptabase } from "@aptabase/react";
 import Subheader from "../components/subheader";
 
 const SingleGamePayment = () => {
@@ -19,7 +18,6 @@ const SingleGamePayment = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [isValidMobile, setIsValidMobile] = useState(false);
-  const { trackEvent } = useAptabase();
 
   const transaction =
     useSelector((state) => state.transaction?.transactions) || {};
