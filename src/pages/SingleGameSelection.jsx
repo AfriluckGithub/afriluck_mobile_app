@@ -172,10 +172,23 @@ const SingleGameSelection = () => {
                 >
                   <p className=" text-red ">Clear All</p>
                 </Button>
-                <Button
+                {/* <Button
                   disabled={total === 0 || amount === 0? true: false}
                   onPress={handlePaymentScreen}
                   className="bg-primary text-white  "
+                  size="lg"
+                  variant="primary"
+                >
+                  Place Bet
+                </Button> */}
+                <Button
+                  disabled={total === 0 || amount === 0}
+                  onPress={handlePaymentScreen}
+                  className={`${
+                    total === 0 || amount === 0
+                      ? "bg-gray-400 text-gray-200 cursor-not-allowed"
+                      : "bg-primary text-white"
+                  }`}
                   size="lg"
                   variant="primary"
                 >
