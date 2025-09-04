@@ -99,6 +99,11 @@ const SingleGamePayment = () => {
     try {
       const res = await axios.post(
         "https://app-api.afriluck.com/api/V1/app/place-bet",
+        {
+          headers: {
+            Authorization: `Bearer ${memoizedUser?.token}`
+          }
+        },
         requestBody
       );
       if (res.status === 200) {
