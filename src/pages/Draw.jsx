@@ -2,14 +2,17 @@ import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 //import { useSelector } from "react-redux";
 import { OrbitProgress } from "react-loading-indicators";
-import { useAptabase } from "@aptabase/react";
+import { useSelector } from "react-redux";
 
 const Draw = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { trackEvent } = useAptabase();
-  trackEvent("draw_results");
+  const user = useSelector((state) => state.user?.user);
+
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
 
   useEffect(() => {
     const fetchDrawResults = async () => {
@@ -20,6 +23,7 @@ const Draw = () => {
           {
             headers: {
               "Content-Type": "application/json",
+              Authorization: `Bearer ${memoizedUser?.token}`
             },
           }
         );
@@ -38,7 +42,7 @@ const Draw = () => {
     };
 
     fetchDrawResults();
-  }, []);
+  }, [memoizedUser?.token]);
 
   const groupedResults = useMemo(() => {
     return results.reduce((acc, result) => {
