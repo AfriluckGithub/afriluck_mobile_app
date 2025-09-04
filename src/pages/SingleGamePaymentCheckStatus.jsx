@@ -35,6 +35,11 @@ const SingleGamePaymentCheckStatus = () => {
     locationStatus,
     locationStatusInfoText,
   ]);
+    const user = useSelector((state) => state.user?.user);
+
+  const memoizedUser = useMemo(() => {
+    return user ? { ...user } : null;
+  }, [user]);
 
   const transaction = useSelector((state) => state.transaction?.transactions);
 
@@ -66,6 +71,7 @@ const SingleGamePaymentCheckStatus = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${memoizedUser?.token}`,
           },
           body: JSON.stringify(requestBody),
         }
