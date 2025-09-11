@@ -1,7 +1,7 @@
 export const ShareData = [
   {
     img: "share.svg",
-    title: "Share",
+    title: "Share your referral link",
     route: "/share",
   },
   {
@@ -14,7 +14,7 @@ export const ShareData = [
 export const ShareOnly = [
   {
     img: "share.svg",
-    title: "Share",
+    title: "Share your referral link",
     route: "/share-user",
   },
 ];
