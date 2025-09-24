@@ -9,6 +9,7 @@ import { Button } from "@heroui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
 import Subheader from "../components/subheader";
+import { trackPurchase } from "../utils/datalayer";
 
 const SingleGamePayment = () => {
   const navigate = useNavigate();
@@ -122,6 +123,22 @@ const SingleGamePayment = () => {
             mobileNumber: mobileNumber,
           })
         );
+
+        trackPurchase({
+          transaction_id:
+            res.data?.data?.transaction_id || Date.now().toString(),
+          value: Number(amount),
+          currency: "GHS",
+          items: [
+            {
+              item_name: transaction.game,
+              item_category: transaction.typePicked,
+              price: Number(amount),
+              quantity: 1,
+              phone_number: selectedNetwork === 4 ? memoizedUser.phone_number : formattedNumber,
+            },
+          ],
+        });
         const isWalletPayment = selectedNetwork === 4 ? true : false;
         moveToCheckPaymentStatuds(isWalletPayment);
       }
