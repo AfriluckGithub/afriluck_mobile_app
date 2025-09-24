@@ -131,7 +131,7 @@ const SingleGamePayment = () => {
           currency: "GHS",
           items: [
             {
-              item_name: transaction.game,
+              item_name: transaction.type,
               item_category: transaction.typePicked,
               price: Number(amount),
               quantity: 1,
