@@ -20,7 +20,7 @@ const Mybet = () => {
         console.log("Token => ", memoizedUser?.token);
 
         const res = await axios.get(
-          "http://10.180.180.22:5011/api/V1/app/my-bets",
+          "https://app-api.afriluck.com/api/V1/app/my-bets",
           {
             headers: {
               Authorization: `Bearer ${memoizedUser?.token}`,

@@ -52,7 +52,7 @@ const SingleGameSelection = () => {
         console.log(requestBody);
 
         const response = await fetch(
-          "http://10.180.180.22:5011/api/V1/app/bet-amount",
+          "https://app-api.afriluck.com/api/V1/app/bet-amount",
           {
             method: "POST",
             headers: {

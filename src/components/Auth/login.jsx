@@ -35,7 +35,7 @@ const LoginScreen = () => {
     };
     try {
       const response = await axios.post(
-        "http://10.180.180.22:5011/api/V1/app/login",
+        "https://app-api.afriluck.com/api/V1/app/login",
         requestBody,
         {
           headers: {

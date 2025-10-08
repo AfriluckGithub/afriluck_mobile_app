@@ -66,7 +66,7 @@ const SingleGamePaymentCheckStatus = () => {
       console.log("Status Request => ", requestBody);
 
       const response = await fetch(
-        "http://10.180.180.22:5011/api/V1/app/status-check",
+        "https://app-api.afriluck.com/api/V1/app/status-check",
         {
           method: "POST",
           headers: {
