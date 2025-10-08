@@ -99,7 +99,7 @@ const SingleGamePayment = () => {
 
     try {
       const res = await axios.post(
-        "https://app-api.afriluck.com/api/V1/app/place-bet",
+        "http://10.180.180.22:5011/api/V1/app/place-bet",
         requestBody,
         {
           headers: {

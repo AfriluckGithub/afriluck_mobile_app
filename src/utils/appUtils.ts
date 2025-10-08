@@ -4,7 +4,7 @@ export const resendOtpUtils = async (setError: any, setLoading: any, phoneNumber
     console.log("Sending otp to => ", phoneNumber);
     console.log("With token => ", grantedToken);
     try {
-      const data = await fetch('https://app-api.afriluck.com/api/V1/app/resend-otp', {
+      const data = await fetch('http://10.180.180.22:5011/api/V1/app/resend-otp', {
         method: 'POST',
         headers: {
           "Authorization": `Bearer ${grantedToken}`,
