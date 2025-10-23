@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 import { Input } from "@heroui/input";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -17,11 +17,9 @@ const SingleGame = () => {
   const [error, setError] = useState("");
   const [
     disabled,
-    //setDisabled
   ] = useState(true);
   const [
     valuesArray,
-    //setValuesArray
   ] = useState([]);
 
   console.log(disabled);
@@ -96,36 +94,13 @@ const SingleGame = () => {
 
   const selectGame = (id) => {
     setInputValue([]);
-    // console.log("Game Id => ", id);
     setSelectedGame(id);
   };
 
-  // const handleInputAmountChange = (event) => {
-  //   setBetAmount(event.target.value);
-  // };
-
-  const handleInputChange = (index, e) => {
-    const value = e.target.value;
-    let number = parseInt(value);
-    if (isNaN(value) || number < 1 || number > 57) {
-      number = 0;
-      setError("Numbers must be between 1 and 57");
-      return;
-    } else {
-      setError("");
-    }
-
-    setInputValue((prev) => {
-      const newValues = [...prev];
-      newValues[index] = number;
-      return newValues;
-    });
-    // setVal(inputValue);
-  };
-
-  const handleChange = (numbers) => {
-    console.log("selected numbers:", numbers);
-  };
+  const handleChange = useCallback((numbers) => {
+    setInputValue(numbers);
+    console.log("Numbers picked "+ numbers);
+  }, []);
 
   const handleAmountChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
@@ -156,10 +131,6 @@ const SingleGame = () => {
       setBetAmount(value === "" ? "" : parseInt(value, 10));
     }
   };
-
-  // const back = () => {
-  //   navigate(-1);
-  // };
 
   const determineGame = (selectedGame, type) => {
     if (type === "Direct") {
@@ -286,8 +257,6 @@ const SingleGame = () => {
         movedPastPayment: false,
       };
 
-      //console.log("Transaction => ", transaction);
-
       dispatch(addTransactionData(transaction));
       navigate("/single_game_selection");
     } else {
@@ -305,79 +274,9 @@ const SingleGame = () => {
     }
   };
 
-  const renderInputFields = () => {
-    let inputNum = 0;
-    const currentGame =
-      type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
-    console.log("Selected Game => ", currentGame);
-
-    switch (currentGame) {
-      case 2:
-        inputNum = 15;
-        break;
-      case 3:
-        inputNum = 10;
-        break;
-      case 4:
-        inputNum = 8;
-        break;
-      case 6:
-        inputNum = 8;
-        break;
-      default:
-        inputNum = 0;
-        console.log("Nothing");
-    }
-
-    const numInputs = type_picked === "Perm" ? inputNum : selectedGame || 1;
-    return Array.from({ length: numInputs || 0 }).map((_, index) => (
-      <Input
-        key={index}
-        type="number"
-        variant="bordered"
-        placeholder={` 1`}
-        className={`${
-          error === ""
-            ? `w-24 text-black text-sm`
-            : `w-24 border-pink-500 text-pink-600 text-sm`
-        }`}
-        value={inputValue[index] || ""}
-        onChange={(e) => handleInputChange(index, e)}
-      />
-    ));
-  };
-
-  const renderInputFieldMega = () => {
-    const numInputs = type_picked === "Mega" ? 6 : selectedGame || 1;
-
-    return Array.from({ length: numInputs }).map((_, index) => (
-      <Input
-        key={index}
-        type="number"
-        variant="bordered"
-        placeholder={` 1`}
-        className={`${
-          error === ""
-            ? `w-24 text-black text-sm`
-            : `w-24 border-pink-500 text-pink-600 text-sm`
-        }`}
-        value={inputValue[index] || ""}
-        onChange={(e) => handleInputChange(index, e)}
-      />
-    ));
-  };
-  useEffect(() => {
-    setInputValue(
-      new Array(selectedGame || (type_picked === "Mega" ? 6 : 1)).fill("")
-    );
-  }, [selectedGame, type_picked]);
-
-  // const handlePaymentScreen = () => {
-  //   navigate("/single_game_payment");
-  // };
   return (
     <>
-      <div className="h-[1200px] flex flex-col bg-[#F7F7F7] w-screen scroll-smooth">
+      <div className="min-h-screen flex flex-col bg-[#F7F7F7] w-screen scroll-smooth overflow-y-auto pb-20">
         <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default">
           <Subheader title="Select Numbers" />
         </div>
@@ -488,43 +387,40 @@ const SingleGame = () => {
             </div>
 
             <div className="block md:flex items-center px-4 py-4 w-full">
-              {/* <p className="w-full">
-                {selectedGame === ""
-                  ? `Please select a number`
-                  : type_picked === "Perm"
-                  ? `Please choose ${
-                      Number(selectedGame) + 1 === 2
-                        ? 3
-                        : Number(selectedGame) + 1 === 3
-                        ? 4
-                        : Number(selectedGame) + 1 === 4
-                        ? 5
-                        : Number(selectedGame) + 1 === 6
-                        ? 7
-                        : selectedGame
-                    } or not more than ${
-                      Number(selectedGame) + 1 === 2
-                        ? 15
-                        : Number(selectedGame) + 1 === 3
-                        ? 10
-                        : Number(selectedGame) + 1 === 4
-                        ? 8
-                        : Number(selectedGame) + 1 === 6
-                        ? 8
-                        : selectedGame
-                    } numbers`
-                  : `Please pick ${selectedGame} numbers between 1 to 57`}
-              </p> */}
               <div className="flex flex-col flex-wrap w-full justify-center items-center">
-                {/* <div className="grid grid-cols-3 md:flex gap-4 justify-start mt-4 w-full">
-                  {type_picked === "Mega"
-                    ? renderInputFieldMega()
-                    : renderInputFields()}
-                </div> */}
                 <div style={{ padding: 20 }}>
                   <LotteryNumberPicker
                     poolSize={57}
-                    picksCount={type_picked === "Mega"? 6: selectedGame}
+                    minPicks={
+                      type_picked === "Mega"
+                        ? 6
+                        : type_picked === "Perm"
+                        ? Number(selectedGame) + 1 === 2
+                          ? 3
+                          : Number(selectedGame) + 1 === 3
+                          ? 4
+                          : Number(selectedGame) + 1 === 4
+                          ? 5
+                          : Number(selectedGame) + 1 === 6
+                          ? 7
+                          : selectedGame
+                        : selectedGame
+                    }
+                    picksCount={
+                      type_picked === "Mega"
+                        ? 6
+                        : type_picked === "Perm"
+                        ? Number(selectedGame) + 1 === 2
+                          ? 15
+                          : Number(selectedGame) + 1 === 3
+                          ? 10
+                          : Number(selectedGame) + 1 === 4
+                          ? 8
+                          : Number(selectedGame) + 1 === 6
+                          ? 8
+                          : selectedGame
+                        : selectedGame
+                    }
                     sorted={true}
                     onChange={handleChange}
                     disabled={[]}
