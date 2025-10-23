@@ -151,7 +151,9 @@ const SingleGameSelection = () => {
                 className="flex flex-row w-full h-auto justify-between  px-6 py-2 rounded-xl items-center border border-border-default"
               >
                 <div className="flex flex-col w-full">
-                  <p className="w-full font-medium text-xl break-words whitespace-normal mb-5">{numbers}</p>
+                  <p className="w-full font-medium text-xl break-words whitespace-normal mb-5">
+                    {numbers}
+                  </p>
                   <p className="text-gray-400">{`${typePicked} | GHS ${
                     typePicked === "Perm" || typePicked === "Banker"
                       ? total

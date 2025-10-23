@@ -433,8 +433,8 @@ const SingleGame = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-full justify-center items-center">
-          <div className="block space-y-4 md:flex flex-row w-full h-auto items-end bg-white border border-border-default rounded-xl p-6 mx-4 md:mx-12 lg:mx-48 my-6">
+        <div className="flex w-full justify-center items-center ">
+          <div className="block space-y-4 md:flex flex-row w-screen h-auto items-end bg-white border border-border-default rounded-xl p-6 mx-4 md:mx-12 lg:mx-48 my-6">
             <div className="flex justify-start items-start  flex-col flex-wrap  w-full  space-y-2">
               <p className="font-normal text-base font-Poppins text-black">
                 Bet Amount
@@ -461,8 +461,8 @@ const SingleGame = () => {
                 </button>
               </p>
             </div>
-            <div className="flex items-end space-x-2 md:space-x-5">
-              <div className="flex flex-wrap flex-col justify-end items-start w-full md:items-start space-y-4">
+            <div className="flex items-center justify-between w-full space-x-4 md:space-x-6">
+              <div className="flex flex-col justify-center items-start flex-1 space-y-4">
                 <p className="font-normal h-auto w-auto text-base text-black">
                   Total Amount
                 </p>
@@ -474,7 +474,7 @@ const SingleGame = () => {
                     type="number"
                     inputMode="numeric"
                     size=""
-                    className="w-24 font-bold text-xl text-black border-medium border-black border-solid"
+                    className="w-24 font-bold text-xl text-black border-medium border-solid"
                     placeholder="0"
                   />
                 </div>
