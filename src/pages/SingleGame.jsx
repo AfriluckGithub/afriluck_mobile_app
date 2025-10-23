@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
 import { Button } from "@heroui/button";
 import Subheader from "../components/subheader";
+import LotteryNumberPicker from "../components/helpers/LotteryNumberPicker";
 
 const SingleGame = () => {
   const navigate = useNavigate();
@@ -105,18 +106,7 @@ const SingleGame = () => {
 
   const handleInputChange = (index, e) => {
     const value = e.target.value;
-
     let number = parseInt(value);
-
-    // const parts = value
-    //   .split(/[-/ ]+/)
-    //   .map((part) => part.trim())
-    //   .filter((part) => part !== "");
-
-    // let newValue = parts.join(" ");
-
-    // // Validate that input values are between 1 and 57
-    // const numbers = newValue.split(" ").map(Number);
     if (isNaN(value) || number < 1 || number > 57) {
       number = 0;
       setError("Numbers must be between 1 and 57");
@@ -131,6 +121,10 @@ const SingleGame = () => {
       return newValues;
     });
     // setVal(inputValue);
+  };
+
+  const handleChange = (numbers) => {
+    console.log("selected numbers:", numbers);
   };
 
   const handleAmountChange = (e) => {
@@ -493,8 +487,8 @@ const SingleGame = () => {
               <p className="text-black">Selections</p>
             </div>
 
-            <div className="block md:flex items-center px-6 py-6 w-full">
-              <p className="w-full">
+            <div className="block md:flex items-center px-4 py-4 w-full">
+              {/* <p className="w-full">
                 {selectedGame === ""
                   ? `Please select a number`
                   : type_picked === "Perm"
@@ -520,12 +514,21 @@ const SingleGame = () => {
                         : selectedGame
                     } numbers`
                   : `Please pick ${selectedGame} numbers between 1 to 57`}
-              </p>
-              <div className="flex flex-col flex-wrap w-full items-start">
-                <div className="grid grid-cols-3 md:flex gap-4 justify-start mt-4 w-full">
+              </p> */}
+              <div className="flex flex-col flex-wrap w-full justify-center items-center">
+                {/* <div className="grid grid-cols-3 md:flex gap-4 justify-start mt-4 w-full">
                   {type_picked === "Mega"
                     ? renderInputFieldMega()
                     : renderInputFields()}
+                </div> */}
+                <div style={{ padding: 20 }}>
+                  <LotteryNumberPicker
+                    poolSize={57}
+                    picksCount={type_picked === "Mega"? 6: selectedGame}
+                    sorted={true}
+                    onChange={handleChange}
+                    disabled={[]}
+                  />
                 </div>
                 {error && (
                   <p className="text-rose-500 h-auto w-full text-sm">{error}</p>
