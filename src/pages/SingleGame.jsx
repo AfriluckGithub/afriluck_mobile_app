@@ -15,12 +15,8 @@ const SingleGame = () => {
   const [betAmount, setBetAmount] = useState("");
   const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
-  const [
-    disabled,
-  ] = useState(true);
-  const [
-    valuesArray,
-  ] = useState([]);
+  const [disabled] = useState(true);
+  const [valuesArray] = useState([]);
 
   console.log(disabled);
   console.log(valuesArray);
@@ -99,7 +95,7 @@ const SingleGame = () => {
 
   const handleChange = useCallback((numbers) => {
     setInputValue(numbers);
-    console.log("Numbers picked "+ numbers);
+    console.log("Numbers picked " + numbers);
   }, []);
 
   const handleAmountChange = (e) => {
@@ -433,12 +429,14 @@ const SingleGame = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-full justify-center items-center ">
-          <div className="block space-y-4 md:flex flex-row w-screen h-auto items-end bg-white border border-border-default rounded-xl p-6 mx-4 md:mx-12 lg:mx-48 my-6">
-            <div className="flex justify-start items-start  flex-col flex-wrap  w-full  space-y-2">
-              <p className="font-normal text-base font-Poppins text-black">
-                Bet Amount
-              </p>
+        {/*Start of bet area*/}
+
+        <div className="flex  w-full justify-center items-center ">
+          <div className="block flex-col space-y-4 md:flex w-screen h-auto items-center bg-white border border-border-default rounded-xl p-6 mx-4 md:mx-12 lg:mx-48 my-6">
+            <p className="font-normal font-semibold text-base font-Poppins text-black">
+              Bet Amounts
+            </p>
+            <div className="flex justify-start items-start items-center flex-col flex-wrap  w-full  space-y-2">
               <p className="flex flex-row font-bold text-sm space-x-2">
                 <button
                   onClick={decrement}
@@ -449,9 +447,16 @@ const SingleGame = () => {
                 <button
                   value={betAmount}
                   onChange={handleAmountChange}
-                  className="flex justify-center items-center px-6 py-2 border border-border-default bg-bg-tertiary hover:bg-red-700 text-black h-auto w-10 rounded-xl font-medium  text-xl"
+                  className="flex justify-center items-center px-10 py-4 border border-border-default bg-bg-tertiary hover:bg-red-700 h-auto rounded-xl"
                 >
-                  {betAmount}
+                  <div className="flex flex-row items-end space-x-1">
+                    <span className="text-3xl font-semibold text-black">
+                      {betAmount}
+                    </span>
+                    <span className="text-sm font-normal text-gray-500 pb-2">
+                      GHS
+                    </span>
+                  </div>
                 </button>
                 <button
                   onClick={increment}
@@ -461,8 +466,8 @@ const SingleGame = () => {
                 </button>
               </p>
             </div>
-            <div className="flex items-center justify-between w-full space-x-4 md:space-x-6">
-              <div className="flex flex-col justify-center items-start flex-1 space-y-4">
+            <div className="flex flex-col items-center w-full space-y-4">
+              {/* <div className="flex flex-col justify-center items-start flex-1 space-y-4">
                 <p className="font-normal h-auto w-auto text-base text-black">
                   Total Amount
                 </p>
@@ -478,7 +483,7 @@ const SingleGame = () => {
                     placeholder="0"
                   />
                 </div>
-              </div>
+              </div> */}
               <Button
                 color="primary"
                 onPress={placeBet}
@@ -490,6 +495,7 @@ const SingleGame = () => {
             </div>
           </div>
         </div>
+        {/*End of bet area*/}
       </div>
     </>
   );
