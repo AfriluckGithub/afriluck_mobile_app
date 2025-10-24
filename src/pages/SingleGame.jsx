@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { Input } from "@heroui/input";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,7 @@ const SingleGame = () => {
   const [betAmount, setBetAmount] = useState("");
   const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
+  const [numOfFields, setNumOfFields] = useState(3);
   const [
     disabled,
     //setDisabled
@@ -91,6 +93,22 @@ const SingleGame = () => {
     { id: 3, game: "Perm 4", imageUrl: "perm-4-logo.png" },
     //{ id: 4, game: "Perm 5", imageUrl: "perm-5-logo.png" },
     { id: 5, game: "Perm 6", imageUrl: "perm-6-logo.png" },
+  ];
+
+  const numberFieldOptions = [
+    { value: 3, label: "3 Numbers" },
+    { value: 4, label: "4 Numbers" },
+    { value: 5, label: "5 Numbers" },
+    { value: 6, label: "6 Numbers" },
+    { value: 7, label: "7 Numbers" },
+    { value: 8, label: "8 Numbers" },
+    { value: 9, label: "9 Numbers" },
+    { value: 10, label: "10 Numbers" },
+    { value: 11, label: "11 Numbers" },
+    { value: 12, label: "12 Numbers" },
+    { value: 13, label: "13 Numbers" },
+    { value: 14, label: "14 Numbers" },
+    { value: 15, label: "15 Numbers" },
   ];
 
   const selectGame = (id) => {
@@ -316,7 +334,7 @@ const SingleGame = () => {
     const currentGame =
       type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
     console.log("Selected Game => ", currentGame);
-
+  
     switch (currentGame) {
       case 2:
         inputNum = 15;
@@ -331,26 +349,61 @@ const SingleGame = () => {
         inputNum = 8;
         break;
       default:
-        inputNum = 0;
+        inputNum = 15;
         console.log("Nothing");
     }
 
-    const numInputs = type_picked === "Perm" ? inputNum : selectedGame || 1;
-    return Array.from({ length: numInputs || 0 }).map((_, index) => (
+    //const numInputs = type_picked === "Perm" ? inputNum : selectedGame || 1;
+    // return Array.from({ length: numInputs || 0 }).map((_, index) => (
+    //   <Input
+    //     key={index}
+    //     type="number"
+    //     variant="bordered"
+    //     placeholder={` 1`}
+    //     className={`${
+    //       error === ""
+    //         ? `w-24 text-black text-sm`
+    //         : `w-24 border-pink-500 text-pink-600 text-sm`
+    //     }`}
+    //     value={inputValue[index] || ""}
+    //     onChange={(e) => handleInputChange(index, e)}
+    //   />
+    // ));
+    return Array.from({ length: numOfFields }).map((_, index) => (
       <Input
         key={index}
-        type="number"
         variant="bordered"
-        placeholder={` 1`}
-        className={`${
-          error === ""
-            ? `w-24 text-black text-sm`
-            : `w-24 border-pink-500 text-pink-600 text-sm`
-        }`}
-        value={inputValue[index] || ""}
-        onChange={(e) => handleInputChange(index, e)}
+        type="number"
+        label={""}
+        placeholder={""}
       />
     ));
+  };
+
+  const getNumberFieldOptions = () => {
+    let min = 3,
+      max = 3;
+    switch (selectedGame) {
+      case 2:
+        max = 15;
+        break;
+      case 3:
+        max = 10;
+        break;
+      case 4:
+        max = 8;
+        break;
+      case 6:
+        max = 8;
+        break;
+      default:
+        return [];
+    }
+
+    return Array.from({ length: max - min + 1 }, (_, i) => ({
+      value: i + min,
+      label: `${i + min} Numbers`,
+    }));
   };
 
   const renderInputFieldMega = () => {
@@ -435,42 +488,61 @@ const SingleGame = () => {
                   ))}
               </div>
             ) : type_picked === "Perm" ? (
-              <div className="justify-center items-center w-auto grid grid-cols-2 gap-2 space-x-1 p-5">
-                {perm
-                  .filter(
-                    (game) =>
-                      !(
-                        (type === "Anopa" || type === "Midday") &&
-                        game.id === 4
-                      ) ||
-                      (type === "6/57" && game.id === 4)
-                  )
-                  .map((game) => (
-                    <div
-                      key={game.id}
-                      className="flex flex-row h-28 w-28 rounded-lg"
-                      onClick={() => selectGame(game.id)}
-                      style={{
-                        border:
-                          selectedGame === game.id
-                            ? "3px solid #3DB6BC"
-                            : "1px solid #EEEFF3",
-                        backgroundColor:
-                          selectedGame === game.id ? "#F6FCFD" : "#FEFFFF",
-                        fontWeight:
-                          selectedGame === game.id ? "bold" : "normal",
-                      }}
-                    >
-                      <p className="flex text-black font-Poppins justify-center items-center w-full">
-                        <img
-                          alt="logo"
-                          src={game.imageUrl}
-                          className="h-10 w-16"
-                        />
-                        {/* {game.game} */}
-                      </p>
-                    </div>
-                  ))}
+              <div className="flex flex-col justify-center items-center w-full space-y-4 p-5">
+                <div className="flex justify-center items-center space-x-3">
+                  <label className="font-medium text-black">
+                    Select Number of Fields:
+                  </label>
+                  <select
+                    value={numOfFields}
+                    onChange={(e) => setNumOfFields(Number(e.target.value))}
+                    className="border border-gray-300 rounded-md p-2 text-black bg-white focus:outline-none focus:ring-2 focus:ring-teal-400"
+                  >
+                    {getNumberFieldOptions().map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Game Cards */}
+                <div className="grid grid-cols-2 gap-2 space-x-1">
+                  {perm
+                    .filter(
+                      (game) =>
+                        !(
+                          (type === "Anopa" || type === "Midday") &&
+                          game.id === 4
+                        ) ||
+                        (type === "6/57" && game.id === 4)
+                    )
+                    .map((game) => (
+                      <div
+                        key={game.id}
+                        className="flex flex-row h-28 w-28 rounded-lg"
+                        onClick={() => selectGame(game.id)}
+                        style={{
+                          border:
+                            selectedGame === game.id
+                              ? "3px solid #3DB6BC"
+                              : "1px solid #EEEFF3",
+                          backgroundColor:
+                            selectedGame === game.id ? "#F6FCFD" : "#FEFFFF",
+                          fontWeight:
+                            selectedGame === game.id ? "bold" : "normal",
+                        }}
+                      >
+                        <p className="flex text-black font-Poppins justify-center items-center w-full">
+                          <img
+                            alt="logo"
+                            src={game.imageUrl}
+                            className="h-10 w-16"
+                          />
+                        </p>
+                      </div>
+                    ))}
+                </div>
               </div>
             ) : (
               <div className="flex justify-center items-center h-32">
