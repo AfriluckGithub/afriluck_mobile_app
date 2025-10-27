@@ -498,7 +498,7 @@ const SingleGame = () => {
         <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default">
           <Subheader title="Select Numbers" />
         </div>
-        <div className="flex flex-col mx-4 md:mx-12 lg:mx-48 md:mt-16 lg:mt-16 mt-10">
+        <div className="flex flex-col mx-4 md:mx-12 lg:mx-48 md:mt-20 lg:mt-20 mt-12 space-y-8">
           <div className="bg-white h-auto  border border-border-default rounded-2xl flex flex-col justify-center items-center mt-6">
             <div className="flex items-start w-full px-6 py-4 bg-[#DEF5EE] rounded-t-2xl ">
               <p className="text-primary font-medium text-lg">
@@ -549,7 +549,7 @@ const SingleGame = () => {
               <div className="flex flex-col justify-center items-center w-full space-y-4 p-5">
                 <div className="flex justify-center items-center space-x-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
                   <label className="font-semibold text-teal-600 text-lg">
-                    Select Number of Fields
+                    Select Number of Fields:
                   </label>
                   <div className="relative">
                     <select
