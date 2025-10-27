@@ -10,12 +10,16 @@ import Subheader from "../components/subheader";
 const SingleGame = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [selectedGame, setSelectedGame] = useState(1);
+
+  const type = localStorage.getItem("game_type");
+  const type_picked = localStorage.getItem("game_picked");
+
+  const [selectedGame, setSelectedGame] = useState(type_picked === "Perm" ? 1 : type_picked === "Direct" ? 1 : type_picked === "Banker" ? 1 : 1);
 
   const [betAmount, setBetAmount] = useState("");
   const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
-  const [numOfFields, setNumOfFields] = useState(3);
+  const [numOfFields, setNumOfFields] = useState(type_picked === "Perm" ? 15 : type_picked === "Direct" ? 1 : type_picked === "Banker" ? 1 : 3);
   const [
     disabled,
     //setDisabled
@@ -27,9 +31,6 @@ const SingleGame = () => {
 
   console.log(disabled);
   console.log(valuesArray);
-
-  const type = localStorage.getItem("game_type");
-  const type_picked = localStorage.getItem("game_picked");
 
   const increment = () => {
     setBetAmount((prev) => {
@@ -72,10 +73,10 @@ const SingleGame = () => {
   console.log("type picked => ", type_picked);
 
   const ranges = [
-    { min: 3, max: 15, game: 1 },
-    { min: 4, max: 10, game: 2 },
-    { min: 5, max: 8, game: 3 },
-    { min: 7, max: 8, game: 5 },
+    { min: 3, max: 15, game: 2 },
+    { min: 4, max: 10, game: 3 },
+    { min: 5, max: 8, game: 4 },
+    { min: 5, max: 8, game: 6 },
   ];
 
   const direct = [
@@ -115,6 +116,28 @@ const SingleGame = () => {
     setInputValue([]);
     // console.log("Game Id => ", id);
     setSelectedGame(id);
+    if (type_picked === "Perm") {
+      let numFields = 15;
+      switch (id) {
+        case 1: // Perm 2
+          numFields = 15;
+          break;
+        case 2: // Perm 3
+          numFields = 10;
+          break;
+        case 3: // Perm 4
+          numFields = 8;
+          break;
+        case 5: // Perm 6
+          numFields = 8;
+          break;
+        default:
+          numFields = 15;
+      }
+      setNumOfFields(numFields);
+    } else if (type_picked === "Direct") {
+      setNumOfFields(id);
+    }
   };
 
   // const handleInputAmountChange = (event) => {
@@ -175,6 +198,17 @@ const SingleGame = () => {
         setBetAmount(value);
         setError("Allowed values for Direct are 1 to 20");
       }
+    } else if (type_picked === "Perm") {
+      if (
+        !value ||
+        Array.from({ length: 20 }, (_, i) => i + 1).includes(numericValue)
+      ) {
+        setBetAmount(value === "" ? "" : numericValue);
+        setError("");
+      } else {
+        setBetAmount(value);
+        setError("Allowed values for Perm are 1 to 20");
+      }
     } else {
       const value = e.target.value.replace(/[^0-9]/g, "");
       setBetAmount(value === "" ? "" : parseInt(value, 10));
@@ -198,8 +232,9 @@ const SingleGame = () => {
   };
 
   function isValidValue(values) {
+    const gameNumber = type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
     const current = ranges.filter(
-      (range) => range.game === Number(selectedGame)
+      (range) => range.game === gameNumber
     );
     if (current.length === 0) {
       return false;
@@ -245,7 +280,9 @@ const SingleGame = () => {
     let val = inputValue;
     console.log("Val", val);
     console.log(" Val Length => ", val.length);
-    const repeatedNumbers = hasRepeatedNumbers(val);
+    // Filter to only valid numbers
+    let validInputs = val.filter(item => item !== "" && !isNaN(item) && item >= 1 && item <= 57);
+    const repeatedNumbers = hasRepeatedNumbers(validInputs);
     if (error !== "") {
       return;
     }
@@ -280,7 +317,7 @@ const SingleGame = () => {
       Number(betAmount) > 0 &&
       !val.some((item) => Number(item) > 57);
     const directValidation =
-      val.length === selectedGame &&
+      val.filter(item => item !== "").length === selectedGame &&
       type_picked === "Direct" &&
       //val.length > 0 &&
       Number(betAmount) > 0 &&
@@ -316,8 +353,10 @@ const SingleGame = () => {
       navigate("/single_game_selection");
     } else {
       if (!permValidation && type_picked === "Perm") {
+        const gameNumber = Number(selectedGame) + 1;
+        const currentRange = ranges.find(r => r.game === gameNumber);
         setError(
-          `Selected Perm numbers has to be between ${range[0].min} and ${range[0].max}`
+          `Selected Perm numbers has to be between ${currentRange ? currentRange.min : 3} and ${currentRange ? currentRange.max : 15} numbers`
         );
       } else if (repeatedNumbers) {
         setError(`Repeated numbers are not allowed`);
@@ -372,32 +411,43 @@ const SingleGame = () => {
     return Array.from({ length: numOfFields }).map((_, index) => (
       <Input
         key={index}
-        variant="bordered"
         type="number"
-        label={""}
-        placeholder={""}
+        variant="bordered"
+        placeholder={``}
+        className={`${
+          error === ""
+            ? `w-24 text-black text-sm`
+            : `w-24 border-pink-500 text-pink-600 text-sm`
+        }`}
+        value={inputValue[index] || ""}
+        onChange={(e) => handleInputChange(index, e)}
       />
     ));
   };
 
   const getNumberFieldOptions = () => {
     let min = 3,
-      max = 3;
+      max = 15;
     switch (selectedGame) {
-      case 2:
+      case 1: // Perm 2
+        min = 3;
         max = 15;
         break;
-      case 3:
+      case 2: // Perm 3
+        min = 4;
         max = 10;
         break;
-      case 4:
+      case 3: // Perm 4
+        min = 5;
         max = 8;
         break;
-      case 6:
+      case 5: // Perm 6
+        min = 5;
         max = 8;
         break;
       default:
-        return [];
+        min = 3;
+        max = 15;
     }
 
     return Array.from({ length: max - min + 1 }, (_, i) => ({
@@ -426,17 +476,25 @@ const SingleGame = () => {
     ));
   };
   useEffect(() => {
-    setInputValue(
-      new Array(selectedGame || (type_picked === "Mega" ? 6 : 1)).fill("")
-    );
-  }, [selectedGame, type_picked]);
+    if (type_picked === "Perm") {
+      setInputValue(new Array(numOfFields).fill(""));
+    } else if (type_picked === "Direct") {
+      setInputValue(new Array(selectedGame).fill(""));
+    } else if (type_picked === "Banker") {
+      setInputValue(new Array(1).fill(""));
+    } else {
+      setInputValue(
+        new Array(selectedGame || (type_picked === "Mega" ? 6 : 1)).fill("")
+      );
+    }
+  }, [selectedGame, type_picked, numOfFields]);
 
   // const handlePaymentScreen = () => {
   //   navigate("/single_game_payment");
   // };
   return (
     <>
-      <div className="h-[1200px] flex flex-col bg-[#F7F7F7] w-screen scroll-smooth">
+      <div className="min-h-screen flex flex-col bg-[#F7F7F7] w-screen overflow-y-auto">
         <div className="bg-white h-auto py-6 px-4 md:px-12 lg:px-48 border-b border-border-default">
           <Subheader title="Select Numbers" />
         </div>
@@ -489,21 +547,28 @@ const SingleGame = () => {
               </div>
             ) : type_picked === "Perm" ? (
               <div className="flex flex-col justify-center items-center w-full space-y-4 p-5">
-                <div className="flex justify-center items-center space-x-3">
-                  <label className="font-medium text-black">
-                    Select Number of Fields:
+                <div className="flex justify-center items-center space-x-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <label className="font-semibold text-teal-600 text-lg">
+                    Select Number of Fields
                   </label>
-                  <select
-                    value={numOfFields}
-                    onChange={(e) => setNumOfFields(Number(e.target.value))}
-                    className="border border-gray-300 rounded-md p-2 text-black bg-white focus:outline-none focus:ring-2 focus:ring-teal-400"
-                  >
-                    {getNumberFieldOptions().map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={numOfFields}
+                      onChange={(e) => setNumOfFields(Number(e.target.value))}
+                      className="appearance-none bg-white border-2 border-teal-400 rounded-lg px-4 py-3 pr-8 text-black font-medium focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 min-w-40 shadow-sm hover:shadow-md"
+                    >
+                      {getNumberFieldOptions().map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                      <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Game Cards */}
@@ -570,27 +635,7 @@ const SingleGame = () => {
                 {selectedGame === ""
                   ? `Please select a number`
                   : type_picked === "Perm"
-                  ? `Please choose ${
-                      Number(selectedGame) + 1 === 2
-                        ? 3
-                        : Number(selectedGame) + 1 === 3
-                        ? 4
-                        : Number(selectedGame) + 1 === 4
-                        ? 5
-                        : Number(selectedGame) + 1 === 6
-                        ? 7
-                        : selectedGame
-                    } or not more than ${
-                      Number(selectedGame) + 1 === 2
-                        ? 15
-                        : Number(selectedGame) + 1 === 3
-                        ? 10
-                        : Number(selectedGame) + 1 === 4
-                        ? 8
-                        : Number(selectedGame) + 1 === 6
-                        ? 8
-                        : selectedGame
-                    } numbers`
+                  ? `Please choose ${numOfFields} numbers`
                   : `Please pick ${selectedGame} numbers between 1 to 57`}
               </p>
               <div className="flex flex-col flex-wrap w-full items-start">
@@ -599,55 +644,52 @@ const SingleGame = () => {
                     ? renderInputFieldMega()
                     : renderInputFields()}
                 </div>
-                {error && (
-                  <p className="text-rose-500 h-auto w-full text-sm">{error}</p>
-                )}
               </div>
             </div>
           </div>
         </div>
-        <div className="flex w-full justify-center items-center">
-          <div className="block space-y-4 md:flex flex-row w-full h-auto items-end bg-white border border-border-default rounded-xl p-6 mx-4 md:mx-12 lg:mx-48 my-6">
-            <div className="flex justify-start items-start  flex-col flex-wrap  w-full  space-y-2">
-              <p className="font-normal text-base font-Poppins text-black">
-                Bet Amount
-              </p>
-              <p className="flex flex-row font-bold text-sm space-x-2">
-                <button
-                  onClick={decrement}
-                  className="flex justify-center items-center px-6 py-2 border border-border-default bg-bg-tertiary hover:bg-red-700 text-black h-auto w-10 rounded-xl  text-sm"
-                >
-                  -
-                </button>
-                <button
-                  value={betAmount}
-                  onChange={handleAmountChange}
-                  className="flex justify-center items-center px-6 py-2 border border-border-default bg-bg-tertiary hover:bg-red-700 text-black h-auto w-10 rounded-xl font-medium  text-xl"
-                >
-                  {betAmount}
-                </button>
-                <button
-                  onClick={increment}
-                  className="flex justify-center items-center px-6 py-2 border border-border-default bg-bg-tertiary hover:bg-red-700 text-black h-auto w-10 rounded-xl font-normal text-sm"
-                >
-                  +
-                </button>
-              </p>
+        <div className="flex w-full justify-center items-center mt-8 mb-20 px-4">
+          <div className="block space-y-6 md:flex flex-row w-full h-auto items-end bg-white border border-border-default rounded-xl p-8 mx-4 md:mx-12 lg:mx-48">
+            <div className="flex justify-start items-start flex-col flex-wrap w-full space-y-4">
+              <div className="flex flex-col space-y-3">
+                {error && (
+                  <p className="text-rose-500 h-auto w-full text-sm">{error}</p>
+                )}
+                <p className="font-semibold text-lg font-Poppins text-black">
+                  Bet Amount
+                </p>
+                <div className="flex flex-row items-center space-x-4">
+                  <button
+                    onClick={decrement}
+                    className="flex justify-center items-center px-4 py-3 border-2 border-gray-300 bg-gray-50 hover:bg-gray-100 text-black h-12 w-12 rounded-full text-lg font-medium transition-colors duration-200"
+                  >
+                    -
+                  </button>
+                  <div className="flex justify-center items-center px-6 py-3 border-2 border-teal-400 bg-teal-50 text-black h-12 min-w-20 rounded-lg font-bold text-xl">
+                    {betAmount || 0}
+                  </div>
+                  <button
+                    onClick={increment}
+                    className="flex justify-center items-center px-4 py-3 border-2 border-gray-300 bg-gray-50 hover:bg-gray-100 text-black h-12 w-12 rounded-full text-lg font-medium transition-colors duration-200"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
             </div>
-            <div className="flex items-end space-x-2 md:space-x-5">
+            <div className="flex items-end space-x-6 md:space-x-8">
               <div className="flex flex-wrap flex-col justify-end items-start w-full md:items-start space-y-4">
-                <p className="font-normal h-auto w-auto text-base text-black">
+                <p className="font-semibold text-lg text-black">
                   Total Amount
                 </p>
-                <div className="flex items-center font-bold h-auto w-auto text-xl text-black space-x-2">
-                  <p> GHS</p>
+                <div className="flex items-center font-bold h-auto w-auto text-2xl text-black space-x-3">
+                  <span className="text-teal-600 font-medium">GHS</span>
                   <Input
                     onChange={handleAmountChange}
                     value={betAmount}
                     type="number"
                     inputMode="numeric"
-                    size=""
-                    className="w-24 font-bold text-xl text-black border-medium border-black border-solid"
+                    className="w-32 h-14 text-2xl font-bold text-black border-2 border-gray-300 rounded-lg px-3 focus:ring-3 focus:ring-gray-400 focus:border-gray-400"
                     placeholder="0"
                   />
                 </div>
@@ -657,6 +699,7 @@ const SingleGame = () => {
                 onPress={placeBet}
                 isDisabled={!betAmount || !inputValue || error !== ""}
                 size="lg"
+                className="px-10 py-4 h-14 text-lg font-semibold rounded-lg"
               >
                 Confirm
               </Button>
