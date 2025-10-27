@@ -19,7 +19,7 @@ const SingleGame = () => {
   const [betAmount, setBetAmount] = useState("");
   const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
-  const [numOfFields, setNumOfFields] = useState(type_picked === "Perm" ? 15 : type_picked === "Direct" ? 1 : type_picked === "Banker" ? 1 : 3);
+  const [numOfFields, setNumOfFields] = useState(type_picked === "Perm" ? 0 : type_picked === "Direct" ? 1 : type_picked === "Banker" ? 1 : 3);
   const [
     disabled,
     //setDisabled
@@ -68,9 +68,6 @@ const SingleGame = () => {
       return Number(prev);
     });
   };
-
-  console.log("type => ", type);
-  console.log("type picked => ", type_picked);
 
   const ranges = [
     { min: 3, max: 15, game: 2 },
@@ -477,7 +474,11 @@ const SingleGame = () => {
   };
   useEffect(() => {
     if (type_picked === "Perm") {
-      setInputValue(new Array(numOfFields).fill(""));
+      if (numOfFields > 0) {
+        setInputValue(new Array(numOfFields).fill(""));
+      } else {
+        setInputValue([]);
+      }
     } else if (type_picked === "Direct") {
       setInputValue(new Array(selectedGame).fill(""));
     } else if (type_picked === "Banker") {
@@ -553,10 +554,11 @@ const SingleGame = () => {
                   </label>
                   <div className="relative">
                     <select
-                      value={numOfFields}
+                      value={numOfFields || ""}
                       onChange={(e) => setNumOfFields(Number(e.target.value))}
                       className="appearance-none bg-white border-2 border-teal-400 rounded-lg px-4 py-3 pr-8 text-black font-medium focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 min-w-40 shadow-sm hover:shadow-md"
                     >
+                      <option value="" disabled>Select Fields</option>
                       {getNumberFieldOptions().map((opt) => (
                         <option key={opt.value} value={opt.value}>
                           {opt.label}
@@ -635,14 +637,20 @@ const SingleGame = () => {
                 {selectedGame === ""
                   ? `Please select a number`
                   : type_picked === "Perm"
-                  ? `Please choose ${numOfFields} numbers`
+                  ? numOfFields > 0
+                    ? `Please choose ${numOfFields} numbers`
+                    : `Please select number of fields first`
                   : `Please pick ${selectedGame} numbers between 1 to 57`}
               </p>
               <div className="flex flex-col flex-wrap w-full items-start">
                 <div className="grid grid-cols-3 md:flex gap-4 justify-start mt-4 w-full">
                   {type_picked === "Mega"
                     ? renderInputFieldMega()
-                    : renderInputFields()}
+                    : type_picked === "Perm" && numOfFields > 0
+                    ? renderInputFields()
+                    : type_picked !== "Perm"
+                    ? renderInputFields()
+                    : null}
                 </div>
               </div>
             </div>

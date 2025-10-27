@@ -34,8 +34,12 @@ const Draw = () => {
           setResults(res.data.success);
         }
       } catch (e) {
-        setLoading(false);
-        setError("Oops, nothing to display here. Kindly log-in");
+        console.log(e);
+        if (e.response && e.response.status === 401) {
+          setError("Oops, nothing to display here. Kindly log-in");
+        } else {
+          setError("Oops, nothing to display here. Kindly log-in");
+        }
       } finally {
         setLoading(false);
       }
@@ -57,10 +61,12 @@ const Draw = () => {
 
   return (
     <div className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48">
-      {error && (
-        <p className="h-full text-wrap p-5 text-center text-black">{error}</p>
-      )}
-      <div className="flex flex-col w-full my-32">
+      {error ? (
+        <div className="flex flex-col w-full min-h-screen justify-center items-center">
+          <p className="h-full text-wrap p-5 text-center text-black text-lg">{error}</p>
+        </div>
+      ) : (
+        <div className="flex flex-col w-full my-32">
         {loading ? (
           <div className="flex justify-center items-center h-screen">
             <OrbitProgress color="#000" size="small" text="Loading" />
@@ -103,7 +109,8 @@ const Draw = () => {
             </div>
           ))
         )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
