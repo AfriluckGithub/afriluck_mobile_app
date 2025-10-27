@@ -66,7 +66,7 @@ const SingleGameSelection = () => {
         );
 
         if (response.status !== 200) {
-setShowModal(true);
+          setShowModal(true);
 
           // toast.error("Auth Error: Kindly login to continue with this game.", {
           //   hideProgressBar: false,
@@ -102,12 +102,10 @@ setShowModal(true);
     memoizedUser?.token,
   ]);
 
- 
-
   const back = () => {
     navigate(-1);
   };
-  
+
   const handlePaymentScreen = () => {
     if (typePicked === "Perm" || typePicked === "Banker") {
       dispatch(

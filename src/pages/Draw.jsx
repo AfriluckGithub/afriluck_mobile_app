@@ -1,14 +1,17 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import axios from "axios";
 //import { useSelector } from "react-redux";
 import { OrbitProgress } from "react-loading-indicators";
 import { useSelector } from "react-redux";
+import { Button } from "@heroui/button";
 
 const Draw = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showButton, setShowButton] = useState(true);
   const [error, setError] = useState("");
   const user = useSelector((state) => state.user?.user);
+  const containerRef = useRef(null);
 
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
@@ -23,7 +26,7 @@ const Draw = () => {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${memoizedUser?.token}`
+              Authorization: `Bearer ${memoizedUser?.token}`,
             },
           }
         );
@@ -55,8 +58,88 @@ const Draw = () => {
     }, {});
   }, [results]);
 
+  function hasScrolled(e) {
+    const scrollTop = e.target.scrollTop;
+    if (scrollTop > 200) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  }
+
+  useEffect(() => {
+   
+    let scrollableElement = containerRef.current?.parentElement;
+
+    while (scrollableElement) {
+      const hasOverflow = window.getComputedStyle(scrollableElement).overflowY;
+      if (hasOverflow === "auto" || hasOverflow === "scroll") {
+        break;
+      }
+      scrollableElement = scrollableElement.parentElement;
+    }
+
+    if (scrollableElement) {
+      scrollableElement.addEventListener("scroll", hasScrolled);
+
+      return () => {
+        scrollableElement.removeEventListener("scroll", hasScrolled);
+      };
+    }
+  }, []);
+
   return (
-    <div className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48">
+    <div
+      ref={containerRef}
+      className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48"
+    >
+      <Button
+        className="to-top-btn bg-primary text-white"
+        onClick={() => {
+          let scrollableElement = containerRef.current?.parentElement;
+          while (scrollableElement) {
+              window.getComputedStyle(scrollableElement).overflowY;
+            if (hasOverflow === "auto" || hasOverflow === "scroll") {
+              scrollableElement.scrollTo({ top: 0, behavior: "smooth" });
+              break;
+            }
+            scrollableElement = scrollableElement.parentElement;
+          }
+        }}
+        style={{
+          zIndex: 999,
+          position: "absolute",
+          right: 15,
+          bottom: 100,
+          transition: "all 0.5",
+          display: showButton ? "flex" : "none",
+        }}
+      >
+        <p>Back to Top</p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          color="#ffffff"
+          fill="none"
+        >
+          <path
+            d="M12 5.5V19"
+            stroke="#ffffff"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <path
+            d="M18 11C18 11 13.5811 5.00001 12 5C10.4188 4.99999 6 11 6 11"
+            stroke="#ffffff"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+      </Button>
       {error && (
         <p className="h-full text-wrap p-5 text-center text-black">{error}</p>
       )}
