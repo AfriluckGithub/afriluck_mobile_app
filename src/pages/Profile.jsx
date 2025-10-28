@@ -46,6 +46,7 @@ const Profile = () => {
     };
     getBalance();
   }, [dispatch, memoizedUser]);
+  
   return (
     <div
       className={`flex flex-col ${containerHeight} sm:h-[800px] my-32 space-y-6 mx-4 md:mx-12 lg:mx-48`}

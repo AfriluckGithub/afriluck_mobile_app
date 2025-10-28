@@ -239,7 +239,7 @@ const SingleGamePayment = () => {
       id: 4,
       name: "Wallet",
       image: "afriluck_lg.png",
-      desc: "airteltigo",
+      desc: "airteltigo", //did you mean to have this set to airtel-tigo?
       placeholder: "Wallet",
     },
   ];
