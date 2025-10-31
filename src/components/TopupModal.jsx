@@ -205,29 +205,35 @@ const TopUpPage = () => {
 
       <div className=" flex grid-or-flex-container items-center justify-center flex-wrap">
         {paymentOptions.map((option) => (
-          <button
-            key={option.id}
-            onClick={() => {
-              setSelectedOption(option.id);
-              option.onClick();
-            }}
-            className={`payment-option ${
-              selectedOption === option.id ? "selected" : ""
-            }`}
-            style={{
-              height: "100px",
-              width: "100px",
-              borderRadius: "20px",
-              margin: "5px",
-              overflow: "hidden",
-            }}
-          >
-            <img
-              style={{ height: "100px", width: "100px", borderRadius: "20px" }}
-              src={option.image}
-              alt="payment option"
-            />
-          </button>
+          <div>
+            <button
+              key={option.id}
+              onClick={() => {
+                setSelectedOption(option.id);
+                option.onClick();
+              }}
+              className={`payment-option ${
+                selectedOption === option.id ? "selected" : ""
+              }`}
+              style={{
+                height: "100px",
+                width: "100px",
+                borderRadius: "20px",
+                margin: "5px",
+                overflow: "hidden",
+              }}
+            >
+              <img
+                style={{
+                  height: "100px",
+                  width: "100px",
+                  borderRadius: "20px",
+                }}
+                src={option.image}
+                alt="payment option"
+              />
+            </button>
+          </div>
         ))}
       </div>
 
@@ -251,7 +257,10 @@ const TopUpPage = () => {
             textColor=""
           />
         ) : (
-          <p className="mb-5 text-green-800 text-center text-wrap" style={{padding:"10px"}}>
+          <p
+            className="mb-5 text-green-800 text-center text-wrap"
+            style={{ padding: "10px" }}
+          >
             {typeof message === "object" ? JSON.stringify(message) : message}
           </p>
         )}
