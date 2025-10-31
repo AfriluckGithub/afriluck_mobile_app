@@ -14,12 +14,28 @@ const SingleGame = () => {
   const type = localStorage.getItem("game_type");
   const type_picked = localStorage.getItem("game_picked");
 
-  const [selectedGame, setSelectedGame] = useState(type_picked === "Perm" ? 1 : type_picked === "Direct" ? 1 : type_picked === "Banker" ? 1 : 1);
+  const [selectedGame, setSelectedGame] = useState(
+    type_picked === "Perm"
+      ? 1
+      : type_picked === "Direct"
+      ? 1
+      : type_picked === "Banker"
+      ? 1
+      : 1
+  );
 
   const [betAmount, setBetAmount] = useState("");
   const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
-  const [numOfFields, setNumOfFields] = useState(type_picked === "Perm" ? 0 : type_picked === "Direct" ? 1 : type_picked === "Banker" ? 1 : 3);
+  const [numOfFields, setNumOfFields] = useState(
+    type_picked === "Perm"
+      ? 0
+      : type_picked === "Direct"
+      ? 1
+      : type_picked === "Banker"
+      ? 1
+      : 3
+  );
   const [
     disabled,
     //setDisabled
@@ -229,10 +245,9 @@ const SingleGame = () => {
   };
 
   function isValidValue(values) {
-    const gameNumber = type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
-    const current = ranges.filter(
-      (range) => range.game === gameNumber
-    );
+    const gameNumber =
+      type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
+    const current = ranges.filter((range) => range.game === gameNumber);
     if (current.length === 0) {
       return false;
     }
@@ -278,7 +293,9 @@ const SingleGame = () => {
     console.log("Val", val);
     console.log(" Val Length => ", val.length);
     // Filter to only valid numbers
-    let validInputs = val.filter(item => item !== "" && !isNaN(item) && item >= 1 && item <= 57);
+    let validInputs = val.filter(
+      (item) => item !== "" && !isNaN(item) && item >= 1 && item <= 57
+    );
     const repeatedNumbers = hasRepeatedNumbers(validInputs);
     if (error !== "") {
       return;
@@ -314,7 +331,7 @@ const SingleGame = () => {
       Number(betAmount) > 0 &&
       !val.some((item) => Number(item) > 57);
     const directValidation =
-      val.filter(item => item !== "").length === selectedGame &&
+      val.filter((item) => item !== "").length === selectedGame &&
       type_picked === "Direct" &&
       //val.length > 0 &&
       Number(betAmount) > 0 &&
@@ -351,9 +368,11 @@ const SingleGame = () => {
     } else {
       if (!permValidation && type_picked === "Perm") {
         const gameNumber = Number(selectedGame) + 1;
-        const currentRange = ranges.find(r => r.game === gameNumber);
+        const currentRange = ranges.find((r) => r.game === gameNumber);
         setError(
-          `Selected Perm numbers has to be between ${currentRange ? currentRange.min : 3} and ${currentRange ? currentRange.max : 15} numbers`
+          `Selected Perm numbers has to be between ${
+            currentRange ? currentRange.min : 3
+          } and ${currentRange ? currentRange.max : 15} numbers`
         );
       } else if (repeatedNumbers) {
         setError(`Repeated numbers are not allowed`);
@@ -370,7 +389,7 @@ const SingleGame = () => {
     const currentGame =
       type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
     console.log("Selected Game => ", currentGame);
-  
+
     switch (currentGame) {
       case 2:
         inputNum = 15;
@@ -548,31 +567,6 @@ const SingleGame = () => {
               </div>
             ) : type_picked === "Perm" ? (
               <div className="flex flex-col justify-center items-center w-full space-y-4 p-5">
-                <div className="flex justify-center items-center space-x-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                  <label className="font-semibold text-teal-600 text-lg">
-                    Select Number of Fields:
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={numOfFields || ""}
-                      onChange={(e) => setNumOfFields(Number(e.target.value))}
-                      className="appearance-none bg-white border-2 border-teal-400 rounded-lg px-4 py-3 pr-8 text-black font-medium focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 min-w-40 shadow-sm hover:shadow-md"
-                    >
-                      <option value="" disabled>Select Fields</option>
-                      {getNumberFieldOptions().map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                      <svg className="w-5 h-5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-
                 {/* Game Cards */}
                 <div className="grid grid-cols-2 gap-2 space-x-1">
                   {perm
@@ -609,6 +603,42 @@ const SingleGame = () => {
                         </p>
                       </div>
                     ))}
+                </div>
+                <div className="flex justify-center items-center space-x-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <label className="font-semibold text-teal-600 text-lg">
+                    Select Number of Fields:
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={numOfFields || ""}
+                      onChange={(e) => setNumOfFields(Number(e.target.value))}
+                      className="appearance-none bg-white border-2 border-teal-400 rounded-lg px-4 py-3 pr-8 text-black font-medium focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 min-w-40 shadow-sm hover:shadow-md"
+                    >
+                      <option value="" disabled>
+                        Select Fields
+                      </option>
+                      {getNumberFieldOptions().map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                      <svg
+                        className="w-5 h-5 text-teal-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -687,9 +717,7 @@ const SingleGame = () => {
             </div>
             <div className="flex items-end space-x-6 md:space-x-8">
               <div className="flex flex-wrap flex-col justify-end items-start w-full md:items-start space-y-4">
-                <p className="font-semibold text-lg text-black">
-                  Total Amount
-                </p>
+                <p className="font-semibold text-lg text-black">Total Amount</p>
                 <div className="flex items-center font-bold h-auto w-auto text-2xl text-black space-x-3">
                   <span className="text-teal-600 font-medium">GHS</span>
                   <Input
