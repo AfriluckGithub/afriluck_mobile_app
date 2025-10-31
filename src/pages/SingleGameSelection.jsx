@@ -35,6 +35,7 @@ const SingleGameSelection = () => {
 
   console.log("Mem user -> ", memoizedUser);
 
+  
   useEffect(() => {
     const calculatePermAmount = async () => {
       if (movedPastPayment) {
