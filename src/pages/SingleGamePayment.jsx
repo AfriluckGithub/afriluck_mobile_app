@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import { OrbitProgress } from "react-loading-indicators";
-import Input from "../components/input";
+// import Input from "../components/input";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from "@heroui/button";
 import { useSelector, useDispatch } from "react-redux";
@@ -186,15 +186,15 @@ const SingleGamePayment = () => {
     setSelectedNetwork(id);
   };
 
-  const handleInputChange = (event) => {
-    setMobileNumber(event.target.value);
-    if (mobileNumber.toString().length >= 9) {
-      setIsValidMobile(true);
-      localStorage.setItem("mobileNumber", mobileNumber);
-    } else {
-      setIsValidMobile(false);
-    }
-  };
+  // const handleInputChange = (event) => {
+  //   setMobileNumber(event.target.value);
+  //   if (mobileNumber.toString().length >= 9) {
+  //     setIsValidMobile(true);
+  //     localStorage.setItem("mobileNumber", mobileNumber);
+  //   } else {
+  //     setIsValidMobile(false);
+  //   }
+  // };
 
   // const back = () => {
   //   navigate(-1);
