@@ -102,6 +102,7 @@ const Draw = () => {
         onClick={() => {
           let scrollableElement = containerRef.current?.parentElement;
           while (scrollableElement) {
+            const hasOverflow =
               window.getComputedStyle(scrollableElement).overflowY;
             if (hasOverflow === "auto" || hasOverflow === "scroll") {
               scrollableElement.scrollTo({ top: 0, behavior: "smooth" });
@@ -190,8 +191,7 @@ const Draw = () => {
             </div>
           ))
         )}
-        </div>
-      
+      </div>
     </div>
   );
 };
