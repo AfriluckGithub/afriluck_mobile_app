@@ -37,8 +37,12 @@ const Draw = () => {
           setResults(res.data.success);
         }
       } catch (e) {
-        setLoading(false);
-        setError("Oops, nothing to display here. Kindly log-in");
+        console.log(e);
+        if (e.response && e.response.status === 401) {
+          setError("Oops, nothing to display here. Kindly log-in");
+        } else {
+          setError("Oops, nothing to display here. Kindly log-in");
+        }
       } finally {
         setLoading(false);
       }
@@ -186,7 +190,8 @@ const Draw = () => {
             </div>
           ))
         )}
-      </div>
+        </div>
+      
     </div>
   );
 };

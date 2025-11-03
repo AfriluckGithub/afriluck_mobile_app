@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import { OrbitProgress } from "react-loading-indicators";
-import Input from "../components/input";
+// import Input from "../components/input";
 import { ToastContainer, toast } from "react-toastify";
 import { Button } from "@heroui/button";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,6 +19,7 @@ const SingleGamePayment = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [isValidMobile, setIsValidMobile] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const transaction =
     useSelector((state) => state.transaction?.transactions) || {};
@@ -135,7 +136,10 @@ const SingleGamePayment = () => {
               item_category: transaction.typePicked,
               price: Number(amount),
               quantity: 1,
-              phone_number: selectedNetwork === 4 ? memoizedUser.phone_number : formattedNumber,
+              phone_number:
+                selectedNetwork === 4
+                  ? memoizedUser.phone_number
+                  : formattedNumber,
             },
           ],
         });
@@ -182,15 +186,15 @@ const SingleGamePayment = () => {
     setSelectedNetwork(id);
   };
 
-  const handleInputChange = (event) => {
-    setMobileNumber(event.target.value);
-    if (mobileNumber.toString().length >= 9) {
-      setIsValidMobile(true);
-      localStorage.setItem("mobileNumber", mobileNumber);
-    } else {
-      setIsValidMobile(false);
-    }
-  };
+  // const handleInputChange = (event) => {
+  //   setMobileNumber(event.target.value);
+  //   if (mobileNumber.toString().length >= 9) {
+  //     setIsValidMobile(true);
+  //     localStorage.setItem("mobileNumber", mobileNumber);
+  //   } else {
+  //     setIsValidMobile(false);
+  //   }
+  // };
 
   // const back = () => {
   //   navigate(-1);
@@ -217,29 +221,29 @@ const SingleGamePayment = () => {
     {
       id: 1,
       name: "MTN Momo",
-      image: "mtn_momo.svg",
+      image: "momo.png",
       desc: "mtn",
       placeholder: "MTN",
     },
     {
       id: 2,
       name: "Telecel Cash",
-      image: "telecel_logo.svg",
+      image: "telecel.png",
       desc: "telecel",
       placeholder: "Telecel",
     },
     {
       id: 3,
       name: "AT Money",
-      image: "AirtelTigo.svg",
+      image: "airtel-tigo.png",
       desc: "airteltigo",
       placeholder: "AT Money",
     },
     {
       id: 4,
       name: "Wallet",
-      image: "afriluck_lg.png",
-      desc: "airteltigo", //did you mean to have this set to airtel-tigo?
+      image: "afriluck.svg",
+      desc: "airteltigo",
       placeholder: "Wallet",
     },
   ];
@@ -278,39 +282,65 @@ const SingleGamePayment = () => {
             <span>
               <p className="font-md font-normal mb-5">Select Channel</p>
             </span>
-            <div className="grid grid-cols-2 gap-4 md:flex flex-row  md:justify-between md:items-start md:space-x-6">
+
+            <style>{`
+                    input[type="number"]::-webkit-outer-spin-button,
+                    input[type="number"]::-webkit-inner-spin-button {
+                      -webkit-appearance: none;
+                      margin: 0;
+                    }
+                    input[type="number"] {
+                      -moz-appearance: textfield;
+                    }
+                    .payment-option {
+                      transition: transform 0.2s, box-shadow 0.2s;
+                    }
+                    .payment-option:hover {
+                      transform: scale(1.05);
+                      box-shadow: 5px 5px 15px 3px #80dbdfff;
+                    }
+                    .payment-option:active {
+                      transform: scale(0.98);
+                      box-shadow: 4px 2px 4px #71B5B9;
+                    }
+                    .payment-option.selected {
+                     transform: scale(1.05);
+                    box-shadow: 5px 5px 15px 3px #80dbdfff;
+                    }
+                  `}</style>
+
+            <div className=" flex grid-or-flex-container items-center justify-center flex-wrap">
               {networks
                 .filter(
                   (network) => !(memoizedUser === null && network.id === 4)
                 )
                 .map((network) => (
-                  <div
-                    key={network.id}
-                    className="flex flex-col bg-gray-100 h-24 w-full p-2 mr-2 justify-center items-center rounded-xl mb-2 focus:outline-none ripple"
-                    onClick={() => selectNetwork(network.id)}
-                    style={{
-                      border:
-                        selectedNetwork === network.id
-                          ? "2px solid #3DB6BC"
-                          : "0px solid gray",
-                      backgroundColor:
-                        selectedNetwork === network.id ? "#F6FCFD" : "#F7F7F7",
-                      fontWeight:
-                        selectedNetwork === network.id ? "bold" : "normal",
-                    }}
-                  >
-                    <img
-                      className="flex mb-2 w-auto"
-                      src={network.image}
-                      alt={network.placeholder}
-                      loading="eager"
-                      decoding="async"
-                    />
-                    <p className="flex w-full justify-center items-center">
-                      <p className="flex text-xs w-full justify-center items-center text-black">
-                        {network.name}
-                      </p>
-                    </p>
+                  <div>
+                    <button
+                      key={network.id}
+                      onClick={() => selectNetwork(network.id)}
+                      className={`payment-option ${
+                        selectedOption === network.id ? "selected" : ""
+                      }`}
+                      styl
+                      style={{
+                        height: "100px",
+                        width: "100px",
+                        borderRadius: "20px",
+                        margin: "5px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <img
+                        style={{
+                          height: "100px",
+                          width: "100px",
+                          borderRadius: "20px",
+                        }}
+                        src={network.image}
+                        alt="payment option"
+                      />
+                    </button>
                   </div>
                 ))}
             </div>
@@ -318,21 +348,36 @@ const SingleGamePayment = () => {
           <div className="block space-y-4 w-full items-end justify-between bg-white p-6 my-6 rounded-2xl border border-border-default md:w-full md:justify-between lg:w-full lg:justify-between">
             <div>
               {selectedNetwork !== 4 ? (
-                <p className="mb-1 text-sm">Enter phone number</p>
+                <p className="mb-1 text-sm text-center">Your phone number</p>
               ) : (
                 <p></p>
               )}
               {selectedNetwork !== 4 ? (
-                <Input
-                  type={"number"}
-                  placeholder={"020 000 0000"}
-                  icon={"ghana.svg"}
-                  className="flex bg-[#F5F5F7] input-md focus:outline-none text-black md:w-full lg:w-full"
-                  value={mobileNumber}
-                  disabled={memoizedUser}
-                  onChange={handleInputChange}
-                />
+                <p
+                  className="text-center font-semibold"
+                  style={{ fontSize: "24px" }}
+                >
+                  <img
+                    src="/ghana.svg"
+                    alt=""
+                    style={{
+                      display: "inline-block",
+                      verticalAlign: "middle",
+                      marginRight: "8px",
+                    }}
+                  />
+                  {mobileNumber}
+                </p>
               ) : (
+                // <Input
+                //   type={"number"}
+                //   placeholder={"020 000 0000"}
+                //   icon={"ghana.svg"}
+                //   className="flex bg-[#F5F5F7] input-md focus:outline-none text-black md:w-full lg:w-full"
+                //   value={mobileNumber}
+                //   disabled={memoizedUser}
+                //   onChange={handleInputChange}
+                // />
                 <p></p>
               )}
             </div>
