@@ -17,7 +17,12 @@ function App() {
 
   const location = useLocation();
   useEffect(() => {
-    import("preline/preline");
+    import("preline/preline").then(() => {
+      // Optional: safety check
+      if (!window.$hsOverlayCollection) {
+        window.$hsOverlayCollection = [];
+      }
+    });
     try {
       Sentry.setUser({
         ip_address: location.ip,
