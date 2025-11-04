@@ -17,12 +17,14 @@ function App() {
 
   const location = useLocation();
   useEffect(() => {
-    import("preline/preline").then(() => {
-      // Optional: safety check
-      if (!window.$hsOverlayCollection) {
-        window.$hsOverlayCollection = [];
-      }
-    });
+    import("preline/preline")
+      .then(() => {
+        // Optional defensive initialization
+        window.$hsOverlayCollection ??= [];
+        window.$hsDropdownCollection ??= [];
+        window.$hsCollapseCollection ??= [];
+      })
+      .catch((err) => console.error("Preline load failed", err));
     try {
       Sentry.setUser({
         ip_address: location.ip,
