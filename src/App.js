@@ -1,4 +1,3 @@
-//import "preline/preline";
 import { Outlet, useLocation } from "react-router-dom";
 import PWAInstallPrompt from "./PWAInstallPrompt";
 import { useAptabase } from "@aptabase/react";
@@ -18,7 +17,7 @@ function App() {
 
   const location = useLocation();
   useEffect(() => {
-    import('preline/preline');
+    import("preline/preline");
     try {
       Sentry.setUser({
         ip_address: location.ip,
