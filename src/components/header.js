@@ -20,9 +20,9 @@ const Header = () => {
   console.log(memoizedUser);
   
   useEffect(() => {
-    try {
-      if (memoizedUser) {
-        const getBanalce = async () => {
+    if (memoizedUser) {
+      const getBalance = async () => {
+        try {
           const response = await fetch(
             "https://app-api.afriluck.com/api/V1/app/account/balance",
             {
@@ -37,20 +37,14 @@ const Header = () => {
 
           if (response.status === 200) {
             setBalance(json.balance ? json.balance : memoizedUser.balance);
-          // } else if (response.status === 401) {
-          //   navigate("/login", {
-          //     state: {
-          //       message: "Session expired, please login again",
-          //     },
-          //   });
-          // } else {
+          } else {
             setBalance(memoizedUser.balance);
           }
-        };
-        getBanalce();
-      }
-    } catch (e) {
-      console.log("Error => ", e);
+        } catch (e) {
+          console.log("Error => ", e);
+        }
+      };
+      getBalance();
     }
   }, [memoizedUser, navigate]);
 
