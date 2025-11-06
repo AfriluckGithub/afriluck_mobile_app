@@ -23,6 +23,7 @@ export const quickFilterTimeOptions = [
 export const winsLossesOptions = [
   { name: "Wins", id: 13 },
   { name: "Losses", id: 14 },
+  { name: "Pending", id: 15 },
 ];
 
 export const getDateRange = (filterId) => {
@@ -112,6 +113,9 @@ export const applyFilters = (
       }
       if (appliedFilter === 14) {
         return result.status === "lost";
+      }
+      if (appliedFilter === 15) {
+        return result.status === "pending";
       }
       return true;
     });
