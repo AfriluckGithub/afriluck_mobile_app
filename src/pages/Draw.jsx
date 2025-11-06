@@ -4,6 +4,7 @@ import axios from "axios";
 import { OrbitProgress } from "react-loading-indicators";
 import { useSelector } from "react-redux";
 import { Button } from "@heroui/button";
+import Filter, { applyFilters } from "../components/filter";
 
 const Draw = () => {
   const [results, setResults] = useState([]);
@@ -12,10 +13,19 @@ const Draw = () => {
   const [error, setError] = useState("");
   const user = useSelector((state) => state.user?.user);
   const containerRef = useRef(null);
+  const [appliedStartDate, setAppliedStartDate] = useState("");
+  const [appliedEndDate, setAppliedEndDate] = useState("");
+  const [appliedFilter, setAppliedFilter] = useState(null);
 
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
   }, [user]);
+
+  const handleApplyFilters = (filters) => {
+    setAppliedStartDate(filters.startDate);
+    setAppliedEndDate(filters.endDate);
+    setAppliedFilter(filters.selectedFilter);
+  };
 
   useEffect(() => {
     const fetchDrawResults = async () => {
@@ -51,8 +61,17 @@ const Draw = () => {
     fetchDrawResults();
   }, [memoizedUser?.token]);
 
+  const filteredResults = useMemo(() => {
+    return applyFilters(
+      results,
+      appliedStartDate,
+      appliedEndDate,
+      appliedFilter
+    );
+  }, [results, appliedStartDate, appliedEndDate, appliedFilter]);
+
   const groupedResults = useMemo(() => {
-    return results.reduce((acc, result) => {
+    return filteredResults.reduce((acc, result) => {
       const date = new Date(result.date).toDateString();
       if (!acc[date]) {
         acc[date] = [];
@@ -60,7 +79,7 @@ const Draw = () => {
       acc[date].push(result);
       return acc;
     }, {});
-  }, [results]);
+  }, [filteredResults]);
 
   function hasScrolled(e) {
     const scrollTop = e.target.scrollTop;
@@ -72,7 +91,6 @@ const Draw = () => {
   }
 
   useEffect(() => {
-   
     let scrollableElement = containerRef.current?.parentElement;
 
     while (scrollableElement) {
@@ -97,6 +115,8 @@ const Draw = () => {
       ref={containerRef}
       className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48"
     >
+      <Filter onApplyFilters={handleApplyFilters} />
+
       <Button
         className="to-top-btn bg-primary text-white"
         onClick={() => {
@@ -132,17 +152,17 @@ const Draw = () => {
           <path
             d="M12 5.5V19"
             stroke="#ffffff"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
           <path
             d="M18 11C18 11 13.5811 5.00001 12 5C10.4188 4.99999 6 11 6 11"
             stroke="#ffffff"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          ></path>
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </Button>
       {error && (
