@@ -673,7 +673,10 @@ const SingleGame = () => {
                   : `Please pick ${selectedGame} numbers between 1 to 57`}
               </p>
               <div className="flex flex-col flex-wrap w-full items-start">
-                <div className="grid grid-cols-3 md:flex gap-4 justify-start mt-4 w-full">
+                <div
+                  className="grid grid-cols-3 md:flex gap-4 justify-start mt-4 w-full"
+                  style={{ flexWrap: "wrap" }}
+                >
                   {type_picked === "Mega"
                     ? renderInputFieldMega()
                     : type_picked === "Perm" && numOfFields > 0
