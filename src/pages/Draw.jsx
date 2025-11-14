@@ -115,10 +115,8 @@ const Draw = () => {
       ref={containerRef}
       className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48"
     >
-      <Filter onApplyFilters={handleApplyFilters} />
-
       <Button
-        className="to-top-btn bg-primary text-white"
+        className="to-top-btn text-white"
         onClick={() => {
           let scrollableElement = containerRef.current?.parentElement;
           while (scrollableElement) {
@@ -132,15 +130,17 @@ const Draw = () => {
           }
         }}
         style={{
+          height: "30px",
+          maxWidth: "10px",
           zIndex: 999,
           position: "absolute",
           right: 15,
           bottom: 100,
           transition: "all 0.5",
           display: showButton ? "flex" : "none",
+          background: "#17858B",
         }}
       >
-        <p>Back to Top</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -169,6 +169,7 @@ const Draw = () => {
         <p className="h-full text-wrap p-5 text-center text-black">{error}</p>
       )}
       <div className="flex flex-col w-full my-32">
+        <Filter onApplyFilters={handleApplyFilters} />
         {loading ? (
           <div className="flex justify-center items-center h-screen">
             <OrbitProgress color="#000" size="small" text="Loading" />

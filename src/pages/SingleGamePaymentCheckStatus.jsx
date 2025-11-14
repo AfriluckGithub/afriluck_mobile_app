@@ -13,6 +13,8 @@ const SingleGamePaymentCheckStatus = () => {
   const [statusInfoText, setStatusInfoText] = useState(
     "Your payment is being processed. Tap the button below to check payment status."
   );
+  const [isStatusChecking, setIsStatusChecking] = useState(true);
+
   const location = useLocation();
   const {
     locationStatusText,
@@ -35,7 +37,8 @@ const SingleGamePaymentCheckStatus = () => {
     locationStatus,
     locationStatusInfoText,
   ]);
-    const user = useSelector((state) => state.user?.user);
+
+  const user = useSelector((state) => state.user?.user);
 
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
@@ -59,7 +62,9 @@ const SingleGamePaymentCheckStatus = () => {
             checkBalance: true,
           },
         });
+        return;
       }
+
       const requestBody = {
         phone_number: `233${Number(memoizedTransaction.mobileNumber)}`,
       };
@@ -94,6 +99,7 @@ const SingleGamePaymentCheckStatus = () => {
         setStatusInfoText(
           `Remember, matching all six numbers for Ghc20 is the key to claiming a life-changing jackpot prize of 70 million! Good Luck!!`
         );
+        setIsStatusChecking(false);
       } else if (status === "Failed") {
         setStatus(status);
         setStatusText("Back");
@@ -101,11 +107,28 @@ const SingleGamePaymentCheckStatus = () => {
         setStatusInfoText(
           `Your payment was not successful. Please try again or contact support for assistance.`
         );
+        setIsStatusChecking(false);
       }
     } catch (e) {
       console.error(e);
     }
   };
+
+  useEffect(() => {
+    if (!isStatusChecking || !memoizedTransaction || !memoizedUser) {
+      return;
+    }
+
+    checkPaymentStatus();
+
+    const intervalId = setInterval(() => {
+      checkPaymentStatus();
+    }, 10000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [isStatusChecking, memoizedTransaction, memoizedUser]);
 
   return (
     <>
