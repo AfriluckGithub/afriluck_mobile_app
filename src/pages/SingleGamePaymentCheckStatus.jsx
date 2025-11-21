@@ -14,6 +14,7 @@ const SingleGamePaymentCheckStatus = () => {
     "Your payment is being processed. Tap the button below to check payment status."
   );
   const [isStatusChecking, setIsStatusChecking] = useState(true);
+  const [checkCount, setCheckCount] = useState(0);
 
   const location = useLocation();
   const {
@@ -55,6 +56,10 @@ const SingleGamePaymentCheckStatus = () => {
   };
 
   const checkPaymentStatus = async () => {
+    console.log(
+      `Check #${checkCount + 1} at ${new Date().toLocaleTimeString()}`
+    );
+
     try {
       if (statusText === "Okay") {
         navigate("/", {
@@ -119,16 +124,27 @@ const SingleGamePaymentCheckStatus = () => {
       return;
     }
 
-    checkPaymentStatus();
-
-    const intervalId = setInterval(() => {
+    if (checkCount === 0) {
       checkPaymentStatus();
-    }, 10000);
+      setCheckCount(1);
+      return;
+    }
+
+    if (checkCount > 3) {
+      setIsStatusChecking(false);
+      return;
+    }
+
+    const intervals = [10000, 15000, 30000];
+    const timeoutId = setTimeout(() => {
+      checkPaymentStatus();
+      setCheckCount((prev) => prev + 1);
+    }, intervals[checkCount - 1]);
 
     return () => {
-      clearInterval(intervalId);
+      clearTimeout(timeoutId);
     };
-  }, [isStatusChecking, memoizedTransaction, memoizedUser]);
+  }, [isStatusChecking, memoizedTransaction, memoizedUser, checkCount]);
 
   return (
     <>
