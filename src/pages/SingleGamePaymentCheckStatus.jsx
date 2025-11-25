@@ -60,62 +60,86 @@ const SingleGamePaymentCheckStatus = () => {
       `Check #${checkCount + 1} at ${new Date().toLocaleTimeString()}`
     );
 
-    try {
-      if (statusText === "Okay") {
-        navigate("/", {
-          state: {
-            checkBalance: true,
-          },
-        });
-        return;
-      }
+    let attempts = 0;
 
-      const requestBody = {
-        phone_number: `233${Number(memoizedTransaction.mobileNumber)}`,
-      };
-      console.log("Status Request => ", requestBody);
-
-      const response = await fetch(
-        "https://app-api.afriluck.com/api/V1/app/status-check",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${memoizedUser?.token}`,
-          },
-          body: JSON.stringify(requestBody),
+    while (attempts < 3) {
+      try {
+        if (statusText === "Okay") {
+          navigate("/", {
+            state: {
+              checkBalance: true,
+            },
+          });
+          return;
         }
-      );
-      const json = await response.json();
-      const status = json.success.status;
-      console.log(json);
 
-      if (status === "Unpaid") {
-        setStatus(status);
-        setStatusText("Check Again");
-        setStatusInfoText(
-          "Your payment is unpaid at the moment & is being processed. Tap on the check again button to confirm final payment status."
+        const requestBody = {
+          phone_number: `233${Number(memoizedTransaction.mobileNumber)}`,
+        };
+        console.log("Status Request => ", requestBody);
+
+        const response = await fetch(
+          "https://app-api.afriluck.com/api/V1/app/status-check",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${memoizedUser?.token}`,
+            },
+            body: JSON.stringify(requestBody),
+            signal: AbortSignal.timeout(10000),
+          }
         );
-        setStatusImage("pending-status.svg");
-      } else if (status === "Paid") {
-        setStatus(status);
-        setStatusText("Okay");
-        setStatusImage("success-status.svg");
-        setStatusInfoText(
-          `Remember, matching all six numbers for Ghc20 is the key to claiming a life-changing jackpot prize of 70 million! Good Luck!!`
-        );
-        setIsStatusChecking(false);
-      } else if (status === "Failed") {
-        setStatus(status);
-        setStatusText("Back");
-        setStatusImage("failed.png");
-        setStatusInfoText(
-          `Your payment was not successful. Please try again or contact support for assistance.`
-        );
-        setIsStatusChecking(false);
+
+        const json = await response.json();
+        const status = json.success.status;
+        console.log(json);
+
+        if (status === "Unpaid") {
+          setStatus(status);
+          setStatusText("Check Again");
+          setStatusInfoText(
+            "Your payment is unpaid at the moment & is being processed. Tap on the check again button to confirm final payment status."
+          );
+          setStatusImage("pending-status.svg");
+        } else if (status === "Paid") {
+          setStatus(status);
+          setStatusText("Okay");
+          setStatusImage("success-status.svg");
+          setStatusInfoText(
+            `Remember, matching all six numbers for Ghc20 is the key to claiming a life-changing jackpot prize of 70 million! Good Luck!!`
+          );
+          setIsStatusChecking(false);
+        } else if (status === "Failed") {
+          setStatus(status);
+          setStatusText("Back");
+          setStatusImage("error-msg.svg");
+          setStatusInfoText(
+            `Your payment was not successful. Please try again or contact support for assistance.`
+          );
+          setIsStatusChecking(false);
+        }
+
+        break;
+      } catch (e) {
+        if (
+          attempts == 2 ||
+          (e.name !== "AbortError" &&
+          e.name !== "TimeoutError")
+        ) {
+          console.error(e);
+          setStatus("Failed");
+          setStatusImage("error-msg.svg");
+          setStatusText("Contact Support");
+          setStatusInfoText(
+            "Oops. Something went wrong on our end, please contact support"
+          );
+          break;
+        } else {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+        }
       }
-    } catch (e) {
-      console.error(e);
+      attempts++;
     }
   };
 
@@ -173,8 +197,16 @@ const SingleGamePaymentCheckStatus = () => {
           <div className="flex flex-row w-auto mt-5">
             <Button
               label={statusText}
-              onClick={checkPaymentStatus}
-              className="text-white font-bold w-full h-16 rounded-lg bg-primary"
+              onClick={
+                status === "Failed"
+                  ? () => navigate("/customerservice")
+                  : checkPaymentStatus
+              }
+              className={
+                status === "Failed"
+                  ? "text-white font-bold w-full h-16 rounded-lg  bg-[#A60014]"
+                  : "text-white font-bold w-full h-16 rounded-lg bg-primary"
+              }
             ></Button>
           </div>
         </footer>

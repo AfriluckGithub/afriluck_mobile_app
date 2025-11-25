@@ -727,6 +727,10 @@ flex-wrap: wrap;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-red{
+  background-color: #D0021B;
+}
+
 .p-10{
   padding: 2.5rem;
 }
