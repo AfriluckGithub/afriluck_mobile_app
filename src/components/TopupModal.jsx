@@ -78,11 +78,11 @@ const TopUpPage = () => {
       image: "/airtel-tigo.png",
       onClick: () => setNetwork("AirtelTigo"),
     },
-    {
-      id: 4,
-      image: "/afriluck.svg",
-      onClick: () => setNetwork("AirtelTigo"), //need the corrent network config
-    },
+    // {
+    //   id: 4,
+    //   image: "/afriluck.svg",
+    //   onClick: () => setNetwork("AirtelTigo"), //need the corrent network config
+    // },
   ];
 
   return (
