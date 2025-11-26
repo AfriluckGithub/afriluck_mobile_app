@@ -3,7 +3,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/button";
 import { useSelector } from "react-redux";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 
 const SingleGamePaymentCheckStatus = () => {
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const SingleGamePaymentCheckStatus = () => {
     navigate(-1);
   };
 
-  const checkPaymentStatus = async () => {
+  const checkPaymentStatus = useCallback(async () => {
     console.log(
       `Check #${checkCount + 1} at ${new Date().toLocaleTimeString()}`
     );
@@ -123,9 +123,8 @@ const SingleGamePaymentCheckStatus = () => {
         break;
       } catch (e) {
         if (
-          attempts == 2 ||
-          (e.name !== "AbortError" &&
-          e.name !== "TimeoutError")
+          attempts === 2 ||
+          (e.name !== "AbortError" && e.name !== "TimeoutError")
         ) {
           console.error(e);
           setStatus("Failed");
@@ -141,7 +140,7 @@ const SingleGamePaymentCheckStatus = () => {
       }
       attempts++;
     }
-  };
+  }, [statusText, memoizedTransaction, memoizedUser, checkCount, navigate]);
 
   useEffect(() => {
     if (!isStatusChecking || !memoizedTransaction || !memoizedUser) {
@@ -168,7 +167,13 @@ const SingleGamePaymentCheckStatus = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [isStatusChecking, memoizedTransaction, memoizedUser, checkCount]);
+  }, [
+    isStatusChecking,
+    memoizedTransaction,
+    memoizedUser,
+    checkCount,
+    checkPaymentStatus,
+  ]);
 
   return (
     <>

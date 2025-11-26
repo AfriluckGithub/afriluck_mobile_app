@@ -61,7 +61,7 @@ export const getDateRange = (filterId) => {
     case 5:
      startMonth = new Date(today.getFullYear(), 0, 1);
       endMonth = new Date(today.getFullYear(), 3, 0);
-      return { start: startMonth, end: endMonthh };
+      return { start: startMonth, end: endMonth };
 
     case 6:
      startMonth = new Date(today.getFullYear(), 3, 1);
