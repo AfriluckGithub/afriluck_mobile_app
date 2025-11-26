@@ -184,6 +184,7 @@ const SingleGamePayment = () => {
     const selectedNetwork = networks.find((network) => network.id === id);
     setNetwork(selectedNetwork.desc);
     setSelectedNetwork(id);
+    setSelectedOption(id);
   };
 
   // const handleInputChange = (event) => {
