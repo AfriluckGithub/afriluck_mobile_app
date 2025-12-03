@@ -369,28 +369,28 @@ const SingleGame = () => {
   };
 
   const renderInputFields = () => {
-    let inputNum = 0;
-    const currentGame =
-      type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
-    console.log("Selected Game => ", currentGame);
+    // let inputNum = 0;
+    // const currentGame =
+    //   type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
+    // console.log("Selected Game => ", currentGame);
 
-    switch (currentGame) {
-      case 2:
-        inputNum = 15;
-        break;
-      case 3:
-        inputNum = 10;
-        break;
-      case 4:
-        inputNum = 8;
-        break;
-      case 6:
-        inputNum = 8;
-        break;
-      default:
-        inputNum = 15;
-        console.log("Nothing");
-    }
+    // switch (currentGame) {
+    //   case 2:
+    //     inputNum = 15;
+    //     break;
+    //   case 3:
+    //     inputNum = 10;
+    //     break;
+    //   case 4:
+    //     inputNum = 8;
+    //     break;
+    //   case 6:
+    //     inputNum = 8;
+    //     break;
+    //   default:
+    //     inputNum = 15;
+    //     console.log("Nothing");
+    // }
 
     //const numInputs = type_picked === "Perm" ? inputNum : selectedGame || 1;
     // return Array.from({ length: numInputs || 0 }).map((_, index) => (
