@@ -1,13 +1,7 @@
-//import { useEffect } from "react";
-import "preline/preline";
-//import { useLocation } from "react-router-dom";
 import { Outlet, useLocation } from "react-router-dom";
-//import Header from "./components/header";
-//import Footer from "./components/footer";
 import PWAInstallPrompt from "./PWAInstallPrompt";
 import { useAptabase } from "@aptabase/react";
-import { useEffect } from "react";
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import TagManager from "react-gtm-module";
 import * as Sentry from "@sentry/react";
 
@@ -23,8 +17,14 @@ function App() {
 
   const location = useLocation();
   useEffect(() => {
-    //window.HSStaticMethods.autoInit();
-    //trackEvent("started_app");
+    import("preline/preline")
+      .then(() => {
+        // Optional defensive initialization
+        window.$hsOverlayCollection ??= [];
+        window.$hsDropdownCollection ??= [];
+        window.$hsCollapseCollection ??= [];
+      })
+      .catch((err) => console.error("Preline load failed", err));
     try {
       Sentry.setUser({
         ip_address: location.ip,

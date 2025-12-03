@@ -1,27 +1,54 @@
-import { useCallback, useState } from "react";
+import {  useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addTransactionData } from "../store/transactionSlice";
 import { Button } from "@heroui/button";
+import { Input } from "@heroui/input";
 import Subheader from "../components/subheader";
-import LotteryNumberPicker from "../components/helpers/LotteryNumberPicker";
+
 
 const SingleGame = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [selectedGame, setSelectedGame] = useState(1);
+
+  const type = localStorage.getItem("game_type");
+  const type_picked = localStorage.getItem("game_picked");
+
+  const [selectedGame, setSelectedGame] = useState(
+    type_picked === "Perm"
+      ? 1
+      : type_picked === "Direct"
+      ? 1
+      : type_picked === "Banker"
+      ? 1
+      : 1
+  );
 
   const [betAmount, setBetAmount] = useState("");
   const [inputValue, setInputValue] = useState([]);
   const [error, setError] = useState("");
-  const [disabled] = useState(true);
-  const [valuesArray] = useState([]);
+  const [numOfFields, setNumOfFields] = useState(
+    type_picked === "Perm"
+      ? 0
+      : type_picked === "Direct"
+      ? 1
+      : type_picked === "Banker"
+      ? 1
+      : 3
+  );
+  const [
+    disabled,
+    //setDisabled
+  ] = useState(true);
+  const [
+    valuesArray,
+    //setValuesArray
+  ] = useState([]);
 
   console.log(disabled);
   console.log(valuesArray);
 
-  const type = localStorage.getItem("game_type");
-  const type_picked = localStorage.getItem("game_picked");
+
 
   const increment = () => {
     setBetAmount((prev) => {
@@ -63,12 +90,12 @@ const SingleGame = () => {
   console.log("type => ", type);
   console.log("type picked => ", type_picked);
 
-  const ranges = [
-    { min: 3, max: 15, game: 1 },
-    { min: 4, max: 10, game: 2 },
-    { min: 5, max: 8, game: 3 },
-    { min: 7, max: 8, game: 5 },
-  ];
+ const ranges = [
+   { min: 3, max: 15, game: 2 },
+   { min: 4, max: 10, game: 3 },
+   { min: 5, max: 8, game: 4 },
+   { min: 5, max: 8, game: 6 },
+ ];
 
   const direct = [
     { id: 1, game: "Direct 1", imageUrl: "direct-1-logo.png" },
@@ -87,15 +114,68 @@ const SingleGame = () => {
     { id: 5, game: "Perm 6", imageUrl: "perm-6-logo.png" },
   ];
 
-  const selectGame = (id) => {
-    setInputValue([]);
-    setSelectedGame(id);
-  };
+ const selectGame = (id) => {
+   setInputValue([]);
+   setSelectedGame(id);
+   if (type_picked === "Perm") {
+     let numFields = 15;
+     switch (id) {
+       case 1: // Perm 2
+         numFields = 15;
+         break;
+       case 2: // Perm 3
+         numFields = 10;
+         break;
+       case 3: // Perm 4
+         numFields = 8;
+         break;
+       case 5: // Perm 6
+         numFields = 8;
+         break;
+       default:
+         numFields = 15;
+     }
+     setNumOfFields(numFields);
+   } else if (type_picked === "Direct") {
+     setNumOfFields(id);
+   }
+ };
 
-  const handleChange = useCallback((numbers) => {
-    setInputValue(numbers);
-    console.log("Numbers picked " + numbers);
-  }, []);
+  // const handleChange = useCallback((numbers) => {
+  //   setInputValue(numbers);
+  //   console.log("Numbers picked " + numbers);
+  // }, []);
+
+
+  const handleInputChange = (index, e) => {
+    const value = e.target.value;
+
+    let number = parseInt(value);
+
+    // const parts = value
+    //   .split(/[-/ ]+/)
+    //   .map((part) => part.trim())
+    //   .filter((part) => part !== "");
+
+    // let newValue = parts.join(" ");
+
+    // // Validate that input values are between 1 and 57
+    // const numbers = newValue.split(" ").map(Number);
+    if (isNaN(value) || number < 1 || number > 57) {
+      number = 0;
+      setError("Numbers must be between 1 and 57");
+      return;
+    } else {
+      setError("");
+    }
+
+    setInputValue((prev) => {
+      const newValues = [...prev];
+      newValues[index] = number;
+      return newValues;
+    });
+    // setVal(inputValue);
+  };
 
   const handleAmountChange = (e) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
@@ -121,6 +201,17 @@ const SingleGame = () => {
         setBetAmount(value);
         setError("Allowed values for Direct are 1 to 20");
       }
+    } else if (type_picked === "Perm") {
+      if (
+        !value ||
+        Array.from({ length: 20 }, (_, i) => i + 1).includes(numericValue)
+      ) {
+        setBetAmount(value === "" ? "" : numericValue);
+        setError("");
+      } else {
+        setBetAmount(value);
+        setError("Allowed values for Perm are 1 to 20");
+      }
     } else {
       const value = e.target.value.replace(/[^0-9]/g, "");
       setBetAmount(value === "" ? "" : parseInt(value, 10));
@@ -140,9 +231,9 @@ const SingleGame = () => {
   };
 
   function isValidValue(values) {
-    const current = ranges.filter(
-      (range) => range.game === Number(selectedGame)
-    );
+    const gameNumber =
+      type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
+    const current = ranges.filter((range) => range.game === gameNumber);
     if (current.length === 0) {
       return false;
     }
@@ -166,9 +257,9 @@ const SingleGame = () => {
     );
   }
 
-  function getRange(value) {
-    return ranges.filter((range) => range.game === Number(selectedGame));
-  }
+  // function getRange(value) {
+  //   return ranges.filter((range) => range.game === Number(selectedGame));
+  // }
 
   function hasRepeatedNumbers(arr) {
     const seen = new Set();
@@ -187,7 +278,11 @@ const SingleGame = () => {
     let val = inputValue;
     console.log("Val", val);
     console.log(" Val Length => ", val.length);
-    const repeatedNumbers = hasRepeatedNumbers(val);
+    // Filter to only valid numbers
+    let validInputs = val.filter(
+      (item) => item !== "" && !isNaN(item) && item >= 1 && item <= 57
+    );
+    const repeatedNumbers = hasRepeatedNumbers(validInputs);
     if (error !== "") {
       return;
     }
@@ -214,7 +309,7 @@ const SingleGame = () => {
     console.log("Input Length => ", inputValue.length);
 
     const permValidation = isValidValue(val);
-    const range = getRange(val.length);
+    // const range = getRange(val.length);
 
     const megaValidation =
       val.length >= 6 &&
@@ -222,7 +317,7 @@ const SingleGame = () => {
       Number(betAmount) > 0 &&
       !val.some((item) => Number(item) > 57);
     const directValidation =
-      val.length === selectedGame &&
+      val.filter((item) => item !== "").length === selectedGame &&
       type_picked === "Direct" &&
       //val.length > 0 &&
       Number(betAmount) > 0 &&
@@ -256,8 +351,12 @@ const SingleGame = () => {
       navigate("/single_game_selection");
     } else {
       if (!permValidation && type_picked === "Perm") {
+        const gameNumber = Number(selectedGame) + 1;
+        const currentRange = ranges.find((r) => r.game === gameNumber);
         setError(
-          `Selected Perm numbers has to be between ${range[0].min} and ${range[0].max}`
+          `Selected Perm numbers has to be between ${
+            currentRange ? currentRange.min : 3
+          } and ${currentRange ? currentRange.max : 15} numbers`
         );
       } else if (repeatedNumbers) {
         setError(`Repeated numbers are not allowed`);
@@ -269,6 +368,134 @@ const SingleGame = () => {
     }
   };
 
+  const renderInputFields = () => {
+    let inputNum = 0;
+    const currentGame =
+      type_picked === "Perm" ? Number(selectedGame) + 1 : Number(selectedGame);
+    console.log("Selected Game => ", currentGame);
+
+    switch (currentGame) {
+      case 2:
+        inputNum = 15;
+        break;
+      case 3:
+        inputNum = 10;
+        break;
+      case 4:
+        inputNum = 8;
+        break;
+      case 6:
+        inputNum = 8;
+        break;
+      default:
+        inputNum = 15;
+        console.log("Nothing");
+    }
+
+    //const numInputs = type_picked === "Perm" ? inputNum : selectedGame || 1;
+    // return Array.from({ length: numInputs || 0 }).map((_, index) => (
+    //   <Input
+    //     key={index}
+    //     type="number"
+    //     variant="bordered"
+    //     placeholder={` 1`}
+    //     className={`${
+    //       error === ""
+    //         ? `w-24 text-black text-sm`
+    //         : `w-24 border-pink-500 text-pink-600 text-sm`
+    //     }`}
+    //     value={inputValue[index] || ""}
+    //     onChange={(e) => handleInputChange(index, e)}
+    //   />
+    // ));
+    return Array.from({ length: numOfFields }).map((_, index) => (
+      <Input
+        key={index}
+        type="number"
+        variant="bordered"
+        placeholder={``}
+        className={`${
+          error === ""
+            ? `w-24 text-black text-sm`
+            : `w-24 border-pink-500 text-pink-600 text-sm`
+        }`}
+        value={inputValue[index] || ""}
+        onChange={(e) => handleInputChange(index, e)}
+      />
+    ));
+  };
+
+  const getNumberFieldOptions = () => {
+    let min = 3,
+      max = 15;
+    switch (selectedGame) {
+      case 1: // Perm 2
+        min = 3;
+        max = 15;
+        break;
+      case 2: // Perm 3
+        min = 4;
+        max = 10;
+        break;
+      case 3: // Perm 4
+        min = 5;
+        max = 8;
+        break;
+      case 5: // Perm 6
+        min = 5;
+        max = 8;
+        break;
+      default:
+        min = 3;
+        max = 15;
+    }
+
+    return Array.from({ length: max - min + 1 }, (_, i) => ({
+      value: i + min,
+      label: `${i + min} Numbers`,
+    }));
+  };
+
+  const renderInputFieldMega = () => {
+    const numInputs = type_picked === "Mega" ? 6 : selectedGame || 1;
+
+    return Array.from({ length: numInputs }).map((_, index) => (
+      <Input
+        key={index}
+        type="number"
+        variant="bordered"
+        placeholder={` 1`}
+        className={`${
+          error === ""
+            ? `w-24 text-black text-sm`
+            : `w-24 border-pink-500 text-pink-600 text-sm`
+        }`}
+        value={inputValue[index] || ""}
+        onChange={(e) => handleInputChange(index, e)}
+      />
+    ));
+  };
+  useEffect(() => {
+    if (type_picked === "Perm") {
+      if (numOfFields > 0) {
+        setInputValue(new Array(numOfFields).fill(""));
+      } else {
+        setInputValue([]);
+      }
+    } else if (type_picked === "Direct") {
+      setInputValue(new Array(selectedGame).fill(""));
+    } else if (type_picked === "Banker") {
+      setInputValue(new Array(1).fill(""));
+    } else {
+      setInputValue(
+        new Array(selectedGame || (type_picked === "Mega" ? 6 : 1)).fill("")
+      );
+    }
+  }, [selectedGame, type_picked, numOfFields]);
+
+  // const handlePaymentScreen = () => {
+  //   navigate("/single_game_payment");
+  // };
   return (
     <>
       <div className="min-h-screen flex flex-col bg-[#F7F7F7] w-screen scroll-smooth overflow-y-auto pb-20">
@@ -323,42 +550,80 @@ const SingleGame = () => {
                   ))}
               </div>
             ) : type_picked === "Perm" ? (
-              <div className="justify-center items-center w-auto grid grid-cols-2 gap-2 space-x-1 p-5">
-                {perm
-                  .filter(
-                    (game) =>
-                      !(
-                        (type === "Anopa" || type === "Midday") &&
-                        game.id === 4
-                      ) ||
-                      (type === "6/57" && game.id === 4)
-                  )
-                  .map((game) => (
-                    <div
-                      key={game.id}
-                      className="flex flex-row h-28 w-28 rounded-lg"
-                      onClick={() => selectGame(game.id)}
-                      style={{
-                        border:
-                          selectedGame === game.id
-                            ? "3px solid #3DB6BC"
-                            : "1px solid #EEEFF3",
-                        backgroundColor:
-                          selectedGame === game.id ? "#F6FCFD" : "#FEFFFF",
-                        fontWeight:
-                          selectedGame === game.id ? "bold" : "normal",
-                      }}
+              <div className="flex flex-col justify-center items-center w-full space-y-4 p-5">
+                {/* Game Cards */}
+                <div className="grid grid-cols-2 gap-2 space-x-1">
+                  {perm
+                    .filter(
+                      (game) =>
+                        !(
+                          (type === "Anopa" || type === "Midday") &&
+                          game.id === 4
+                        ) ||
+                        (type === "6/57" && game.id === 4)
+                    )
+                    .map((game) => (
+                      <div
+                        key={game.id}
+                        className="flex flex-row h-28 w-28 rounded-lg"
+                        onClick={() => selectGame(game.id)}
+                        style={{
+                          border:
+                            selectedGame === game.id
+                              ? "3px solid #3DB6BC"
+                              : "1px solid #EEEFF3",
+                          backgroundColor:
+                            selectedGame === game.id ? "#F6FCFD" : "#FEFFFF",
+                          fontWeight:
+                            selectedGame === game.id ? "bold" : "normal",
+                        }}
+                      >
+                        <p className="flex text-black font-Poppins justify-center items-center w-full">
+                          <img
+                            alt="logo"
+                            src={game.imageUrl}
+                            className="h-10 w-16"
+                          />
+                        </p>
+                      </div>
+                    ))}
+                </div>
+                <div className="flex justify-center items-center space-x-4 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                  <label className="font-semibold text-teal-600 text-lg">
+                    Select Number of Fields:
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={numOfFields || ""}
+                      onChange={(e) => setNumOfFields(Number(e.target.value))}
+                      className="appearance-none bg-white border-2 border-teal-400 rounded-lg px-4 py-3 pr-8 text-black font-medium focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all duration-200 min-w-40 shadow-sm hover:shadow-md"
                     >
-                      <p className="flex text-black font-Poppins justify-center items-center w-full">
-                        <img
-                          alt="logo"
-                          src={game.imageUrl}
-                          className="h-10 w-16"
+                      <option value="" disabled>
+                        Select Fields
+                      </option>
+                      {getNumberFieldOptions().map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                      <svg
+                        className="w-5 h-5 text-teal-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
                         />
-                        {/* {game.game} */}
-                      </p>
+                      </svg>
                     </div>
-                  ))}
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="flex justify-center items-center h-32">
@@ -381,45 +646,28 @@ const SingleGame = () => {
               <p className="text-black">Selections</p>
             </div>
 
-            <div className="block md:flex items-center px-4 py-4 w-full">
-              <div className="flex flex-col flex-wrap w-full justify-center items-center">
-                <div style={{ padding: 20 }}>
-                  <LotteryNumberPicker
-                    poolSize={57}
-                    minPicks={
-                      type_picked === "Mega"
-                        ? 6
-                        : type_picked === "Perm"
-                        ? Number(selectedGame) + 1 === 2
-                          ? 3
-                          : Number(selectedGame) + 1 === 3
-                          ? 4
-                          : Number(selectedGame) + 1 === 4
-                          ? 5
-                          : Number(selectedGame) + 1 === 6
-                          ? 7
-                          : selectedGame
-                        : selectedGame
-                    }
-                    picksCount={
-                      type_picked === "Mega"
-                        ? 6
-                        : type_picked === "Perm"
-                        ? Number(selectedGame) + 1 === 2
-                          ? 15
-                          : Number(selectedGame) + 1 === 3
-                          ? 10
-                          : Number(selectedGame) + 1 === 4
-                          ? 8
-                          : Number(selectedGame) + 1 === 6
-                          ? 8
-                          : selectedGame
-                        : selectedGame
-                    }
-                    sorted={true}
-                    onChange={handleChange}
-                    disabled={[]}
-                  />
+            <div className="block md:flex items-center px-6 py-6 w-full">
+              <p className="w-full">
+                {selectedGame === ""
+                  ? `Please select a number`
+                  : type_picked === "Perm"
+                  ? numOfFields > 0
+                    ? `Please choose ${numOfFields} numbers`
+                    : `Please select number of fields first`
+                  : `Please pick ${selectedGame} numbers between 1 to 57`}
+              </p>
+              <div className="flex flex-col flex-wrap w-full items-start">
+                <div
+                  className="grid grid-cols-3 md:flex gap-4 justify-start mt-4 w-full"
+                  style={{ flexWrap: "wrap" }}
+                >
+                  {type_picked === "Mega"
+                    ? renderInputFieldMega()
+                    : type_picked === "Perm" && numOfFields > 0
+                    ? renderInputFields()
+                    : type_picked !== "Perm"
+                    ? renderInputFields()
+                    : null}
                 </div>
                 {error && (
                   <p className="text-rose-500 h-auto w-full text-sm">{error}</p>
