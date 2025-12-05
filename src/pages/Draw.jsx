@@ -1,18 +1,31 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import axios from "axios";
 //import { useSelector } from "react-redux";
 import { OrbitProgress } from "react-loading-indicators";
 import { useSelector } from "react-redux";
+import { Button } from "@heroui/button";
+import Filter, { applyFilters } from "../components/filter";
 
 const Draw = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showButton, setShowButton] = useState(true);
   const [error, setError] = useState("");
   const user = useSelector((state) => state.user?.user);
+  const containerRef = useRef(null);
+  const [appliedStartDate, setAppliedStartDate] = useState("");
+  const [appliedEndDate, setAppliedEndDate] = useState("");
+  const [appliedFilter, setAppliedFilter] = useState(null);
 
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
   }, [user]);
+
+  const handleApplyFilters = (filters) => {
+    setAppliedStartDate(filters.startDate);
+    setAppliedEndDate(filters.endDate);
+    setAppliedFilter(filters.selectedFilter);
+  };
 
   useEffect(() => {
     const fetchDrawResults = async () => {
@@ -23,7 +36,7 @@ const Draw = () => {
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${memoizedUser?.token}`
+              Authorization: `Bearer ${memoizedUser?.token}`,
             },
           }
         );
@@ -48,8 +61,17 @@ const Draw = () => {
     fetchDrawResults();
   }, [memoizedUser?.token]);
 
+  const filteredResults = useMemo(() => {
+    return applyFilters(
+      results,
+      appliedStartDate,
+      appliedEndDate,
+      appliedFilter
+    );
+  }, [results, appliedStartDate, appliedEndDate, appliedFilter]);
+
   const groupedResults = useMemo(() => {
-    return results.reduce((acc, result) => {
+    return filteredResults.reduce((acc, result) => {
       const date = new Date(result.date).toDateString();
       if (!acc[date]) {
         acc[date] = [];
@@ -57,16 +79,97 @@ const Draw = () => {
       acc[date].push(result);
       return acc;
     }, {});
-  }, [results]);
+  }, [filteredResults]);
+
+  function hasScrolled(e) {
+    const scrollTop = e.target.scrollTop;
+    if (scrollTop > 200) {
+      setShowButton(true);
+    } else {
+      setShowButton(false);
+    }
+  }
+
+  useEffect(() => {
+    let scrollableElement = containerRef.current?.parentElement;
+
+    while (scrollableElement) {
+      const hasOverflow = window.getComputedStyle(scrollableElement).overflowY;
+      if (hasOverflow === "auto" || hasOverflow === "scroll") {
+        break;
+      }
+      scrollableElement = scrollableElement.parentElement;
+    }
+
+    if (scrollableElement) {
+      scrollableElement.addEventListener("scroll", hasScrolled);
+
+      return () => {
+        scrollableElement.removeEventListener("scroll", hasScrolled);
+      };
+    }
+  }, []);
 
   return (
-    <div className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48">
-      {error ? (
-        <div className="flex flex-col w-full min-h-screen justify-center items-center">
-          <p className="h-full text-wrap p-5 text-center text-black text-lg">{error}</p>
-        </div>
-      ) : (
-        <div className="flex flex-col w-full my-32">
+    <div
+      ref={containerRef}
+      className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48"
+    >
+      <Button
+        className="to-top-btn text-white"
+        onClick={() => {
+          let scrollableElement = containerRef.current?.parentElement;
+          while (scrollableElement) {
+            const hasOverflow =
+              window.getComputedStyle(scrollableElement).overflowY;
+            if (hasOverflow === "auto" || hasOverflow === "scroll") {
+              scrollableElement.scrollTo({ top: 0, behavior: "smooth" });
+              break;
+            }
+            scrollableElement = scrollableElement.parentElement;
+          }
+        }}
+        style={{
+          height: "30px",
+          maxWidth: "10px",
+          zIndex: 999,
+          position: "absolute",
+          right: 15,
+          bottom: 100,
+          transition: "all 0.5",
+          display: showButton ? "flex" : "none",
+          background: "#17858B",
+        }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          color="#ffffff"
+          fill="none"
+        >
+          <path
+            d="M12 5.5V19"
+            stroke="#ffffff"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M18 11C18 11 13.5811 5.00001 12 5C10.4188 4.99999 6 11 6 11"
+            stroke="#ffffff"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </Button>
+      {error && (
+        <p className="h-full text-wrap p-5 text-center text-black">{error}</p>
+      )}
+      <div className="flex flex-col w-full my-32">
+        <Filter onApplyFilters={handleApplyFilters} />
         {loading ? (
           <div className="flex justify-center items-center h-screen">
             <OrbitProgress color="#000" size="small" text="Loading" />
@@ -109,8 +212,7 @@ const Draw = () => {
             </div>
           ))
         )}
-        </div>
-      )}
+      </div>
     </div>
   );
 };

@@ -2,15 +2,25 @@ import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
 import { OrbitProgress } from "react-loading-indicators";
 import { useSelector } from "react-redux";
+import Filter, { applyFilters, winsLossesOptions } from "../components/filter";
 
 const Mybet = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.user?.user);
+  const [appliedStartDate, setAppliedStartDate] = useState("");
+  const [appliedEndDate, setAppliedEndDate] = useState("");
+  const [appliedFilter, setAppliedFilter] = useState(null);
 
   const memoizedUser = useMemo(() => {
     return user ? { ...user } : null;
   }, [user]);
+
+  const handleApplyFilters = (filters) => {
+    setAppliedStartDate(filters.startDate);
+    setAppliedEndDate(filters.endDate);
+    setAppliedFilter(filters.selectedFilter);
+  };
 
   useEffect(() => {
     const getMyBets = async () => {
@@ -56,9 +66,14 @@ const Mybet = () => {
     });
   };
 
-  const sortedResults = [...results].sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
-  );
+  const filteredResults = useMemo(() => {
+    return applyFilters(
+      results,
+      appliedStartDate,
+      appliedEndDate,
+      appliedFilter
+    );
+  }, [results, appliedStartDate, appliedEndDate, appliedFilter]);
 
   // const groupedResults = results.reduce((acc, result) => {
   //   const formattedDate = formatDate(result.date);
@@ -68,6 +83,10 @@ const Mybet = () => {
   //   acc[formattedDate].push(result);
   //   return acc;
   // }, {});
+
+  const sortedResults = [...filteredResults].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
 
   const groupedResults = sortedResults.reduce((acc, result) => {
     const formattedDate = formatDate(result.date);
@@ -80,6 +99,11 @@ const Mybet = () => {
 
   return (
     <div className="flex flex-col bg-[#F7F7F7] mx-4 md:mx-12 lg:mx-48">
+      <Filter
+        onApplyFilters={handleApplyFilters}
+        quickFilters={winsLossesOptions}
+      />
+
       {!memoizedUser && (
         <div className="flex flex-col justify-center items-center h-screen w-auto text-wrap text-center text-black">
           <p className="">{"Please log in to see your ticket info"}</p>

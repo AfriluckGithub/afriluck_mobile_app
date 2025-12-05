@@ -571,6 +571,10 @@ video {
   display: flex;
 }
 
+.flex-wrap{
+flex-wrap: wrap;
+}
+
 .grid{
   display: grid;
 }
@@ -671,6 +675,10 @@ video {
   justify-content: flex-end;
 }
 
+.justify-start{
+  justify-content: start;
+}
+
 .justify-center{
   justify-content: center;
 }
@@ -717,6 +725,10 @@ video {
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.bg-red{
+  background-color: #D0021B;
 }
 
 .p-10{
